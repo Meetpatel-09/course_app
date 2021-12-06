@@ -27,11 +27,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           body: SafeArea(
-            child: SingleChildScrollView(
-              child: IndexedStack(
-                index: currentIndex,
-                children: screens,
-              ),
+            child: IndexedStack(
+              index: currentIndex,
+              children: screens,
             ),
           ),
         bottomNavigationBar: BottomNavigationBar(
