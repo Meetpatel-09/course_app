@@ -1,7 +1,7 @@
-import 'package:cource_app_ui/pages/home_page/widgets/details_card.dart';
-import 'package:cource_app_ui/pages/home_page/widgets/search_bar.dart';
-import 'package:cource_app_ui/pages/home_page/widgets/share_box.dart';
-import 'package:cource_app_ui/pages/home_page/widgets/sliding_buttons.dart';
+import 'package:course_app_ui/pages/home_page/widgets/details_card.dart';
+import 'package:course_app_ui/pages/home_page/widgets/search_bar.dart';
+import 'package:course_app_ui/pages/home_page/widgets/share_box.dart';
+import 'package:course_app_ui/pages/home_page/widgets/sliding_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

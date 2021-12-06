@@ -1,6 +1,6 @@
-import 'package:cource_app_ui/model/subject_model.dart';
-import 'package:cource_app_ui/pages/home_page/widgets/subject_list.dart';
-import 'package:cource_app_ui/services/api_service.dart';
+import 'package:course_app_ui/model/subject_model.dart';
+import 'package:course_app_ui/pages/home_page/widgets/subject_list.dart';
+import 'package:course_app_ui/services/api_service.dart';
 import 'package:flutter/material.dart';
 
 class DetailsCard extends StatefulWidget {
