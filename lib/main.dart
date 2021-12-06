@@ -26,10 +26,12 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          body: SingleChildScrollView(
-            child: IndexedStack(
-              index: currentIndex,
-              children: screens,
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: IndexedStack(
+                index: currentIndex,
+                children: screens,
+              ),
             ),
           ),
         bottomNavigationBar: BottomNavigationBar(
