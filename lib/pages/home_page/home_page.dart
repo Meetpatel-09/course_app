@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             ShareBox(),
             SizedBox(height: 20,),
             SlidingButtons(),
-            SizedBox(height: 20,),
+            SizedBox(height: 15,),
             DetailsCard(),
           ],
         ),

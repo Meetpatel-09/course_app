@@ -33,7 +33,7 @@ class _DetailsCardState extends State<DetailsCard> {
     return _isLoading
         ? const Center(child: CircularProgressIndicator())
         : SizedBox(
-            height: 300,
+            height: 325,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: _subjects.length,

@@ -37,30 +37,30 @@ class _MyAppState extends State<MyApp> {
         bottomNavigationBar: BottomNavigationBar(
           // type: BottomNavigationBarType.fixed,
           // selectedItemColor: Colors.lightBlue,
-          unselectedItemColor: Colors.lightBlue,
+          unselectedItemColor: Colors.blueGrey,
           fixedColor: Colors.lightBlue,
           showUnselectedLabels: true,
           currentIndex: currentIndex,
 
           onTap: (index) => setState(() => currentIndex = index),
-          items: const [
+          items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: Colors.lightBlue,),
+                icon: Icon(Icons.home, color: currentIndex == 0 ? Colors.lightBlue : Colors.blueGrey,),
                 label: 'Home',
                 backgroundColor: Colors.white
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.paste, color: Colors.lightBlue,),
+                icon: Icon(Icons.paste, color: currentIndex == 1 ? Colors.lightBlue : Colors.blueGrey,),
                 label: 'Exam',
                 backgroundColor: Colors.white
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.receipt_sharp, color: Colors.lightBlue,),
+                icon: Icon(Icons.receipt_sharp, color: currentIndex == 2 ? Colors.lightBlue : Colors.blueGrey,),
                 label: 'My Exam',
                 backgroundColor: Colors.white
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person, color: Colors.lightBlue,),
+                icon: Icon(Icons.person, color: currentIndex == 3 ? Colors.lightBlue : Colors.blueGrey,),
                 label: 'Profile',
                 backgroundColor: Colors.white
             ),

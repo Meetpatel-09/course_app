@@ -24,10 +24,10 @@ class SubjectList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.all(15.0),
+        margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: Colors.blueGrey)
         ),
         // height: 300,
@@ -111,6 +111,12 @@ class SubjectList extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             Text(categoryCreatedDate.toString(),
                 style: const TextStyle(fontSize: 18)),
+            // const SizedBox(height: 5,),
+            Container(
+              alignment: Alignment.bottomRight,
+              width: MediaQuery.of(context).size.width / 1.8,
+              child: TextButton(onPressed: () {}, child: const Text('View All', style: TextStyle(fontSize: 17),))
+            )
           ],
         ),
       );
