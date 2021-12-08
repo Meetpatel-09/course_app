@@ -1,4 +1,6 @@
+import 'package:course_app_ui/widgets/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class SlidingButtons extends StatelessWidget {
   const SlidingButtons({Key? key}) : super(key: key);
@@ -9,75 +11,75 @@ class SlidingButtons extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          outlinedButton1(),
+          outlinedButton1(context.cardColor),
           const SizedBox(width: 10,),
-          outlinedButton2(),
+          outlinedButton2(context.cardColor),
           const SizedBox(width: 10,),
-          outlinedButton3(),
+          outlinedButton3(context.cardColor),
           const SizedBox(width: 10,),
-          outlinedButton4(),
+          outlinedButton4(context.cardColor),
           const SizedBox(width: 10,),
-          outlinedButton5(),
+          outlinedButton5(context.cardColor),
           const SizedBox(width: 10,),
         ],
       ),
     );
   }
 
-  Widget outlinedButton1() {
+  Widget outlinedButton1(Color primaryColor) {
     return OutlinedButton(
         onPressed: () {},
-        child: const Text('Computer Science', style: TextStyle(color: Colors.black),),
+        child: Text('Computer Science', style: TextStyle(color: primaryColor),),
         style: OutlinedButton.styleFrom(
           // primary: Colors.
-            side: const BorderSide(color: Colors.lightBlue),
+            side: BorderSide(color: MyTheme.deepPurple),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))
         )
     );
   }
 
-  Widget outlinedButton2() {
+  Widget outlinedButton2(Color primaryColor) {
     return OutlinedButton(
         onPressed: () {},
-        child: const Text('General Awareness', style: TextStyle(color: Colors.black),),
+        child: Text('General Awareness', style: TextStyle(color: primaryColor),),
         style: OutlinedButton.styleFrom(
           // primary: Colors.
-            side: const BorderSide(color: Colors.lightBlue),
+            side: BorderSide(color: MyTheme.deepPurple),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))
         )
     );
   }
-  Widget outlinedButton3() {
+  Widget outlinedButton3(Color primaryColor) {
     return OutlinedButton(
         onPressed: () {},
-        child: const Text('English', style: TextStyle(color: Colors.black),),
+        child: Text('English', style: TextStyle(color: primaryColor),),
         style: OutlinedButton.styleFrom(
           // primary: Colors.
-            side: const BorderSide(color: Colors.lightBlue),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))
-        )
-    );
-  }
-
-  Widget outlinedButton4() {
-    return OutlinedButton(
-        onPressed: () {},
-        child: const Text('Aptitude', style: TextStyle(color: Colors.black),),
-        style: OutlinedButton.styleFrom(
-          // primary: Colors.
-            side: const BorderSide(color: Colors.lightBlue),
+            side: BorderSide(color: MyTheme.deepPurple),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))
         )
     );
   }
 
-  Widget outlinedButton5() {
+  Widget outlinedButton4(Color primaryColor) {
     return OutlinedButton(
         onPressed: () {},
-        child: const Text('Reasoning', style: TextStyle(color: Colors.black),),
+        child: Text('Aptitude', style: TextStyle(color: primaryColor),),
         style: OutlinedButton.styleFrom(
           // primary: Colors.
-            side: const BorderSide(color: Colors.lightBlue),
+            side: BorderSide(color: MyTheme.deepPurple),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))
+        )
+    );
+  }
+
+  Widget outlinedButton5(Color primaryColor) {
+    return OutlinedButton(
+        onPressed: () {},
+        child: Text('Reasoning', style: TextStyle(color: primaryColor),),
+        style: OutlinedButton.styleFrom(
+          // primary: Colors.
+            side: BorderSide(color: MyTheme.deepPurple),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))
         )
     );

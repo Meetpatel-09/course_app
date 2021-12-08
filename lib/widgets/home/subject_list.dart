@@ -1,3 +1,4 @@
+import 'package:course_app_ui/widgets/theme.dart';
 import 'package:flutter/material.dart';
 
 class SubjectList extends StatelessWidget {
@@ -28,7 +29,7 @@ class SubjectList extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: Colors.blueGrey)
+          border: Border.all(color: MyTheme.blueGrey)
         ),
         // height: 300,
         child: Column(

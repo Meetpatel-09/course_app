@@ -1,5 +1,5 @@
 import 'package:course_app_ui/model/subject_model.dart';
-import 'package:course_app_ui/pages/home_page/widgets/subject_list.dart';
+import 'package:course_app_ui/widgets/home/subject_list.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +33,7 @@ class _DetailsCardState extends State<DetailsCard> {
     return _isLoading
         ? const Center(child: CircularProgressIndicator())
         : SizedBox(
-            height: 325,
+            height: 400,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: _subjects.length,

@@ -1,7 +1,7 @@
-import 'package:course_app_ui/pages/home_page/widgets/details_card.dart';
-import 'package:course_app_ui/pages/home_page/widgets/search_bar.dart';
-import 'package:course_app_ui/pages/home_page/widgets/share_box.dart';
-import 'package:course_app_ui/pages/home_page/widgets/sliding_buttons.dart';
+import 'package:course_app_ui/widgets/home/details_card.dart';
+import 'package:course_app_ui/widgets/home/search_bar.dart';
+import 'package:course_app_ui/widgets/home/share_box.dart';
+import 'package:course_app_ui/widgets/home/sliding_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Row(
           children: const [
-            Icon(Icons.menu),
+            Icon(Icons.home),
             SizedBox(width: 10,),
             Text('Home')],),
       ),

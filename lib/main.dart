@@ -1,4 +1,5 @@
 import 'package:course_app_ui/pages/home_page/home_page.dart';
+import 'package:course_app_ui/widgets/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,6 +26,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
+      theme: MyTheme.lightTheme(context),
+      darkTheme: MyTheme.darkTheme(context),
+      // color: ,
       home: Scaffold(
           body: SafeArea(
             child: IndexedStack(
@@ -33,34 +38,29 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         bottomNavigationBar: BottomNavigationBar(
-          // type: BottomNavigationBarType.fixed,
-          // selectedItemColor: Colors.lightBlue,
-          unselectedItemColor: Colors.blueGrey,
-          fixedColor: Colors.lightBlue,
-          showUnselectedLabels: true,
-          currentIndex: currentIndex,
 
+          currentIndex: currentIndex,
           onTap: (index) => setState(() => currentIndex = index),
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: currentIndex == 0 ? Colors.lightBlue : Colors.blueGrey,),
+                icon: Icon(Icons.home, color: currentIndex == 0 ? MyTheme.deepPurple : MyTheme.blueGrey,),
                 label: 'Home',
-                backgroundColor: Colors.white
+                // backgroundColor: context.backgroundColor
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.paste, color: currentIndex == 1 ? Colors.lightBlue : Colors.blueGrey,),
+                icon: Icon(Icons.paste, color: currentIndex == 1 ? MyTheme.deepPurple : MyTheme.blueGrey,),
                 label: 'Exam',
-                backgroundColor: Colors.white
+                // backgroundColor: MyTheme.white
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.receipt_sharp, color: currentIndex == 2 ? Colors.lightBlue : Colors.blueGrey,),
+                icon: Icon(Icons.receipt_sharp, color: currentIndex == 2 ? MyTheme.deepPurple : MyTheme.blueGrey,),
                 label: 'My Exam',
-                backgroundColor: Colors.white
+                // backgroundColor: MyTheme.white
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person, color: currentIndex == 3 ? Colors.lightBlue : Colors.blueGrey,),
+                icon: Icon(Icons.person, color: currentIndex == 3 ? MyTheme.deepPurple : MyTheme.blueGrey,),
                 label: 'Profile',
-                backgroundColor: Colors.white
+                // backgroundColor: MyTheme.white
             ),
           ],
         )

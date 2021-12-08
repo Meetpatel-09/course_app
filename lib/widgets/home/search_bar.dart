@@ -8,8 +8,9 @@ class SearchBar extends StatelessWidget {
     return const TextField(
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.deepPurple) ,borderRadius: BorderRadius.all(Radius.circular(10))),
           hintText: 'Search',
-          prefixIcon: Icon(Icons.search_sharp),
+          prefixIcon: Icon(Icons.search_sharp, color: Colors.deepPurple,),
       ),
       textInputAction: TextInputAction.search,
     );
