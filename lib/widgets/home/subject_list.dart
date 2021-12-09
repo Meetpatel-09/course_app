@@ -1,5 +1,6 @@
 import 'package:course_app_ui/widgets/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class SubjectList extends StatelessWidget {
   final String? subjectId;
@@ -26,12 +27,12 @@ class SubjectList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(15.0),
-        margin: const EdgeInsets.symmetric(horizontal: 10.0),
+        margin: const EdgeInsets.only(right: 15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: MyTheme.blueGrey)
+          border: Border.all(color: context.primaryColor),
+          color: context.backgroundColor
         ),
-        // height: 300,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +117,7 @@ class SubjectList extends StatelessWidget {
             Container(
               alignment: Alignment.bottomRight,
               width: MediaQuery.of(context).size.width / 1.8,
-              child: TextButton(onPressed: () {}, child: const Text('View All', style: TextStyle(fontSize: 17),))
+              child: TextButton(onPressed: () {}, child: Text('View All', style: TextStyle(fontSize: 17, color: MyTheme.lightBluishColor),))
             )
           ],
         ),

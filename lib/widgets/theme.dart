@@ -1,70 +1,65 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MyTheme {
   static ThemeData lightTheme(BuildContext context) => ThemeData(
-      primarySwatch: Colors.deepPurple,
-      canvasColor: white,
-      cardColor: Colors.black,
-      backgroundColor: deepPurple,
+      primarySwatch: Colors.lightBlue,
+      canvasColor: creamColor,
+      cardColor: black,
+      primaryColor: lightBluishColor,
+      backgroundColor: white,
       fontFamily: GoogleFonts.poppins().fontFamily,
-      appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
+      appBarTheme: AppBarTheme(
+          backgroundColor: lightBluishColor,
           elevation: 0.0,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: white),
           titleTextStyle: TextStyle(
-              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+              color: white, fontSize: 22, fontWeight: FontWeight.bold),
       ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
-        selectedItemColor: Colors.deepPurple,
+        selectedItemColor: lightBluishColor,
         backgroundColor: Colors.white,
-        // unselectedItemColor: Colors.blueGrey,
-        // fixedColor: context.canvasColor,
-        // showUnselectedLabels: true,
+          unselectedItemColor: Colors.blueGrey
       )
   );
 
   static ThemeData darkTheme(BuildContext context) => ThemeData(
-      primarySwatch: Colors.deepPurple,
+      primarySwatch: Colors.indigo,
       brightness: Brightness.dark,
-      canvasColor: black,
+      canvasColor: darkCreamColor,
       cardColor: white,
-      backgroundColor: Colors.deepPurple,
+      primaryColor: lightBluishColor,
+      backgroundColor: black,
       fontFamily: GoogleFonts.poppins().fontFamily,
-      appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.black,
+      appBarTheme: AppBarTheme(
+          backgroundColor: lightBluishColor,
           elevation: 0.0,
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: IconThemeData(color: white),
           titleTextStyle: TextStyle(
-              color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+              color: white, fontSize: 22, fontWeight: FontWeight.bold),
       ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.deepPurple,
+          selectedItemColor: lightBluishColor,
           backgroundColor: Colors.black,
-          // unselectedItemColor: Colors.blueGrey,
-          // fixedColor: context.canvasColor,
-          // showUnselectedLabels: true,
-          // selectedIconTheme: IconThemeData(
-          //   color: Colors.deepPurple
-          // )
+          unselectedItemColor: Colors.blueGrey
       ),
   );
 
   // Colors
-  // static Color creamColor = const Color(0xfff5f5f5);
-  static Color darkCreamColor = Vx.gray900;
-  // static Color darkBluishColor = const Color(0xff403b58);
-  static Color lightBluishColor = Vx.indigo500;
-
-  // static Color lightBlue = Colors.lightBlue;
-  static Color lightBlue = const Color(0xFF29B6F6);
+  static Color lightBlue = Colors.lightBlue;
   static Color deepPurple = Colors.deepPurple;
-  static Color blueGrey = const Color(0xFF78909C);
-  static Color white = const Color(0xFFFFFFFF);
-  static Color black = const Color(0xFF000000);
+  static Color blueGrey = Colors.blueGrey;
+  static Color white = Colors.white;
+  static Color black = Colors.black;
+  static Color snowWhite = Colors.black;
 
+  static Color creamColor = const Color(0xfff5f5f5);
+  static Color darkCreamColor = Vx.gray900;
+  static Color darkBluishColor = const Color(0xff403b58);
+  static Color lightBluishColor = Vx.indigo500; // 667eea
 }

@@ -43,24 +43,20 @@ class _MyAppState extends State<MyApp> {
           onTap: (index) => setState(() => currentIndex = index),
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: currentIndex == 0 ? MyTheme.deepPurple : MyTheme.blueGrey,),
+                icon: Icon(Icons.home, color: currentIndex == 0 ? MyTheme.lightBluishColor : MyTheme.blueGrey,),
                 label: 'Home',
-                // backgroundColor: context.backgroundColor
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.paste, color: currentIndex == 1 ? MyTheme.deepPurple : MyTheme.blueGrey,),
+                icon: Icon(Icons.paste, color: currentIndex == 1 ? MyTheme.lightBluishColor : MyTheme.blueGrey,),
                 label: 'Exam',
-                // backgroundColor: MyTheme.white
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.receipt_sharp, color: currentIndex == 2 ? MyTheme.deepPurple : MyTheme.blueGrey,),
+                icon: Icon(Icons.receipt_sharp, color: currentIndex == 2 ? MyTheme.lightBluishColor : MyTheme.blueGrey,),
                 label: 'My Exam',
-                // backgroundColor: MyTheme.white
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person, color: currentIndex == 3 ? MyTheme.deepPurple : MyTheme.blueGrey,),
+                icon: Icon(Icons.person, color: currentIndex == 3 ? MyTheme.lightBluishColor : MyTheme.blueGrey,),
                 label: 'Profile',
-                // backgroundColor: MyTheme.white
             ),
           ],
         )

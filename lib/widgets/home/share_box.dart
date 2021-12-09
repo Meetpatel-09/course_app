@@ -10,9 +10,11 @@ class ShareBox extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
       decoration: BoxDecoration(
-          color: context.backgroundColor,
-          borderRadius: const BorderRadius.all(Radius.circular(10))
+          color: context.primaryColor,
+          borderRadius: const BorderRadius.all(Radius.circular(10),),
+          // border: Border.all(color: context.backgroundColor, width: 3)
       ),
+
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -20,11 +22,13 @@ class ShareBox extends StatelessWidget {
           ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(12.0),
-                primary: context.canvasColor,
+                padding: const EdgeInsets.all(8.0),
+                // primary: MyTheme.white,
+                primary: MyTheme.white,
+                elevation: 0,
                 shape: const StadiumBorder(),
               ),
-              child: Text('Share', style: TextStyle(color: context.cardColor),)),
+              child: Text('Share', style: TextStyle(color: MyTheme.black, fontWeight: FontWeight.w500),)),
         ],
       ),
     );

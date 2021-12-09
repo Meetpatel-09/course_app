@@ -4,6 +4,7 @@ import 'package:course_app_ui/widgets/home/share_box.dart';
 import 'package:course_app_ui/widgets/home/sliding_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,26 +20,42 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title:
+        Row(
           children: const [
             Icon(Icons.home),
             SizedBox(width: 10,),
             Text('Home')],),
       ),
+      //   const Center(child: Text('Home'))
+      // ),
+      // drawer: const Drawer(),
+      backgroundColor: context.canvasColor,
       body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(18.0),
             child: Column(
-              children: const [
+              children: [
                 // Center(child: Text('HOME', style: TextStyle(fontSize: 24),)),
                 // SizedBox(height: 20,),
-                SearchBar(),
-                SizedBox(height: 20,),
-                ShareBox(),
-                SizedBox(height: 20,),
-                SlidingButtons(),
-                SizedBox(height: 15,),
-                DetailsCard(),
+                const SearchBar(),
+                const SizedBox(height: 15.0,),
+                const ShareBox(),
+                const SizedBox(height: 10.0,),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  child: Text(
+                    'Categories',
+                    style: TextStyle(
+                        color: context.cardColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SlidingButtons(),
+                const SizedBox(height: 15,),
+                const DetailsCard(),
               ],
             ),
           ),

@@ -30,26 +30,25 @@ class _DetailsCardState extends State<DetailsCard> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : SizedBox(
-            height: 400,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: _subjects.length,
-              itemBuilder: (context, index) {
-                return SubjectList(
-                  subjectId: _subjects[index].subjectid.toString(),
-                  cId: _subjects[index].cid.toString(),
-                  subjectName: _subjects[index].subject,
-                  subjectStatus: _subjects[index].subjectStatus.toString(),
-                  subjectCratedDate: _subjects[index].subjectCreatedat,
-                  category: _subjects[index].category,
-                  categoryStatus: _subjects[index].categoryStatus.toString(),
-                  categoryCreatedDate: _subjects[index].categoryCreatedat,
-                );
-              },
-            ),
-          );
+    return SizedBox(
+      height: 400,
+      child: _isLoading ? const Center(child: CircularProgressIndicator())
+             : ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _subjects.length,
+                itemBuilder: (context, index) {
+                  return SubjectList(
+                    subjectId: _subjects[index].subjectid.toString(),
+                    cId: _subjects[index].cid.toString(),
+                    subjectName: _subjects[index].subject,
+                    subjectStatus: _subjects[index].subjectStatus.toString(),
+                    subjectCratedDate: _subjects[index].subjectCreatedat,
+                    category: _subjects[index].category,
+                    categoryStatus: _subjects[index].categoryStatus.toString(),
+                    categoryCreatedDate: _subjects[index].categoryCreatedat,
+                  );
+                },
+             ),
+    );
   }
 }
