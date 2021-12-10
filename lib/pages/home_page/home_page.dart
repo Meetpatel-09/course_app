@@ -1,10 +1,11 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
-import 'package:course_app_ui/widgets/home/category_text.dart';
-import 'package:course_app_ui/widgets/home/details_card.dart';
+import 'package:course_app_ui/widgets/home/category/category_widget.dart';
+import 'package:course_app_ui/widgets/home/category/widgets/category_text.dart';
+import 'package:course_app_ui/widgets/home/category/widgets/details_card.dart';
 import 'package:course_app_ui/widgets/home/search_bar.dart';
 import 'package:course_app_ui/widgets/home/share_box.dart';
-import 'package:course_app_ui/widgets/home/sliding_buttons.dart';
+import 'package:course_app_ui/widgets/home/category/widgets/sliding_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -17,21 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  late List<Result> _courses;
-  late bool _isLoading;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _isLoading = true;
-    APIServices.getCourse().then((courses) {
-      _courses = courses;
-      _isLoading = false;
-    });
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,18 +39,14 @@ class _HomePageState extends State<HomePage> {
           child: Padding(
             padding: const EdgeInsets.all(18.0),
             child: Column(
-              children: [
+              children: const [
                 // Center(child: Text('HOME', style: TextStyle(fontSize: 24),)),
                 // SizedBox(height: 20,),
-                const SearchBar(),
-                const SizedBox(height: 15.0,),
-                const ShareBox(),
-                const SizedBox(height: 10.0,),
-                const CategoryText(),
-                const SlidingButtons(),
-                const SizedBox(height: 15,),
-                // const DetailsCard(),
-                Text(_isLoading ? 'Loading' : '_courses.toString()')
+                SearchBar(),
+                SizedBox(height: 15.0,),
+                ShareBox(),
+                SizedBox(height: 10.0,),
+                CategoryWidget(),
               ],
             ),
           ),
