@@ -38,7 +38,6 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         bottomNavigationBar: BottomNavigationBar(
-
           currentIndex: currentIndex,
           onTap: (index) => setState(() => currentIndex = index),
           items: [

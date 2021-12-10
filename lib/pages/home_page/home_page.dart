@@ -1,11 +1,6 @@
-import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/widgets/home/category/category_widget.dart';
-import 'package:course_app_ui/widgets/home/category/widgets/category_text.dart';
-import 'package:course_app_ui/widgets/home/category/widgets/details_card.dart';
 import 'package:course_app_ui/widgets/home/search_bar.dart';
 import 'package:course_app_ui/widgets/home/share_box.dart';
-import 'package:course_app_ui/widgets/home/category/widgets/sliding_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:velocity_x/velocity_x.dart';

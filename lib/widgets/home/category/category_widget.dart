@@ -1,10 +1,7 @@
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/model/subject_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/widgets/home/category/widgets/category_text.dart';
-import 'package:course_app_ui/widgets/home/category/widgets/details_card.dart';
 import 'package:course_app_ui/widgets/home/category/widgets/subject_list.dart';
-import 'package:course_app_ui/widgets/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -18,33 +15,44 @@ class CategoryWidget extends StatefulWidget {
 class _CategoryWidgetState extends State<CategoryWidget> {
 
   late List<Result> _coursesList;
-  late bool _isLoading;
-  late int _categoryIndex;
-  List<bool> isSelected = [true, false, false];
+  late List<Subject> _subjectList;
+  bool _isLoading = true;
+  List<bool> isSelected = [];
+  List<Widget> toggleButton = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _isLoading = true;
-    APIServices.getCourse().then((courses) {
-      _coursesList = courses;
-      _isLoading = false;
-      // print(_coursesList[0].subject![0].subject);
+    APIServices.getCourses().then((courses) {
+      _coursesList = courses.result!;
+      _subjectList = _coursesList[0].subject!;
+      for(int i = 0; i < _coursesList.length; i++) {
+        if (i == 0) {
+          isSelected.add(true);
+        } else {
+          isSelected.add(false);
+        }
+      }
+      setState(() {
+        _isLoading = false;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-      children: [
-        const CategoryText(),
-        slidingButtons(),
-        const SizedBox(height: 15,),
-        detailsCard()
-      ],
-    );
+    return _isLoading ? const Center(heightFactor: 10,child: CircularProgressIndicator()) :
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const CategoryText(),
+          slidingButtons(),
+          const SizedBox(height: 15,),
+          detailsCard()
+        ],
+      );
   }
 
   Widget slidingButtons() => SingleChildScrollView(
@@ -56,43 +64,15 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       selectedColor: context.backgroundColor,
       fillColor: context.canvasColor,
       splashColor: context.canvasColor,
-      children: [
-        Container(
-            margin: const EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            decoration: BoxDecoration(
-              border: Border.all(color: context.primaryColor, width: 2),
-              borderRadius: const BorderRadius.all(Radius.circular(15)),
-              color: isSelected[0] ? context.primaryColor : context.canvasColor,
-            ),
-            child: const Text('Computer Network', style: TextStyle(fontSize: 15,),)
-        ),
-        Container(
-            margin: const EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            decoration: BoxDecoration(
-              border: Border.all(color: MyTheme.lightBluishColor, width: 2),
-              borderRadius: const BorderRadius.all(Radius.circular(15)),
-              color: isSelected[1] ? context.primaryColor : context.canvasColor,
-            ),
-            child: const Text('Computer Network')
-        ),
-        Container(
-            margin: const EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            decoration: BoxDecoration(
-              border: Border.all(color: MyTheme.lightBluishColor, width: 2),
-              borderRadius: const BorderRadius.all(Radius.circular(15)),
-              color: isSelected[2] ? context.primaryColor : context.canvasColor,
-            ),
-            child: const Text('Computer Network')
-        ),
-      ],
+      children:
+        toggleChild(),
       onPressed: (int newIndex) {
         setState(() {
-          for (int index = 0; index < isSelected.length; index++) {
+          for (int index = 0; index < _coursesList.length; index++) {
+            // _n = 0;
             if (index == newIndex) {
               isSelected[index] = true;
+              _subjectList = _coursesList[newIndex].subject!;
             } else {
               isSelected[index] = false;
             }
@@ -103,40 +83,41 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   );
 
   Widget detailsCard() => SizedBox(
-    height: 400,
-    child: FutureBuilder<List<SubjectModel>>(
-      future: APIServices.getSubject(),
-      builder: (context, snapshot) {
-        final subjects = snapshot.data;
-        switch(snapshot.connectionState) {
-          case ConnectionState.waiting:
-            return const Center(child: CircularProgressIndicator());
-          default:
-            if (snapshot.hasError) {
-              return Center(child: 'Something went wrong!!!'.text.make());
-            } else {
-              return buildList(subjects!);
-            }
-        }
-      },
-    ),
+      height: 400,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: _subjectList.length,
+          itemBuilder: (context, index) {
+            return SubjectList(
+              subjectId: _subjectList[index].subjectid.toString(),
+              cId: _subjectList[index].cid.toString(),
+              subjectName: _subjectList[index].subject,
+              subjectStatus: _subjectList[index].subjectStatus.toString(),
+              subjectCratedDate: _subjectList[index].subjectCreatedat,
+              category: _subjectList[index].category,
+              categoryStatus: _subjectList[index].categoryStatus.toString(),
+              categoryCreatedDate: _subjectList[index].categoryCreatedat,
+            );
+          }
+      )
   );
 
-  Widget buildList(List<SubjectModel> subjects) => ListView.builder(
-    scrollDirection: Axis.horizontal,
-    itemCount: subjects.length,
-    itemBuilder: (context, index) {
-      return SubjectList(
-        subjectId: subjects[index].subjectid.toString(),
-        cId: subjects[index].cid.toString(),
-        subjectName: subjects[index].subject,
-        subjectStatus: subjects[index].subjectStatus.toString(),
-        subjectCratedDate: subjects[index].subjectCreatedat,
-        category: subjects[index].category,
-        categoryStatus: subjects[index].categoryStatus.toString(),
-        categoryCreatedDate: subjects[index].categoryCreatedat,
-      );
-    },
-  );
+  List<Widget> toggleChild() {
+    toggleButton = [];
+    for(int i = 0; i < _coursesList.length; i++) {
+       toggleButton.add(tButton(i));
+    }
+    return toggleButton;
+  }
 
+  Widget tButton(int i) => Container(
+      margin: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      decoration: BoxDecoration(
+        border: Border.all(color: context.primaryColor, width: 2),
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
+        color: isSelected[i] ? context.primaryColor : context.backgroundColor,
+      ),
+      child: Text(_coursesList[i].category.toString(), style: const TextStyle(fontWeight: FontWeight.bold),)
+  );
 }

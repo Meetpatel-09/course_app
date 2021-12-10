@@ -1,4 +1,3 @@
-import 'package:course_app_ui/widgets/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -7,10 +6,10 @@ class SubjectList extends StatelessWidget {
   final String? cId;
   final String? subjectName;
   final String? subjectStatus;
-  final String? subjectCratedDate;
+  final DateTime? subjectCratedDate;
   final String? category;
   final String? categoryStatus;
-  final String? categoryCreatedDate;
+  final DateTime? categoryCreatedDate;
   const SubjectList({
     Key? key,
     this.subjectId,
@@ -117,7 +116,7 @@ class SubjectList extends StatelessWidget {
             Container(
               alignment: Alignment.bottomRight,
               width: MediaQuery.of(context).size.width / 1.8,
-              child: TextButton(onPressed: () {}, child: Text('View All', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: MyTheme.lightBluishColor),))
+              child: TextButton(onPressed: () {}, child: Text('View All', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: context.primaryColor),))
             )
           ],
         ),
