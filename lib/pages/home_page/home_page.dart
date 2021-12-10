@@ -1,3 +1,6 @@
+import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/services/api_service.dart';
+import 'package:course_app_ui/widgets/home/category_text.dart';
 import 'package:course_app_ui/widgets/home/details_card.dart';
 import 'package:course_app_ui/widgets/home/search_bar.dart';
 import 'package:course_app_ui/widgets/home/share_box.dart';
@@ -14,6 +17,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  late List<Result> _courses;
+  late bool _isLoading;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _isLoading = true;
+    APIServices.getCourse().then((courses) {
+      _courses = courses;
+      _isLoading = false;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +60,11 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 15.0,),
                 const ShareBox(),
                 const SizedBox(height: 10.0,),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  child: Text(
-                    'Categories',
-                    style: TextStyle(
-                        color: context.cardColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+                const CategoryText(),
                 const SlidingButtons(),
                 const SizedBox(height: 15,),
-                const DetailsCard(),
+                // const DetailsCard(),
+                Text(_isLoading ? 'Loading' : '_courses.toString()')
               ],
             ),
           ),

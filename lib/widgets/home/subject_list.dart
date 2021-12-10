@@ -117,7 +117,7 @@ class SubjectList extends StatelessWidget {
             Container(
               alignment: Alignment.bottomRight,
               width: MediaQuery.of(context).size.width / 1.8,
-              child: TextButton(onPressed: () {}, child: Text('View All', style: TextStyle(fontSize: 17, color: MyTheme.lightBluishColor),))
+              child: TextButton(onPressed: () {}, child: Text('View All', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: MyTheme.lightBluishColor),))
             )
           ],
         ),
