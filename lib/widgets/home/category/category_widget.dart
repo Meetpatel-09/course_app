@@ -88,15 +88,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           scrollDirection: Axis.horizontal,
           itemCount: _subjectList.length,
           itemBuilder: (context, index) {
-            return SubjectList(
-              subjectId: _subjectList[index].subjectid.toString(),
-              cId: _subjectList[index].cid.toString(),
-              subjectName: _subjectList[index].subject,
-              subjectStatus: _subjectList[index].subjectStatus.toString(),
-              subjectCratedDate: _subjectList[index].subjectCreatedat,
-              category: _subjectList[index].category,
-              categoryStatus: _subjectList[index].categoryStatus.toString(),
-              categoryCreatedDate: _subjectList[index].categoryCreatedat,
+            return SubjectList(subjectList: _subjectList, index: index,
             );
           }
       )

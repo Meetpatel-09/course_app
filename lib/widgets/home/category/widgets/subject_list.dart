@@ -1,26 +1,12 @@
+import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/pages/subject_page/subject_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SubjectList extends StatelessWidget {
-  final String? subjectId;
-  final String? cId;
-  final String? subjectName;
-  final String? subjectStatus;
-  final DateTime? subjectCratedDate;
-  final String? category;
-  final String? categoryStatus;
-  final DateTime? categoryCreatedDate;
-  const SubjectList({
-    Key? key,
-    this.subjectId,
-    this.cId,
-    this.subjectName,
-    this.subjectStatus,
-    this.subjectCratedDate,
-    this.category,
-    this.categoryStatus,
-    this.categoryCreatedDate,
-  }) : super(key: key);
+  final List<Subject> subjectList;
+  final int index;
+  const SubjectList({Key? key, required this.subjectList, required this.index,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +28,7 @@ class SubjectList extends StatelessWidget {
                 const Text("Subject ID:",
                     style:
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                Text(subjectId.toString(),
+                Text(subjectList[index].subjectid.toString(),
                     style: const TextStyle(fontSize: 18)),
               ],
             ),
@@ -53,7 +39,7 @@ class SubjectList extends StatelessWidget {
                 const Text("C ID:",
                     style:
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                Text(cId.toString(), style: const TextStyle(fontSize: 18)),
+                Text(subjectList[index].cid.toString(), style: const TextStyle(fontSize: 18)),
               ],
             ),
             const SizedBox(height: 5,),
@@ -63,7 +49,7 @@ class SubjectList extends StatelessWidget {
                 const Text("Subject Name: ",
                     style:
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                Text(subjectName.toString(),
+                Text(subjectList[index].subject.toString(),
                     style: const TextStyle(fontSize: 18)),
               ],
             ),
@@ -75,24 +61,24 @@ class SubjectList extends StatelessWidget {
                 const Text("Subject Status: ",
                     style:
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                Text(subjectStatus.toString(),
+                Text(subjectList[index].subjectStatus.toString(),
                     style: const TextStyle(fontSize: 18)),
               ]
             ),
             const SizedBox(height: 5,),
             const Text("Subject create date:",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-            Text(subjectCratedDate.toString(),
+            Text(subjectList[index].subjectCreatedat.toString(),
                 style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 5,),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text("Category:",
                     style:
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                Text(category.toString(), style: const TextStyle(fontSize: 18)),
+                Text(subjectList[index].category.toString(), style: const TextStyle(fontSize: 18)),
               ],
             ),
             const SizedBox(height: 5,),
@@ -103,20 +89,34 @@ class SubjectList extends StatelessWidget {
                   const Text("category Status: ",
                       style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text(categoryStatus.toString(),
+                  Text(subjectList[index].categoryStatus.toString(),
                       style: const TextStyle(fontSize: 18)),
                 ]
             ),
             const SizedBox(height: 5,),
             const Text("category Create date:",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-            Text(categoryCreatedDate.toString(),
+            Text(subjectList[index].categoryCreatedat.toString(),
                 style: const TextStyle(fontSize: 18)),
             // const SizedBox(height: 5,),
             Container(
               alignment: Alignment.bottomRight,
               width: MediaQuery.of(context).size.width / 1.8,
-              child: TextButton(onPressed: () {}, child: Text('View All', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: context.primaryColor),))
+              child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SubjectDetailsPage(subjectList: subjectList,),
+                        ));
+                  },
+                  child: Text('View All',
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: context.primaryColor),
+                  )
+              )
             )
           ],
         ),

@@ -59,12 +59,6 @@ class Result {
     "category_createdat": categoryCreatedat!.toIso8601String(),
     "subject": List<dynamic>.from(subject!.map((x) => x.toJson())),
   };
-
-  static List<Result> coursesFromSnapshot(List snapshot) {
-    return snapshot.map((data) {
-      return Result.fromJson(data);
-    }).toList();
-  }
 }
 
 class Subject {
