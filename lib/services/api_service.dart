@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:http/http.dart' as http;

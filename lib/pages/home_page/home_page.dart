@@ -1,8 +1,9 @@
-import 'package:course_app_ui/widgets/home/category/category_widget.dart';
-import 'package:course_app_ui/widgets/home/search_bar.dart';
-import 'package:course_app_ui/widgets/home/share_box.dart';
+import 'package:course_app_ui/pages/home_page/fragments/exam_fragment.dart';
+import 'package:course_app_ui/pages/home_page/fragments/home_fragment.dart';
+import 'package:course_app_ui/pages/home_page/fragments/my_exam_fragment.dart';
+import 'package:course_app_ui/pages/home_page/fragments/profile_fragment.dart';
+import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,38 +15,45 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  int currentIndex = 0;
+  final screens = [
+    const HomeFragment(),
+    const ExamFragment(),
+    const MyExamFragment(),
+    const ProfileFragment(),
+  ];
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      appBar: AppBar(
-        title:
-        Row(
-          children: const [
-            Icon(Icons.home),
-            SizedBox(width: 10,),
-            Text('Home')],),
-      ),
-      //   const Center(child: Text('Home'))
-      // ),
-      // drawer: const Drawer(),
-      backgroundColor: context.canvasColor,
-      body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Column(
-              children: const [
-                // Center(child: Text('HOME', style: TextStyle(fontSize: 24),)),
-                // SizedBox(height: 20,),
-                SearchBar(),
-                SizedBox(height: 15.0,),
-                ShareBox(),
-                SizedBox(height: 10.0,),
-                CategoryWidget(),
-              ],
-            ),
+    return  Scaffold(
+        body: SafeArea(
+          child: IndexedStack(
+            index: currentIndex,
+            children: screens,
           ),
         ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: (index) => setState(() => currentIndex = index),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home, color: currentIndex == 0 ? context.primaryColor : MyTheme.blueGrey,),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.paste, color: currentIndex == 1 ? context.primaryColor : MyTheme.blueGrey,),
+              label: 'Exam',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.receipt_sharp, color: currentIndex == 2 ? context.primaryColor : MyTheme.blueGrey,),
+              label: 'My Exam',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person, color: currentIndex == 3 ?context.primaryColor : MyTheme.blueGrey,),
+              label: 'Profile',
+            ),
+          ],
+        )
     );
   }
 }

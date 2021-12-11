@@ -5,14 +5,14 @@ import 'package:velocity_x/velocity_x.dart';
 
 class MyTheme {
   static ThemeData lightTheme(BuildContext context) => ThemeData(
-      primarySwatch: Colors.lightBlue,
+      primarySwatch: Colors.darkBluish,
       canvasColor: creamColor,
       cardColor: black,
-      primaryColor: lightBluishColor,
+      primaryColor: darkBluishColor,
       backgroundColor: white,
       fontFamily: GoogleFonts.poppins().fontFamily,
       appBarTheme: AppBarTheme(
-          backgroundColor: lightBluishColor,
+          backgroundColor: darkBluishColor,
           elevation: 0.0,
           iconTheme: IconThemeData(color: white),
           titleTextStyle: TextStyle(
@@ -21,7 +21,7 @@ class MyTheme {
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
-        selectedItemColor: lightBluishColor,
+        selectedItemColor: darkBluishColor,
         backgroundColor: Colors.white,
           unselectedItemColor: Colors.blueGrey
       )

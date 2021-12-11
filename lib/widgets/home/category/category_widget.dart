@@ -25,23 +25,28 @@ class _CategoryWidgetState extends State<CategoryWidget> {
     // TODO: implement initState
     super.initState();
     APIServices.getCourses().then((courses) {
-      _coursesList = courses.result!;
-      _subjectList = _coursesList[0].subject!;
-      for(int i = 0; i < _coursesList.length; i++) {
-        if (i == 0) {
-          isSelected.add(true);
-        } else {
-          isSelected.add(false);
+      if(courses.toString().isNotEmpty) {
+        _coursesList = courses.result!;
+        // print(_coursesList);
+        _subjectList = _coursesList[0].subject!;
+        for(int i = 0; i < _coursesList.length; i++) {
+          if (i == 0) {
+            isSelected.add(true);
+          } else {
+            isSelected.add(false);
+          }
         }
+        setState(() {
+          _isLoading = false;
+        });
       }
-      setState(() {
-        _isLoading = false;
-      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+
+  //  print(_isLoading);
 
     return _isLoading ? const Center(heightFactor: 10,child: CircularProgressIndicator()) :
       Column(
