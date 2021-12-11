@@ -17,13 +17,13 @@ class AuthService {
 
     var url = Uri.parse('Config.loginAPI');
 
-    var responce = await client.post(
+    var response = await client.post(
       url,
       headers: requestHeaders,
       body: jsonEncode(model.toJson()),
     );
 
-    return loginResponseJson(responce.body);
+    return loginResponseJson(response.body);
   }
 
   static Future<RegisterResponseModel> register(
@@ -34,12 +34,12 @@ class AuthService {
 
     var url = Uri.parse('Config.registerAPI');
 
-    var responce = await client.post(
+    var response = await client.post(
       url,
       headers: requestHeaders,
       body: jsonEncode(model.toJson()),
     );
 
-    return registerResponseModel(responce.body);
+    return registerResponseModel(response.body);
   }
 }
