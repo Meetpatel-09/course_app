@@ -2,6 +2,7 @@ import 'package:course_app_ui/model/auth_models/login_request_model.dart';
 import 'package:course_app_ui/services/authentication_service.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/config.dart';
+import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/buttons/facebook_button.dart';
 import 'package:course_app_ui/widgets/authentication/buttons/google_button.dart';
 import 'package:course_app_ui/widgets/authentication/logo_widget.dart';
@@ -112,41 +113,50 @@ class _LoginPageState extends State<LoginPage> {
             child: FormHelper.submitButton(
               "Login",
                   () {
-                if (validateAndSave()) {
-                  setState(() {
-                    isAPICallProcess = true;
-                  });
 
-                  LoginRequestModel model = LoginRequestModel(
-                    email: email!,
-                    password: password!,
-                  );
-
-                  AuthService.login(model).then((response) async {
-                    setState(() {
-                      isAPICallProcess = false;
-                    });
-                    if (response.msg == null) {
-                      String token = response.token.toString();
-                      setToken(token);
+                // Temporary code
+                    if (validateAndSave()) {
                       Navigator.pushNamedAndRemoveUntil(
                         context,
-                        '/home',
+                        homeRoute,
                             (route) => false,
                       );
-                    } else {
-                      FormHelper.showSimpleAlertDialog(
-                        context,
-                        appName,
-                        "Invalid Email/Password !",
-                        "OK",
-                            () {
-                          Navigator.pop(context);
-                        },
-                      );
                     }
-                  });
-                }
+                // if (validateAndSave()) {
+                //   setState(() {
+                //     isAPICallProcess = true;
+                //   });
+                //
+                //   LoginRequestModel model = LoginRequestModel(
+                //     email: email!,
+                //     password: password!,
+                //   );
+                //
+                //   AuthService.login(model).then((response) async {
+                //     setState(() {
+                //       isAPICallProcess = false;
+                //     });
+                //     if (response.msg == null) {
+                //       String token = response.token.toString();
+                //       setToken(token);
+                //       Navigator.pushNamedAndRemoveUntil(
+                //         context,
+                //         '/home',
+                //             (route) => false,
+                //       );
+                //     } else {
+                //       FormHelper.showSimpleAlertDialog(
+                //         context,
+                //         appName,
+                //         "Invalid Email/Password !",
+                //         "OK",
+                //             () {
+                //           Navigator.pop(context);
+                //         },
+                //       );
+                //     }
+                //   });
+                // }
               },
               width: MediaQuery.of(context).size.width - 40,
               // height: 60,
@@ -208,8 +218,8 @@ class _LoginPageState extends State<LoginPage> {
     final form = globalFormKey.currentState;
     if (form!.validate()) {
       form.save();
-      // return true;
-      return false;
+      return true;
+      // return false;
     } else {
       return false;
     }
