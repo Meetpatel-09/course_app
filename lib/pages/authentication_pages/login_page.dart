@@ -208,8 +208,8 @@ class _LoginPageState extends State<LoginPage> {
     final form = globalFormKey.currentState;
     if (form!.validate()) {
       form.save();
-      // return true;
-      return false;
+      return true;
+      // return false;
     } else {
       return false;
     }
