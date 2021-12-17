@@ -13,30 +13,38 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  final SharedServices _sharedServices = SharedServices();
+  // final SharedServices _sharedServices = SharedServices();
 
   @override
   void initState() {
-    _sharedServices.checkLogIn("token").then((value) {
-      if (value != null) {
-        return Timer(const Duration(seconds: 2),
-                () => Navigator.of(context).pushNamed(homeRoute));
-      } else {
-        return Timer(const Duration(seconds: 2),
-                () => Navigator.of(context).pushNamed(loginRoute));
-      }
-    });
+    // _sharedServices.checkLogIn("token").then((value) {
+      // if (value != null) {
+      //   return Timer(const Duration(seconds: 2),
+      //           () => Navigator.of(context).pushNamed(homeRoute));
+      // } else {
+      //   return Timer(const Duration(seconds: 2),
+      //           () => Navigator.of(context).pushNamed(loginRoute));
+      // }
+      Timer(const Duration(seconds: 2),
+              () => Navigator.of(context).pushNamed(homeRoute));
+    // // }
+    // );
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-          child: Icon(
-            Icons.app_blocking,
-          )),
+        child: Image.asset(
+          "assets/images/logo.png",
+          width: 150,
+          fit: BoxFit.contain,),
+        //   child: Icon(
+        //     Icons.app_blocking,
+        //   )
+        ),
     );
   }
 }
