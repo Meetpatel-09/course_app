@@ -33,8 +33,6 @@ class _HomeFragmentState extends State<HomeFragment> {
           padding: const EdgeInsets.all(18.0),
           child: Column(
             children: const [
-              // Center(child: Text('HOME', style: TextStyle(fontSize: 24),)),
-              // SizedBox(height: 20,),
               SearchBar(),
               SizedBox(height: 15.0,),
               ShareBox(),
