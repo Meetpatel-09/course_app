@@ -2,23 +2,21 @@ import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/widgets/home/category/widgets/subject_list/widgets/explore_more.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:intl/intl.dart';
 
 class SubjectList extends StatelessWidget {
   final List<Subject> subjectList;
   final int index;
-  final Color catColor;
-  const SubjectList({Key? key, required this.subjectList, required this.index, required this.catColor,}) : super(key: key);
+  const SubjectList({Key? key, required this.subjectList, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(15.0),
         margin: const EdgeInsets.only(right: 15),
-        width: MediaQuery.of(context).size.width / 2,
+        width: MediaQuery.of(context).size.width / 1.6,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: catColor),
+          border: Border.all(color: context.primaryColor),
           //   border: Border(bottom: BorderSide(width: 1, color: catColor)),
           color: context.backgroundColor
         ),
@@ -52,7 +50,7 @@ class SubjectList extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: context.cardColor.withOpacity(0.8))),
             Text(subjectList[0].subjectCreatedat!.day.toString() + "/" + subjectList[0].subjectCreatedat!.month.toString() + "/" + subjectList[0].subjectCreatedat!.year.toString(),
                 style:  TextStyle(fontSize: 18, color: context.cardColor.withOpacity(0.8))),
-            ExploreMore(subjectList: subjectList, catColor: catColor,),
+            ExploreMore(subjectList: subjectList),
           ],
         ),
         // child: Column(

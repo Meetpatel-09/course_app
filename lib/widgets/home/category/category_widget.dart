@@ -72,7 +72,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       isSelected: isSelected,
       renderBorder: false,
       // color: context.cardColor,
-      // selectedColor: context.backgroundColor,
+      // selectedColor: context.primaryColor,
       fillColor: context.canvasColor,
       splashColor: context.canvasColor,
       children:
@@ -94,12 +94,12 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   );
 
   Widget detailsCard() => SizedBox(
-      height: 220,
+      height: 280,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: _subjectList.length,
           itemBuilder: (context, index) {
-            return SubjectList(subjectList: _subjectList, index: index, catColor: colorList[catIndex],);
+            return SubjectList(subjectList: _subjectList, index: index);
           }
       )
   );
@@ -116,9 +116,9 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       margin: const EdgeInsets.only(right: 10),
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
-        border: Border.all(color: colorList[i], width: 2),
+        border: Border.all(color: context.primaryColor, width: 2),
         borderRadius: const BorderRadius.all(Radius.circular(15)),
-        color: isSelected[i] ? colorList[i] : context.canvasColor,
+        color: isSelected[i] ? context.primaryColor : context.canvasColor,
       ),
       child: Text(_coursesList[i].category.toString(), style: TextStyle(fontWeight: FontWeight.bold, color: isSelected[i] ? context.backgroundColor : colorList[i],),)
   );

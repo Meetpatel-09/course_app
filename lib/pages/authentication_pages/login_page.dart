@@ -193,7 +193,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-          // Center(child: 'OR'.text.bold.size(18).color(context.cardColor).make(),),
           const SizedBox(
             height: 25,
           ),

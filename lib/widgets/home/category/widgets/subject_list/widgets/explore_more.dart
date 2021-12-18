@@ -1,11 +1,11 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/pages/subject_page/subject_details_page.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class ExploreMore extends StatelessWidget {
   final List<Subject> subjectList;
-  final Color catColor;
-  const ExploreMore({Key? key, required this.subjectList, required this.catColor}) : super(key: key);
+  const ExploreMore({Key? key, required this.subjectList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ExploreMore extends StatelessWidget {
               style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
-                  color: catColor),
+                  color: context.primaryColor),
             )
         )
     );

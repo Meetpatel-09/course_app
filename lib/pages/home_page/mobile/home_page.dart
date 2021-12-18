@@ -1,7 +1,7 @@
-import 'package:course_app_ui/pages/home_page/fragments/exam_fragment.dart';
-import 'package:course_app_ui/pages/home_page/fragments/home_fragment.dart';
-import 'package:course_app_ui/pages/home_page/fragments/my_exam_fragment.dart';
-import 'package:course_app_ui/pages/home_page/fragments/profile_fragment.dart';
+import 'package:course_app_ui/pages/home_page/mobile/fragments/exam_fragment.dart';
+import 'package:course_app_ui/pages/home_page/mobile/fragments/home_fragment.dart';
+import 'package:course_app_ui/pages/home_page/mobile/fragments/my_exam_fragment.dart';
+import 'package:course_app_ui/pages/home_page/mobile/fragments/profile_fragment.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';

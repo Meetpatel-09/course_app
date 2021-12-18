@@ -1,14 +1,12 @@
 import 'package:course_app_ui/pages/authentication_pages/login_page.dart';
 import 'package:course_app_ui/pages/authentication_pages/register_page.dart';
-import 'package:course_app_ui/pages/home_page/home_page.dart';
+import 'package:course_app_ui/pages/home_page/mobile/home_page.dart';
 import 'package:course_app_ui/pages/splash_page.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
-// import 'package:url_strategy/url_strategy.dart';
 
 void main() {
-  // setPathUrlStrategy();
   runApp(const MyApp());
 }
 
