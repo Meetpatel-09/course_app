@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                     if (validateAndSave()) {
                       Navigator.pushNamedAndRemoveUntil(
                         context,
-                        homeRoute,
+                        MyRoutes.homeRoute,
                             (route) => false,
                       );
                     }

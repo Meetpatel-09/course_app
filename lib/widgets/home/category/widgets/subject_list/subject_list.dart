@@ -2,6 +2,7 @@ import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/widgets/home/category/widgets/subject_list/widgets/explore_more.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:intl/intl.dart';
 
 class SubjectList extends StatelessWidget {
   final List<Subject> subjectList;
@@ -28,9 +29,29 @@ class SubjectList extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: Text(subjectList[index].subject.toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             ),
-
+            const SizedBox(height: 15,),
+            Row(
+              children: [
+                Text("Topics: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: context.cardColor.withOpacity(0.8))),
+                Text(subjectList[index].topic!.length.toString(),
+                    style: TextStyle(fontSize: 18, color: context.cardColor.withOpacity(0.8))),
+              ]
+            ),
+            // Row(
+            //     children: [
+            //       Text("Subject Created: ",
+            //           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: context.cardColor.withOpacity(0.8))),
+            //       Text(subjectList[index].topic!.length.toString(),
+            //           style: TextStyle(fontSize: 18, color: context.cardColor.withOpacity(0.8))),
+            //     ]
+            // ),
+            Text("Subject created:",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: context.cardColor.withOpacity(0.8))),
+            Text(subjectList[0].subjectCreatedat!.day.toString() + "/" + subjectList[0].subjectCreatedat!.month.toString() + "/" + subjectList[0].subjectCreatedat!.year.toString(),
+                style:  TextStyle(fontSize: 18, color: context.cardColor.withOpacity(0.8))),
             ExploreMore(subjectList: subjectList, catColor: catColor,),
           ],
         ),

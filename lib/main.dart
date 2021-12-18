@@ -1,9 +1,14 @@
+import 'package:course_app_ui/pages/authentication_pages/login_page.dart';
+import 'package:course_app_ui/pages/authentication_pages/register_page.dart';
 import 'package:course_app_ui/pages/home_page/home_page.dart';
+import 'package:course_app_ui/pages/splash_page.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
+// import 'package:url_strategy/url_strategy.dart';
 
 void main() {
+  // setPathUrlStrategy();
   runApp(const MyApp());
 }
 
@@ -17,9 +22,15 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.lightTheme(context),
       darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
-      initialRoute: splashRoute,
-      home: const HomePage(),
-      routes: routes,
+      initialRoute: MyRoutes.splashRoute,
+      // home: const HomePage(),
+      routes: {
+        // "/": (context) => const HomePage(),
+        MyRoutes.splashRoute: (context) => const SplashPage(),
+        MyRoutes.homeRoute: (context) => const HomePage(),
+        MyRoutes.loginRoute: (context) => const LoginPage(),
+        MyRoutes.registerRoute: (context) => const RegisterPage(),
+      },
     );
   }
 }

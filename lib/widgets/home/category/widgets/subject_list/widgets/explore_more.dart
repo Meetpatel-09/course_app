@@ -10,7 +10,7 @@ class ExploreMore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        alignment: Alignment.bottomRight,
+        alignment: Alignment.centerRight,
         child: TextButton(
             onPressed: () {
               Navigator.push(
