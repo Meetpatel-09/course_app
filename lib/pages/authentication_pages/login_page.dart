@@ -116,11 +116,12 @@ class _LoginPageState extends State<LoginPage> {
 
                 // Temporary code
                     if (validateAndSave()) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        MyRoutes.homeRoute,
-                            (route) => false,
-                      );
+                      // Navigator.pushNamedAndRemoveUntil(
+                      //   context,
+                      //   MyRoutes.homeRoute,
+                      //       (route) => false,
+                      // );
+                      context.vxNav.push(Uri.parse(MyRoutes.homeRoute));
                     }
                 // if (validateAndSave()) {
                 //   setState(() {
@@ -193,7 +194,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-          // Center(child: 'OR'.text.bold.size(18).color(context.cardColor).make(),),
           const SizedBox(
             height: 25,
           ),

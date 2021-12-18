@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:course_app_ui/services/shared_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -26,7 +27,8 @@ class _SplashPageState extends State<SplashPage> {
       //           () => Navigator.of(context).pushNamed(loginRoute));
       // }
       Timer(const Duration(seconds: 2),
-              () => Navigator.pushNamedAndRemoveUntil(context, MyRoutes.loginRoute, (route) => false));
+              // () => Navigator.pushNamedAndRemoveUntil(context, MyRoutes.loginRoute, (route) => false));
+          () => context.vxNav.push(Uri.parse(MyRoutes.loginRoute)));
     // // }
     // );
 
