@@ -1,12 +1,9 @@
-import 'package:course_app_ui/model/auth_models/login_request_model.dart';
+import 'package:course_app_ui/model/auth_models/login/login_request_model.dart';
 import 'package:course_app_ui/services/authentication_service.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
-import 'package:course_app_ui/widgets/authentication/buttons/facebook_button.dart';
-import 'package:course_app_ui/widgets/authentication/buttons/google_button.dart';
-import 'package:course_app_ui/widgets/authentication/logo_widget.dart';
-import 'package:course_app_ui/widgets/authentication/text/register_link.dart';
+import 'package:course_app_ui/widgets/authentication/auth_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,7 +48,10 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 50,),
           const LogoWidget(),
+          const SizedBox(height: 10,),
+          Align(child: appName.text.bold.size(25).color(context.primaryColor).make()),
           const SizedBox(height: 35,),
           FormHelper.inputFieldWidget(
             context,

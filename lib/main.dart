@@ -1,4 +1,5 @@
 import 'package:course_app_ui/pages/authentication_pages/login_page.dart';
+import 'package:course_app_ui/pages/authentication_pages/otp_verification_page.dart';
 import 'package:course_app_ui/pages/authentication_pages/register_page.dart';
 import 'package:course_app_ui/pages/home_page/mobile/home_page.dart';
 import 'package:course_app_ui/pages/splash_page.dart';
@@ -20,8 +21,8 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.lightTheme(context),
       darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
-      initialRoute: MyRoutes.splashRoute,
-      // home: const HomePage(),
+      // initialRoute: MyRoutes.splashRoute,
+      home: const OTPVerificationPage(),
       routes: {
         // "/": (context) => const HomePage(),
         MyRoutes.splashRoute: (context) => const SplashPage(),

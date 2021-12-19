@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:course_app_ui/model/auth_models/login_request_model.dart';
-import 'package:course_app_ui/model/auth_models/login_response_model.dart';
-import 'package:course_app_ui/model/auth_models/register_request_model.dart';
-import 'package:course_app_ui/model/auth_models/register_response_model.dart';
+import 'package:course_app_ui/model/auth_models/login/login_request_model.dart';
+import 'package:course_app_ui/model/auth_models/login/login_response_model.dart';
+import 'package:course_app_ui/model/auth_models/register/register_request_model.dart';
+import 'package:course_app_ui/model/auth_models/register/register_response_model.dart';
 // import 'package:course_app_ui/utils/config.dart';
 import 'package:http/http.dart' as http;
 

@@ -1,9 +1,8 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class TermsAndConditions extends StatelessWidget {
-  const TermsAndConditions({Key? key}) : super(key: key);
+class EmailSentTo extends StatelessWidget {
+  const EmailSentTo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +13,17 @@ class TermsAndConditions extends StatelessWidget {
         child: RichText(
           text: TextSpan(
             style: TextStyle(
-              color: context.cardColor.withOpacity(0.5),
-              fontSize: 14.0,
+              color: context.cardColor.withOpacity(0.7),
+              fontSize: 16.0,
             ),
             children: <TextSpan>[
-              const TextSpan(text: "By registering, you confirm that you accept our "),
+              const TextSpan(text: "Enter the OTP sent to "),
               TextSpan(
-                text: 'Terms of Use and Privacy Policy.',
+                text: 'example@email.com',
                 style: TextStyle(
-                  color: Colors.yellow.shade800,
+                  color: context.cardColor,
                   fontWeight: FontWeight.bold,
                 ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    // Navigator.pushNamed(context, "/");
-                  },
               ),
             ],
           ),

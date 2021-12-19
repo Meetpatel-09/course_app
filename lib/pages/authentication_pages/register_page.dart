@@ -1,12 +1,8 @@
-import 'package:course_app_ui/model/auth_models/register_request_model.dart';
+import 'package:course_app_ui/model/auth_models/register/register_request_model.dart';
 import 'package:course_app_ui/services/authentication_service.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/config.dart';
-import 'package:course_app_ui/widgets/authentication/buttons/facebook_button.dart';
-import 'package:course_app_ui/widgets/authentication/buttons/google_button.dart';
-import 'package:course_app_ui/widgets/authentication/text/create_account.dart';
-import 'package:course_app_ui/widgets/authentication/text/login_link.dart';
-import 'package:course_app_ui/widgets/authentication/text/terms_conditions.dart';
+import 'package:course_app_ui/widgets/authentication/auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
@@ -174,48 +170,48 @@ class _RegisterPageState extends State<RegisterPage> {
             child: FormHelper.submitButton(
               "Register",
                   () {
-                if (validateAndSave()) {
-                  setState(() {
-                    isAPICallProcess = true;
-                  });
-
-                  RegisterRequestModel model = RegisterRequestModel(
-                    name: name!,
-                    email: email!,
-                    password: password!,
-                  );
-
-                  AuthService.register(model).then((response) {
-                    setState(() {
-                      isAPICallProcess = false;
-                    });
-                    if (response.status == 200) {
-                      FormHelper.showSimpleAlertDialog(
-                        context,
-                        appName,
-                        "Registration Successful. Please Login to the account",
-                        "OK",
-                            () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            '/login',
-                                (route) => false,
-                          );
-                        },
-                      );
-                    } else {
-                      FormHelper.showSimpleAlertDialog(
-                        context,
-                        appName,
-                        response.msg,
-                        "OK",
-                            () {
-                          Navigator.pop(context);
-                        },
-                      );
-                    }
-                  });
-                }
+                // if (validateAndSave()) {
+                //   setState(() {
+                //     isAPICallProcess = true;
+                //   });
+                //
+                //   RegisterRequestModel model = RegisterRequestModel(
+                //     name: name!,
+                //     email: email!,
+                //     password: password!,
+                //   );
+                //
+                //   AuthService.register(model).then((response) {
+                //     setState(() {
+                //       isAPICallProcess = false;
+                //     });
+                //     if (response.status == 200) {
+                //       FormHelper.showSimpleAlertDialog(
+                //         context,
+                //         appName,
+                //         "Registration Successful. Please Login to the account",
+                //         "OK",
+                //             () {
+                //           Navigator.pushNamedAndRemoveUntil(
+                //             context,
+                //             '/login',
+                //                 (route) => false,
+                //           );
+                //         },
+                //       );
+                //     } else {
+                //       FormHelper.showSimpleAlertDialog(
+                //         context,
+                //         appName,
+                //         response.msg,
+                //         "OK",
+                //             () {
+                //           Navigator.pop(context);
+                //         },
+                //       );
+                //     }
+                //   });
+                // }
               },
               width: MediaQuery.of(context).size.width - 40,
               btnColor: context.primaryColor,
