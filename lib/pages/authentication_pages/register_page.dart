@@ -1,7 +1,5 @@
-import 'package:course_app_ui/model/auth_models/register/register_request_model.dart';
-import 'package:course_app_ui/services/authentication_service.dart';
+import 'package:course_app_ui/pages/authentication_pages/register_user_details_page.dart';
 import 'package:course_app_ui/theme/theme.dart';
-import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/widgets/authentication/auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
@@ -36,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
       backgroundColor: context.canvasColor,
       body: SingleChildScrollView(
         child: ProgressHUD(
-          child: Form(key: globalFormKey, child: _loginUI(context)),
+          child: Form(key: globalFormKey, child: _registerUI(context)),
           inAsyncCall: isAPICallProcess,
           opacity: 0.3,
           key: UniqueKey(),
@@ -45,36 +43,14 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget _loginUI(BuildContext context) {
+  Widget _registerUI(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const CreateAccount(),
-          const SizedBox(height: 25,),
-          FormHelper.inputFieldWidget(
-            context,
-            const Icon(Icons.person),
-            "name",
-            "Name",
-                (onValidateVal) {
-              if (onValidateVal.isEmpty) {
-                return "Name cannot be empty.";
-              }
-              return null;
-            },
-                (onSavedVal) {
-              name = onSavedVal;
-            },
-            borderFocusColor: context.cardColor,
-            prefixIconColor:context.cardColor,
-            borderColor: context.cardColor,
-            textColor: context.cardColor,
-            hintColor: context.cardColor.withOpacity(0.7),
-            borderRadius: 10,
-          ),
-          const SizedBox(height: 10,),
+          const SizedBox(height: 30,),
           FormHelper.inputFieldWidget(
             context,
             const Icon(Icons.mail),
@@ -124,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   hidePassword = !hidePassword;
                 });
               },
-              color: Colors.white.withOpacity(0.7),
+              color: context.cardColor.withOpacity(0.7),
               icon:
               Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
             ),
@@ -160,7 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   hidePassword = !hidePassword;
                 });
               },
-              color: Colors.white.withOpacity(0.7),
+              color: context.cardColor.withOpacity(0.7),
               icon:
               Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
             ),
@@ -168,50 +144,20 @@ class _RegisterPageState extends State<RegisterPage> {
           const SizedBox(height: 15,),
           Center(
             child: FormHelper.submitButton(
-              "Register",
+              "Continue",
                   () {
-                // if (validateAndSave()) {
-                //   setState(() {
-                //     isAPICallProcess = true;
-                //   });
-                //
-                //   RegisterRequestModel model = RegisterRequestModel(
-                //     name: name!,
-                //     email: email!,
-                //     password: password!,
-                //   );
-                //
-                //   AuthService.register(model).then((response) {
-                //     setState(() {
-                //       isAPICallProcess = false;
-                //     });
-                //     if (response.status == 200) {
-                //       FormHelper.showSimpleAlertDialog(
-                //         context,
-                //         appName,
-                //         "Registration Successful. Please Login to the account",
-                //         "OK",
-                //             () {
-                //           Navigator.pushNamedAndRemoveUntil(
-                //             context,
-                //             '/login',
-                //                 (route) => false,
-                //           );
-                //         },
-                //       );
-                //     } else {
-                //       FormHelper.showSimpleAlertDialog(
-                //         context,
-                //         appName,
-                //         response.msg,
-                //         "OK",
-                //             () {
-                //           Navigator.pop(context);
-                //         },
-                //       );
-                //     }
-                //   });
-                // }
+
+                    // Temporary code start
+                  if (validateAndSave()) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              RegisterUserDetails(email: email,password: password,)
+                      ),
+                    );
+                    // Temporary code end
+                  }
               },
               width: MediaQuery.of(context).size.width - 40,
               btnColor: context.primaryColor,
@@ -224,7 +170,7 @@ class _RegisterPageState extends State<RegisterPage> {
           const TermsAndConditions().px20(),
           const SizedBox(height: 30,),
           const FacebookButton(),
-          const SizedBox(height: 15,),
+          const SizedBox(height: 10,),
           const GoogleButton(),
           const SizedBox(height: 25,),
           const LoginLink(),
@@ -238,8 +184,7 @@ class _RegisterPageState extends State<RegisterPage> {
     final form = globalFormKey.currentState;
     form!.save();
     if (form.validate()) {
-      // return true;
-      return false;
+      return true;
     } else {
       return false;
     }

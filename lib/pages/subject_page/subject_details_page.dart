@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SubjectDetailsPage extends StatefulWidget {
-  const SubjectDetailsPage({Key? key, required this.subjectList}) : super(key: key);
-  final List<Subject> subjectList;
+  const SubjectDetailsPage({Key? key, this.subjectList}) : super(key: key);
+  final List<Subject>? subjectList;
 
   @override
   _SubjectDetailsPageState createState() => _SubjectDetailsPageState();
@@ -20,11 +20,11 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (widget.subjectList[0].topic!.isEmpty) {
+    if (widget.subjectList![0].topic!.isEmpty) {
       _topic = [];
       _isEmpty = true;
     } else {
-      _topic = widget.subjectList[0].topic;
+      _topic = widget.subjectList![0].topic;
       _isEmpty = false;
     }
   }
@@ -53,7 +53,7 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                   const Text("Subject ID:",
                       style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text(widget.subjectList[0].subjectid.toString(),
+                  Text(widget.subjectList![0].subjectid.toString(),
                       style: const TextStyle(fontSize: 18)),
                 ],
               ),
@@ -64,7 +64,7 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                   const Text("C ID:",
                       style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text(widget.subjectList[0].cid.toString(), style: const TextStyle(fontSize: 18)),
+                  Text(widget.subjectList![0].cid.toString(), style: const TextStyle(fontSize: 18)),
                 ],
               ),
               const SizedBox(height: 5,),
@@ -74,7 +74,7 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                   const Text("Subject Name: ",
                       style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text(widget.subjectList[0].subject.toString(),
+                  Text(widget.subjectList![0].subject.toString(),
                       style: const TextStyle(fontSize: 18)),
                 ],
               ),
@@ -86,14 +86,14 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                     const Text("Subject Status: ",
                         style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                    Text(widget.subjectList[0].subjectStatus.toString(),
+                    Text(widget.subjectList![0].subjectStatus.toString(),
                         style: const TextStyle(fontSize: 18)),
                   ]
               ),
               const SizedBox(height: 5,),
               const Text("Subject create date:",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-              Text(widget.subjectList[0].subjectCreatedat.toString(),
+              Text(widget.subjectList![0].subjectCreatedat.toString(),
                   style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 5,),
               Row(
@@ -103,7 +103,7 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                   const Text("Category:",
                       style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text(widget.subjectList[0].category.toString(), style: const TextStyle(fontSize: 18)),
+                  Text(widget.subjectList![0].category.toString(), style: const TextStyle(fontSize: 18)),
                 ],
               ),
               const SizedBox(height: 5,),
@@ -114,14 +114,14 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                     const Text("category Status: ",
                         style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                    Text(widget.subjectList[0].categoryStatus.toString(),
+                    Text(widget.subjectList![0].categoryStatus.toString(),
                         style: const TextStyle(fontSize: 18)),
                   ]
               ),
               const SizedBox(height: 5,),
               const Text("category Create date:",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-              Text(widget.subjectList[0].categoryCreatedat.toString(),
+              Text(widget.subjectList![0].categoryCreatedat.toString(),
                   style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 5,),
               Column(

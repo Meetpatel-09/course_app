@@ -29,6 +29,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: context.canvasColor,
+          iconTheme: IconThemeData(
+              color: context.primaryColor
+          ),
+        ),
         backgroundColor: context.canvasColor,
         body: SingleChildScrollView(
           child: ProgressHUD(
@@ -48,11 +54,10 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 50,),
           const LogoWidget(),
-          const SizedBox(height: 10,),
+          const SizedBox(height: 5,),
           Align(child: appName.text.bold.size(25).color(context.primaryColor).make()),
-          const SizedBox(height: 35,),
+          const SizedBox(height: 30,),
           FormHelper.inputFieldWidget(
             context,
             const Icon(Icons.person),
@@ -108,13 +113,13 @@ class _LoginPageState extends State<LoginPage> {
               Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
             ),
           ),
-          const SizedBox(height: 15,),
+          const SizedBox(height: 10,),
           Center(
             child: FormHelper.submitButton(
               "Login",
                   () {
 
-                // Temporary code
+                // Temporary code start
                     if (validateAndSave()) {
                       Navigator.pushNamedAndRemoveUntil(
                         context,
@@ -122,6 +127,8 @@ class _LoginPageState extends State<LoginPage> {
                             (route) => false,
                       );
                     }
+                // Temporary code end
+
                 // if (validateAndSave()) {
                 //   setState(() {
                 //     isAPICallProcess = true;
@@ -167,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 25,
           ),
           Align(
             alignment: Alignment.center,
@@ -198,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           const FacebookButton(),
           const SizedBox(
-            height: 15,
+            height: 10,
           ),
           const GoogleButton(),
           const SizedBox(

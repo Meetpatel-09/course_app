@@ -8,7 +8,7 @@ class LogoWidget extends StatelessWidget {
     return Align(
       child: Image.asset(
         "assets/images/logo.png",
-        width: 150,
+        width: 140,
         fit: BoxFit.contain,
       ),
     );

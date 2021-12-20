@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:course_app_ui/widgets/authentication/auth_widgets.dart';
-import 'package:course_app_ui/widgets/authentication/links/resenf_otp_timer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -38,6 +37,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
     _focusDigit4.dispose();
     _focusDigit5.dispose();
     _focusDigit6.dispose();
+    timer?.cancel();
   }
 
   @override
@@ -79,13 +79,11 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
               const SizedBox(height: 35),
               "OTP Verification".text.bold.xl2.letterSpacing(1).make(),
               const EmailSentTo(),
-              // const SizedBox(height: 25),
-              // duration.inSeconds.text.xl.make(),
               otpField(),
               const SizedBox(height: 25),
               verifyButton(),
               const SizedBox(height: 25),
-              duration.inSeconds != 0 ? const ResendOTPTimer() : const ResendOTP(),
+              duration.inSeconds != 0 ? resendOTPTimer() : const ResendOTP(),
             ],
           ),
         )
@@ -216,6 +214,36 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 18),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget resendOTPTimer() {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+
+    return Align(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10, left: 20),
+        child: RichText(
+          text: TextSpan(
+            style: TextStyle(
+              color: context.cardColor.withOpacity(0.7),
+              fontSize: 16.0,
+            ),
+            children: <TextSpan>[
+              const TextSpan(text: "Resent OTP in"),
+              TextSpan(
+                text: " 00:" + seconds,
+                style: TextStyle(
+                  color: context.primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
       ),

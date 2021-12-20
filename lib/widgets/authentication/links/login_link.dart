@@ -27,9 +27,7 @@ class LoginLink extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    Navigator.pushNamed(context, MyRoutes.loginRoute);
-                  },
+                  ..onTap = () => Navigator.pushNamedAndRemoveUntil(context, MyRoutes.loginRoute, (route) => false),
               ),
             ],
           ),
