@@ -71,8 +71,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
     child: ToggleButtons(
       isSelected: isSelected,
       renderBorder: false,
-      // color: context.cardColor,
-      // selectedColor: context.primaryColor,
       fillColor: context.canvasColor,
       splashColor: context.canvasColor,
       children:

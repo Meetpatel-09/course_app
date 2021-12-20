@@ -1,4 +1,3 @@
-import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';

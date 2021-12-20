@@ -12,7 +12,6 @@ class ShareBox extends StatelessWidget {
       decoration: BoxDecoration(
           color: context.primaryColor,
           borderRadius: const BorderRadius.all(Radius.circular(10),),
-          // border: Border.all(color: context.backgroundColor, width: 3)
       ),
 
       child: Row(
@@ -23,7 +22,6 @@ class ShareBox extends StatelessWidget {
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(8.0),
-                // primary: MyTheme.white,
                 primary: MyTheme.white,
                 elevation: 0,
                 shape: const StadiumBorder(),

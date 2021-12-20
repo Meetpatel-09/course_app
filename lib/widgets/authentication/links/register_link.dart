@@ -28,7 +28,7 @@ class RegisterLink extends StatelessWidget {
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    Navigator.pushNamed(context, "/register");
+                    Navigator.pushNamed(context, MyRoutes.registerRoute);
                   },
               ),
             ],

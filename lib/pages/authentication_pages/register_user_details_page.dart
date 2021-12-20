@@ -1,10 +1,8 @@
-import 'package:course_app_ui/model/auth_models/register/register_request_model.dart';
-import 'package:course_app_ui/services/authentication_service.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/images/profile_image_widget.dart';
+import 'package:course_app_ui/widgets/authentication/links/terms_conditions.dart';
 import 'package:flutter/material.dart';
-import 'package:course_app_ui/utils/config.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -208,7 +206,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
             ),
           ),
           const SizedBox(height: 5,),
-          // const TermsAndConditions().px20(),
+          const TermsAndConditions().px20(),
           // const SizedBox(height: 30,),
           // const FacebookButton(),
           // const SizedBox(height: 10,),

@@ -24,9 +24,6 @@ class _HomeFragmentState extends State<HomeFragment> {
             SizedBox(width: 10,),
             Text('Home')],),
       ),
-      //   const Center(child: Text('Home'))
-      // ),
-      // drawer: const Drawer(),
       backgroundColor: context.canvasColor,
       body: SingleChildScrollView(
         child: Padding(
