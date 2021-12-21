@@ -26,9 +26,7 @@ class AuthService {
     return loginResponseJson(response.body);
   }
 
-  static Future<bool> register(FormData data) async {
-
-      // var url = Uri.parse(Config().registerAPI);
+  static Future<RegisterResponseModel> register(FormData data) async {
 
     var response = await Dio().post(
       Config().registerAPI,
@@ -36,10 +34,10 @@ class AuthService {
     );
 
     print(response.data);
-    print(response.statusCode);
-    print(response.statusMessage);
+    Map<String, dynamic> map = response.data;
+    int status = int.parse(map.values.first.toString());
+    String msg = map.values.last.toString();
 
-    // return RegisterResponseModel.fromJson(response.data);
-    return true;
+    return RegisterResponseModel(status: status, msg: msg);
   }
 }

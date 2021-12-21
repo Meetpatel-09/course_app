@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/pages/subject_page/subject_details_page.dart';
 import 'package:course_app_ui/widgets/home/category/widgets/subject_list/widgets/explore_more.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -48,9 +49,9 @@ class SubjectList extends StatelessWidget {
             // ),
             Text("Subject created:",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: context.cardColor.withOpacity(0.8))),
-            Text(subjectList[0].subjectCreatedat!.day.toString() + "/" + subjectList[0].subjectCreatedat!.month.toString() + "/" + subjectList[0].subjectCreatedat!.year.toString(),
+            Text(subjectList[index].subjectCreatedat!.day.toString() + "/" + subjectList[index].subjectCreatedat!.month.toString() + "/" + subjectList[index].subjectCreatedat!.year.toString(),
                 style:  TextStyle(fontSize: 18, color: context.cardColor.withOpacity(0.8))),
-            ExploreMore(subjectList: subjectList),
+            ExploreMore(subjectList: subjectList, index: index,),
           ],
         ),
         // child: Column(

@@ -1,11 +1,10 @@
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SubjectDetailsPage extends StatefulWidget {
-  const SubjectDetailsPage({Key? key, this.subjectList}) : super(key: key);
-  final List<Subject>? subjectList;
+  const SubjectDetailsPage({Key? key}) : super(key: key);
+
 
   @override
   _SubjectDetailsPageState createState() => _SubjectDetailsPageState();
@@ -15,24 +14,40 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
 
   late List<Topic>? _topic;
   bool _isEmpty = true;
+  List<Subject>? subjectList = [];
+  int? index = 0;
+
 
   @override
   void initState() {
     super.initState();
-    if (widget.subjectList![0].topic!.isEmpty) {
-      _topic = [];
-      _isEmpty = true;
-    } else {
-      _topic = widget.subjectList![0].topic;
-      _isEmpty = false;
-    }
+
+
+
+    // if (subjectList![index!].topic == null) {
+    //   _topic = [];
+    //   _isEmpty = true;
+    // } else {
+    //   _topic = subjectList![index!].topic;
+    //   _isEmpty = false;
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
+    final arg = ModalRoute.of(context)!.settings.arguments as Map;
+    subjectList = arg['subjectList'];
+    index = arg['index'];
 
+    print(subjectList);
+    print(index);
+    // final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    //
+    // if (arguments != null) print(arguments['subjectList']);
+    // List<Subject> subjectListz = arguments['subjectList'];
+    // print(subjectListz[0].subject);
     // ignore: avoid_print
-    print(_isEmpty);
+    // print(_isEmpty);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -53,7 +68,7 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                   const Text("Subject ID:",
                       style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text(widget.subjectList![0].subjectid.toString(),
+                  Text(subjectList![index!].subjectid.toString(),
                       style: const TextStyle(fontSize: 18)),
                 ],
               ),
@@ -64,7 +79,7 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                   const Text("C ID:",
                       style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text(widget.subjectList![0].cid.toString(), style: const TextStyle(fontSize: 18)),
+                  Text(subjectList![index!].cid.toString(), style: const TextStyle(fontSize: 18)),
                 ],
               ),
               const SizedBox(height: 5,),
@@ -74,7 +89,7 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                   const Text("Subject Name: ",
                       style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text(widget.subjectList![0].subject.toString(),
+                  Text(subjectList![index!].subject.toString(),
                       style: const TextStyle(fontSize: 18)),
                 ],
               ),
@@ -86,14 +101,14 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                     const Text("Subject Status: ",
                         style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                    Text(widget.subjectList![0].subjectStatus.toString(),
+                    Text(subjectList![index!].subjectStatus.toString(),
                         style: const TextStyle(fontSize: 18)),
                   ]
               ),
               const SizedBox(height: 5,),
               const Text("Subject create date:",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-              Text(widget.subjectList![0].subjectCreatedat.toString(),
+              Text(subjectList![index!].subjectCreatedat.toString(),
                   style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 5,),
               Row(
@@ -103,7 +118,7 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                   const Text("Category:",
                       style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text(widget.subjectList![0].category.toString(), style: const TextStyle(fontSize: 18)),
+                  Text(subjectList![index!].category.toString(), style: const TextStyle(fontSize: 18)),
                 ],
               ),
               const SizedBox(height: 5,),
@@ -114,14 +129,14 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
                     const Text("category Status: ",
                         style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                    Text(widget.subjectList![0].categoryStatus.toString(),
+                    Text(subjectList![index!].categoryStatus.toString(),
                         style: const TextStyle(fontSize: 18)),
                   ]
               ),
               const SizedBox(height: 5,),
               const Text("category Create date:",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-              Text(widget.subjectList![0].categoryCreatedat.toString(),
+              Text(subjectList![index!].categoryCreatedat.toString(),
                   style: const TextStyle(fontSize: 18)),
               const SizedBox(height: 5,),
               Column(

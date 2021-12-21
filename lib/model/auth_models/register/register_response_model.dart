@@ -1,8 +1,3 @@
-import 'dart:convert';
-
-// RegisterResponseModel registerResponseModel(String str) =>
-//     RegisterResponseModel.fromJson(json.decode(str));
-
 class RegisterResponseModel {
   RegisterResponseModel({
     required this.status,

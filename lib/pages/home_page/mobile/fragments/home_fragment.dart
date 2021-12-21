@@ -2,7 +2,6 @@ import 'package:course_app_ui/widgets/home/category/category_widget.dart';
 import 'package:course_app_ui/widgets/home/search_bar.dart';
 import 'package:course_app_ui/widgets/home/share_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeFragment extends StatefulWidget {

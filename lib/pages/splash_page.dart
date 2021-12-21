@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
       //           () => Navigator.of(context).pushNamed(loginRoute));
       // }
       Timer(const Duration(seconds: 2),
-              () => Navigator.pushNamed(context, MyRoutes.registerDetailsRoute));
+              () => Navigator.pushNamed(context, MyRoutes.loginRoute));
     // // }
     // );
 

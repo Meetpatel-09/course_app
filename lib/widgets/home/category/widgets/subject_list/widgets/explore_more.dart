@@ -1,11 +1,12 @@
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/pages/subject_page/subject_details_page.dart';
+import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ExploreMore extends StatelessWidget {
   final List<Subject> subjectList;
-  const ExploreMore({Key? key, required this.subjectList}) : super(key: key);
+  final int? index;
+  const ExploreMore({Key? key, required this.subjectList, this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +14,22 @@ class ExploreMore extends StatelessWidget {
         alignment: Alignment.centerRight,
         child: TextButton(
             onPressed: () {
-              Navigator.push(
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (context) => SubjectDetailsPage(subjectList: subjectList, index: index,),
+              //     ));
+
+
+              print(subjectList.length);
+              Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => SubjectDetailsPage(subjectList: subjectList,),
-                  ));
+                  MyRoutes.subjectDetailsRoute,
+                  arguments: {
+                    'subjectList': subjectList,
+                    'index': index
+                  }
+              );
             },
             child: Text('Explore More',
               style: TextStyle(

@@ -5,7 +5,7 @@ import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/links/terms_conditions.dart';
-import 'package:dio/dio.dart' as Dio;
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
@@ -191,34 +191,48 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
         ),
         Center(
           child: FormHelper.submitButton(
-            "Register",
-                () async {
+            "Register", () async {
               if (validateAndSave()) {
                   setState(() {
                     isAPICallProcess = true;
                   });
 
-                  Dio.FormData formData = Dio.FormData.fromMap({
+                  dio.FormData formData = dio.FormData.fromMap({
                     "full_name": firstName! + " " + lastName!,
                     "email": widget.email,
                     "mobile_no": phoneNo,
                     "password": widget.password,
                     "address": address,
                     "user_role": 'user',
-                    "profile": await Dio.MultipartFile.fromFile(image!.path,
+                    "profile": await dio.MultipartFile.fromFile(image!.path,
                     filename: image!.path.split('/').last),
                     "provider": 'VPSMCQ'
                   });
 
-                  bool result = await AuthService.register(formData);
-
-                  if (result) {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      MyRoutes.loginRoute,
-                          (route) => false,
-                    );
-                  }
+                  AuthService.register(formData).then((response) {
+                    setState(() {
+                      isAPICallProcess = false;
+                    });
+                    if(response.status == 200) {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        MyRoutes.otpVerificationRoute,
+                        (route) => false, arguments: {
+                          'email':widget.email,
+                        }
+                      );
+                    } else {
+                      FormHelper.showSimpleAlertDialog(
+                        context,
+                        Config().appName,
+                        response.msg,
+                        "OK",
+                            () {
+                          Navigator.pop(context);
+                        },
+                      );
+                    }
+                  });
               }
             },
             width: MediaQuery.of(context).size.width - 40,

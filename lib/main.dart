@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.lightTheme(context),
       darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
-      initialRoute: MyRoutes.loginRoute,
+      initialRoute: MyRoutes.homeRoute,
       // home: const OTPVerificationPage(),
       routes: {
         // "/": (context) => const HomePage(),
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.registerRoute: (context) => const RegisterPage(),
         MyRoutes.registerDetailsRoute: (context) => const RegisterUserDetails(),
         MyRoutes.otpVerificationRoute: (context) => const OTPVerificationPage(),
-        MyRoutes.subjectDetailsRoute: (context) => const SubjectDetailsPage(subjectList: []),
+        MyRoutes.subjectDetailsRoute: (context) => const SubjectDetailsPage(),
       },
     );
   }

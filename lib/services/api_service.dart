@@ -7,7 +7,7 @@ class APIServices {
 
   static Future<CourseModel> getCourses() async {
 
-    var url = Uri.parse("courseAPI");
+    var url = Uri.parse(Config().courseAPI);
 
     // print('_temp');
     try {
