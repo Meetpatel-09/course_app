@@ -14,14 +14,6 @@ class ExploreMore extends StatelessWidget {
         alignment: Alignment.centerRight,
         child: TextButton(
             onPressed: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => SubjectDetailsPage(subjectList: subjectList, index: index,),
-              //     ));
-
-
-              print(subjectList.length);
               Navigator.pushNamed(
                   context,
                   MyRoutes.subjectDetailsRoute,
