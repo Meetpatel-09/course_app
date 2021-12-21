@@ -8,7 +8,8 @@ import 'package:snippet_coder_utils/ProgressHUD.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class RegisterUserDetails extends StatefulWidget {
-  const RegisterUserDetails({Key? key, this.email, this.password}) : super(key: key);
+  const RegisterUserDetails({Key? key, this.email, this.password})
+      : super(key: key);
   final String? email;
   final String? password;
 
@@ -30,9 +31,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.canvasColor,
-        iconTheme: IconThemeData(
-            color: context.primaryColor
-        ),
+        iconTheme: IconThemeData(color: context.primaryColor),
         title: "Complete Profile".text.color(context.primaryColor).make(),
       ),
       backgroundColor: context.canvasColor,
@@ -53,104 +52,117 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // const CompleteProfile(),
-          const SizedBox(height: 40,),
+          const SizedBox(
+            height: 30,
+          ),
           const ProfileImageWidget(),
-          const SizedBox(height: 15,),
+          const SizedBox(
+            height: 15,
+          ),
           Align(child: "Profile Picture".text.lg.center.make()),
-          const SizedBox(height: 40,),
+          const SizedBox(
+            height: 30,
+          ),
           FormHelper.inputFieldWidget(
             context,
             const Icon(Icons.person),
             "f_name",
             "First Name",
-                (onValidateVal) {
+            (onValidateVal) {
               if (onValidateVal.isEmpty) {
                 return "First Name cannot be empty.";
               }
               return null;
             },
-                (onSavedVal) {
+            (onSavedVal) {
               firstName = onSavedVal;
             },
             borderFocusColor: context.cardColor,
-            prefixIconColor:context.cardColor,
+            prefixIconColor: context.cardColor,
             borderColor: context.cardColor,
             textColor: context.cardColor,
             hintColor: context.cardColor.withOpacity(0.7),
             borderRadius: 10,
           ),
-          const SizedBox(height: 15,),
+          const SizedBox(
+            height: 10,
+          ),
           FormHelper.inputFieldWidget(
             context,
             const Icon(Icons.person),
             "l_name",
             "Last Name",
-                (onValidateVal) {
+            (onValidateVal) {
               if (onValidateVal.isEmpty) {
                 return "Last Name cannot be empty.";
               }
               return null;
             },
-                (onSavedVal) {
+            (onSavedVal) {
               lastName = onSavedVal;
             },
             borderFocusColor: context.cardColor,
-            prefixIconColor:context.cardColor,
+            prefixIconColor: context.cardColor,
             borderColor: context.cardColor,
             textColor: context.cardColor,
             hintColor: context.cardColor.withOpacity(0.7),
             borderRadius: 10,
           ),
-          const SizedBox(height: 15,),
+          const SizedBox(
+            height: 10,
+          ),
           FormHelper.inputFieldWidget(
             context,
             const Icon(Icons.phone_android),
             "p_number",
             "Phone Number",
-                (onValidateVal) {
+            (onValidateVal) {
               if (onValidateVal.isEmpty) {
                 return "Phone Number cannot be empty.";
               }
               return null;
             },
-                (onSavedVal) {
+            (onSavedVal) {
               phoneNo = onSavedVal;
             },
             borderFocusColor: context.cardColor,
-            prefixIconColor:context.cardColor,
+            prefixIconColor: context.cardColor,
             borderColor: context.cardColor,
             textColor: context.cardColor,
             hintColor: context.cardColor.withOpacity(0.7),
             borderRadius: 10,
           ),
-          const SizedBox(height: 15,),
+          const SizedBox(
+            height: 10,
+          ),
           FormHelper.inputFieldWidget(
             context,
             const Icon(Icons.home),
             "address",
             "Address",
-                (onValidateVal) {
+            (onValidateVal) {
               if (onValidateVal.isEmpty) {
                 return "Address cannot be empty.";
               }
               return null;
             },
-                (onSavedVal) {
+            (onSavedVal) {
               address = onSavedVal;
             },
             borderFocusColor: context.cardColor,
-            prefixIconColor:context.cardColor,
+            prefixIconColor: context.cardColor,
             borderColor: context.cardColor,
             textColor: context.cardColor,
             hintColor: context.cardColor.withOpacity(0.7),
             borderRadius: 10,
           ),
-          const SizedBox(height: 15,),
+          const SizedBox(
+            height: 15,
+          ),
           Center(
             child: FormHelper.submitButton(
               "Register",
-                  () {
+              () {
                 Navigator.pushNamed(
                   context,
                   MyRoutes.otpVerificationRoute,
@@ -205,15 +217,13 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
               borderRadius: 10,
             ),
           ),
-          const SizedBox(height: 5,),
+          const SizedBox(
+            height: 5,
+          ),
           const TermsAndConditions().px20(),
-          // const SizedBox(height: 30,),
-          // const FacebookButton(),
-          // const SizedBox(height: 10,),
-          // const GoogleButton(),
-          // const SizedBox(height: 25,),
-          // const LoginLink(),
-          // const SizedBox(height: 25,),
+          const SizedBox(
+            height: 15,
+          ),
         ],
       ),
     );

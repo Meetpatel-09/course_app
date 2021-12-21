@@ -29,7 +29,6 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _focusDigit1.dispose();
     _focusDigit2.dispose();
@@ -42,7 +41,6 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     duration = const Duration(seconds: 59);
     timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
@@ -201,6 +199,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
             }
           }
           if (otpVerify) {
+            // ignore: avoid_print
             print(otpVerify);
           }
         },

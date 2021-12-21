@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.lightTheme(context),
       darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
-      initialRoute: MyRoutes.splashRoute,
+      initialRoute: MyRoutes.loginRoute,
       // home: const OTPVerificationPage(),
       routes: {
         // "/": (context) => const HomePage(),

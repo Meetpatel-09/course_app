@@ -18,7 +18,6 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (widget.subjectList![0].topic!.isEmpty) {
       _topic = [];
@@ -32,6 +31,7 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
   @override
   Widget build(BuildContext context) {
 
+    // ignore: avoid_print
     print(_isEmpty);
     return Scaffold(
       body: SafeArea(

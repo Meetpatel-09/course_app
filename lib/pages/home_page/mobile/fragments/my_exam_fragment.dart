@@ -18,6 +18,6 @@ class MyExamFragment extends StatelessWidget {
           ),
         ),
       ),
-    );;
+    );
   }
 }

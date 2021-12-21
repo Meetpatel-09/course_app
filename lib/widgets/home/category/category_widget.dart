@@ -24,7 +24,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     APIServices.getCourses().then((courses) {
       if(courses.toString().isNotEmpty) {
