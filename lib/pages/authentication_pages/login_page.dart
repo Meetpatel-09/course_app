@@ -36,16 +36,14 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         backgroundColor: context.canvasColor,
-        body: SingleChildScrollView(
-          child: ProgressHUD(
+        body: ProgressHUD(
             child: Form(key: globalFormKey, child: _loginUI(context)),
             inAsyncCall: isAPICallProcess,
             opacity: 0.3,
             key: UniqueKey(),
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget _loginUI(BuildContext context) {
@@ -56,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           const LogoWidget(),
           const SizedBox(height: 5,),
-          Align(child: appName.text.bold.size(25).color(context.primaryColor).make()),
+          Align(child: Config().appName.text.bold.size(25).color(context.primaryColor).make()),
           const SizedBox(height: 30,),
           FormHelper.inputFieldWidget(
             context,

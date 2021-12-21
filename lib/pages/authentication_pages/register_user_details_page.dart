@@ -1,11 +1,16 @@
+import 'dart:io';
+
+import 'package:course_app_ui/services/authentication_service.dart';
 import 'package:course_app_ui/theme/theme.dart';
+import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
-import 'package:course_app_ui/widgets/authentication/images/profile_image_widget.dart';
 import 'package:course_app_ui/widgets/authentication/links/terms_conditions.dart';
+import 'package:dio/dio.dart' as Dio;
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterUserDetails extends StatefulWidget {
   const RegisterUserDetails({Key? key, this.email, this.password})
@@ -23,8 +28,9 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   String? firstName;
   String? lastName;
-  int? phoneNo;
+  String? phoneNo;
   String? address;
+  File? image;
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +41,12 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
         title: "Complete Profile".text.color(context.primaryColor).make(),
       ),
       backgroundColor: context.canvasColor,
-      body: SingleChildScrollView(
-        child: ProgressHUD(
+      body: ProgressHUD(
           child: Form(key: globalFormKey, child: _takeDetailsUI(context)),
           inAsyncCall: isAPICallProcess,
           opacity: 0.3,
           key: UniqueKey(),
         ),
-      ),
     );
   }
 
@@ -65,7 +69,16 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
   Widget formFields() {
     return Column(
       children: [
-        const ProfileImageWidget(),
+        Stack(
+          children: [
+            image != null ? userImage() : buildImage(),
+            Positioned(
+                bottom: 0,
+                right: 4,
+                child: buildAddImageIcon()
+            ),
+          ],
+        ),
         const SizedBox(height: 15,),
         Align(child: "Profile Picture".text.lg.center.make()),
         const SizedBox(height: 30,),
@@ -126,7 +139,17 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
             if (onValidateVal.isEmpty) {
               return "Phone Number cannot be empty.";
             }
-            return null;
+            try {
+              int pNumber = int.parse(onValidateVal);
+              if (pNumber > 1111111111 && pNumber < 9999999999) {
+                return null;
+              } else {
+                return "Enter valid Phone Number";
+              }
+            } catch(e) {
+              return "Enter valid Phone Number";
+            }
+
           },
               (onSavedVal) {
             phoneNo = onSavedVal;
@@ -155,6 +178,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
               (onSavedVal) {
             address = onSavedVal;
           },
+          isMultiline: true,
           borderFocusColor: context.cardColor,
           prefixIconColor: context.cardColor,
           borderColor: context.cardColor,
@@ -168,53 +192,34 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
         Center(
           child: FormHelper.submitButton(
             "Register",
-                () {
-              Navigator.pushNamed(
-                context,
-                MyRoutes.otpVerificationRoute,
-              );
-              // if (validateAndSave()) {
-              //   setState(() {
-              //     isAPICallProcess = true;
-              //   });
-              //
-              //   RegisterRequestModel model = RegisterRequestModel(
-              //     name: name!,
-              //     email: email!,
-              //     password: password!,
-              //   );
-              //
-              //   AuthService.register(model).then((response) {
-              //     setState(() {
-              //       isAPICallProcess = false;
-              //     });
-              //     if (response.status == 200) {
-              //       FormHelper.showSimpleAlertDialog(
-              //         context,
-              //         appName,
-              //         "Registration Successful. Please Login to the account",
-              //         "OK",
-              //             () {
-              //           Navigator.pushNamedAndRemoveUntil(
-              //             context,
-              //             '/login',
-              //                 (route) => false,
-              //           );
-              //         },
-              //       );
-              //     } else {
-              //       FormHelper.showSimpleAlertDialog(
-              //         context,
-              //         appName,
-              //         response.msg,
-              //         "OK",
-              //             () {
-              //           Navigator.pop(context);
-              //         },
-              //       );
-              //     }
-              //   });
-              // }
+                () async {
+              if (validateAndSave()) {
+                  setState(() {
+                    isAPICallProcess = true;
+                  });
+
+                  Dio.FormData formData = Dio.FormData.fromMap({
+                    "full_name": firstName! + " " + lastName!,
+                    "email": widget.email,
+                    "mobile_no": phoneNo,
+                    "password": widget.password,
+                    "address": address,
+                    "user_role": 'user',
+                    "profile": await Dio.MultipartFile.fromFile(image!.path,
+                    filename: image!.path.split('/').last),
+                    "provider": 'VPSMCQ'
+                  });
+
+                  bool result = await AuthService.register(formData);
+
+                  if (result) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      MyRoutes.loginRoute,
+                          (route) => false,
+                    );
+                  }
+              }
             },
             width: MediaQuery.of(context).size.width - 40,
             btnColor: context.primaryColor,
@@ -226,14 +231,106 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
       ],
     );
   }
+
+  Widget userImage() {
+    return ClipOval(
+      child: Material(
+        color: Colors.transparent,
+        child: Ink.image(
+          image: FileImage(image!),
+          fit: BoxFit.cover,
+          width: 140,
+          height: 140,
+          child: InkWell(onTap: () => pickImage(),),
+        ),
+      ),
+    );
+  }
+
+  Widget buildImage() {
+    return ClipOval(
+      child: Material(
+        color: Colors.transparent,
+        child: Ink.image(
+          image: const AssetImage("assets/images/profile.png"),
+          fit: BoxFit.cover,
+          width: 140,
+          height: 140,
+          child: InkWell(onTap: () => pickImage(),),
+        ),
+      ),
+    );
+  }
+
+  Widget buildAddImageIcon() => buildCircle(
+      color: context.canvasColor,
+      all: 3,
+      child: buildCircle(
+        color: context.primaryColor,
+        all: 0,
+        child: IconButton(
+          icon: const Icon(Icons.add_a_photo),
+          iconSize: 22,
+          color: Colors.white,
+          onPressed: () => pickImage(),
+        ),
+      )
+  );
+
+  buildCircle({
+    required Color color,
+    required double all,
+    required Widget child}) =>
+      ClipOval(
+        child: Container(
+          padding: EdgeInsets.all(all),
+          color: color,
+          child: child,
+        ),
+      );
+
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      if(image == null) return;
+
+      // Images stored in chase memory temporary
+      final imageTemporary = File(image.path);
+      // print(image.saveTo("assets/images/"));
+      setState(() => this.image = imageTemporary);
+
+    } catch(e) {
+      FormHelper.showSimpleAlertDialog(
+        context,
+        Config().appName,
+        e.toString(),
+        "OK", () {
+        Navigator.of(context).pop();
+      },
+      );
+    }
+  }
+
   bool validateAndSave() {
     final form = globalFormKey.currentState;
-    form!.save();
-    if (form.validate()) {
-      // return true;
+    if (image == null) {
+      FormHelper.showSimpleAlertDialog(
+        context,
+        Config().appName,
+        "Please select a profile image",
+        "OK", () {
+        Navigator.pop(context);
+      },
+      );
       return false;
     } else {
-      return false;
+      form!.save();
+      if (form.validate()) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }

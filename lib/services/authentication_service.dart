@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:course_app_ui/model/auth_models/login/login_request_model.dart';
 import 'package:course_app_ui/model/auth_models/login/login_response_model.dart';
-import 'package:course_app_ui/model/auth_models/register/register_request_model.dart';
 import 'package:course_app_ui/model/auth_models/register/register_response_model.dart';
-// import 'package:course_app_ui/utils/config.dart';
+import 'package:course_app_ui/utils/config.dart';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
@@ -26,20 +26,20 @@ class AuthService {
     return loginResponseJson(response.body);
   }
 
-  static Future<RegisterResponseModel> register(
-      RegisterRequestModel model) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
+  static Future<bool> register(FormData data) async {
 
-    var url = Uri.parse('Config.registerAPI');
+      // var url = Uri.parse(Config().registerAPI);
 
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
+    var response = await Dio().post(
+      Config().registerAPI,
+      data: data,
     );
 
-    return registerResponseModel(response.body);
+    print(response.data);
+    print(response.statusCode);
+    print(response.statusMessage);
+
+    // return RegisterResponseModel.fromJson(response.data);
+    return true;
   }
 }

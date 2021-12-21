@@ -32,15 +32,13 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
       backgroundColor: context.canvasColor,
-      body: SingleChildScrollView(
-        child: ProgressHUD(
+      body: ProgressHUD(
           child: Form(key: globalFormKey, child: _registerUI(context)),
           inAsyncCall: isAPICallProcess,
           opacity: 0.3,
           key: UniqueKey(),
         ),
-      ),
-    );
+      );
   }
 
   Widget _registerUI(BuildContext context) {
