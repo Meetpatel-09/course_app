@@ -52,183 +52,180 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 30,
-          ),
-          const ProfileImageWidget(),
-          const SizedBox(
-            height: 15,
-          ),
-          Align(child: "Profile Picture".text.lg.center.make()),
-          const SizedBox(
-            height: 30,
-          ),
-          FormHelper.inputFieldWidget(
-            context,
-            const Icon(Icons.person),
-            "f_name",
-            "First Name",
-            (onValidateVal) {
-              if (onValidateVal.isEmpty) {
-                return "First Name cannot be empty.";
-              }
-              return null;
-            },
-            (onSavedVal) {
-              firstName = onSavedVal;
-            },
-            borderFocusColor: context.cardColor,
-            prefixIconColor: context.cardColor,
-            borderColor: context.cardColor,
-            textColor: context.cardColor,
-            hintColor: context.cardColor.withOpacity(0.7),
-            borderRadius: 10,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          FormHelper.inputFieldWidget(
-            context,
-            const Icon(Icons.person),
-            "l_name",
-            "Last Name",
-            (onValidateVal) {
-              if (onValidateVal.isEmpty) {
-                return "Last Name cannot be empty.";
-              }
-              return null;
-            },
-            (onSavedVal) {
-              lastName = onSavedVal;
-            },
-            borderFocusColor: context.cardColor,
-            prefixIconColor: context.cardColor,
-            borderColor: context.cardColor,
-            textColor: context.cardColor,
-            hintColor: context.cardColor.withOpacity(0.7),
-            borderRadius: 10,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          FormHelper.inputFieldWidget(
-            context,
-            const Icon(Icons.phone_android),
-            "p_number",
-            "Phone Number",
-            (onValidateVal) {
-              if (onValidateVal.isEmpty) {
-                return "Phone Number cannot be empty.";
-              }
-              return null;
-            },
-            (onSavedVal) {
-              phoneNo = onSavedVal;
-            },
-            borderFocusColor: context.cardColor,
-            prefixIconColor: context.cardColor,
-            borderColor: context.cardColor,
-            textColor: context.cardColor,
-            hintColor: context.cardColor.withOpacity(0.7),
-            borderRadius: 10,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          FormHelper.inputFieldWidget(
-            context,
-            const Icon(Icons.home),
-            "address",
-            "Address",
-            (onValidateVal) {
-              if (onValidateVal.isEmpty) {
-                return "Address cannot be empty.";
-              }
-              return null;
-            },
-            (onSavedVal) {
-              address = onSavedVal;
-            },
-            borderFocusColor: context.cardColor,
-            prefixIconColor: context.cardColor,
-            borderColor: context.cardColor,
-            textColor: context.cardColor,
-            hintColor: context.cardColor.withOpacity(0.7),
-            borderRadius: 10,
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Center(
-            child: FormHelper.submitButton(
-              "Register",
-              () {
-                Navigator.pushNamed(
-                  context,
-                  MyRoutes.otpVerificationRoute,
-                );
-                // if (validateAndSave()) {
-                //   setState(() {
-                //     isAPICallProcess = true;
-                //   });
-                //
-                //   RegisterRequestModel model = RegisterRequestModel(
-                //     name: name!,
-                //     email: email!,
-                //     password: password!,
-                //   );
-                //
-                //   AuthService.register(model).then((response) {
-                //     setState(() {
-                //       isAPICallProcess = false;
-                //     });
-                //     if (response.status == 200) {
-                //       FormHelper.showSimpleAlertDialog(
-                //         context,
-                //         appName,
-                //         "Registration Successful. Please Login to the account",
-                //         "OK",
-                //             () {
-                //           Navigator.pushNamedAndRemoveUntil(
-                //             context,
-                //             '/login',
-                //                 (route) => false,
-                //           );
-                //         },
-                //       );
-                //     } else {
-                //       FormHelper.showSimpleAlertDialog(
-                //         context,
-                //         appName,
-                //         response.msg,
-                //         "OK",
-                //             () {
-                //           Navigator.pop(context);
-                //         },
-                //       );
-                //     }
-                //   });
-                // }
-              },
-              width: MediaQuery.of(context).size.width - 40,
-              btnColor: context.primaryColor,
-              borderColor: context.cardColor,
-              txtColor: MyTheme.white,
-              borderRadius: 10,
-            ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 30,),
+          formFields(),
+          const SizedBox(height: 5,),
           const TermsAndConditions().px20(),
-          const SizedBox(
-            height: 15,
-          ),
+          const SizedBox(height: 15,),
         ],
       ),
     );
   }
 
+  Widget formFields() {
+    return Column(
+      children: [
+        const ProfileImageWidget(),
+        const SizedBox(height: 15,),
+        Align(child: "Profile Picture".text.lg.center.make()),
+        const SizedBox(height: 30,),
+        FormHelper.inputFieldWidget(
+          context,
+          const Icon(Icons.person),
+          "f_name",
+          "First Name",
+              (onValidateVal) {
+            if (onValidateVal.isEmpty) {
+              return "First Name cannot be empty.";
+            }
+            return null;
+          },
+              (onSavedVal) {
+            firstName = onSavedVal;
+          },
+          borderFocusColor: context.cardColor,
+          prefixIconColor: context.cardColor,
+          borderColor: context.cardColor,
+          textColor: context.cardColor,
+          hintColor: context.cardColor.withOpacity(0.7),
+          borderRadius: 10,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        FormHelper.inputFieldWidget(
+          context,
+          const Icon(Icons.person),
+          "l_name",
+          "Last Name",
+              (onValidateVal) {
+            if (onValidateVal.isEmpty) {
+              return "Last Name cannot be empty.";
+            }
+            return null;
+          },
+              (onSavedVal) {
+            lastName = onSavedVal;
+          },
+          borderFocusColor: context.cardColor,
+          prefixIconColor: context.cardColor,
+          borderColor: context.cardColor,
+          textColor: context.cardColor,
+          hintColor: context.cardColor.withOpacity(0.7),
+          borderRadius: 10,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        FormHelper.inputFieldWidget(
+          context,
+          const Icon(Icons.phone_android),
+          "p_number",
+          "Phone Number",
+              (onValidateVal) {
+            if (onValidateVal.isEmpty) {
+              return "Phone Number cannot be empty.";
+            }
+            return null;
+          },
+              (onSavedVal) {
+            phoneNo = onSavedVal;
+          },
+          borderFocusColor: context.cardColor,
+          prefixIconColor: context.cardColor,
+          borderColor: context.cardColor,
+          textColor: context.cardColor,
+          hintColor: context.cardColor.withOpacity(0.7),
+          borderRadius: 10,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        FormHelper.inputFieldWidget(
+          context,
+          const Icon(Icons.home),
+          "address",
+          "Address",
+              (onValidateVal) {
+            if (onValidateVal.isEmpty) {
+              return "Address cannot be empty.";
+            }
+            return null;
+          },
+              (onSavedVal) {
+            address = onSavedVal;
+          },
+          borderFocusColor: context.cardColor,
+          prefixIconColor: context.cardColor,
+          borderColor: context.cardColor,
+          textColor: context.cardColor,
+          hintColor: context.cardColor.withOpacity(0.7),
+          borderRadius: 10,
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Center(
+          child: FormHelper.submitButton(
+            "Register",
+                () {
+              Navigator.pushNamed(
+                context,
+                MyRoutes.otpVerificationRoute,
+              );
+              // if (validateAndSave()) {
+              //   setState(() {
+              //     isAPICallProcess = true;
+              //   });
+              //
+              //   RegisterRequestModel model = RegisterRequestModel(
+              //     name: name!,
+              //     email: email!,
+              //     password: password!,
+              //   );
+              //
+              //   AuthService.register(model).then((response) {
+              //     setState(() {
+              //       isAPICallProcess = false;
+              //     });
+              //     if (response.status == 200) {
+              //       FormHelper.showSimpleAlertDialog(
+              //         context,
+              //         appName,
+              //         "Registration Successful. Please Login to the account",
+              //         "OK",
+              //             () {
+              //           Navigator.pushNamedAndRemoveUntil(
+              //             context,
+              //             '/login',
+              //                 (route) => false,
+              //           );
+              //         },
+              //       );
+              //     } else {
+              //       FormHelper.showSimpleAlertDialog(
+              //         context,
+              //         appName,
+              //         response.msg,
+              //         "OK",
+              //             () {
+              //           Navigator.pop(context);
+              //         },
+              //       );
+              //     }
+              //   });
+              // }
+            },
+            width: MediaQuery.of(context).size.width - 40,
+            btnColor: context.primaryColor,
+            borderColor: context.cardColor,
+            txtColor: MyTheme.white,
+            borderRadius: 10,
+          ),
+        ),
+      ],
+    );
+  }
   bool validateAndSave() {
     final form = globalFormKey.currentState;
     form!.save();

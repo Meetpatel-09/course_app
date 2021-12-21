@@ -50,9 +50,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
 
   @override
   Widget build(BuildContext context) {
-
-  //  print(_isLoading);
-
     return _isLoading ? const Center(heightFactor: 10,child: CircularProgressIndicator()) :
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
