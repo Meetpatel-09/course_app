@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class EmailSentTo extends StatelessWidget {
-  const EmailSentTo({Key? key}) : super(key: key);
+  const EmailSentTo({Key? key, required this.email}) : super(key: key);
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class EmailSentTo extends StatelessWidget {
             children: <TextSpan>[
               const TextSpan(text: "Enter the OTP sent to "),
               TextSpan(
-                text: 'example@email.com',
+                text: email,
                 style: TextStyle(
                   color: context.cardColor,
                   fontWeight: FontWeight.bold,

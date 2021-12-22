@@ -127,41 +127,41 @@ class _LoginPageState extends State<LoginPage> {
                     }
                 // Temporary code end
 
-                // if (validateAndSave()) {
-                //   setState(() {
-                //     isAPICallProcess = true;
-                //   });
-                //
-                //   LoginRequestModel model = LoginRequestModel(
-                //     email: email!,
-                //     password: password!,
-                //   );
-                //
-                //   AuthService.login(model).then((response) async {
-                //     setState(() {
-                //       isAPICallProcess = false;
-                //     });
-                //     if (response.msg == null) {
-                //       String token = response.token.toString();
-                //       setToken(token);
-                //       Navigator.pushNamedAndRemoveUntil(
-                //         context,
-                //         '/home',
-                //             (route) => false,
-                //       );
-                //     } else {
-                //       FormHelper.showSimpleAlertDialog(
-                //         context,
-                //         appName,
-                //         "Invalid Email/Password !",
-                //         "OK",
-                //             () {
-                //           Navigator.pop(context);
-                //         },
-                //       );
-                //     }
-                //   });
-                // }
+                if (validateAndSave()) {
+                  setState(() {
+                    isAPICallProcess = true;
+                  });
+
+                  // LoginRequestModel model = LoginRequestModel(
+                  //   email: email!,
+                  //   password: password!,
+                  // );
+
+                  // AuthService.login(model).then((response) async {
+                  //   setState(() {
+                  //     isAPICallProcess = false;
+                  //   });
+                  //   if (response.msg == null) {
+                  //     String token = response.token.toString();
+                  //     setToken(token);
+                  //     Navigator.pushNamedAndRemoveUntil(
+                  //       context,
+                  //       '/home',
+                  //           (route) => false,
+                  //     );
+                  //   } else {
+                  //     FormHelper.showSimpleAlertDialog(
+                  //       context,
+                  //       Config().appName,
+                  //       "Invalid Email/Password !",
+                  //       "OK",
+                  //           () {
+                  //         Navigator.pop(context);
+                  //       },
+                  //     );
+                  //   }
+                  // });
+                }
               },
               width: MediaQuery.of(context).size.width - 40,
               // height: 60,

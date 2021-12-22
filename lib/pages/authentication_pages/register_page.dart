@@ -1,5 +1,6 @@
 import 'package:course_app_ui/pages/authentication_pages/register_user_details_page.dart';
 import 'package:course_app_ui/theme/theme.dart';
+import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
@@ -79,6 +80,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 (onValidateVal) {
               if (onValidateVal.isEmpty) {
                 return "Password cannot be empty.";
+              } else if (onValidateVal.toString().length < 8) {
+                return "Password too short";
               }
               return null;
             },
@@ -143,19 +146,16 @@ class _RegisterPageState extends State<RegisterPage> {
           Center(
             child: FormHelper.submitButton(
               "Continue",
-                  () {
-
-                    // Temporary code start
-                  if (validateAndSave()) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              RegisterUserDetails(email: email,password: password,)
-                      ),
-                    );
-                    // Temporary code end
+              () {
+              if (validateAndSave()) {
+                Navigator.pushNamed(
+                  context,
+                  MyRoutes.registerDetailsRoute,
+                  arguments: {
+                    'email': email, 'password': password
                   }
+                );
+              }
               },
               width: MediaQuery.of(context).size.width - 40,
               btnColor: context.primaryColor,

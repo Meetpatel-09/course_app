@@ -13,10 +13,8 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterUserDetails extends StatefulWidget {
-  const RegisterUserDetails({Key? key, this.email, this.password})
+  const RegisterUserDetails({Key? key,})
       : super(key: key);
-  final String? email;
-  final String? password;
 
   @override
   _RegisterUserDetailsState createState() => _RegisterUserDetailsState();
@@ -28,12 +26,21 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   String? firstName;
   String? lastName;
+  String? email;
+  String? password;
   String? phoneNo;
   String? address;
   File? image;
 
   @override
   Widget build(BuildContext context) {
+    final arg = ModalRoute.of(context)!.settings.arguments as Map;
+    email = arg['email'];
+    password = arg['password'];
+
+    // print(email);
+    // print(password);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.canvasColor,
@@ -196,12 +203,11 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                   setState(() {
                     isAPICallProcess = true;
                   });
-
                   dio.FormData formData = dio.FormData.fromMap({
                     "full_name": firstName! + " " + lastName!,
-                    "email": widget.email,
+                    "email": email,
                     "mobile_no": phoneNo,
-                    "password": widget.password,
+                    "password": password,
                     "address": address,
                     "user_role": 'user',
                     "profile": await dio.MultipartFile.fromFile(image!.path,
@@ -218,10 +224,22 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                         context,
                         MyRoutes.otpVerificationRoute,
                         (route) => false, arguments: {
-                          'email':widget.email,
+                          'email': email,
                         }
                       );
-                    } else {
+                    }
+                    // else if(response.status == 502) {
+                    //   FormHelper.showSimpleAlertDialog(
+                    //     context,
+                    //     Config().appName,
+                    //     response.msg,
+                    //     "OK",
+                    //         () {
+                    //       Navigator.pop(context);
+                    //     },
+                    //   );
+                    // }
+                    else {
                       FormHelper.showSimpleAlertDialog(
                         context,
                         Config().appName,
@@ -303,6 +321,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
         ),
       );
 
+  // Getting the profile picture of the user
   Future pickImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -326,6 +345,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
     }
   }
 
+  // Validating the fields of the form
   bool validateAndSave() {
     final form = globalFormKey.currentState;
     if (image == null) {
@@ -334,8 +354,8 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
         Config().appName,
         "Please select a profile image",
         "OK", () {
-        Navigator.pop(context);
-      },
+          Navigator.pop(context);
+        },
       );
       return false;
     } else {

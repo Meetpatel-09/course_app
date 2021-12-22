@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:course_app_ui/model/auth_models/otp_verification/otp_request_model.dart';
+import 'package:course_app_ui/services/authentication_service.dart';
+import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/widgets/authentication/auth_widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -19,6 +21,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
   bool otpVerify = true;
   Duration duration = const Duration();
   Timer? timer;
+  String? email;
 
   final FocusNode _focusDigit1 = FocusNode();
   final FocusNode _focusDigit2 = FocusNode();
@@ -62,6 +65,9 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final arg = ModalRoute.of(context)!.settings.arguments as Map;
+    email = arg['email'];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.canvasColor,
@@ -76,7 +82,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
               const LogoWidget(),
               const SizedBox(height: 35),
               "OTP Verification".text.bold.xl2.letterSpacing(1).make(),
-              const EmailSentTo(),
+              EmailSentTo(email: email!,),
               otpField(),
               const SizedBox(height: 25),
               verifyButton(),
@@ -193,7 +199,6 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
       child: InkWell(
         onTap: () {
           for (String i in otp.split("")) {
-            // print(i);
             if (i == "x") {
               otpVerify = false;
             }
@@ -201,6 +206,80 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
           if (otpVerify) {
             // ignore: avoid_print
             print(otpVerify);
+
+            OTPRequestModel model = OTPRequestModel(
+                email: email!,
+                otp: int.parse(otp)
+            );
+
+            AuthService.otpVerify(model).then((response) {
+              if (response.status == 200) {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(Config().appName),
+                      content: const Text("Registration Successful, Click on OK"),
+                      actions: [
+                        TextButton(onPressed: () {
+                          Navigator.pop(context);
+                        },
+                            child: const Text("OK")),
+                      ],
+                    )
+                );
+              } else if (response.status == 401) {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(Config().appName),
+                      content: Text(response.msg),
+                      actions: [
+                        TextButton(onPressed: () {Navigator.pop(context);}, child: const Text("OK")),
+                      ],
+                    )
+                );
+              } else if (response.status == 404) {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(Config().appName),
+                      content: Text(response.msg),
+                      actions: [
+                        TextButton(onPressed: () {}, child: Text("Yes")),
+                        TextButton(onPressed: () {}, child: Text("NO")),
+                        TextButton(onPressed: () {}, child: Text("Yes")),
+                      ],
+
+                    )
+                );
+              } else if (response.status == 500) {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(Config().appName),
+                      content: Text(response.msg),
+                      actions: [
+                        TextButton(onPressed: () {}, child: Text("Yes")),
+                        TextButton(onPressed: () {}, child: Text("NO")),
+                        TextButton(onPressed: () {}, child: Text("Yes")),
+                      ],
+                    )
+                );
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(Config().appName),
+                      content: Text(response.msg),
+                      actions: [
+                        TextButton(onPressed: () {
+                          Navigator.pop(context);
+                        }, child: const Text("OK")),
+                      ],
+                    )
+                );
+              }
+            });
           }
         },
         child: AnimatedContainer(
