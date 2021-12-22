@@ -1,9 +1,14 @@
+import 'package:course_app_ui/model/auth_models/otp_verification/resend_otp_request_model.dart';
+import 'package:course_app_ui/services/authentication_service.dart';
+import 'package:course_app_ui/utils/config.dart';
+import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ResendOTP extends StatelessWidget {
-  const ResendOTP({Key? key}) : super(key: key);
+  const ResendOTP({Key? key, required this.email}) : super(key: key);
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,39 @@ class ResendOTP extends StatelessWidget {
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    // Navigator.pushNamed(context, MyRoutes.loginRoute);
+
+                    ResendOTPRequestModel model = ResendOTPRequestModel(email: email);
+
+                    AuthService.resendOTP(model).then((response) {
+                      if (response.status == 200) {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text(Config().appName),
+                              content: const Text("OTP sent again."),
+                              actions: [
+                                TextButton(onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                    child: const Text("OK")),
+                              ],
+                            )
+                        );
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text(Config().appName),
+                              content: Text(response.msg),
+                              actions: [
+                                TextButton(onPressed: () {
+                                  Navigator.pop(context);
+                                }, child: const Text("OK")),
+                              ],
+                            )
+                        );
+                      }
+                    });
                   },
               ),
             ],

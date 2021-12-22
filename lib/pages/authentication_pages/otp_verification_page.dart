@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:course_app_ui/model/auth_models/otp_verification/otp_request_model.dart';
 import 'package:course_app_ui/services/authentication_service.dart';
 import 'package:course_app_ui/utils/config.dart';
+import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -87,7 +88,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
               const SizedBox(height: 25),
               verifyButton(),
               const SizedBox(height: 25),
-              duration.inSeconds != 0 ? resendOTPTimer() : const ResendOTP(),
+              duration.inSeconds != 0 ? resendOTPTimer() : ResendOTP(email: email!,),
             ],
           ),
         )
@@ -221,47 +222,11 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                       content: const Text("Registration Successful, Click on OK"),
                       actions: [
                         TextButton(onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              MyRoutes.loginRoute, (route) => false);
                         },
                             child: const Text("OK")),
-                      ],
-                    )
-                );
-              } else if (response.status == 401) {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text(Config().appName),
-                      content: Text(response.msg),
-                      actions: [
-                        TextButton(onPressed: () {Navigator.pop(context);}, child: const Text("OK")),
-                      ],
-                    )
-                );
-              } else if (response.status == 404) {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text(Config().appName),
-                      content: Text(response.msg),
-                      actions: [
-                        TextButton(onPressed: () {}, child: Text("Yes")),
-                        TextButton(onPressed: () {}, child: Text("NO")),
-                        TextButton(onPressed: () {}, child: Text("Yes")),
-                      ],
-
-                    )
-                );
-              } else if (response.status == 500) {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text(Config().appName),
-                      content: Text(response.msg),
-                      actions: [
-                        TextButton(onPressed: () {}, child: Text("Yes")),
-                        TextButton(onPressed: () {}, child: Text("NO")),
-                        TextButton(onPressed: () {}, child: Text("Yes")),
                       ],
                     )
                 );
