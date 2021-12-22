@@ -116,52 +116,60 @@ class _LoginPageState extends State<LoginPage> {
             child: FormHelper.submitButton(
               "Login",
                   () {
-
-                // Temporary code start
                     if (validateAndSave()) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        MyRoutes.homeRoute,
-                            (route) => false,
-                      );
-                    }
-                // Temporary code end
+                      setState(() {
+                        isAPICallProcess = true;
+                      });
 
-                if (validateAndSave()) {
-                  setState(() {
-                    isAPICallProcess = true;
-                  });
+                    LoginRequestModel model = LoginRequestModel(
+                      email: email!,
+                      password: password!,
+                      provider: 'VPSMCQ',
+                    );
 
-                  // LoginRequestModel model = LoginRequestModel(
-                  //   email: email!,
-                  //   password: password!,
-                  // );
-
-                  // AuthService.login(model).then((response) async {
-                  //   setState(() {
-                  //     isAPICallProcess = false;
-                  //   });
-                  //   if (response.msg == null) {
-                  //     String token = response.token.toString();
-                  //     setToken(token);
-                  //     Navigator.pushNamedAndRemoveUntil(
-                  //       context,
-                  //       '/home',
-                  //           (route) => false,
-                  //     );
-                  //   } else {
-                  //     FormHelper.showSimpleAlertDialog(
-                  //       context,
-                  //       Config().appName,
-                  //       "Invalid Email/Password !",
-                  //       "OK",
-                  //           () {
-                  //         Navigator.pop(context);
-                  //       },
-                  //     );
-                  //   }
-                  // });
-                }
+                    AuthService.login(model).then((response) async {
+                      setState(() {
+                        isAPICallProcess = false;
+                      });
+                      if (response.status == 200) {
+                        String token = response.token.toString();
+                        setToken(token);
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          MyRoutes.homeRoute,
+                              (route) => false,
+                        );
+                      } else {
+                        if (response.redirect == 1) {
+                          FormHelper.showSimpleAlertDialog(
+                            context,
+                            Config().appName,
+                            response.msg!,
+                            "Resend and Verify OTP",
+                                () {
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      MyRoutes.otpVerificationRoute,
+                                      (route) => false, arguments: {
+                                        'email': email,
+                                      }
+                                  );
+                                },
+                          );
+                        } else {
+                          FormHelper.showSimpleAlertDialog(
+                            context,
+                            Config().appName,
+                            response.msg!,
+                            "OK",
+                                () {
+                              Navigator.pop(context);
+                            },
+                          );
+                        }
+                      }
+                    });
+                  }
               },
               width: MediaQuery.of(context).size.width - 40,
               // height: 60,

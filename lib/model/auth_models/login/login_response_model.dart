@@ -1,29 +1,41 @@
-// import 'dart:convert';
-//
-// LoginResponseModel loginResponseJson(String str) =>
-//     LoginResponseModel.fromJson(json.decode(str));
-//
-// class LoginResponseModel {
-//   LoginResponseModel({
-//     required this.status,
-//     this.msg,
-//     this.token,
-//   });
-//   late final int status;
-//   late final String? msg;
-//   late final String? token;
-//
-//   LoginResponseModel.fromJson(Map<String, dynamic> json) {
-//     status = json['status'];
-//     msg = json['msg'] ?? json['msg'];
-//     token = json['token'] ?? json['token'];
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final _data = <String, dynamic>{};
-//     _data['status'] = status;
-//     _data['msg'] = msg;
-//     _data['token'] = token;
-//     return _data;
-//   }
-// }
+import 'dart:convert';
+
+LoginResponseModel loginResponseJson(String str) =>
+    LoginResponseModel.fromJson(json.decode(str));
+
+class LoginResponseModel {
+  LoginResponseModel({
+    required this.status,
+    required this.msg,
+    this.redirect,
+    this.role,
+    this.token,
+    this.u,
+  });
+  late final int status;
+  late final String? msg;
+  late final int? redirect;
+  late final String? role;
+  late final String? token;
+  late final int? u;
+
+  LoginResponseModel.fromJson(Map<String, dynamic> json){
+    status = json['status'];
+    msg = json['msg'];
+    redirect = json['redirect'] ?? json['redirect'];
+    role = json['role'] ?? json['role'];
+    token = json['token'] ?? json['token'];
+    u = json['u'] ?? json['u'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['status'] = status;
+    _data['msg'] = msg;
+    _data['redirect'] = redirect;
+    _data['role'] = role;
+    _data['token'] = token;
+    _data['u'] = u;
+    return _data;
+  }
+}

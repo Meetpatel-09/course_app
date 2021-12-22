@@ -13,23 +13,20 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  // final SharedServices _sharedServices = SharedServices();
+  final SharedServices _sharedServices = SharedServices();
 
   @override
   void initState() {
-    // _sharedServices.checkLogIn("token").then((value) {
-      // if (value != null) {
-      //   return Timer(const Duration(seconds: 2),
-      //           () => Navigator.of(context).pushNamed(homeRoute));
-      // } else {
-      //   return Timer(const Duration(seconds: 2),
-      //           () => Navigator.of(context).pushNamed(loginRoute));
-      // }
-      Timer(const Duration(seconds: 2),
-              () => Navigator.pushNamed(context, MyRoutes.loginRoute));
-    // // }
-    // );
-
+    _sharedServices.checkLogIn("token").then((value) {
+      if (value != null) {
+        return Timer(const Duration(seconds: 2),
+                () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.homeRoute, (route) => false));
+      } else {
+        return Timer(const Duration(seconds: 2),
+                () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.loginRoute, (route) => false));
+      }
+    }
+    );
     super.initState();
   }
 
@@ -40,11 +37,9 @@ class _SplashPageState extends State<SplashPage> {
         child: Image.asset(
           "assets/images/logo.png",
           width: 150,
-          fit: BoxFit.contain,),
-        //   child: Icon(
-        //     Icons.app_blocking,
-        //   )
+          fit: BoxFit.contain,
         ),
+      ),
     );
   }
 }

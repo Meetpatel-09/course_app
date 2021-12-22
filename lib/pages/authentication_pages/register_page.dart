@@ -1,4 +1,3 @@
-import 'package:course_app_ui/pages/authentication_pages/register_user_details_page.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/auth_widgets.dart';

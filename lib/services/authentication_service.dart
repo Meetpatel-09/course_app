@@ -13,21 +13,21 @@ import 'package:http/http.dart' as http;
 class AuthService {
   static var client = http.Client();
 
-  // static Future<LoginResponseModel> login(LoginRequestModel model) async {
-  //   Map<String, String> requestHeaders = {
-  //     'Content-Type': 'application/json',
-  //   };
-  //
-  //   var url = Uri.parse('Config.loginAPI');
-  //
-  //   var response = await client.post(
-  //     url,
-  //     headers: requestHeaders,
-  //     body: jsonEncode(model.toJson()),
-  //   );
-  //
-  //   return loginResponseJson(response.body);
-  // }
+  static Future<LoginResponseModel> login(LoginRequestModel model) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.parse(Config().loginAPI);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(model.toJson()),
+    );
+
+    return loginResponseJson(response.body);
+  }
 
   static Future<RegisterResponseModel> register(FormData data) async {
 

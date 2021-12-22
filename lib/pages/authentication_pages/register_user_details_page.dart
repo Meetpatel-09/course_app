@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:course_app_ui/model/auth_models/otp_verification/resend_otp_request_model.dart';
+// import 'package:course_app_ui/model/auth_models/otp_verification/resend_otp_request_model.dart';
 import 'package:course_app_ui/services/authentication_service.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/config.dart';
@@ -38,9 +38,6 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
     email = arg['email'];
     password = arg['password'];
-
-    // print(email);
-    // print(password);
 
     return Scaffold(
       appBar: AppBar(
@@ -217,7 +214,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                   });
 
                   AuthService.register(formData).then((response) {
-                    print(response.status);
+                    // print(response.status);
                     setState(() {
                       isAPICallProcess = false;
                     });
@@ -230,66 +227,66 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                         }
                       );
                     }
-                    else if(response.status == 403) {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(Config().appName),
-                          content: Text(response.msg),
-                          actions: [
-                            TextButton(onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text("OK")
-                            ),
-                            TextButton(onPressed: () {
-
-                              ResendOTPRequestModel model = ResendOTPRequestModel(email: email!);
-
-                              AuthService.resendOTP(model).then((value) {
-                                print(value.status);
-                                if (value.status == 200) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: Text(Config().appName),
-                                        content: const Text("OTP sent again."),
-                                        actions: [
-                                          TextButton(onPressed: () {
-                                            Navigator.pushNamedAndRemoveUntil(
-                                                context,
-                                                MyRoutes.otpVerificationRoute,
-                                                    (route) => false, arguments: {
-                                              'email': email,
-                                            }
-                                            );
-                                          },
-                                              child: const Text("OK")),
-                                        ],
-                                      )
-                                  );
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: Text(Config().appName),
-                                        content: Text(value.msg),
-                                        actions: [
-                                          TextButton(onPressed: () {
-                                            Navigator.pop(context);
-                                          }, child: const Text("OK")),
-                                        ],
-                                      )
-                                  );
-                                }
-                              });
-                            },
-                                child: const Text("Resend OTP")
-                            ),
-                          ]
-                        )
-                      );
-                    }
+                    // else if(response.status == 403) {
+                    //   showDialog(
+                    //     context: context,
+                    //     builder: (context) => AlertDialog(
+                    //       title: Text(Config().appName),
+                    //       content: Text(response.msg),
+                    //       actions: [
+                    //         TextButton(onPressed: () {
+                    //             Navigator.pop(context);
+                    //           },
+                    //           child: const Text("OK")
+                    //         ),
+                    //         TextButton(onPressed: () {
+                    //
+                    //           ResendOTPRequestModel model = ResendOTPRequestModel(email: email!);
+                    //
+                    //           AuthService.resendOTP(model).then((value) {
+                    //             // print(value.status);
+                    //             if (value.status == 200) {
+                    //               showDialog(
+                    //                   context: context,
+                    //                   builder: (context) => AlertDialog(
+                    //                     title: Text(Config().appName),
+                    //                     content: const Text("OTP sent again."),
+                    //                     actions: [
+                    //                       TextButton(onPressed: () {
+                    //                         Navigator.pushNamedAndRemoveUntil(
+                    //                             context,
+                    //                             MyRoutes.otpVerificationRoute,
+                    //                                 (route) => false, arguments: {
+                    //                           'email': email,
+                    //                         }
+                    //                         );
+                    //                       },
+                    //                           child: const Text("OK")),
+                    //                     ],
+                    //                   )
+                    //               );
+                    //             } else {
+                    //               showDialog(
+                    //                   context: context,
+                    //                   builder: (context) => AlertDialog(
+                    //                     title: Text(Config().appName),
+                    //                     content: Text(value.msg),
+                    //                     actions: [
+                    //                       TextButton(onPressed: () {
+                    //                         Navigator.pop(context);
+                    //                       }, child: const Text("OK")),
+                    //                     ],
+                    //                   )
+                    //               );
+                    //             }
+                    //           });
+                    //         },
+                    //             child: const Text("Resend OTP")
+                    //         ),
+                    //       ]
+                    //     )
+                    //   );
+                    // }
                     else {
                       FormHelper.showSimpleAlertDialog(
                         context,

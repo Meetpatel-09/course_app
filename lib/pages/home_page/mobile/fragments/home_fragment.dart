@@ -1,7 +1,9 @@
+import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/home/category/category_widget.dart';
 import 'package:course_app_ui/widgets/home/search_bar.dart';
 import 'package:course_app_ui/widgets/home/share_box.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeFragment extends StatefulWidget {
@@ -21,7 +23,25 @@ class _HomeFragmentState extends State<HomeFragment> {
           children: const [
             Icon(Icons.home),
             SizedBox(width: 10,),
-            Text('Home')],),
+            Text('Home'),
+          ],
+        ),
+        actions: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(onPressed: ()  async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.remove('token');
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                MyRoutes.loginRoute,
+                    (route) => false,
+              );
+            },
+                icon: const Icon(Icons.logout)
+            ),
+          )
+        ],
       ),
       backgroundColor: context.canvasColor,
       body: SingleChildScrollView(

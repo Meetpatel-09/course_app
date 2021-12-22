@@ -39,6 +39,7 @@ class SubjectDetailsPage extends StatelessWidget {
     List<Topic>? _topic = [];
     _topic = subjectList![index].topic;
     bool _isEmpty = true;
+    // ignore: prefer_is_empty
     if (_topic!.length != 0) {
       _isEmpty = false;
     }
@@ -68,16 +69,11 @@ class SubjectDetailsPage extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 5,),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text("Subject Name: ",
-                style:
-                TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-            Text(subjectList[index].subject.toString(),
-                style: const TextStyle(fontSize: 18)),
-          ],
-        ),
+        const Text("Subject Name: ",
+            style:
+            TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        Text(subjectList[index].subject.toString(),
+            style: const TextStyle(fontSize: 18)),
         const SizedBox(height: 5,),
         Row(
             crossAxisAlignment: CrossAxisAlignment.start,

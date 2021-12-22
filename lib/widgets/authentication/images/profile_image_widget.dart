@@ -34,7 +34,7 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
   }
 
   Widget userImage() {
-    print(image);
+    // print(image);
     return ClipOval(
       child: Material(
         color: Colors.transparent,
@@ -106,7 +106,7 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
       // final imagePermanent = await saveImagePermanently(image.path);
       // setState(() => this.image = imagePermanent);
     } catch(e) {
-      print("Failed to pick image: $e");
+      // print("Failed to pick image: $e");
     }
   }
 

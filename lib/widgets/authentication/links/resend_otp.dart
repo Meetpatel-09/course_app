@@ -1,7 +1,6 @@
 import 'package:course_app_ui/model/auth_models/otp_verification/resend_otp_request_model.dart';
 import 'package:course_app_ui/services/authentication_service.dart';
 import 'package:course_app_ui/utils/config.dart';
-import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';

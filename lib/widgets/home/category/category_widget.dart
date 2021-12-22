@@ -41,6 +41,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
             colorList.add(colorList[i]);
           }
         }
+        if (!mounted) return;
         setState(() {
           _isLoading = false;
         });
