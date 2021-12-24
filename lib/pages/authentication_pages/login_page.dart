@@ -213,7 +213,7 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(
             height: 10,
           ),
-          const GoogleButton(),
+          const GoogleButton(isRegisterPage: false,),
           const SizedBox(
             height: 25,
           ),

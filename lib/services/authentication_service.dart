@@ -25,24 +25,37 @@ class AuthService {
       headers: requestHeaders,
       body: jsonEncode(model.toJson()),
     );
-
-    return loginResponseJson(response.body);
+    if (response.statusCode == 200) {
+      return loginResponseJson(response.body);
+    } else {
+      return LoginResponseModel(status: response.statusCode, msg: response.reasonPhrase);
+    }
   }
 
   static Future<RegisterResponseModel> register(FormData data) async {
 
-    var response = await Dio().post(
-      Config().registerAPI,
-      data: data,
-    );
+      var response = await Dio().post(
+        Config().registerAPI,
+        data: data,
+      );
 
-    // print(response.data);
-    Map<String, dynamic> map = response.data;
-    int status = int.parse(map.values.first.toString());
-    String msg = map.values.last.toString();
+print(response);
+      print(response.statusCode);
+      print(response.statusMessage);
 
-    return RegisterResponseModel(status: status, msg: msg);
-  }
+      if (response.statusCode == 200) {
+        Map<String, dynamic> map = response.data;
+        int status = int.parse(map.values.first.toString());
+        String msg = map.values.last.toString();
+
+        return RegisterResponseModel(status: status, msg: msg);
+      } else {
+
+        print(response.statusCode);
+        print(response.statusMessage);
+        return RegisterResponseModel(status: response.statusCode!, msg: response.statusMessage!);
+      }
+    }
 
   static Future<OTPResponseModel> otpVerify(OTPRequestModel model) async {
     Map<String, String> requestHeaders = {

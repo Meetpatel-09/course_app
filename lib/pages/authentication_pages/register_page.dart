@@ -168,7 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
           const SizedBox(height: 30,),
           const FacebookButton(),
           const SizedBox(height: 10,),
-          const GoogleButton(),
+          const GoogleButton(isRegisterPage: true,),
           const SizedBox(height: 25,),
           const LoginLink(),
           const SizedBox(height: 25,),

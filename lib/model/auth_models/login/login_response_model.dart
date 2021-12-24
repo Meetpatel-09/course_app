@@ -22,10 +22,10 @@ class LoginResponseModel {
   LoginResponseModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     msg = json['msg'];
-    redirect = json['redirect'] ?? json['redirect'];
-    role = json['role'] ?? json['role'];
-    token = json['token'] ?? json['token'];
-    u = json['u'] ?? json['u'];
+    redirect = json['redirect'];
+    role = json['role'];
+    token = json['token'];
+    u = json['u'];
   }
 
   Map<String, dynamic> toJson() {

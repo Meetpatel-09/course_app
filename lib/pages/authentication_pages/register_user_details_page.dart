@@ -1,6 +1,5 @@
 import 'dart:io';
 
-// import 'package:course_app_ui/model/auth_models/otp_verification/resend_otp_request_model.dart';
 import 'package:course_app_ui/services/authentication_service.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/config.dart';
@@ -25,10 +24,13 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
   bool isAPICallProcess = false;
   bool hidePassword = true;
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
-  String? firstName;
-  String? lastName;
+  String firstName = "";
+  String lastName = "";
   String? email;
   String? password;
+  String isGoogle = "no";
+  String name = "";
+  List<String> fullName = [];
   String? phoneNo;
   String? address;
   File? image;
@@ -38,6 +40,13 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
     email = arg['email'];
     password = arg['password'];
+    if (arg['isGoogle'] != null) {
+      isGoogle = arg['isGoogle'];
+      name = arg['name'];
+      fullName = name.split(" ");
+      firstName = fullName[0];
+      lastName = fullName[1];
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -101,6 +110,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
               (onSavedVal) {
             firstName = onSavedVal;
           },
+          initialValue: firstName,
           borderFocusColor: context.cardColor,
           prefixIconColor: context.cardColor,
           borderColor: context.cardColor,
@@ -125,6 +135,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
               (onSavedVal) {
             lastName = onSavedVal;
           },
+          initialValue: lastName,
           borderFocusColor: context.cardColor,
           prefixIconColor: context.cardColor,
           borderColor: context.cardColor,
@@ -201,93 +212,58 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                   setState(() {
                     isAPICallProcess = true;
                   });
-                  dio.FormData formData = dio.FormData.fromMap({
-                    "full_name": firstName! + " " + lastName!,
-                    "email": email,
-                    "mobile_no": phoneNo,
-                    "password": password,
-                    "address": address,
-                    "user_role": 'user',
-                    "profile": await dio.MultipartFile.fromFile(image!.path,
-                    filename: image!.path.split('/').last),
-                    "provider": 'VPSMCQ'
-                  });
+                  dio.FormData formData;
+                  if (isGoogle == "yes") {
+                    print(email);
+                    print(isGoogle);
+                    formData = dio.FormData.fromMap({
+                      "full_name": firstName + " " + lastName,
+                      "email": email,
+                      "mobile_no": phoneNo,
+                      "address": address,
+                      "user_role": 'user',
+                      "profile": await dio.MultipartFile.fromFile(image!.path,
+                          filename: image!.path.split('/').last),
+                      "provider": 'Google'
+                    });
+                  } else {
+                    formData = dio.FormData.fromMap({
+                      "full_name": firstName + " " + lastName,
+                      "email": email,
+                      "mobile_no": phoneNo,
+                      "password": password,
+                      "address": address,
+                      "user_role": 'user',
+                      "profile": await dio.MultipartFile.fromFile(image!.path,
+                          filename: image!.path.split('/').last),
+                      "provider": 'VPSMCQ'
+                    });
+                  }
 
                   AuthService.register(formData).then((response) {
-                    // print(response.status);
+                    print(response.status);
                     setState(() {
                       isAPICallProcess = false;
                     });
                     if(response.status == 200) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        MyRoutes.otpVerificationRoute,
-                        (route) => false, arguments: {
-                          'email': email,
+                        if (isGoogle == "yes") {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              MyRoutes.loginRoute,
+                              (route) => false,
+                          );
+                        } else {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              MyRoutes.otpVerificationRoute,
+                              (route) => false,
+                              arguments: {
+                                'email': email,
+                              }
+                          );
                         }
-                      );
-                    }
-                    // else if(response.status == 403) {
-                    //   showDialog(
-                    //     context: context,
-                    //     builder: (context) => AlertDialog(
-                    //       title: Text(Config().appName),
-                    //       content: Text(response.msg),
-                    //       actions: [
-                    //         TextButton(onPressed: () {
-                    //             Navigator.pop(context);
-                    //           },
-                    //           child: const Text("OK")
-                    //         ),
-                    //         TextButton(onPressed: () {
-                    //
-                    //           ResendOTPRequestModel model = ResendOTPRequestModel(email: email!);
-                    //
-                    //           AuthService.resendOTP(model).then((value) {
-                    //             // print(value.status);
-                    //             if (value.status == 200) {
-                    //               showDialog(
-                    //                   context: context,
-                    //                   builder: (context) => AlertDialog(
-                    //                     title: Text(Config().appName),
-                    //                     content: const Text("OTP sent again."),
-                    //                     actions: [
-                    //                       TextButton(onPressed: () {
-                    //                         Navigator.pushNamedAndRemoveUntil(
-                    //                             context,
-                    //                             MyRoutes.otpVerificationRoute,
-                    //                                 (route) => false, arguments: {
-                    //                           'email': email,
-                    //                         }
-                    //                         );
-                    //                       },
-                    //                           child: const Text("OK")),
-                    //                     ],
-                    //                   )
-                    //               );
-                    //             } else {
-                    //               showDialog(
-                    //                   context: context,
-                    //                   builder: (context) => AlertDialog(
-                    //                     title: Text(Config().appName),
-                    //                     content: Text(value.msg),
-                    //                     actions: [
-                    //                       TextButton(onPressed: () {
-                    //                         Navigator.pop(context);
-                    //                       }, child: const Text("OK")),
-                    //                     ],
-                    //                   )
-                    //               );
-                    //             }
-                    //           });
-                    //         },
-                    //             child: const Text("Resend OTP")
-                    //         ),
-                    //       ]
-                    //     )
-                    //   );
-                    // }
-                    else {
+                    } else {
+                      print(response.status);
                       FormHelper.showSimpleAlertDialog(
                         context,
                         Config().appName,
