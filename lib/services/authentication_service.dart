@@ -61,6 +61,7 @@ class AuthService {
       Map<String, dynamic> map = response.data;
       int status = int.parse(map.values.first.toString());
       if(status == 200) {
+        print(status);
         String u = map.values.last.toString();
         String token = "";
         int i = 0;
@@ -69,9 +70,10 @@ class AuthService {
           i++;
           if (i == 2) {
             token = v.toString();
-            // print(v);
           }
         }
+        print(u);
+        print(token);
         return RegisterResponseModel(status: status, token: token, u: u);
       } else {
         String msg = map.values.last.toString();

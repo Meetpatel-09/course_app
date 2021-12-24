@@ -236,6 +236,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                       });
                       if(response.status == 200) {
                         String token = response.token.toString();
+                        print(response.status);
                         setToken(token);
                         Navigator.pushNamedAndRemoveUntil(
                           context,
@@ -268,36 +269,35 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                           filename: image!.path.split('/').last),
                       "provider": 'VPSMCQ'
                     });
-                  }
 
-                  AuthService.register(formData).then((response) async {
-                    print(response.status);
-                    setState(() {
-                      isAPICallProcess = false;
-                    });
-                    if(response.status == 200) {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          MyRoutes.otpVerificationRoute,
-                          (route) => false,
-                          arguments: {
-                            'email': email,
-                          }
-                      );
-                    } else {
+                    AuthService.register(formData).then((response) async {
                       print(response.status);
-                      FormHelper.showSimpleAlertDialog(
-                        context,
-                        Config().appName,
-                        response.msg!,
-                        "OK",
-                            () {
-                          Navigator.pop(context);
-                          GoogleSignInAPI.logout();
-                        },
-                      );
-                    }
-                  });
+                      setState(() {
+                        isAPICallProcess = false;
+                      });
+                      if(response.status == 200) {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            MyRoutes.otpVerificationRoute,
+                            (route) => false,
+                            arguments: {
+                              'email': email,
+                            }
+                        );
+                      } else {
+                        print(response.status);
+                        FormHelper.showSimpleAlertDialog(
+                          context,
+                          Config().appName,
+                          response.msg!,
+                          "OK",
+                              () {
+                            Navigator.pop(context);
+                          },
+                        );
+                      }
+                    });
+                  }
               }
             },
             width: MediaQuery.of(context).size.width - 40,
