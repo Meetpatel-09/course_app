@@ -76,6 +76,7 @@ class GoogleButton extends StatelessWidget {
                                           'email': user.email,
                                       }
                                   );
+                                  GoogleSignInAPI.logout();
                                 },
                                 child: const Text("OK")),
                           ],
@@ -91,6 +92,7 @@ class GoogleButton extends StatelessWidget {
                             TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
+                                  GoogleSignInAPI.logout();
                                 },
                                 child: const Text("OK")),
                           ],

@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:course_app_ui/services/authentication_service.dart';
+import 'package:course_app_ui/services/google_sign_in_api.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/links/terms_conditions.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -226,6 +228,34 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                           filename: image!.path.split('/').last),
                       "provider": 'Google'
                     });
+
+                    AuthService.googleRegister(formData).then((response) async {
+                      print(response.status);
+                      setState(() {
+                        isAPICallProcess = false;
+                      });
+                      if(response.status == 200) {
+                        String token = response.token.toString();
+                        setToken(token);
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          MyRoutes.homeRoute,
+                              (route) => false,
+                        );
+                      } else {
+                        print(response.status);
+                        FormHelper.showSimpleAlertDialog(
+                          context,
+                          Config().appName,
+                          response.msg!,
+                          "OK",
+                              () {
+                            Navigator.pop(context);
+                            GoogleSignInAPI.logout();
+                          },
+                        );
+                      }
+                    });
                   } else {
                     formData = dio.FormData.fromMap({
                       "full_name": firstName + " " + lastName,
@@ -240,37 +270,30 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                     });
                   }
 
-                  AuthService.register(formData).then((response) {
+                  AuthService.register(formData).then((response) async {
                     print(response.status);
                     setState(() {
                       isAPICallProcess = false;
                     });
                     if(response.status == 200) {
-                        if (isGoogle == "yes") {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              MyRoutes.loginRoute,
-                              (route) => false,
-                          );
-                        } else {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              MyRoutes.otpVerificationRoute,
-                              (route) => false,
-                              arguments: {
-                                'email': email,
-                              }
-                          );
-                        }
+                      Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          MyRoutes.otpVerificationRoute,
+                          (route) => false,
+                          arguments: {
+                            'email': email,
+                          }
+                      );
                     } else {
                       print(response.status);
                       FormHelper.showSimpleAlertDialog(
                         context,
                         Config().appName,
-                        response.msg,
+                        response.msg!,
                         "OK",
                             () {
                           Navigator.pop(context);
+                          GoogleSignInAPI.logout();
                         },
                       );
                     }
@@ -391,4 +414,10 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
       }
     }
   }
+
+  Future<void> setToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', token);
+  }
+
 }
