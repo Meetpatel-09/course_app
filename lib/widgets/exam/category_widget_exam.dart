@@ -5,14 +5,14 @@ import 'package:course_app_ui/widgets/home/category/widgets/subject_list/subject
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class CategoryWidget extends StatefulWidget {
-  const CategoryWidget({Key? key}) : super(key: key);
+class CategoryWidgetExam extends StatefulWidget {
+  const CategoryWidgetExam({Key? key}) : super(key: key);
 
   @override
-  _CategoryWidgetState createState() => _CategoryWidgetState();
+  _CategoryWidgetExamState createState() => _CategoryWidgetExamState();
 }
 
-class _CategoryWidgetState extends State<CategoryWidget> {
+class _CategoryWidgetExamState extends State<CategoryWidgetExam> {
   late List<Result> _coursesList;
   late List<Subject> _subjectList;
   bool _isLoading = true;
@@ -84,19 +84,21 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         ),
       );
 
-  Widget detailsCard() => SizedBox(
-      height: 200,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
+  Widget detailsCard() => Container(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    height: MediaQuery.of(context).size.height - 250,
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 5,
+          crossAxisCount: 2,
+          mainAxisExtent: 200,
+        ),
         itemCount: _subjectList.length,
         itemBuilder: (context, index) {
-          return  Padding(
-              padding: index == _subjectList.length - 1
-              ? const EdgeInsets.all(0)
-              : const EdgeInsets.only(right: 8),
-          child: SubjectList(
+          return SubjectList(
             subjectList: _subjectList,
-            index: index));
+            index: index);
         }
       )
   );
