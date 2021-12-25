@@ -375,6 +375,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
 
       if(image == null) return;
 
+
       // Images stored in chase memory temporary
       final imageTemporary = File(image.path);
       // print(image.saveTo("assets/images/"));

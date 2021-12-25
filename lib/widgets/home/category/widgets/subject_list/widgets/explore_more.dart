@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -11,8 +12,8 @@ class ExploreMore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        alignment: Alignment.centerRight,
-        child: TextButton(
+        alignment: Alignment.center,
+        child: ElevatedButton(
             onPressed: () {
               Navigator.pushNamed(
                   context,
@@ -23,12 +24,18 @@ class ExploreMore extends StatelessWidget {
                   }
               );
             },
-            child: Text('Explore More',
+            child: Text('Start Exam',
               style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
-                  color: context.primaryColor),
-            )
+                  color: MyTheme.white),
+            ),
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
+            primary: context.primaryColor,
+            elevation: 0,
+            shape: const StadiumBorder(),
+          ),
         )
     );
   }

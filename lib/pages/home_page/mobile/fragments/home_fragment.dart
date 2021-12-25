@@ -1,3 +1,4 @@
+import 'package:course_app_ui/services/google_sign_in_api.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/home/category/category_widget.dart';
 import 'package:course_app_ui/widgets/home/search_bar.dart';
@@ -32,6 +33,7 @@ class _HomeFragmentState extends State<HomeFragment> {
             child: IconButton(onPressed: ()  async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs.remove('token');
+              await GoogleSignInAPI.logout();
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 MyRoutes.loginRoute,

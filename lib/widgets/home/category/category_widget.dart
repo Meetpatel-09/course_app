@@ -13,25 +13,32 @@ class CategoryWidget extends StatefulWidget {
 }
 
 class _CategoryWidgetState extends State<CategoryWidget> {
-
   late List<Result> _coursesList;
   late List<Subject> _subjectList;
   bool _isLoading = true;
   List<bool> isSelected = [];
   List<Widget> toggleButton = [];
-  List<Color> colorList = const [Color(0xffFFC46C), Color(0xff39D1CB), Color(0xff4FAAFF), Color(0xffB38977), Color(0xff8274F2), Color(0xffFF6464), Color(0xff75483E)];
+  List<Color> colorList = const [
+    Color(0xffFFC46C),
+    Color(0xff39D1CB),
+    Color(0xff4FAAFF),
+    Color(0xffB38977),
+    Color(0xff8274F2),
+    Color(0xffFF6464),
+    Color(0xff75483E)
+  ];
   late int catIndex;
 
   @override
   void initState() {
     super.initState();
     APIServices.getCourses().then((courses) {
-      if(courses.toString().isNotEmpty) {
+      if (courses.toString().isNotEmpty) {
         _coursesList = courses.result!;
         // print(_coursesList);
         _subjectList = _coursesList[0].subject!;
         catIndex = 0;
-        for(int i = 0; i < _coursesList.length; i++) {
+        for (int i = 0; i < _coursesList.length; i++) {
           if (i == 0) {
             isSelected.add(true);
           } else {
@@ -51,58 +58,58 @@ class _CategoryWidgetState extends State<CategoryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading ? const Center(heightFactor: 10,child: CircularProgressIndicator()) :
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const CategoryText(),
-          slidingButtons(),
-          const SizedBox(height: 10,),
-          detailsCard()
-        ],
-      );
+    return _isLoading
+        ? const Center(heightFactor: 10, child: CircularProgressIndicator())
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CategoryText(),
+              slidingButtons(),
+              const SizedBox(
+                height: 10,
+              ),
+              detailsCard()
+            ],
+          );
   }
 
   Widget slidingButtons() => SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: ToggleButtons(
-      isSelected: isSelected,
-      renderBorder: false,
-      fillColor: context.canvasColor,
-      splashColor: context.canvasColor,
-      children:
-        toggleChild(),
-      onPressed: (int newIndex) {
-        setState(() {
-          for (int index = 0; index < _coursesList.length; index++) {
-            if (index == newIndex) {
-              isSelected[index] = true;
-              catIndex = newIndex;
-              _subjectList = _coursesList[newIndex].subject!;
-            } else {
-              isSelected[index] = false;
-            }
-          }
-        });
-      },
-    ),
-  );
+        scrollDirection: Axis.horizontal,
+        child: ToggleButtons(
+          isSelected: isSelected,
+          renderBorder: false,
+          fillColor: context.canvasColor,
+          splashColor: context.canvasColor,
+          children: toggleChild(),
+          onPressed: (int newIndex) {
+            setState(() {
+              for (int index = 0; index < _coursesList.length; index++) {
+                if (index == newIndex) {
+                  isSelected[index] = true;
+                  catIndex = newIndex;
+                  _subjectList = _coursesList[newIndex].subject!;
+                } else {
+                  isSelected[index] = false;
+                }
+              }
+            });
+          },
+        ),
+      );
 
   Widget detailsCard() => SizedBox(
-      height: 280,
+      height: 200,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: _subjectList.length,
           itemBuilder: (context, index) {
             return SubjectList(subjectList: _subjectList, index: index);
-          }
-      )
-  );
+          }));
 
   List<Widget> toggleChild() {
     toggleButton = [];
-    for(int i = 0; i < _coursesList.length; i++) {
-       toggleButton.add(tButton(i));
+    for (int i = 0; i < _coursesList.length; i++) {
+      toggleButton.add(tButton(i));
     }
     return toggleButton;
   }
@@ -115,6 +122,11 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         color: isSelected[i] ? context.primaryColor : context.canvasColor,
       ),
-      child: Text(_coursesList[i].category.toString(), style: TextStyle(fontWeight: FontWeight.bold, color: isSelected[i] ? context.backgroundColor : colorList[i],),)
-  );
+      child: Text(
+        _coursesList[i].category.toString(),
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: isSelected[i] ? context.backgroundColor : colorList[i],
+        ),
+      ));
 }
