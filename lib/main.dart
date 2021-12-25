@@ -1,10 +1,4 @@
-import 'package:course_app_ui/pages/authentication_pages/login_page.dart';
-import 'package:course_app_ui/pages/authentication_pages/otp_verification_page.dart';
-import 'package:course_app_ui/pages/authentication_pages/register_page.dart';
-import 'package:course_app_ui/pages/authentication_pages/register_user_details_page.dart';
-import 'package:course_app_ui/pages/home_page/mobile/home_page.dart';
-import 'package:course_app_ui/pages/splash_page.dart';
-import 'package:course_app_ui/pages/subject_page/subject_details_page.dart';
+import 'package:course_app_ui/pages/export_pages.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +27,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.registerDetailsRoute: (context) => const RegisterUserDetails(),
         MyRoutes.otpVerificationRoute: (context) => const OTPVerificationPage(),
         MyRoutes.subjectDetailsRoute: (context) => const SubjectDetailsPage(),
+        MyRoutes.examRoute: (context) => const ExamPage(),
       },
     );
   }

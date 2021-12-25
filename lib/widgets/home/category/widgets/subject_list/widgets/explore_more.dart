@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/pages/home_page/mobile/fragments/exam_fragment.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class ExploreMore extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(
                   context,
-                  MyRoutes.subjectDetailsRoute,
+                  MyRoutes.examRoute,
                   arguments: {
                     'subjectList': subjectList,
                     'index': index
