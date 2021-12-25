@@ -12,7 +12,7 @@ class SubjectList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(15.0),
-        margin: const EdgeInsets.only(right: 15),
+        margin: const EdgeInsets.only(right: 10),
         width: MediaQuery.of(context).size.width / 1.9,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
@@ -23,16 +23,16 @@ class SubjectList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 100,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Text(subjectList[index].subject.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              ),
+          SizedBox(
+            height: 100,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Text(subjectList[index].subject.toString(),
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             ),
-            const SizedBox(height: 15,),
-            Align(child: ExploreMore(subjectList: subjectList, index: index,)),
+          ),
+          const SizedBox(height: 15,),
+          Align(child: ExploreMore(subjectList: subjectList, index: index,)),
           ],
         ),
       );
