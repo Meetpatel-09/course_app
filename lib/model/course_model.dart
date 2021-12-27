@@ -72,6 +72,7 @@ class Subject {
     this.categoryStatus,
     this.categoryCreatedat,
     this.topic,
+    this.totalMcqInSubject,
   });
 
   int? subjectid;
@@ -83,6 +84,7 @@ class Subject {
   int? categoryStatus;
   DateTime? categoryCreatedat;
   List<Topic>? topic;
+  int? totalMcqInSubject;
 
   factory Subject.fromJson(Map<String, dynamic> json) => Subject(
     subjectid: json["subjectid"],
@@ -94,6 +96,7 @@ class Subject {
     categoryStatus: json["category_status"],
     categoryCreatedat: DateTime.parse(json["category_createdat"]),
     topic: List<Topic>.from(json["topic"].map((x) => Topic.fromJson(x))),
+    totalMcqInSubject: json["totalMcqInSubject"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -106,6 +109,7 @@ class Subject {
     "category_status": categoryStatus,
     "category_createdat": categoryCreatedat!.toIso8601String(),
     "topic": List<dynamic>.from(topic!.map((x) => x.toJson())),
+    "totalMcqInSubject": totalMcqInSubject,
   };
 }
 

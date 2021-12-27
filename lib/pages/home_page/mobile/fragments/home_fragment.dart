@@ -1,3 +1,5 @@
+import 'package:course_app_ui/services/shared_service.dart';
+import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/home/category/category_widget.dart';
 import 'package:course_app_ui/widgets/home/logout_button.dart';
 import 'package:course_app_ui/widgets/home/search_bar.dart';
@@ -13,6 +15,7 @@ class HomeFragment extends StatefulWidget {
 }
 
 class _HomeFragmentState extends State<HomeFragment> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

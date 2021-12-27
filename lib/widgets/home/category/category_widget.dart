@@ -1,5 +1,6 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
+import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/widgets/home/category/widgets/category_text.dart';
 import 'package:course_app_ui/widgets/home/category/widgets/subject_list/subject_list.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         _coursesList[i].category.toString(),
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: isSelected[i] ? context.backgroundColor : context.cardColor,
+          color: isSelected[i] ? MyTheme.white : context.cardColor,
         ),
       ));
 }

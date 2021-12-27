@@ -20,10 +20,10 @@ class _SplashPageState extends State<SplashPage> {
     _sharedServices.checkLogIn("token").then((value) {
       if (value != null) {
         return Timer(const Duration(seconds: 2),
-                () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.homeRoute, (route) => false));
+                () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.homeRoute, (route) => false, arguments: {'isGoogle': "no"}));
       } else {
         return Timer(const Duration(seconds: 2),
-                () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.loginRoute, (route) => false));
+                () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.homeRoute, (route) => false, arguments: {'isGoogle': "no"}));
       }
     }
     );

@@ -137,7 +137,10 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           MyRoutes.homeRoute,
-                              (route) => false,
+                          (route) => false,
+                          arguments: {
+                            'isGoogle': "no"
+                          }
                         );
                       } else {
                         if (response.redirect == 1) {

@@ -42,7 +42,6 @@ class GoogleButton extends StatelessWidget {
                   }
               );
             } else {
-              print(isRegisterPage);
               LoginRequestModel model = LoginRequestModel(
                 email: user.email,
                 password: 'Google',
@@ -51,13 +50,15 @@ class GoogleButton extends StatelessWidget {
 
               AuthService.login(model).then((response) async {
                 if (response.status == 200) {
-                  print(response.status);
                   String token = response.token.toString();
                   setToken(token);
                   Navigator.pushNamedAndRemoveUntil(
                     context,
                     MyRoutes.homeRoute,
                         (route) => false,
+                      arguments: {
+                        'isGoogle': "yes"
+                      }
                   );
                 } else {
                   if (response.redirect == 1) {

@@ -1,24 +1,67 @@
 import 'package:course_app_ui/services/google_sign_in_api.dart';
+import 'package:course_app_ui/services/shared_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:velocity_x/velocity_x.dart';
 
-class LogoutIconButton extends StatelessWidget {
+class LogoutIconButton extends StatefulWidget {
   const LogoutIconButton({Key? key}) : super(key: key);
 
   @override
+  State<LogoutIconButton> createState() => _LogoutIconButtonState();
+}
+
+class _LogoutIconButtonState extends State<LogoutIconButton> {
+  final SharedServices _sharedServices = SharedServices();
+
+  bool isLoggedIn = false;
+  String isGoogle = "no";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _sharedServices.checkLogIn("token").then((value) {
+      if (value != null) {
+        setState(() {
+          isLoggedIn = true;
+        });
+      }
+      final arg = ModalRoute.of(context)!.settings.arguments as Map;
+      if (arg['isGoogle'] != null) {
+        isGoogle = arg['isGoogle'];
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: ()  async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.remove('token');
-      await GoogleSignInAPI.logout();
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        MyRoutes.loginRoute,
-            (route) => false,
-      );
-    },
+
+    return isLoggedIn ? IconButton(
+        onPressed: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.remove('token');
+          if (isGoogle == "yes") {
+            await GoogleSignInAPI.logout();
+          }
+          Navigator.pushNamed(
+            context,
+            MyRoutes.loginRoute,
+          );
+        },
         icon: const Icon(Icons.logout)
+    ) :  TextButton(
+      onPressed: () {
+        Navigator.pushNamed(
+          context,
+          MyRoutes.loginRoute,
+        );
+      },
+      child: "Sign In".text.white.xl.bold.letterSpacing(1).make().px(16),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.all(0),
+      ),
     );
   }
 }

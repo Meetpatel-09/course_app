@@ -216,8 +216,6 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                   });
                   dio.FormData formData;
                   if (isGoogle == "yes") {
-                    print(email);
-                    print(isGoogle);
                     formData = dio.FormData.fromMap({
                       "full_name": firstName + " " + lastName,
                       "email": email,
@@ -230,13 +228,11 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                     });
 
                     AuthService.googleRegister(formData).then((response) async {
-                      print(response.status);
                       setState(() {
                         isAPICallProcess = false;
                       });
                       if(response.status == 200) {
                         String token = response.token.toString();
-                        print(response.status);
                         setToken(token);
                         Navigator.pushNamedAndRemoveUntil(
                           context,
@@ -244,7 +240,6 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                               (route) => false,
                         );
                       } else {
-                        print(response.status);
                         FormHelper.showSimpleAlertDialog(
                           context,
                           Config().appName,
@@ -271,7 +266,6 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                     });
 
                     AuthService.register(formData).then((response) async {
-                      print(response.status);
                       setState(() {
                         isAPICallProcess = false;
                       });
@@ -285,7 +279,6 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                             }
                         );
                       } else {
-                        print(response.status);
                         FormHelper.showSimpleAlertDialog(
                           context,
                           Config().appName,

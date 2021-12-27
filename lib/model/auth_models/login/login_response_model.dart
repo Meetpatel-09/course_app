@@ -17,7 +17,7 @@ class LoginResponseModel {
   late final int? redirect;
   late final String? role;
   late final String? token;
-  late final String? u;
+  late final dynamic u;
 
   LoginResponseModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
