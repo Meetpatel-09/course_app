@@ -86,7 +86,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       );
 
   Widget detailsCard() => SizedBox(
-      height: 200,
+      height: 230,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: _subjectList.length,

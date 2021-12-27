@@ -33,7 +33,6 @@ class GoogleButton extends StatelessWidget {
             ));
           } else {
             if(isRegisterPage! == true) {
-              print(isRegisterPage);
               Navigator.pushNamed(
                   context,
                   MyRoutes.registerDetailsRoute,

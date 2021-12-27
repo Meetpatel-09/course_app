@@ -12,7 +12,7 @@ class SubjectList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(15.0),
-        width: MediaQuery.of(context).size.width / 2.3,
+        width: MediaQuery.of(context).size.width / 2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: context.primaryColor),
@@ -22,16 +22,17 @@ class SubjectList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-          SizedBox(
-            height: 110,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Text(subjectList[index].subject.toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+            SizedBox(
+              height: 110,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Text(subjectList[index].subject.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              ),
             ),
-          ),
-          const SizedBox(height: 5,),
-          Align(child: StartExam(subjectList: subjectList, index: index,)),
+            "Total ${subjectList[index].totalMcqInSubject} MCQs".text.color(context.cardColor.withOpacity(0.5)).make(),
+            const SizedBox(height: 15,),
+            Align(alignment: Alignment.bottomCenter, child: StartExam(subjectList: subjectList, index: index,)),
           ],
         ),
       );

@@ -20,7 +20,6 @@ class _LogoutIconButtonState extends State<LogoutIconButton> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _sharedServices.checkLogIn("token").then((value) {
       if (value != null) {
@@ -37,7 +36,6 @@ class _LogoutIconButtonState extends State<LogoutIconButton> {
 
   @override
   Widget build(BuildContext context) {
-
     return isLoggedIn ? IconButton(
         onPressed: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -45,17 +43,19 @@ class _LogoutIconButtonState extends State<LogoutIconButton> {
           if (isGoogle == "yes") {
             await GoogleSignInAPI.logout();
           }
-          Navigator.pushNamed(
+          Navigator.pushNamedAndRemoveUntil(
             context,
             MyRoutes.loginRoute,
+            (route) => false,
           );
         },
         icon: const Icon(Icons.logout)
     ) :  TextButton(
       onPressed: () {
-        Navigator.pushNamed(
+        Navigator.pushNamedAndRemoveUntil(
           context,
           MyRoutes.loginRoute,
+          (route) => false,
         );
       },
       child: "Sign In".text.white.xl.bold.letterSpacing(1).make().px(16),
