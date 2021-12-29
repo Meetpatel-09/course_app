@@ -1,7 +1,7 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
+import 'package:course_app_ui/widgets/exam/subject_list.dart';
 import 'package:course_app_ui/widgets/home/category/widgets/category_text.dart';
-import 'package:course_app_ui/widgets/home/category/widgets/subject_list/subject_list.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -84,18 +84,17 @@ class _CategoryWidgetExamState extends State<CategoryWidgetExam> {
   Widget detailsCard() => Container(
     padding: const EdgeInsets.symmetric(vertical: 10),
     height: MediaQuery.of(context).size.height - 240,
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 5,
-          crossAxisCount: 1,
-          mainAxisExtent: 165,
-        ),
+      child: ListView.builder(
         itemCount: _subjectList.length,
         itemBuilder: (context, index) {
-          return SubjectList(
-            subjectList: _subjectList,
-            index: index);
+          return Padding(
+            padding: index == _subjectList.length - 1
+                ? const EdgeInsets.all(0)
+                : const EdgeInsets.only(bottom: 8),
+            child: SubjectList(
+              subjectList: _subjectList,
+              index: index),
+          );
         }
       )
   );
