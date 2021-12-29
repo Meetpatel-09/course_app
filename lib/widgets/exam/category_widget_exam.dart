@@ -52,9 +52,6 @@ class _CategoryWidgetExamState extends State<CategoryWidgetExam> {
             children: [
               const CategoryText(),
               slidingButtons(),
-              const SizedBox(
-                height: 5,
-              ),
               detailsCard()
             ],
           );
@@ -86,13 +83,13 @@ class _CategoryWidgetExamState extends State<CategoryWidgetExam> {
 
   Widget detailsCard() => Container(
     padding: const EdgeInsets.symmetric(vertical: 10),
-    height: MediaQuery.of(context).size.height,
+    height: MediaQuery.of(context).size.height - 240,
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisSpacing: 10,
           crossAxisSpacing: 5,
-          crossAxisCount: 2,
-          mainAxisExtent: 230,
+          crossAxisCount: 1,
+          mainAxisExtent: 165,
         ),
         itemCount: _subjectList.length,
         itemBuilder: (context, index) {
