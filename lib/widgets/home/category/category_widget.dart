@@ -46,19 +46,32 @@ class _CategoryWidgetState extends State<CategoryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(heightFactor: 10, child: CircularProgressIndicator())
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CategoryText(),
-              slidingButtons(),
-              const SizedBox(
-                height: 10,
-              ),
-              detailsCard()
-            ],
-          );
+    if (_isLoading) {
+      return const Center(heightFactor: 10, child: CircularProgressIndicator());
+    } else {
+      return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CategoryText(),
+                    slidingButtons(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+
+                  ],
+                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 18.0),
+              child: detailsCard(),
+            )
+          ],
+        );
+    }
   }
 
   Widget slidingButtons() => SingleChildScrollView(

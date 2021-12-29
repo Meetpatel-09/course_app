@@ -5,7 +5,8 @@ import 'package:velocity_x/velocity_x.dart';
 class MyTheme {
   static ThemeData lightTheme(BuildContext context) => ThemeData(
       primarySwatch: Colors.lightBlue,
-      canvasColor: creamColor,
+      canvasColor: const Color(0xffe8f4f8),
+      // canvasColor: creamColor,
       cardColor: black,
       primaryColor: lightBlue,
       backgroundColor: white,
