@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
           )
         ),
         child: NavigationBar(
-          // height: 60,
+          height: 70,
           selectedIndex: currentIndex,
           onDestinationSelected: (currentIndex) =>
               setState(() => this.currentIndex = currentIndex),

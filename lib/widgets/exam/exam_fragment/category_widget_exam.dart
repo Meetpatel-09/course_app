@@ -1,6 +1,6 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
-import 'package:course_app_ui/widgets/exam/subject_list.dart';
+import 'package:course_app_ui/widgets/exam/exam_fragment/subject_list.dart';
 import 'package:course_app_ui/widgets/home/category/widgets/category_text.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -89,7 +89,7 @@ class _CategoryWidgetExamState extends State<CategoryWidgetExam> {
         itemBuilder: (context, index) {
           return Padding(
             padding: index == _subjectList.length - 1
-                ? const EdgeInsets.all(0)
+                ? const EdgeInsets.only(bottom: 12)
                 : const EdgeInsets.only(bottom: 8),
             child: SubjectList(
               subjectList: _subjectList,

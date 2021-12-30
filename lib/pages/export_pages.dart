@@ -12,6 +12,7 @@ export 'package:course_app_ui/pages/subject_page/subject_details_page.dart';
 
 // Exam Page
 export 'package:course_app_ui/pages/exam_page/exam_page.dart';
+export 'package:course_app_ui/pages/exam_page/mcq_page.dart';
 
 // Splash page
 export 'package:course_app_ui/pages/splash_page.dart';

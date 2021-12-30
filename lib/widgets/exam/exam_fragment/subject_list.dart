@@ -1,5 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/widgets/exam/start_exam.dart';
+import 'package:course_app_ui/widgets/exam/exam_fragment/start_exam.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -12,6 +12,7 @@ class SubjectList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 15, top: 10, bottom: 10),
+      // margin: const EdgeInsets.only(bottom: 10),
       height: 100,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),

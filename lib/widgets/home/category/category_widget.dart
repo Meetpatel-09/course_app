@@ -64,28 +64,28 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   }
 
   Widget slidingButtons() => SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: ToggleButtons(
-          isSelected: isSelected,
-          renderBorder: false,
-          fillColor: context.canvasColor,
-          splashColor: context.canvasColor,
-          children: toggleChild(),
-          onPressed: (int newIndex) {
-            setState(() {
-              for (int index = 0; index < _coursesList.length; index++) {
-                if (index == newIndex) {
-                  isSelected[index] = true;
-                  catIndex = newIndex;
-                  _subjectList = _coursesList[newIndex].subject!;
-                } else {
-                  isSelected[index] = false;
-                }
+      scrollDirection: Axis.horizontal,
+      child: ToggleButtons(
+        isSelected: isSelected,
+        renderBorder: false,
+        fillColor: context.canvasColor,
+        splashColor: context.canvasColor,
+        children: toggleChild(),
+        onPressed: (int newIndex) {
+          setState(() {
+            for (int index = 0; index < _coursesList.length; index++) {
+              if (index == newIndex) {
+                isSelected[index] = true;
+                catIndex = newIndex;
+                _subjectList = _coursesList[newIndex].subject!;
+              } else {
+                isSelected[index] = false;
               }
-            });
-          },
-        ),
-      );
+            }
+          });
+        },
+      ),
+    );
 
   Widget detailsCard() => SizedBox(
       height: 165,

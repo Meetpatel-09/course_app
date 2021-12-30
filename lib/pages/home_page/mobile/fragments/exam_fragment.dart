@@ -1,4 +1,4 @@
-import 'package:course_app_ui/widgets/exam/category_widget_exam.dart';
+import 'package:course_app_ui/widgets/exam/exam_fragment/category_widget_exam.dart';
 import 'package:course_app_ui/widgets/home/logout_button.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';

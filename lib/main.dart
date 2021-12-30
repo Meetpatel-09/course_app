@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.otpVerificationRoute: (context) => const OTPVerificationPage(),
         MyRoutes.subjectDetailsRoute: (context) => const SubjectDetailsPage(),
         MyRoutes.examRoute: (context) => const ExamPage(),
+        MyRoutes.mcqRoute: (context) => const MCQPage(),
       },
     );
   }
