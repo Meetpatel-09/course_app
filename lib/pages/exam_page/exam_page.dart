@@ -37,10 +37,7 @@ class _ExamPageState extends State<ExamPage> {
         ),
       ),
       backgroundColor: context.canvasColor,
-      body: _isEmpty ? const Center(child: CircularProgressIndicator(),) : Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: SingleChildScrollView(child: ExamChooses(index: index, subjectList: subjectList,)),
-      ),
+      body: _isEmpty ? const Center(child: CircularProgressIndicator(),) : SingleChildScrollView(child: ExamChooses(index: index, subjectList: subjectList,)),
     );
   }
 

@@ -20,23 +20,33 @@ class _ExamChoosesState extends State<ExamChooses> {
   int qIndex = 1;
   final _examETC = TextEditingController(text: "60");
   final _questionETC = TextEditingController(text: "2");
+  final _numQuestionETC = TextEditingController(text: "20");
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          "Welcome to MCQ Page. By appearing for the exam, students will be able to understand various question patterns. We also provide you with the statistics based on your MCQ results. You may choose timer for every MCQ.".richText.justify.make(),
-          const SizedBox(height: 18.0,),
-          Container(color: context.cardColor.withOpacity(0.3), height: 2,),
-          const SizedBox(height: 18.0,),
-          "Want to set timer?".text.xl.bold.letterSpacing(1).make(),
-          const SizedBox(height: 8.0,),
-          wantExamTimerButtons(),
-          const SizedBox(height: 20.0,),
-          examTimerMinutes(),
-          startExam()
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            "Welcome to MCQ Page. By appearing for the exam, students will be able to understand various question patterns. We also provide you with the statistics based on your MCQ results. You may choose timer for every MCQ.".richText.justify.make(),
+            const SizedBox(height: 18.0,),
+            Container(color: context.cardColor.withOpacity(0.3), height: 2,),
+            const SizedBox(height: 18.0,),
+            "Want to set timer?".text.lg.bold.letterSpacing(1).make(),
+            const SizedBox(height: 8.0,),
+            wantExamTimerButtons(),
+            const SizedBox(height: 20.0,),
+            examTimerMinutes(),
+            wantQuesTimerTextField(),
+            "Choose number of Questions of for ${widget.subjectList![widget.index!].totalMcqInSubject}".text.lg.justify.bold.letterSpacing(1).make(),
+            const SizedBox(height: 18,),
+            numQuesTextField(),
+            const SizedBox(height: 18.0,),
+            startExam(),
+            const SizedBox(height: 18.0,),
+          ],
+      ),
     );
   }
 
@@ -75,9 +85,9 @@ class _ExamChoosesState extends State<ExamChooses> {
   Widget examTimerMinutes() {
     if(eIndex == 0) {
         return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            "Set timer for exam(in minutes)".text.xl.bold.letterSpacing(1).make(),
+            "Set timer for exam(in minutes)".text.lg.bold.letterSpacing(1).make(),
             const SizedBox(height: 18,),
             SizedBox(
               width: 160,
@@ -104,16 +114,15 @@ class _ExamChoosesState extends State<ExamChooses> {
               ),
             ),
             const SizedBox(height: 18,),
-            "Set per question timer(in minutes)".text.xl.bold.letterSpacing(1).make(),
+            "Set per question timer(in minutes)".text.lg.bold.letterSpacing(1).make(),
             const SizedBox(height: 8,),
             wantQuesTimerButtons(),
             const SizedBox(height: 22,),
-            wantQuesTimerTextField(),
-            const SizedBox(height: 18,),
+
           ],
         );
     } else {
-        return const SizedBox(height: 150,);
+        return const SizedBox();
     }
   }
 
@@ -155,6 +164,7 @@ class _ExamChoosesState extends State<ExamChooses> {
     if(qIndex == 0) {
       return SizedBox(
         width: 160,
+        height: 80,
         child: TextField(
           onChanged: (_) => setState(() {}),
           controller: _questionETC,
@@ -178,8 +188,35 @@ class _ExamChoosesState extends State<ExamChooses> {
         ),
       );
     } else {
-      return const SizedBox(height: 64,);
+      return const SizedBox();
     }
+  }
+
+  Widget numQuesTextField() {
+    return SizedBox(
+      width: 160,
+      child: TextField(
+        onChanged: (_) => setState(() {}),
+        controller: _numQuestionETC,
+        decoration: InputDecoration(
+            labelStyle: TextStyle(
+                color: context.cardColor
+            ),
+            labelText: "Enter Questions",
+            border: const OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: context.cardColor, width: 1)
+            ),
+            errorText: _numQuestionErrorText
+        ),
+        style: TextStyle(
+          color: context.cardColor,
+        ),
+        cursorColor: context.cardColor,
+        keyboardType: TextInputType.datetime,
+        textInputAction: TextInputAction.next,
+      ),
+    );
   }
 
   Widget startExam() => Container(
@@ -241,10 +278,10 @@ class _ExamChoosesState extends State<ExamChooses> {
   );
 
   bool validate() {
-    if(_examETC.text.isEmpty || _questionETC.text.isEmpty) {
+    if(_examETC.text.isEmpty || _questionETC.text.isEmpty || _numQuestionETC.text.isEmpty) {
       return false;
     } else {
-      if (int.parse(_questionETC.value.text) > 10 || int.parse(_questionETC.value.text) < 1) {
+      if (int.parse(_questionETC.value.text) > 10 || int.parse(_questionETC.value.text) < 1 || int.parse(_numQuestionETC.value.text) > widget.subjectList![widget.index!].totalMcqInSubject!) {
         return false;
       }
       return true;
@@ -267,6 +304,18 @@ class _ExamChoosesState extends State<ExamChooses> {
       return 'Can\'t be more than 10';
     } else if (int.parse(text) < 1) {
       return 'Can\'t be less than 1';
+    }
+    return null;
+  }
+
+  String? get _numQuestionErrorText {
+    final text = _numQuestionETC.value.text;
+    if (text.isEmpty) {
+      return 'Field can\'t be empty';
+    } else if (int.parse(text) > widget.subjectList![widget.index!].totalMcqInSubject!) {
+      return 'Can\'t be more than total';
+    } else if (int.parse(text) < 10) {
+      return 'Can\'t be less than 10';
     }
     return null;
   }
