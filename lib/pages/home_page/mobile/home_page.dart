@@ -2,7 +2,6 @@ import 'package:course_app_ui/pages/home_page/mobile/fragments/exam_fragment.dar
 import 'package:course_app_ui/pages/home_page/mobile/fragments/home_fragment.dart';
 import 'package:course_app_ui/pages/home_page/mobile/fragments/my_exam_fragment.dart';
 import 'package:course_app_ui/pages/home_page/mobile/fragments/profile_fragment.dart';
-import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -26,34 +25,45 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     return  Scaffold(
-        body: SafeArea(
-          child: IndexedStack(
-            index: currentIndex,
-            children: screens,
-          ),
+      body: SafeArea(
+        child: IndexedStack(
+          index: currentIndex,
+          children: screens,
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: (index) => setState(() => currentIndex = index),
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: currentIndex == 0 ? context.primaryColor : MyTheme.blueGrey,),
+      ),
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+          indicatorColor: context.primaryColor.withOpacity(0.7),
+          backgroundColor: context.backgroundColor,
+          labelTextStyle: MaterialStateProperty.all(
+            const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)
+          )
+        ),
+        child: NavigationBar(
+          // height: 60,
+          selectedIndex: currentIndex,
+          onDestinationSelected: (currentIndex) =>
+              setState(() => this.currentIndex = currentIndex),
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home),
               label: 'Home',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.paste, color: currentIndex == 1 ? context.primaryColor : MyTheme.blueGrey,),
+            NavigationDestination(
+              icon: Icon(Icons.paste),
               label: 'Exam',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.receipt_sharp, color: currentIndex == 2 ? context.primaryColor : MyTheme.blueGrey,),
+            NavigationDestination(
+              icon: Icon(Icons.receipt_sharp),
               label: 'My Exam',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person, color: currentIndex == 3 ?context.primaryColor : MyTheme.blueGrey,),
+            NavigationDestination(
+              icon: Icon(Icons.person),
               label: 'Profile',
             ),
           ],
-        )
+        ),
+      ),
     );
   }
 }

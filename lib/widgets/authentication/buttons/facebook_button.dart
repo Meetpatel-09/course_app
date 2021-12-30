@@ -21,7 +21,7 @@ class FacebookButton extends StatelessWidget {
           await GoogleSignInAPI.logout();
         },
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(55, 0, 55, 0),
+          padding: const EdgeInsets.symmetric(horizontal: 55),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
