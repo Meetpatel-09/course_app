@@ -35,9 +35,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       ),
       backgroundColor: context.canvasColor,
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
+          child: Padding(
               padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
               child: Column(
                 children: const [
@@ -45,13 +43,11 @@ class _HomeFragmentState extends State<HomeFragment> {
                   SizedBox(height: 15.0,),
                   ShareBox(),
                   SizedBox(height: 10.0,),
+                  CategoryWidget(),
                 ],
               ),
             ),
-            const CategoryWidget(),
-          ],
         ),
-      ),
     );
   }
 }
