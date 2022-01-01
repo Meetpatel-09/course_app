@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -14,6 +15,9 @@ class TempPage extends StatefulWidget {
 class _TempPageState extends State<TempPage> {
   bool isSelectedE = true;
   bool isSelectedQ = false;
+  final _examETC = TextEditingController(text: "40");
+  final _questionETC = TextEditingController(text: "2");
+  final _numQuestionETC = TextEditingController(text: "20");
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +76,17 @@ class _TempPageState extends State<TempPage> {
       return Row(
         children: [
           "Set  ".text.lg.make(),
-          const SizedBox(
+          SizedBox(
             width: 50,
             child: TextField(
+              onChanged: (_) => setState(() {}),
               keyboardType: TextInputType.number,
+              controller: _examETC,
               textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(0), isDense: true,
+                  contentPadding: const EdgeInsets.all(0),
+                  isDense: true,
+                  errorText: _examErrorText
                 )
             ),
           ),
@@ -118,14 +126,18 @@ class _TempPageState extends State<TempPage> {
       return Row(
         children: [
           "Set ".text.lg.make(),
-          const SizedBox(
+          SizedBox(
             width: 50,
             child: TextField(
+              onChanged: (_) => setState(() {}),
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(0), isDense: true,
-                )
+              controller: _questionETC,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(0),
+                isDense: true,
+                errorText: _questionErrorText
+              )
             ),
           ),
           " minutes timer per Question".text.lg.make()
@@ -143,13 +155,17 @@ class _TempPageState extends State<TempPage> {
         Row(
           children: [
             "Give exam of ".richText.lg.bold.letterSpacing(1.0).make(),
-            const SizedBox(
+            SizedBox(
               width: 50,
               child: TextField(
+                onChanged: (_) => setState(() {}),
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
+                controller: _numQuestionETC,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(0), isDense: true,
+                  contentPadding: const EdgeInsets.all(0),
+                  isDense: true,
+                  errorText: _numQuestionErrorText,
                 )
               ),
             ),
@@ -175,7 +191,47 @@ class _TempPageState extends State<TempPage> {
           ),
         ),
         onPressed: () async {
-          // await GoogleSignInAPI.logout();
+          if (validate()) {
+            if (isSelectedE) {
+              if (isSelectedQ) {
+                Navigator.pushNamed(
+                    context,
+                    MyRoutes.mcqRoute,
+                    arguments: {
+                      'subjectList': widget.subjectList,
+                      'index': widget.index,
+                      'examTime': _examETC.value.text,
+                      'questionTime': _questionETC.value.text,
+                      'numQuestions': _numQuestionETC.value.text
+                    }
+                );
+              } else {
+                Navigator.pushNamed(
+                    context,
+                    MyRoutes.mcqRoute,
+                    arguments: {
+                      'subjectList': widget.subjectList,
+                      'index': widget.index,
+                      'examTime': _examETC.value.text,
+                      'questionTime': 'notSet',
+                      'numQuestions': _numQuestionETC.value.text
+                    }
+                );
+              }
+            } else {
+              Navigator.pushNamed(
+                  context,
+                  MyRoutes.mcqRoute,
+                  arguments: {
+                    'subjectList': widget.subjectList,
+                    'index': widget.index,
+                    'examTime': 'notSet',
+                    'questionTime': 'notSet',
+                    'numQuestions': _numQuestionETC.value.text
+                  }
+              );
+            }
+          }
         },
         child: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 55),
@@ -193,5 +249,48 @@ class _TempPageState extends State<TempPage> {
         )
       ),
     );
+  }
+
+  bool validate() {
+    if(_examETC.text.isEmpty || _questionETC.text.isEmpty || _numQuestionETC.text.isEmpty) {
+      return false;
+    } else {
+      if (int.parse(_questionETC.value.text) > 10 || int.parse(_questionETC.value.text) < 1 || int.parse(_numQuestionETC.value.text) > widget.subjectList![widget.index!].totalMcqInSubject!) {
+        return false;
+      }
+      return true;
+    }
+  }
+
+  String? get _examErrorText {
+    final text = _examETC.value.text;
+    if (text.isEmpty) {
+      return 'Field can\'t be empty';
+    }
+    return null;
+  }
+
+  String? get _questionErrorText {
+    final text = _questionETC.value.text;
+    if (text.isEmpty) {
+      return 'Field can\'t be empty';
+    } else if (int.parse(text) > 10) {
+      return 'Can\'t be more than 10';
+    } else if (int.parse(text) < 1) {
+      return 'Can\'t be less than 1';
+    }
+    return null;
+  }
+
+  String? get _numQuestionErrorText {
+    final text = _numQuestionETC.value.text;
+    if (text.isEmpty) {
+      return 'Field can\'t be empty';
+    } else if (int.parse(text) > widget.subjectList![widget.index!].totalMcqInSubject!) {
+      return 'Can\'t be more than total';
+    } else if (int.parse(text) < 10) {
+      return 'Can\'t be less than 10';
+    }
+    return null;
   }
 }
