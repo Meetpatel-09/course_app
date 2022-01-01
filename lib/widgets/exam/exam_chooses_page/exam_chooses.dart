@@ -161,7 +161,7 @@ class _ExamChoosesState extends State<ExamChooses> {
   }
 
   Widget wantQuesTimerTextField() {
-    if(qIndex == 0) {
+    if(qIndex == 0 && eIndex == 0) {
       return SizedBox(
         width: 160,
         height: 80,
@@ -233,7 +233,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                       'subjectList': widget.subjectList,
                       'index': widget.index,
                       'examTime': _examETC.value.text,
-                      'questionTime': _questionETC.value.text
+                      'questionTime': _questionETC.value.text,
+                      'numQuestions': _numQuestionETC.value.text
                     }
                 );
               } else {
@@ -244,7 +245,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                       'subjectList': widget.subjectList,
                       'index': widget.index,
                       'examTime': _examETC.value.text,
-                      'questionTime': 'notSet'
+                      'questionTime': 'notSet',
+                      'numQuestions': _numQuestionETC.value.text
                     }
                 );
               }
@@ -256,7 +258,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                     'subjectList': widget.subjectList,
                     'index': widget.index,
                     'examTime': 'notSet',
-                    'questionTime': 'notSet'
+                    'questionTime': 'notSet',
+                    'numQuestions': _numQuestionETC.value.text
                   }
               );
             }
