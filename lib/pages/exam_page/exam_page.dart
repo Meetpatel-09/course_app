@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/pages/exam_page/temp_page.dart';
 import 'package:course_app_ui/widgets/exam/exam_chooses_page/exam_chooses.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -37,7 +38,16 @@ class _ExamPageState extends State<ExamPage> {
         ),
       ),
       backgroundColor: context.canvasColor,
-      body: _isEmpty ? const Center(child: CircularProgressIndicator(),) : SingleChildScrollView(child: ExamChooses(index: index, subjectList: subjectList,)),
+      body: _isEmpty ?
+      const Center(child: CircularProgressIndicator(),)
+          :
+      SingleChildScrollView(
+          // child: ExamChooses(
+          //   index: index,
+          //   subjectList: subjectList
+          // )
+        child: TempPage(index: index, subjectList: subjectList),
+      ),
     );
   }
 
