@@ -30,7 +30,7 @@ class SubjectList extends StatelessWidget {
               ),
             ),
             Align(child: "Total ${subjectList[index].totalMcqInSubject} MCQs".text.center.color(context.cardColor.withOpacity(0.5)).make()),
-            Align(alignment: Alignment.bottomCenter, child: StartExam(subjectList: subjectList, index: index,)),
+            Align(alignment: Alignment.bottomCenter, child: StartExam(subjectID: subjectList[index].subjectid.toString(), index: index, subjectList: subjectList,)),
           ],
         ),
       );

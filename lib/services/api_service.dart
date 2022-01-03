@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/model/mcq_banks_model.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,14 +10,11 @@ class APIServices {
 
     var url = Uri.parse(Config().courseAPI);
 
-    // print('_temp');
     try {
       final response = await http.get(url);
       if(200 == response.statusCode) {
 
         final CourseModel courses = courseModelFromJson(response.body);
-
-        // print(courses.result![1].subject![0].subject);
 
         return courses;
       } else {
@@ -24,6 +22,30 @@ class APIServices {
       }
     } catch(e) {
       return CourseModel();
+    }
+  }
+
+  static Future<MCQBanksModel> getMCQBank(String subjectID) async {
+
+    var url = Uri.parse(Config().getMCQBankAPI + subjectID);
+
+    try {
+      final response = await http.get(url);
+
+      print(response.body);
+      print(response.statusCode);
+      print(response.headers);
+
+      if(200 == response.statusCode) {
+
+        final MCQBanksModel courses = mcqBanksModelFromJson(response.body);
+
+        return courses;
+      } else {
+        return MCQBanksModel();
+      }
+    } catch(e) {
+      return MCQBanksModel();
     }
   }
 }
