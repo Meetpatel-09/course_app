@@ -8,5 +8,6 @@ class MyRoutes {
   static String subjectDetailsRoute = "/subject_detail";
   static String examRoute = "/exam_detail";
   static String mcqRoute = "/mcq_exam";
+  static String chooseMCQBankRoute = "/choose_mcq_bank";
   static String tempRoute = "/temp";
 }

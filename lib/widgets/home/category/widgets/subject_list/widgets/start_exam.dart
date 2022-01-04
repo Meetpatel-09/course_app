@@ -32,11 +32,11 @@ class _StartExamState extends State<StartExam> {
                       if (mcqBanks.status == 200) {
                         Navigator.pushNamed(
                             context,
-                            MyRoutes.tempRoute,
+                            MyRoutes.chooseMCQBankRoute,
                             arguments: {
                               'subjectList': widget.subjectList,
                               'index': widget.index,
-                              'mbid': mcqBanks.result![0].mbid,
+                              'mcqBanks': mcqBanks,
                             }
                         );
                       } else {

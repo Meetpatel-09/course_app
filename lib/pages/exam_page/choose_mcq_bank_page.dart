@@ -1,21 +1,21 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/services/shared_service.dart';
-import 'package:course_app_ui/widgets/exam/exam_chooses_page/exam_chooses.dart';
+import 'package:course_app_ui/widgets/exam/ChooseMCQBank/MCQBanks.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class UserMCQSettingsPage extends StatefulWidget {
-  const UserMCQSettingsPage({Key? key}) : super(key: key);
+class ChooseMCQBankPage extends StatefulWidget {
+  const ChooseMCQBankPage({Key? key}) : super(key: key);
 
   @override
-  State<UserMCQSettingsPage> createState() => _UserMCQSettingsPageState();
+  _ChooseMCQBankPageState createState() => _ChooseMCQBankPageState();
 }
 
-class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
+class _ChooseMCQBankPageState extends State<ChooseMCQBankPage> {
   List<Subject>? subjectList = [];
   int index = 0;
-  bool _isEmpty = true;
-  late int mbid;
+  late MCQBanksModel mcqBanks;
   String token = "empty";
   final SharedServices _sharedServices = SharedServices();
 
@@ -33,17 +33,12 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
     subjectList = arg['subjectList'];
     index = arg['index'];
-    mbid = arg['mbid'];
-
-    if (subjectList != null) {
-      _isEmpty = false;
-    }
+    mcqBanks = arg['mcqBanks'];
 
     return Scaffold(
       appBar: AppBar(
@@ -51,22 +46,18 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           'Exam'.text.make()
+            "Exam".text.make()
           ],
         ),
       ),
       backgroundColor: context.canvasColor,
-      body: _isEmpty ?
-      const Center(child: CircularProgressIndicator(),)
-          :
-      SingleChildScrollView(
-          child: ExamChooses(
-            index: index,
-            subjectList: subjectList,
-            mbid: mbid,
-            token: token,
+      body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: MCQBanks(mcqBanks: mcqBanks,),
           )
       ),
     );
   }
+
 }
