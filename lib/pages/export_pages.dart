@@ -11,8 +11,11 @@ export 'package:course_app_ui/pages/authentication_pages/otp_verification_page.d
 export 'package:course_app_ui/pages/subject_page/subject_details_page.dart';
 
 // Exam Page
-export 'package:course_app_ui/pages/exam_page/exam_page.dart';
+export 'package:course_app_ui/pages/exam_page/user_mcq_settings_page.dart';
 export 'package:course_app_ui/pages/exam_page/mcq_page.dart';
 
 // Splash page
 export 'package:course_app_ui/pages/splash_page.dart';
+
+// Temporary pages
+export 'package:course_app_ui/pages/exam_page/temp_page.dart';

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ExamChooses extends StatefulWidget {
-  const ExamChooses({Key? key, this.subjectList, this.index}) : super(key: key);
+  const ExamChooses({Key? key, this.subjectList, this.index, this.token, this.mbid}) : super(key: key);
   final List<Subject>? subjectList;
   final int? index;
+  final String? token;
+  final int? mbid;
 
   @override
   _ExamChoosesState createState() => _ExamChoosesState();

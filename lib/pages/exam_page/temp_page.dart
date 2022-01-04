@@ -14,7 +14,7 @@ class _TempPageState extends State<TempPage> {
   List<Subject>? subjectList = [];
   int index = 0;
   late int mbid;
-  String token = "empty";
+  String token = "emapty";
   final SharedServices _sharedServices = SharedServices();
 
   @override
@@ -23,6 +23,7 @@ class _TempPageState extends State<TempPage> {
       if (value != null) {
         setState(() {
           token = value;
+          print(token);
         });
       } else {
         token = "empty";

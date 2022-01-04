@@ -1,6 +1,4 @@
-import 'package:course_app_ui/pages/exam_page/temp_page.dart';
 import 'package:course_app_ui/pages/export_pages.dart';
-import 'package:course_app_ui/pages/temporary_page.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +27,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.registerDetailsRoute: (context) => const RegisterUserDetails(),
         MyRoutes.otpVerificationRoute: (context) => const OTPVerificationPage(),
         MyRoutes.subjectDetailsRoute: (context) => const SubjectDetailsPage(),
-        MyRoutes.examRoute: (context) => const ExamPage(),
+        MyRoutes.examRoute: (context) => const UserMCQSettingsPage(),
         MyRoutes.mcqRoute: (context) => const MCQPage(),
         MyRoutes.tempRoute: (context) => const TempPage(),
       },

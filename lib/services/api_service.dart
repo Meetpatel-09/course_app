@@ -1,5 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/model/mcq_banks_model.dart';
+import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,15 +32,11 @@ class APIServices {
     try {
       final response = await http.get(url);
 
-      print(response.body);
-      print(response.statusCode);
-      print(response.headers);
-
       if(200 == response.statusCode) {
 
-        final MCQBanksModel courses = mcqBanksModelFromJson(response.body);
+        final MCQBanksModel mcqBanks = mcqBanksModelFromJson(response.body);
 
-        return courses;
+        return mcqBanks;
       } else {
         return MCQBanksModel();
       }
