@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ExamChooses extends StatefulWidget {
-  const ExamChooses({Key? key, this.subjectList, this.index, this.token, this.mbid}) : super(key: key);
+  const ExamChooses({Key? key, this.subjectList, this.subjectIndex, this.token, this.mbid}) : super(key: key);
   final List<Subject>? subjectList;
-  final int? index;
+  final int? subjectIndex;
   final String? token;
   final int? mbid;
 
@@ -175,7 +175,7 @@ class _ExamChoosesState extends State<ExamChooses> {
           ],
         ),
         const SizedBox(height: 5,),
-        "Questions from ${widget.subjectList![widget.index!].totalMcqInSubject} Questions".richText.lg.bold.letterSpacing(1.0).make()
+        "Questions from ${widget.subjectList![widget.subjectIndex!].totalMcqInSubject} Questions".richText.lg.bold.letterSpacing(1.0).make()
       ],
     );
   }
@@ -201,7 +201,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                       MyRoutes.mcqRoute,
                       arguments: {
                         'subjectList': widget.subjectList,
-                        'index': widget.index,
+                        'index': widget.subjectIndex,
                         'examTime': _examETC.value.text,
                         'questionTime': _questionETC.value.text,
                         'numQuestions': _numQuestionETC.value.text
@@ -213,7 +213,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                       MyRoutes.mcqRoute,
                       arguments: {
                         'subjectList': widget.subjectList,
-                        'index': widget.index,
+                        'index': widget.subjectIndex,
                         'examTime': _examETC.value.text,
                         'questionTime': 'notSet',
                         'numQuestions': _numQuestionETC.value.text
@@ -226,7 +226,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                     MyRoutes.mcqRoute,
                     arguments: {
                       'subjectList': widget.subjectList,
-                      'index': widget.index,
+                      'index': widget.subjectIndex,
                       'examTime': 'notSet',
                       'questionTime': 'notSet',
                       'numQuestions': _numQuestionETC.value.text
@@ -257,7 +257,7 @@ class _ExamChoosesState extends State<ExamChooses> {
     if(_examETC.text.isEmpty || _questionETC.text.isEmpty || _numQuestionETC.text.isEmpty) {
       return false;
     } else {
-      if (int.parse(_questionETC.value.text) > 10 || int.parse(_questionETC.value.text) < 1 || int.parse(_numQuestionETC.value.text) > widget.subjectList![widget.index!].totalMcqInSubject!) {
+      if (int.parse(_questionETC.value.text) > 10 || int.parse(_questionETC.value.text) < 1 || int.parse(_numQuestionETC.value.text) > widget.subjectList![widget.subjectIndex!].totalMcqInSubject!) {
         return false;
       }
       return true;
@@ -288,7 +288,7 @@ class _ExamChoosesState extends State<ExamChooses> {
     final text = _numQuestionETC.value.text;
     if (text.isEmpty) {
       return 'Field can\'t be empty';
-    } else if (int.parse(text) > widget.subjectList![widget.index!].totalMcqInSubject!) {
+    } else if (int.parse(text) > widget.subjectList![widget.subjectIndex!].totalMcqInSubject!) {
       return 'Can\'t be more than total';
     } else if (int.parse(text) < 10) {
       return 'Can\'t be less than 10';

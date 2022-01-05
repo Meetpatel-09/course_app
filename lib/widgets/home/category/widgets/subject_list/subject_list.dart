@@ -5,8 +5,8 @@ import 'package:velocity_x/velocity_x.dart';
 
 class SubjectList extends StatelessWidget {
   final List<Subject> subjectList;
-  final int index;
-  const SubjectList({Key? key, required this.subjectList, required this.index}) : super(key: key);
+  final int subjectIndex;
+  const SubjectList({Key? key, required this.subjectList, required this.subjectIndex}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +26,11 @@ class SubjectList extends StatelessWidget {
               height: 60,
               child: Align(
                 alignment: Alignment.topCenter,
-                child: "${subjectList[index].subject}".text.bold.center.size(16).make()
+                child: "${subjectList[subjectIndex].subject}".text.bold.center.size(16).make()
               ),
             ),
-            Align(child: "Total ${subjectList[index].totalMcqInSubject} MCQs".text.center.color(context.cardColor.withOpacity(0.5)).make()),
-            Align(alignment: Alignment.bottomCenter, child: StartExam(subjectID: subjectList[index].subjectid.toString(), index: index, subjectList: subjectList,)),
+            Align(child: "Total ${subjectList[subjectIndex].totalMcqInSubject} MCQs".text.center.color(context.cardColor.withOpacity(0.5)).make()),
+            Align(alignment: Alignment.bottomCenter, child: StartExam(subjectID: subjectList[subjectIndex].subjectid.toString(), subjectIndex: subjectIndex, subjectList: subjectList,)),
           ],
         ),
       );

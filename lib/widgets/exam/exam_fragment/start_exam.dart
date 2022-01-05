@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 class StartExam extends StatefulWidget {
   final String subjectID;
   final List<Subject> subjectList;
-  final int? index;
-  const StartExam({Key? key, required this.subjectList, this.index, required this.subjectID}) : super(key: key);
+  final int? subjectIndex;
+  const StartExam({Key? key, required this.subjectList, this.subjectIndex, required this.subjectID}) : super(key: key);
 
   @override
   State<StartExam> createState() => _StartExamState();
@@ -34,7 +34,7 @@ class _StartExamState extends State<StartExam> {
                           MyRoutes.chooseMCQBankRoute,
                           arguments: {
                             'subjectList': widget.subjectList,
-                            'index': widget.index,
+                            'subjectIndex': widget.subjectIndex,
                             'mcqBanks': mcqBanks,
                           }
                       );

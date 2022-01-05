@@ -93,7 +93,7 @@ class _CategoryWidgetExamState extends State<CategoryWidgetExam> {
                 : const EdgeInsets.only(bottom: 8),
             child: SubjectList(
               subjectList: _subjectList,
-              index: index),
+                subjectIndex: index),
           );
         }
       )

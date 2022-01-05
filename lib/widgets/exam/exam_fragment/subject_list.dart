@@ -5,8 +5,8 @@ import 'package:velocity_x/velocity_x.dart';
 
 class SubjectList extends StatelessWidget {
   final List<Subject> subjectList;
-  final int index;
-  const SubjectList({Key? key, required this.subjectList, required this.index}) : super(key: key);
+  final int subjectIndex;
+  const SubjectList({Key? key, required this.subjectList, required this.subjectIndex}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +30,13 @@ class SubjectList extends StatelessWidget {
                   width: MediaQuery.of(context).size.width - 120,
                   child: Align(
                       alignment: Alignment.topLeft,
-                      child: "${subjectList[index].subject}".richText.bold.size(16).make()
+                      child: "${subjectList[subjectIndex].subject}".richText.bold.size(16).make()
                   ),
                 ),
-                Align(alignment: Alignment.topLeft, child: "Total ${subjectList[index].totalMcqInSubject} MCQs".text.center.color(context.cardColor.withOpacity(0.5)).make()),
+                Align(alignment: Alignment.topLeft, child: "Total ${subjectList[subjectIndex].totalMcqInSubject} MCQs".text.center.color(context.cardColor.withOpacity(0.5)).make()),
               ],
             ),
-            Align(alignment: Alignment.centerRight, child: StartExam(subjectList: subjectList, index: index, subjectID: subjectList[index].subjectid.toString(),)),
+            Align(alignment: Alignment.centerRight, child: StartExam(subjectList: subjectList, subjectIndex: subjectIndex, subjectID: subjectList[subjectIndex].subjectid.toString(),)),
           ],
         ),
       ),

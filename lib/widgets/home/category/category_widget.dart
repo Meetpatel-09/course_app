@@ -99,7 +99,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               : const EdgeInsets.only(right: 8),
           child: SubjectList(
             subjectList: _subjectList,
-            index: index));
+              subjectIndex: index));
         }
       )
   );

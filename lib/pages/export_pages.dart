@@ -19,4 +19,4 @@ export 'package:course_app_ui/pages/exam_page/choose_mcq_bank_page.dart';
 export 'package:course_app_ui/pages/splash_page.dart';
 
 // Temporary pages
-export 'package:course_app_ui/pages/exam_page/temp_page.dart';
+// export 'package:course_app_ui/pages/exam_page/temp_page.dart';

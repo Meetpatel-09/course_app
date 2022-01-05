@@ -1,3 +1,4 @@
+import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/widgets/exam/ChooseMCQBank/MCQBanksList.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,14 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MCQBanks extends StatefulWidget {
-  const MCQBanks({Key? key, this.mcqBanks}) : super(key: key);
+  const MCQBanks({Key? key, this.mcqBanks, this.subjectList, this.subjectIndex}) : super(key: key);
   final MCQBanksModel? mcqBanks;
+  final List<Subject>? subjectList;
+  final int? subjectIndex;
 
   @override
   State<MCQBanks> createState() => _MCQBanksState();
 }
 
 class _MCQBanksState extends State<MCQBanks> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,8 +42,10 @@ class _MCQBanksState extends State<MCQBanks> {
             itemCount: widget.mcqBanks!.result!.length,
             itemBuilder: (context, index) {
               return MCQBanksList(
-                mcqBanks: widget.mcqBanks!.result,
-                index: index
+                mcqBanks: widget.mcqBanks,
+                mcqBanksIndex: index,
+                subjectIndex: widget.subjectIndex,
+                subjectList: widget.subjectList,
               );
             }
         )

@@ -27,10 +27,10 @@ class MyApp extends StatelessWidget {
         MyRoutes.registerDetailsRoute: (context) => const RegisterUserDetails(),
         MyRoutes.otpVerificationRoute: (context) => const OTPVerificationPage(),
         MyRoutes.subjectDetailsRoute: (context) => const SubjectDetailsPage(),
-        MyRoutes.examRoute: (context) => const UserMCQSettingsPage(),
+        MyRoutes.userMCQSettingsRoute: (context) => const UserMCQSettingsPage(),
         MyRoutes.mcqRoute: (context) => const MCQPage(),
         MyRoutes.chooseMCQBankRoute: (context) => const ChooseMCQBankPage(),
-        MyRoutes.tempRoute: (context) => const TempPage(),
+        // MyRoutes.tempRoute: (context) => const TempPage(),
       },
     );
   }
