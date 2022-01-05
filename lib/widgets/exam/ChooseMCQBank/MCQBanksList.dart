@@ -39,7 +39,7 @@ class MCQBanksList extends StatelessWidget {
 
                 ),
                 const SizedBox(height: 15,),
-                Align(child:  index == 0 ? "MCQ bank ${mcqBanks![index].mbid}".text.bold.lg.center.color(context.cardColor).make() : "MCQ bank ${mcqBanks![index].mbid}".text.bold.lg.center.color(context.cardColor.withOpacity(0.5)).make()),
+                Align(child:  index == 0 ? "MCQ Bank ${mcqBanks![index].mbid}".text.bold.lg.center.color(context.cardColor).make() : "MCQ bank ${mcqBanks![index].mbid}".text.bold.lg.center.color(context.cardColor.withOpacity(0.5)).make()),
               ],
             ),
           ),

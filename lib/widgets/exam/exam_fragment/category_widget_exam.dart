@@ -83,13 +83,13 @@ class _CategoryWidgetExamState extends State<CategoryWidgetExam> {
 
   Widget detailsCard() => Container(
     padding: const EdgeInsets.symmetric(vertical: 10),
-    height: MediaQuery.of(context).size.height - 240,
+    height: MediaQuery.of(context).size.height -  (MediaQuery.of(context).size.height / 4),
       child: ListView.builder(
         itemCount: _subjectList.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: index == _subjectList.length - 1
-                ? const EdgeInsets.only(bottom: 12)
+                ? const EdgeInsets.only(bottom: 60)
                 : const EdgeInsets.only(bottom: 8),
             child: SubjectList(
               subjectList: _subjectList,

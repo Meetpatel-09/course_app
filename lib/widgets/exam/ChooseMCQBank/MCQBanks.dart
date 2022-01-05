@@ -18,7 +18,7 @@ class _MCQBanksState extends State<MCQBanks> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        "Choose MCQ bank".text.bold.xl.make(),
+        "Choose MCQ Bank".text.bold.xl.make(),
         mcqBank(),
       ],
     );
@@ -27,7 +27,7 @@ class _MCQBanksState extends State<MCQBanks> {
   Widget mcqBank() {
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        height: MediaQuery.of(context).size.height - 120,
+        height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 6),
         child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               mainAxisSpacing: 10,
