@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
+import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_settings_response_model.dart';
 import 'package:course_app_ui/utils/config.dart';
@@ -71,4 +72,23 @@ class APIServices {
     }
   }
 
+  static Future<MCQQuestionBankModel> getMCQQuestionBank(String mbid) async {
+
+    var url = Uri.parse(Config().getMCQQuestionBank + mbid);
+
+    try {
+      final response = await http.get(url);
+
+      if(200 == response.statusCode) {
+
+        final MCQQuestionBankModel mcqQuestionBank = mcqQuestionBankModelFromJson(response.body);
+
+        return mcqQuestionBank;
+      } else {
+        return MCQQuestionBankModel();
+      }
+    } catch(e) {
+      return MCQQuestionBankModel();
+    }
+  }
 }

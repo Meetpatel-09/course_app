@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -27,135 +28,61 @@ class StartExamButton extends StatelessWidget {
               ),
             ),
           ),
-          onPressed: () async {
-            // Start button with post user mcq settings
-            // if (wantExamTimer == "Yes") {
-            //   if (wantQuestionTimer == "Yes") {
-            //     UserSettingsRequestModel model = UserSettingsRequestModel(
-            //         token: token,
-            //         setExamTimer: wantExamTimer,
-            //         examTimer: int.parse(examTime),
-            //         setPerQueTimer: wantQuestionTimer,
-            //         perQueTimer: int.parse(questionTime),
-            //         mbid: mbid,
-            //     );
-            //
-            //     APIServices.userSettings(model).then((response) {
-            //       if (response.status == 200) {
-            //         Navigator.push(
-            //             context,
-            //           MaterialPageRoute (
-            //             builder: (BuildContext context) => const TempPage(),
-            //           ),
-            //         );
-            //       } else {
-            //         showDialog(
-            //             context: context,
-            //             builder: (context) => AlertDialog(
-            //               title: const Text("Unknown Error"),
-            //               content: const Text("This is an error message!!!"),
-            //               actions: [
-            //                 TextButton(
-            //                     onPressed: () {
-            //                       Navigator.pop(context);
-            //                       Navigator.pushNamed(context, MyRoutes.homeRoute);
-            //                     },
-            //                     child: const Text("OK")),
-            //               ],
-            //             )
-            //         );
-            //       }
-            //     });
-            //   } else {
-            //     UserSettingsRequestModel model = UserSettingsRequestModel(
-            //         token: token,
-            //         setExamTimer: wantExamTimer,
-            //         examTimer: int.parse(examTime),
-            //         setPerQueTimer: wantQuestionTimer,
-            //         mbid: mbid,
-            //     );
-            //
-            //     APIServices.userSettings(model).then((response) {
-            //       if (response.status == 200) {
-            //         Navigator.push(
-            //           context,
-            //           MaterialPageRoute (
-            //             builder: (BuildContext context) => const TempPage(),
-            //           ),
-            //         );
-            //       } else {
-            //         showDialog(
-            //             context: context,
-            //             builder: (context) => AlertDialog(
-            //               title: const Text("Unknown Error"),
-            //               content: const Text("This is an error message!!!"),
-            //               actions: [
-            //                 TextButton(
-            //                     onPressed: () {
-            //                       Navigator.pop(context);
-            //                       Navigator.pushNamed(context, MyRoutes.homeRoute);
-            //                     },
-            //                     child: const Text("OK")),
-            //               ],
-            //             )
-            //         );
-            //       }
-            //     });
-            //   }
-            // } else {
-            //   UserSettingsRequestModel model = UserSettingsRequestModel(
-            //     token: token,
-            //     setExamTimer: wantExamTimer,
-            //     setPerQueTimer: wantQuestionTimer,
-            //     mbid: mbid,
-            //   );
-            //
-            //   APIServices.userSettings(model).then((response) {
-            //     if (response.status == 200) {
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute (
-            //           builder: (BuildContext context) => const TempPage(),
-            //         ),
-            //       );
-            //     } else {
-            //       showDialog(
-            //           context: context,
-            //           builder: (context) => AlertDialog(
-            //             title: const Text("Unknown Error"),
-            //             content: const Text("This is an error message!!!"),
-            //             actions: [
-            //               TextButton(
-            //                   onPressed: () {
-            //                     Navigator.pop(context);
-            //                     Navigator.pushNamed(context, MyRoutes.homeRoute);
-            //                   },
-            //                   child: const Text("OK")),
-            //             ],
-            //           )
-            //       );
+          onPressed: () {
+
+            APIServices.getMCQQuestionBank(mbid.toString()).then((response) {
+              if (response.status == 200) {
+                Navigator.pushNamed(
+                    context,
+                    MyRoutes.mcqPageRoute,
+                    arguments: {
+                      'subjectList': subjectList,
+                      'index': index,
+                      'token': token,
+                      'mbid': mbid,
+                      'wantExamTimer': wantExamTimer,
+                      'examTime': examTime,
+                      'wantQuestionTimer': wantQuestionTimer,
+                      'questionTime': questionTime,
+                      'numQuestions': numQuestions,
+                      'mcqQuestionBank': response.result
+                    }
+                );
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("Unknown Error"),
+                      content: const Text("This is an error message!!!"),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.pushNamed(context, MyRoutes.homeRoute);
+                            },
+                            child: const Text("OK")),
+                      ],
+                    )
+                );
+              }
+            });
+
+            // --------New Code --------
+            // Navigator.pushNamed(
+            //     context,
+            //     MyRoutes.mcqPageRoute,
+            //     arguments: {
+            //       'subjectList': subjectList,
+            //       'index': index,
+            //       'token': token,
+            //       'mbid': mbid,
+            //       'wantExamTimer': wantExamTimer,
+            //       'examTime': examTime,
+            //       'wantQuestionTimer': wantQuestionTimer,
+            //       'questionTime': questionTime,
+            //       'numQuestions': numQuestions,
             //     }
-            //   });
-            // }
-
-
-            // new code
-
-            Navigator.pushNamed(
-                context,
-                MyRoutes.mcqPageRoute,
-                arguments: {
-                  'subjectList': subjectList,
-                  'index': index,
-                  'token': token,
-                  'mbid': mbid,
-                  'wantExamTimer': wantExamTimer,
-                  'examTime': examTime,
-                  'wantQuestionTimer': wantQuestionTimer,
-                  'questionTime': questionTime,
-                  'numQuestions': numQuestions,
-                }
-            );
+            // );
           },
           child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 55),
