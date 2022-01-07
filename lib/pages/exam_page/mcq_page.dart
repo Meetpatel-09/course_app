@@ -1,8 +1,8 @@
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
-import 'package:course_app_ui/pages/exam_page/temp_page.dart';
-import 'package:course_app_ui/services/api_service.dart';
-import 'package:course_app_ui/utils/routes.dart';
+// import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
+// import 'package:course_app_ui/pages/exam_page/temp_page.dart';
+// import 'package:course_app_ui/services/api_service.dart';
+// import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -57,7 +57,7 @@ class _MCQPageState extends State<MCQPage> {
   }
 
   Widget container() {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height - 100,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -93,123 +93,125 @@ class _MCQPageState extends State<MCQPage> {
             ),
           ),
           onPressed: () async {
+            // Start button with post user mcq settings
+              // if (wantExamTimer == "Yes") {
+              //   if (wantQuestionTimer == "Yes") {
+              //     UserSettingsRequestModel model = UserSettingsRequestModel(
+              //         token: token,
+              //         setExamTimer: wantExamTimer,
+              //         examTimer: int.parse(examTime),
+              //         setPerQueTimer: wantQuestionTimer,
+              //         perQueTimer: int.parse(questionTime),
+              //         mbid: mbid,
+              //     );
+              //
+              //     APIServices.userSettings(model).then((response) {
+              //       if (response.status == 200) {
+              //         Navigator.push(
+              //             context,
+              //           MaterialPageRoute (
+              //             builder: (BuildContext context) => const TempPage(),
+              //           ),
+              //         );
+              //       } else {
+              //         showDialog(
+              //             context: context,
+              //             builder: (context) => AlertDialog(
+              //               title: const Text("Unknown Error"),
+              //               content: const Text("This is an error message!!!"),
+              //               actions: [
+              //                 TextButton(
+              //                     onPressed: () {
+              //                       Navigator.pop(context);
+              //                       Navigator.pushNamed(context, MyRoutes.homeRoute);
+              //                     },
+              //                     child: const Text("OK")),
+              //               ],
+              //             )
+              //         );
+              //       }
+              //     });
+              //   } else {
+              //     UserSettingsRequestModel model = UserSettingsRequestModel(
+              //         token: token,
+              //         setExamTimer: wantExamTimer,
+              //         examTimer: int.parse(examTime),
+              //         setPerQueTimer: wantQuestionTimer,
+              //         mbid: mbid,
+              //     );
+              //
+              //     APIServices.userSettings(model).then((response) {
+              //       if (response.status == 200) {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute (
+              //             builder: (BuildContext context) => const TempPage(),
+              //           ),
+              //         );
+              //       } else {
+              //         showDialog(
+              //             context: context,
+              //             builder: (context) => AlertDialog(
+              //               title: const Text("Unknown Error"),
+              //               content: const Text("This is an error message!!!"),
+              //               actions: [
+              //                 TextButton(
+              //                     onPressed: () {
+              //                       Navigator.pop(context);
+              //                       Navigator.pushNamed(context, MyRoutes.homeRoute);
+              //                     },
+              //                     child: const Text("OK")),
+              //               ],
+              //             )
+              //         );
+              //       }
+              //     });
+              //   }
+              // } else {
+              //   UserSettingsRequestModel model = UserSettingsRequestModel(
+              //     token: token,
+              //     setExamTimer: wantExamTimer,
+              //     setPerQueTimer: wantQuestionTimer,
+              //     mbid: mbid,
+              //   );
+              //
+              //   APIServices.userSettings(model).then((response) {
+              //     if (response.status == 200) {
+              //       Navigator.push(
+              //         context,
+              //         MaterialPageRoute (
+              //           builder: (BuildContext context) => const TempPage(),
+              //         ),
+              //       );
+              //     } else {
+              //       showDialog(
+              //           context: context,
+              //           builder: (context) => AlertDialog(
+              //             title: const Text("Unknown Error"),
+              //             content: const Text("This is an error message!!!"),
+              //             actions: [
+              //               TextButton(
+              //                   onPressed: () {
+              //                     Navigator.pop(context);
+              //                     Navigator.pushNamed(context, MyRoutes.homeRoute);
+              //                   },
+              //                   child: const Text("OK")),
+              //             ],
+              //           )
+              //       );
+              //     }
+              //   });
+              // }
 
-              if (wantExamTimer == "Yes") {
-                if (wantQuestionTimer == "Yes") {
-                  UserSettingsRequestModel model = UserSettingsRequestModel(
-                      token: token,
-                      setExamTimer: wantExamTimer,
-                      examTimer: int.parse(examTime),
-                      setPerQueTimer: wantQuestionTimer,
-                      perQueTimer: int.parse(questionTime),
-                      mbid: mbid,
-                  );
 
-                  APIServices.userSettings(model).then((response) {
-                    if (response.status == 200) {
-                      Navigator.push(
-                          context,
-                        MaterialPageRoute (
-                          builder: (BuildContext context) => const TempPage(),
-                        ),
-                      );
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text("Unknown Error"),
-                            content: const Text("This is an error message!!!"),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.pushNamed(context, MyRoutes.homeRoute);
-                                  },
-                                  child: const Text("OK")),
-                            ],
-                          )
-                      );
-                    }
-                  });
-                } else {
-                  UserSettingsRequestModel model = UserSettingsRequestModel(
-                      token: token,
-                      setExamTimer: wantExamTimer,
-                      examTimer: int.parse(examTime),
-                      setPerQueTimer: wantQuestionTimer,
-                      mbid: mbid,
-                  );
-
-                  APIServices.userSettings(model).then((response) {
-                    if (response.status == 200) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute (
-                          builder: (BuildContext context) => const TempPage(),
-                        ),
-                      );
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text("Unknown Error"),
-                            content: const Text("This is an error message!!!"),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.pushNamed(context, MyRoutes.homeRoute);
-                                  },
-                                  child: const Text("OK")),
-                            ],
-                          )
-                      );
-                    }
-                  });
-                }
-              } else {
-                UserSettingsRequestModel model = UserSettingsRequestModel(
-                  token: token,
-                  setExamTimer: wantExamTimer,
-                  setPerQueTimer: wantQuestionTimer,
-                  mbid: mbid,
-                );
-
-                APIServices.userSettings(model).then((response) {
-                  if (response.status == 200) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute (
-                        builder: (BuildContext context) => const TempPage(),
-                      ),
-                    );
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: const Text("Unknown Error"),
-                          content: const Text("This is an error message!!!"),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.pushNamed(context, MyRoutes.homeRoute);
-                                },
-                                child: const Text("OK")),
-                          ],
-                        )
-                    );
-                  }
-                });
-              }
-
+            // new codw
           },
           child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 55),
               child: Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
-                  "Continue",
+                  "Start Exam",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.blue,

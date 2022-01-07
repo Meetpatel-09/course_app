@@ -1,13 +1,16 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
+import 'package:course_app_ui/pages/exam_page/temp_page.dart';
+import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ExamChooses extends StatefulWidget {
-  const ExamChooses({Key? key, this.subjectList, this.subjectIndex, this.token, this.mbid}) : super(key: key);
+  const ExamChooses({Key? key, this.subjectList, this.subjectIndex, required this.token, this.mbid}) : super(key: key);
   final List<Subject>? subjectList;
   final int? subjectIndex;
-  final String? token;
+  final String token;
   final int? mbid;
 
   @override
@@ -196,54 +199,139 @@ class _ExamChoosesState extends State<ExamChooses> {
             if (validate()) {
               if (isSelectedE) {
                 if (isSelectedQ) {
-                  Navigator.pushNamed(
-                      context,
-                      MyRoutes.mcqRoute,
-                      arguments: {
-                        'subjectList': widget.subjectList,
-                        'index': widget.subjectIndex,
-                        'token': widget.token,
-                        'mbid': widget.mbid,
-                        'wantExamTimer': 'Yes',
-                        'examTime': _examETC.value.text,
-                        'wantQuestionTimer': 'Yes',
-                        'questionTime': _questionETC.value.text,
-                        'numQuestions': _numQuestionETC.value.text,
-                      }
+                  UserSettingsRequestModel model = UserSettingsRequestModel(
+                    token: widget.token,
+                    setExamTimer: "Yes",
+                    examTimer: int.parse(_examETC.value.text),
+                    setPerQueTimer: "Yes",
+                    perQueTimer: int.parse(_questionETC.value.text),
+                    mbid: widget.mbid,
                   );
+
+                  APIServices.userSettings(model).then((response) {
+                    if (response.status == 200) {
+                      Navigator.pushNamed(
+                          context,
+                          MyRoutes.mcqRoute,
+                          arguments: {
+                            'subjectList': widget.subjectList,
+                            'index': widget.subjectIndex,
+                            'token': widget.token,
+                            'mbid': widget.mbid,
+                            'wantExamTimer': 'Yes',
+                            'examTime': _examETC.value.text,
+                            'wantQuestionTimer': 'Yes',
+                            'questionTime': _questionETC.value.text,
+                            'numQuestions': _numQuestionETC.value.text,
+                          }
+                      );
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text("Unknown Error"),
+                            content: const Text("This is an error message!!!"),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Navigator.pushNamed(context, MyRoutes.homeRoute);
+                                  },
+                                  child: const Text("OK")),
+                            ],
+                          )
+                      );
+                    }
+                  });
+
                 } else {
-                  Navigator.pushNamed(
-                      context,
-                      MyRoutes.mcqRoute,
-                      arguments: {
-                        'subjectList': widget.subjectList,
-                        'index': widget.subjectIndex,
-                        'token': widget.token,
-                        'mbid': widget.mbid,
-                        'wantExamTimer': 'Yes',
-                        'examTime': _examETC.value.text,
-                        'wantQuestionTimer': 'No',
-                        'questionTime': 'notSet',
-                        'numQuestions': _numQuestionETC.value.text
-                      }
+                  UserSettingsRequestModel model = UserSettingsRequestModel(
+                    token: widget.token,
+                    setExamTimer: "Yes",
+                    examTimer: int.parse(_examETC.value.text),
+                    setPerQueTimer: "No",
+                    mbid: widget.mbid,
                   );
+
+                  APIServices.userSettings(model).then((response) {
+                    if (response.status == 200) {
+                      Navigator.pushNamed(
+                          context,
+                          MyRoutes.mcqRoute,
+                          arguments: {
+                            'subjectList': widget.subjectList,
+                            'index': widget.subjectIndex,
+                            'token': widget.token,
+                            'mbid': widget.mbid,
+                            'wantExamTimer': 'Yes',
+                            'examTime': _examETC.value.text,
+                            'wantQuestionTimer': 'No',
+                            'questionTime': 'notSet',
+                            'numQuestions': _numQuestionETC.value.text
+                          }
+                      );
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text("Unknown Error"),
+                            content: const Text("This is an error message!!!"),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Navigator.pushNamed(context, MyRoutes.homeRoute);
+                                  },
+                                  child: const Text("OK")),
+                            ],
+                          )
+                      );
+                    }
+                  });
                 }
               } else {
-                Navigator.pushNamed(
-                    context,
-                    MyRoutes.mcqRoute,
-                    arguments: {
-                      'subjectList': widget.subjectList,
-                      'index': widget.subjectIndex,
-                      'token': widget.token,
-                      'mbid': widget.mbid,
-                      'wantExamTimer': 'No',
-                      'examTime': 'notSet',
-                      'wantQuestionTimer': 'No',
-                      'questionTime': 'notSet',
-                      'numQuestions': _numQuestionETC.value.text
-                    }
+                UserSettingsRequestModel model = UserSettingsRequestModel(
+                  token: widget.token,
+                  setExamTimer: "No",
+                  setPerQueTimer: "No",
+                  mbid: widget.mbid,
                 );
+
+                APIServices.userSettings(model).then((response) {
+                  if (response.status == 200) {
+                    Navigator.pushNamed(
+                        context,
+                        MyRoutes.mcqRoute,
+                        arguments: {
+                          'subjectList': widget.subjectList,
+                          'index': widget.subjectIndex,
+                          'token': widget.token,
+                          'mbid': widget.mbid,
+                          'wantExamTimer': 'No',
+                          'examTime': 'notSet',
+                          'wantQuestionTimer': 'No',
+                          'questionTime': 'notSet',
+                          'numQuestions': _numQuestionETC.value.text
+                        }
+                    );
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text("Unknown Error"),
+                          content: const Text("This is an error message!!!"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.pushNamed(context, MyRoutes.homeRoute);
+                                },
+                                child: const Text("OK")),
+                          ],
+                        )
+                    );
+                  }
+                });
               }
             }
           },
