@@ -6,14 +6,14 @@ import 'package:course_app_ui/model/course_model.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class MCQPage extends StatefulWidget {
-  const MCQPage({Key? key}) : super(key: key);
+class StartExamPage extends StatefulWidget {
+  const StartExamPage({Key? key}) : super(key: key);
 
   @override
-  State<MCQPage> createState() => _MCQPageState();
+  State<StartExamPage> createState() => _StartExamPageState();
 }
 
-class _MCQPageState extends State<MCQPage> {
+class _StartExamPageState extends State<StartExamPage> {
   List<Subject>? subjectList = [];
   int index = 0;
   String wantExamTimer = "No";
@@ -94,7 +94,7 @@ class _MCQPageState extends State<MCQPage> {
           ),
           onPressed: () async {
             // Start button with post user mcq settings
-              // if (wantExamTimer == "Yes") {
+            // if (wantExamTimer == "Yes") {
               //   if (wantQuestionTimer == "Yes") {
               //     UserSettingsRequestModel model = UserSettingsRequestModel(
               //         token: token,
@@ -204,7 +204,9 @@ class _MCQPageState extends State<MCQPage> {
               // }
 
 
-            // new codw
+            // new code
+
+
           },
           child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 55),

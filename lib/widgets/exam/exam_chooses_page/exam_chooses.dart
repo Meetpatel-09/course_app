@@ -1,6 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
-import 'package:course_app_ui/pages/exam_page/temp_page.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -212,7 +211,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                     if (response.status == 200) {
                       Navigator.pushNamed(
                           context,
-                          MyRoutes.mcqRoute,
+                          MyRoutes.startExamRoute,
                           arguments: {
                             'subjectList': widget.subjectList,
                             'index': widget.subjectIndex,
@@ -257,7 +256,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                     if (response.status == 200) {
                       Navigator.pushNamed(
                           context,
-                          MyRoutes.mcqRoute,
+                          MyRoutes.startExamRoute,
                           arguments: {
                             'subjectList': widget.subjectList,
                             'index': widget.subjectIndex,
@@ -301,7 +300,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                   if (response.status == 200) {
                     Navigator.pushNamed(
                         context,
-                        MyRoutes.mcqRoute,
+                        MyRoutes.startExamRoute,
                         arguments: {
                           'subjectList': widget.subjectList,
                           'index': widget.subjectIndex,
