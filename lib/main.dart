@@ -26,9 +26,10 @@ class MyApp extends StatelessWidget {
         MyRoutes.registerRoute: (context) => const RegisterPage(),
         MyRoutes.registerDetailsRoute: (context) => const RegisterUserDetails(),
         MyRoutes.otpVerificationRoute: (context) => const OTPVerificationPage(),
+        MyRoutes.chooseMCQBankRoute: (context) => const ChooseMCQBankPage(),
         MyRoutes.userMCQSettingsRoute: (context) => const UserMCQSettingsPage(),
         MyRoutes.startExamRoute: (context) => const StartExamPage(),
-        MyRoutes.chooseMCQBankRoute: (context) => const ChooseMCQBankPage(),
+        MyRoutes.mcqPageRoute: (context) => const MCQPage(),
         // MyRoutes.tempRoute: (context) => const TempPage(),
       },
     );

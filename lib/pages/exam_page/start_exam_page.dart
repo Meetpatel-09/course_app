@@ -1,4 +1,6 @@
 import 'package:course_app_ui/model/course_model.dart';
+// import 'package:course_app_ui/utils/routes.dart';
+import 'package:course_app_ui/widgets/exam/start_exam_page/start_exam_button.dart';
 // import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
 // import 'package:course_app_ui/pages/exam_page/temp_page.dart';
 // import 'package:course_app_ui/services/api_service.dart';
@@ -80,149 +82,15 @@ class _StartExamPageState extends State<StartExamPage> {
     );
   }
 
-  Widget nextButton() {
-    return Center(
-      child: TextButton(
-          style: ButtonStyle(
-            backgroundColor:
-            MaterialStateProperty.all(Colors.blue.withOpacity(0.2)),
-            shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          ),
-          onPressed: () async {
-            // Start button with post user mcq settings
-            // if (wantExamTimer == "Yes") {
-              //   if (wantQuestionTimer == "Yes") {
-              //     UserSettingsRequestModel model = UserSettingsRequestModel(
-              //         token: token,
-              //         setExamTimer: wantExamTimer,
-              //         examTimer: int.parse(examTime),
-              //         setPerQueTimer: wantQuestionTimer,
-              //         perQueTimer: int.parse(questionTime),
-              //         mbid: mbid,
-              //     );
-              //
-              //     APIServices.userSettings(model).then((response) {
-              //       if (response.status == 200) {
-              //         Navigator.push(
-              //             context,
-              //           MaterialPageRoute (
-              //             builder: (BuildContext context) => const TempPage(),
-              //           ),
-              //         );
-              //       } else {
-              //         showDialog(
-              //             context: context,
-              //             builder: (context) => AlertDialog(
-              //               title: const Text("Unknown Error"),
-              //               content: const Text("This is an error message!!!"),
-              //               actions: [
-              //                 TextButton(
-              //                     onPressed: () {
-              //                       Navigator.pop(context);
-              //                       Navigator.pushNamed(context, MyRoutes.homeRoute);
-              //                     },
-              //                     child: const Text("OK")),
-              //               ],
-              //             )
-              //         );
-              //       }
-              //     });
-              //   } else {
-              //     UserSettingsRequestModel model = UserSettingsRequestModel(
-              //         token: token,
-              //         setExamTimer: wantExamTimer,
-              //         examTimer: int.parse(examTime),
-              //         setPerQueTimer: wantQuestionTimer,
-              //         mbid: mbid,
-              //     );
-              //
-              //     APIServices.userSettings(model).then((response) {
-              //       if (response.status == 200) {
-              //         Navigator.push(
-              //           context,
-              //           MaterialPageRoute (
-              //             builder: (BuildContext context) => const TempPage(),
-              //           ),
-              //         );
-              //       } else {
-              //         showDialog(
-              //             context: context,
-              //             builder: (context) => AlertDialog(
-              //               title: const Text("Unknown Error"),
-              //               content: const Text("This is an error message!!!"),
-              //               actions: [
-              //                 TextButton(
-              //                     onPressed: () {
-              //                       Navigator.pop(context);
-              //                       Navigator.pushNamed(context, MyRoutes.homeRoute);
-              //                     },
-              //                     child: const Text("OK")),
-              //               ],
-              //             )
-              //         );
-              //       }
-              //     });
-              //   }
-              // } else {
-              //   UserSettingsRequestModel model = UserSettingsRequestModel(
-              //     token: token,
-              //     setExamTimer: wantExamTimer,
-              //     setPerQueTimer: wantQuestionTimer,
-              //     mbid: mbid,
-              //   );
-              //
-              //   APIServices.userSettings(model).then((response) {
-              //     if (response.status == 200) {
-              //       Navigator.push(
-              //         context,
-              //         MaterialPageRoute (
-              //           builder: (BuildContext context) => const TempPage(),
-              //         ),
-              //       );
-              //     } else {
-              //       showDialog(
-              //           context: context,
-              //           builder: (context) => AlertDialog(
-              //             title: const Text("Unknown Error"),
-              //             content: const Text("This is an error message!!!"),
-              //             actions: [
-              //               TextButton(
-              //                   onPressed: () {
-              //                     Navigator.pop(context);
-              //                     Navigator.pushNamed(context, MyRoutes.homeRoute);
-              //                   },
-              //                   child: const Text("OK")),
-              //             ],
-              //           )
-              //       );
-              //     }
-              //   });
-              // }
-
-
-            // new code
-
-
-          },
-          child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 55),
-              child: Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  "Start Exam",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              )
-          )
-      ),
-    );
-  }
+  Widget nextButton() => StartExamButton(
+    token: token,
+    index: index,
+    mbid: mbid,
+    subjectList: subjectList!,
+    wantExamTimer: wantExamTimer,
+    examTime: examTime,
+    wantQuestionTimer: wantQuestionTimer,
+    questionTime: questionTime,
+    numQuestions: numQuestions,
+  );
 }

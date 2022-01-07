@@ -12,6 +12,7 @@ export 'package:course_app_ui/pages/authentication_pages/otp_verification_page.d
 export 'package:course_app_ui/pages/exam_page/user_mcq_settings_page.dart';
 export 'package:course_app_ui/pages/exam_page/start_exam_page.dart';
 export 'package:course_app_ui/pages/exam_page/choose_mcq_bank_page.dart';
+export 'package:course_app_ui/pages/exam_page/mcq_page.dart';
 
 // Splash page
 export 'package:course_app_ui/pages/splash_page.dart';
