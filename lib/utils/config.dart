@@ -6,5 +6,5 @@ class Config {
   String verifyAPI = "http://vpsmcq.in/API//email/verify";
   String resendOTPAPI = "http://vpsmcq.in/API/email/resendotp";
   String getMCQBankAPI = "http://vpsmcq.in/API/mcq/mcqbank/";
-  String sendUserSettingsAPI = "http://vpsmcq.in/APIusermcq/setting";
+  String sendUserSettingsAPI = "http://vpsmcq.in/API/usermcq/setting";
 }

@@ -49,13 +49,14 @@ class APIServices {
     }
   }
 
-  static Future<UserSettingsResponseModel> login(UserSettingsRequestModel model) async {
+  static Future<UserSettingsResponseModel> userSettings(UserSettingsRequestModel model) async {
     Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
       'Accept': 'application/json',
       'token': model.token,
     };
 
-    var url = Uri.parse(Config().loginAPI);
+    var url = Uri.parse(Config().sendUserSettingsAPI);
 
     var response = await client.post(
       url,
@@ -64,7 +65,6 @@ class APIServices {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       return UserSettingsResponseModel(status: response.statusCode);
     } else {
       return UserSettingsResponseModel(status: response.statusCode, msg: response.reasonPhrase);
