@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
         MyRoutes.userMCQSettingsRoute: (context) => const UserMCQSettingsPage(),
         MyRoutes.startExamRoute: (context) => const StartExamPage(),
         MyRoutes.mcqPageRoute: (context) => const MCQPage(),
-        // MyRoutes.tempRoute: (context) => const TempPage(),
       },
     );
   }

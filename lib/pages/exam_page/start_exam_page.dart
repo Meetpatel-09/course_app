@@ -22,7 +22,6 @@ class _StartExamPageState extends State<StartExamPage> {
   late String token;
   late int mbid;
   late List<mcq_questions.Result> mcqQuestionsList;
-  bool isLoading = true;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,7 @@ class _StartExamPageState extends State<StartExamPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(18.0),
-          child: isLoading ? const Center(child: CircularProgressIndicator()) : container(),
+          child: container(),
         )
       ),
     );

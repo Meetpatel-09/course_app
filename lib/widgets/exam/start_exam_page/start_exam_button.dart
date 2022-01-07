@@ -66,23 +66,6 @@ class StartExamButton extends StatelessWidget {
                 );
               }
             });
-
-            // --------New Code --------
-            // Navigator.pushNamed(
-            //     context,
-            //     MyRoutes.mcqPageRoute,
-            //     arguments: {
-            //       'subjectList': subjectList,
-            //       'index': index,
-            //       'token': token,
-            //       'mbid': mbid,
-            //       'wantExamTimer': wantExamTimer,
-            //       'examTime': examTime,
-            //       'wantQuestionTimer': wantQuestionTimer,
-            //       'questionTime': questionTime,
-            //       'numQuestions': numQuestions,
-            //     }
-            // );
           },
           child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 55),
