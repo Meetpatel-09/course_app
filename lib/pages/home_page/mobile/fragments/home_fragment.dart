@@ -18,8 +18,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-        Row(
+        title: Row(
           children: const [
             Icon(Icons.home),
             SizedBox(width: 10,),
