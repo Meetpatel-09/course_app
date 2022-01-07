@@ -202,9 +202,13 @@ class _ExamChoosesState extends State<ExamChooses> {
                       arguments: {
                         'subjectList': widget.subjectList,
                         'index': widget.subjectIndex,
+                        'token': widget.token,
+                        'mbid': widget.mbid,
+                        'wantExamTimer': 'Yes',
                         'examTime': _examETC.value.text,
+                        'wantQuestionTimer': 'Yes',
                         'questionTime': _questionETC.value.text,
-                        'numQuestions': _numQuestionETC.value.text
+                        'numQuestions': _numQuestionETC.value.text,
                       }
                   );
                 } else {
@@ -214,7 +218,11 @@ class _ExamChoosesState extends State<ExamChooses> {
                       arguments: {
                         'subjectList': widget.subjectList,
                         'index': widget.subjectIndex,
+                        'token': widget.token,
+                        'mbid': widget.mbid,
+                        'wantExamTimer': 'Yes',
                         'examTime': _examETC.value.text,
+                        'wantQuestionTimer': 'No',
                         'questionTime': 'notSet',
                         'numQuestions': _numQuestionETC.value.text
                       }
@@ -227,7 +235,11 @@ class _ExamChoosesState extends State<ExamChooses> {
                     arguments: {
                       'subjectList': widget.subjectList,
                       'index': widget.subjectIndex,
+                      'token': widget.token,
+                      'mbid': widget.mbid,
+                      'wantExamTimer': 'No',
                       'examTime': 'notSet',
+                      'wantQuestionTimer': 'No',
                       'questionTime': 'notSet',
                       'numQuestions': _numQuestionETC.value.text
                     }
@@ -240,7 +252,7 @@ class _ExamChoosesState extends State<ExamChooses> {
               child: Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
-                  "Start Exam",
+                  "Continue",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.blue,

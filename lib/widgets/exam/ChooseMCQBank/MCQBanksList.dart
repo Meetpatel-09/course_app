@@ -26,16 +26,19 @@ class MCQBanksList extends StatelessWidget {
         child: InkWell(
           onTap: () {
 
-            Navigator.pushNamed(
-              context,
-              MyRoutes.userMCQSettingsRoute,
-              arguments: {
-                'subjectList': subjectList,
-                'subjectIndex': subjectIndex,
-                'mcqBanks': mcqBanks,
-                'mcqBanksIndex': mcqBanksIndex,
-              }
-            );
+            if (mcqBanksIndex == 0) {
+              Navigator.pushNamed(
+                  context,
+                  MyRoutes.userMCQSettingsRoute,
+                  arguments: {
+                    'subjectList': subjectList,
+                    'subjectIndex': subjectIndex,
+                    'mcqBanks': mcqBanks,
+                    'mcqBanksIndex': mcqBanksIndex,
+                  }
+              );
+            }
+
           },
           splashColor: mcqBanksIndex == 0 ? context.primaryColor.withOpacity(0.5) : context.canvasColor,
           child: Padding(
@@ -49,13 +52,13 @@ class MCQBanksList extends StatelessWidget {
                   alignment: Alignment.center,
                   child:
                   mcqBanksIndex == 0 ?
-                      Image.asset("assets/images/mcq-bank.png", width: 100, height: 100, color: context.cardColor,)
+                      Image.asset("assets/images/mcq-bank.png", width: 60, height: 60, color: context.cardColor,)
                         :
-                      Image.asset("assets/images/mcq-bank.png", width: 100, height: 100, color: context.cardColor.withOpacity(0.5),)
+                      Image.asset("assets/images/mcq-bank.png", width: 60, height: 60, color: context.cardColor.withOpacity(0.5),)
 
                 ),
                 const SizedBox(height: 15,),
-                Align(child:  mcqBanksIndex == 0 ? mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.lg.center.color(context.cardColor).make() : mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.lg.center.color(context.cardColor.withOpacity(0.5)).make()),
+                Align(child:  mcqBanksIndex == 0 ? mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.letterSpacing(1).color(context.cardColor).make() : mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.letterSpacing(1).color(context.cardColor.withOpacity(0.5)).make()),
               ],
             ),
           ),

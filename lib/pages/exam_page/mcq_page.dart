@@ -12,21 +12,37 @@ class MCQPage extends StatefulWidget {
 class _MCQPageState extends State<MCQPage> {
   List<Subject>? subjectList = [];
   int index = 0;
+  String wantExamTime = "No";
+  String wantQuestionTime = "No";
   String examTime = "notSet";
   String questionTime = "notSet";
   late String numQuestions;
+  String token = "empty";
+  int mbid = 0;
 
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
     subjectList = arg['subjectList'];
     index = arg['index'];
+    token = arg['token'];
+    mbid = arg['mbid'];
     examTime = arg['examTime'];
+    wantExamTime = arg['wantExamTime'];
+    wantQuestionTime = arg['wantQuestionTime'];
     questionTime = arg['questionTime'];
     numQuestions = arg['numQuestions'];
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            "Exam".text.make()
+          ],
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(18.0),
@@ -36,6 +52,7 @@ class _MCQPageState extends State<MCQPage> {
     );
   }
 
+  
   Widget container() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +64,11 @@ class _MCQPageState extends State<MCQPage> {
         const SizedBox(height: 10,),
         questionTime.richText.lg.make(),
         const SizedBox(height: 10,),
-        numQuestions.text.lg.make()
+        numQuestions.text.lg.make(),
+        const SizedBox(height: 10,),
+        token.richText.lg.make(),
+        const SizedBox(height: 10,),
+        mbid.text.lg.make()
       ],
     );
   }

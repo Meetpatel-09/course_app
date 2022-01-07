@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_settings_response_model.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:http/http.dart' as http;
 
@@ -44,4 +48,27 @@ class APIServices {
       return MCQBanksModel();
     }
   }
+
+  static Future<UserSettingsResponseModel> login(UserSettingsRequestModel model) async {
+    Map<String, String> requestHeaders = {
+      'Accept': 'application/json',
+      'token': model.token,
+    };
+
+    var url = Uri.parse(Config().loginAPI);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(model.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      return UserSettingsResponseModel(status: response.statusCode);
+    } else {
+      return UserSettingsResponseModel(status: response.statusCode, msg: response.reasonPhrase);
+    }
+  }
+
 }

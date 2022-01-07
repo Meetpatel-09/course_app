@@ -22,7 +22,7 @@ class _MCQBanksState extends State<MCQBanks> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        "Choose MCQ Bank".text.bold.xl.make(),
+        Align(child: "Choose MCQ Bank".text.bold.xl.make()),
         mcqBank(),
       ],
     );
@@ -36,8 +36,8 @@ class _MCQBanksState extends State<MCQBanks> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
-              crossAxisCount: 2,
-              childAspectRatio: 1/1
+              crossAxisCount: 3,
+              childAspectRatio: 3/4
             ),
             itemCount: widget.mcqBanks!.result!.length,
             itemBuilder: (context, index) {
