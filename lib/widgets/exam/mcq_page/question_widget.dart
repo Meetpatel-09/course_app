@@ -1,5 +1,4 @@
 import 'package:course_app_ui/theme/theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -77,16 +76,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             )
     );
   }
-
-  // Widget buildQuestion() => Column(
-  //   crossAxisAlignment: CrossAxisAlignment.start,
-  //   mainAxisAlignment: MainAxisAlignment.center,
-  //   children: [
-  //     "Question ${widget.questionNumber}/10".text.center.lg.letterSpacing(1).color(context.primaryColor).make(),
-  //     const SizedBox(height: 10,),
-  //     "${widget.questionNumber}. ${widget.question!}".richText.semiBold.xl.letterSpacing(1).justify.make()
-  //   ],
-  // );
 
   Widget buildQuestionTimer() => Row(
     mainAxisAlignment: MainAxisAlignment.end,

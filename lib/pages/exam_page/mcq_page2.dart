@@ -68,7 +68,6 @@ class _MCQPage2State extends State<MCQPage2> {
             });
           }
         },
-        onClickedOption: (sdf) {},
       ),
     );
   }
