@@ -34,7 +34,7 @@ class StartExamButton extends StatelessWidget {
               if (response.status == 200) {
                 Navigator.pushNamed(
                     context,
-                    MyRoutes.mcqPageRoute,
+                    MyRoutes.mcqPage2Route,
                     arguments: {
                       'subjectList': subjectList,
                       'index': index,

@@ -1,3 +1,4 @@
+import 'package:course_app_ui/pages/exam_page/mcq_page2.dart';
 import 'package:course_app_ui/pages/export_pages.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/theme/theme.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.userMCQSettingsRoute: (context) => const UserMCQSettingsPage(),
         MyRoutes.startExamRoute: (context) => const StartExamPage(),
         MyRoutes.mcqPageRoute: (context) => const MCQPage(),
+        MyRoutes.mcqPage2Route: (context) => const MCQPage2(),
       },
     );
   }
