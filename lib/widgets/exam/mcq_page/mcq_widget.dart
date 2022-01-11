@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
+import 'package:course_app_ui/widgets/exam/mcq_page/button_widget.dart';
 import 'package:course_app_ui/widgets/exam/mcq_page/question_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -67,68 +68,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                     ),
                 ],
               ),
-              // const SizedBox(
-              //   height: 40.0,
-              // ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                          MaterialStateProperty.all(Colors.blue.withOpacity(0.2)),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (widget.controller.page?.toInt() == 0) {
-
-                          } else {
-                            widget.controller.previousPage(
-                                duration: const Duration(milliseconds: 250),
-                                curve: Curves.easeInExpo);
-                          }
-                        },
-                        child: SizedBox(
-                          width: 150,
-                          child: "Previous".text.lg.center.bold.color(context.primaryColor).make(),
-                        )
-                    ),
-                    TextButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                          MaterialStateProperty.all(Colors.blue.withOpacity(0.2)),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (widget.controller.page?.toInt() == widget.mcqQuestions.length - 1) {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => ResultScreen(score, userAnswer)));
-                          } else {
-                            widget.controller.nextPage(
-                                duration: const Duration(milliseconds: 250),
-                                curve: Curves.easeInExpo);
-                          }
-                        },
-                        child: SizedBox(
-                          width: 150,
-                          child: "Next".text.lg.center.bold.color(context.primaryColor).make(),
-                        )
-                    )
-                  ],
-                ),
-              ),
+              ButtonWidget(mcqQuestions: widget.mcqQuestions, controller: widget.controller,),
             ],
           ),
         ),

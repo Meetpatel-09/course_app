@@ -1,7 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/widgets/exam/mcq_page/button_widget.dart';
-import 'package:course_app_ui/widgets/exam/mcq_page/options_widget.dart';
-import 'package:course_app_ui/widgets/exam/mcq_page/question_widget.dart';
+import 'package:course_app_ui/widgets/exam/mcq_page/mcq_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart' as mcq_questions;
 import 'package:velocity_x/velocity_x.dart';
@@ -24,8 +22,16 @@ class _MCQPageState extends State<MCQPage> {
   String token = "empty";
   int mbid = 0;
   late List<mcq_questions.Result> mcqQuestionBank = [];
-  ValueChanged<String>? onClickedOptions;
-  List<String> mcqOptionCodes = ["A", "B", "C", "D"];
+  late PageController controller;
+
+
+  @override
+  void initState() {
+    controller = PageController(initialPage: 0);
+    // TODO: implement initState
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,37 +58,17 @@ class _MCQPageState extends State<MCQPage> {
         ),
       ),
       backgroundColor: context.canvasColor,
-      body: PageView.builder(
-          itemCount: mcqQuestionBank.length,
-          itemBuilder: (context, index) {
-            final question = mcqQuestionBank[index];
-
-            return buildQuestion(question: question, questionNumber: index + 1);
-          },
-        ),
+      body: MCQWidget(
+        mcqQuestions: mcqQuestionBank,
+        controller: controller,
+        onChangedPage: (page) {
+          if (page == mcqQuestionBank.length - 1) {
+            setState(() {
+              // btnText = "See Results";
+            });
+          }
+        },
+      ),
     );
-  }
-
-  Widget buildQuestion({required mcq_questions.Result question, required int questionNumber}) {
-
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // const SizedBox(height: 10,),
-          QuestionWidget(question: question.que, questionNumber: questionNumber),
-          Expanded(
-            child: OptionsWidget(
-              question: question,
-              onClickedOptions: selectOption,
-              mcqOptionCodes: mcqOptionCodes,
-            ),
-          ),
-          const ButtonWidget(),
-        ],
-    );
-  }
-
-  void selectOption(String option) {
-    return;
   }
 }

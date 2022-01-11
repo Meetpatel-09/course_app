@@ -9,6 +9,5 @@ class MyRoutes {
   static String userMCQSettingsRoute = "/user_mcq_settings";
   static String startExamRoute = "/start_exam";
   static String mcqPageRoute = "/mcq_page";
-  static String mcqPage2Route = "/mcq_page2";
   // static String tempRoute = "/temp";
 }

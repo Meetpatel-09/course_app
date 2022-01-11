@@ -228,8 +228,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: const Text("Unknown Error"),
-                            content: const Text("This is an error message!!!"),
+                            title: Text(response.status.toString()),
+                            content: Text(response.msg!),
                             actions: [
                               TextButton(
                                   onPressed: () {
@@ -273,8 +273,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: const Text("Unknown Error"),
-                            content: const Text("This is an error message!!!"),
+                            title: Text(response.status.toString()),
+                            content: Text(response.msg!),
                             actions: [
                               TextButton(
                                   onPressed: () {
@@ -317,8 +317,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: const Text("Unknown Error"),
-                          content: const Text("This is an error message!!!"),
+                          title: Text(response.status.toString()),
+                          content: Text(response.msg!),
                           actions: [
                             TextButton(
                                 onPressed: () {
