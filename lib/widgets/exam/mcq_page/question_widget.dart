@@ -26,13 +26,13 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   alignment: Alignment.topCenter,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.fromLTRB(15, 100, 15, 15),
+                    padding: const EdgeInsets.fromLTRB(15, 90, 15, 15),
                     margin: const EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
                         color: MyTheme.lightBlue,
                         borderRadius: const BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10))
                     ),
-                    child: "${widget.questionNumber}. ${widget.question!}".richText.semiBold.xl.letterSpacing(1).justify.make(),
+                    child: "${widget.questionNumber}. ${widget.question!}".richText.semiBold.xl.color(context.primaryColor).letterSpacing(1).justify.make(),
                   ),
                 ),
                 Align(
@@ -40,7 +40,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     padding: const EdgeInsets.fromLTRB(15, 90, 15, 15),
-                    margin: const EdgeInsets.only(top: 80, left: 18, right: 18,),
+                    margin: const EdgeInsets.only(top: 70, left: 18, right: 18,),
                     decoration: BoxDecoration(
                       color: context.backgroundColor,
                       borderRadius: BorderRadius.circular(15),
@@ -60,7 +60,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   alignment: Alignment.topCenter,
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-                    margin: const EdgeInsets.only(top: 20, left: 18, right: 18,),
+                    margin: const EdgeInsets.only(top: 10, left: 18, right: 18,),
                     child: timer(),
                   ),
                 ),
@@ -68,7 +68,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   alignment: Alignment.topRight,
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-                    margin: const EdgeInsets.only(top: 80, left: 18, right: 18,),
+                    margin: const EdgeInsets.only(top: 70, left: 18, right: 18,),
                     child: buildQuestionTimer(),
                   ),
                 ),

@@ -10,7 +10,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 18.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -33,9 +33,9 @@ class ButtonWidget extends StatelessWidget {
                       curve: Curves.easeInExpo);
                 }
               },
-              child: SizedBox(
-                width: 150,
-                child: "Previous".text.lg.center.bold.color(context.primaryColor).make(),
+              child: const SizedBox(
+                width: 100,
+                child: Icon(Icons.arrow_back)
               )
           ),
           TextButton(
@@ -60,9 +60,9 @@ class ButtonWidget extends StatelessWidget {
                       curve: Curves.easeInExpo);
                 }
               },
-              child: SizedBox(
-                width: 150,
-                child: "Next".text.lg.center.bold.color(context.primaryColor).make(),
+              child: const SizedBox(
+                width: 100,
+                child: Icon(Icons.arrow_forward)
               )
           )
         ],

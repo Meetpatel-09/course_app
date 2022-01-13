@@ -3,6 +3,7 @@ import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart'
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:velocity_x/velocity_x.dart';
 
 class ExamChooses extends StatefulWidget {
@@ -196,8 +197,19 @@ class _ExamChoosesState extends State<ExamChooses> {
           ),
           onPressed: () async {
             if (validate()) {
+              dio.FormData formData;
               if (isSelectedE) {
                 if (isSelectedQ) {
+
+                  formData = dio.FormData.fromMap({
+                    "token": widget.token,
+                    "setExamTimer": "Yes",
+                    "examTimer": int.parse(_examETC.value.text),
+                    "setPerQueTimer": "Yes",
+                    "perQueTimer": int.parse(_questionETC.value.text),
+                    "mbid": widget.mbid,
+                  });
+                  //
                   UserSettingsRequestModel model = UserSettingsRequestModel(
                     token: widget.token,
                     setExamTimer: "Yes",
@@ -244,6 +256,15 @@ class _ExamChoosesState extends State<ExamChooses> {
                   });
 
                 } else {
+
+                  formData = dio.FormData.fromMap({
+                    "token": widget.token,
+                    "setExamTimer": "Yes",
+                    "examTimer": int.parse(_examETC.value.text),
+                    "setPerQueTimer": "No",
+                    "mbid": widget.mbid,
+                  });
+
                   UserSettingsRequestModel model = UserSettingsRequestModel(
                     token: widget.token,
                     setExamTimer: "Yes",
@@ -289,6 +310,14 @@ class _ExamChoosesState extends State<ExamChooses> {
                   });
                 }
               } else {
+
+                formData = dio.FormData.fromMap({
+                  "token": widget.token,
+                  "setExamTimer": "No",
+                  "setPerQueTimer": "No",
+                  "mbid": widget.mbid,
+                });
+
                 UserSettingsRequestModel model = UserSettingsRequestModel(
                   token: widget.token,
                   setExamTimer: "No",

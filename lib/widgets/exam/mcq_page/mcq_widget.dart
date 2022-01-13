@@ -28,70 +28,81 @@ class _MCQWidgetState extends State<MCQWidget> {
     itemCount: widget.mcqQuestions.length,
     itemBuilder: (context, index) {
       return SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height- 80,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              QuestionWidget(
-                question: widget.mcqQuestions[index].que,
-                questionNumber: index + 1,
-              ),
-              // const SizedBox(height: 30,),
-              Column(
-                children: [
-                  for (int i = 0; i < 4; i++)
-                    GestureDetector(
-                      onTap: () {
-                        userAnswer[index + 1] = (i + 1).toString();
-                        setState(() {});
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: Container(
-                            margin: const EdgeInsets.symmetric(vertical: 6),
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                                color: userAnswer.containsKey(index + 1)
-                                    ?
-                                userAnswer[index + 1] == (i + 1).toString()
-                                    ? context.primaryColor
-                                    : context.backgroundColor
-                                    : context.backgroundColor,
-                                borderRadius: BorderRadius.circular(14),
-                                border: Border.all(color: Colors.black38, width: 2)
-                            ),
-                            child: buildAnswer(i, index)
-                        ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height - 160,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      QuestionWidget(
+                        question: widget.mcqQuestions[index].que,
+                        questionNumber: index + 1,
                       ),
-                    ),
-                ],
+                      const SizedBox(height: 30,),
+                      for (int i = 0; i < 4; i++)
+                        GestureDetector(
+                          onTap: () {
+                            userAnswer[index + 1] = (i + 1).toString();
+                            setState(() {});
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 18),
+                            child: Container(
+                                margin: const EdgeInsets.symmetric(vertical: 6),
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                    color: userAnswer.containsKey(index + 1)
+                                        ?
+                                    userAnswer[index + 1] == (i + 1).toString()
+                                        ? context.backgroundColor
+                                        : context.backgroundColor
+                                        : context.backgroundColor,
+                                    borderRadius: BorderRadius.circular(14),
+                                    border: Border.all(color: Colors.black38, width: 2)
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: buildAnswer(i, index),
+                                )
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
               ),
               ButtonWidget(mcqQuestions: widget.mcqQuestions, controller: widget.controller,),
             ],
           ),
-        ),
       );
     },
   );
 
   Widget buildAnswer(int i, int index) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
+    return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               mcqOptionCodes[i].text.xl.make(),
               const SizedBox(width: 10,),
-              SizedBox(width: 255, child: widget.mcqQuestions[index].options[i].text.xl.make()),
+              SizedBox(width: MediaQuery.of(context).size.width - 150, child: widget.mcqQuestions[index].options[i].text.xl.make()),
             ],
           ),
-          const Icon(Icons.circle_outlined, color: Colors.black38,)
-        ],
-      ),
+          // Icon(
+          //   userAnswer[index + 1] == (i + 1).toString() ?
+          //       Icons.circle
+          //   :
+          //       Icons.circle_outlined
+          //   , color: Colors.black38,),
+          userAnswer[index + 1] == (i + 1).toString() ?
+            Icon(Icons.circle, color: context.primaryColor,)
+                :
+            const Icon(Icons.circle_outlined, color: Colors.black38,)
+    ]
     );
   }
 
