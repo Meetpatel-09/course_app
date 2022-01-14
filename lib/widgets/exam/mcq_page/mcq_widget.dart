@@ -35,7 +35,7 @@ class _MCQWidgetState extends State<MCQWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height - 160,
+                height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 4.78),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [

@@ -58,48 +58,18 @@ class _MCQPageState extends State<MCQPage> {
         ),
       ),
       backgroundColor: context.canvasColor,
-      body: wantExamTimer ?
-              wantQuestionTimer ?
-                MCQWidget(
-                  wantExamTimer: wantExamTimer,
-                  wantQuestionTimer: wantQuestionTimer,
-                  mcqQuestions: mcqQuestionBank,
-                  controller: controller,
-                  onChangedPage: (page) {
-                    if (page == mcqQuestionBank.length - 1) {
-                      setState(() {
-                        // btnText = "See Results";
-                      });
-                    }
-                  },
-                )
-              :
-                MCQWidget(
-                  wantExamTimer: wantExamTimer,
-                  wantQuestionTimer: wantQuestionTimer,
-                  mcqQuestions: mcqQuestionBank,
-                  controller: controller,
-                  onChangedPage: (page) {
-                    if (page == mcqQuestionBank.length - 1) {
-                      setState(() {
-                        // btnText = "See Results";
-                      });
-                    }
-                  },
-                )
-          :
-          MCQWidget(
-            wantExamTimer: wantExamTimer,
-            wantQuestionTimer: wantQuestionTimer,
-            mcqQuestions: mcqQuestionBank,
-            controller: controller,
-            onChangedPage: (page) {
-              if (page == mcqQuestionBank.length - 1) {
-                setState(() {
-                  // btnText = "See Results";
-                });
-              }
-            },
+      body: MCQWidget(
+              wantExamTimer: wantExamTimer,
+              wantQuestionTimer: wantQuestionTimer,
+              mcqQuestions: mcqQuestionBank,
+              controller: controller,
+              onChangedPage: (page) {
+                if (page == mcqQuestionBank.length - 1) {
+                  setState(() {
+                    // btnText = "See Results";
+                  });
+                }
+              },
           )
     );
   }
