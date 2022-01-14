@@ -7,8 +7,8 @@ class StartExamButton extends StatelessWidget {
   const StartExamButton({Key? key, required this.subjectList, required this.index, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTime, required this.questionTime, required this.numQuestions, required this.token, required this.mbid}) : super(key: key);
   final List<Subject> subjectList;
   final int index;
-  final String wantExamTimer;
-  final String wantQuestionTimer;
+  final bool wantExamTimer;
+  final bool wantQuestionTimer;
   final String examTime;
   final String questionTime;
   final String numQuestions;

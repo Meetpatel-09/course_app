@@ -14,8 +14,8 @@ class MCQPage extends StatefulWidget {
 class _MCQPageState extends State<MCQPage> {
   List<Subject>? subjectList = [];
   int index = 0;
-  String wantExamTimer = "No";
-  String wantQuestionTimer = "No";
+  bool wantExamTimer = false;
+  bool wantQuestionTimer = false;
   String examTime = "notSet";
   String questionTime = "notSet";
   late String numQuestions;
@@ -58,17 +58,49 @@ class _MCQPageState extends State<MCQPage> {
         ),
       ),
       backgroundColor: context.canvasColor,
-      body: MCQWidget(
-        mcqQuestions: mcqQuestionBank,
-        controller: controller,
-        onChangedPage: (page) {
-          if (page == mcqQuestionBank.length - 1) {
-            setState(() {
-              // btnText = "See Results";
-            });
-          }
-        },
-      ),
+      body: wantExamTimer ?
+              wantQuestionTimer ?
+                MCQWidget(
+                  wantExamTimer: wantExamTimer,
+                  wantQuestionTimer: wantQuestionTimer,
+                  mcqQuestions: mcqQuestionBank,
+                  controller: controller,
+                  onChangedPage: (page) {
+                    if (page == mcqQuestionBank.length - 1) {
+                      setState(() {
+                        // btnText = "See Results";
+                      });
+                    }
+                  },
+                )
+              :
+                MCQWidget(
+                  wantExamTimer: wantExamTimer,
+                  wantQuestionTimer: wantQuestionTimer,
+                  mcqQuestions: mcqQuestionBank,
+                  controller: controller,
+                  onChangedPage: (page) {
+                    if (page == mcqQuestionBank.length - 1) {
+                      setState(() {
+                        // btnText = "See Results";
+                      });
+                    }
+                  },
+                )
+          :
+          MCQWidget(
+            wantExamTimer: wantExamTimer,
+            wantQuestionTimer: wantQuestionTimer,
+            mcqQuestions: mcqQuestionBank,
+            controller: controller,
+            onChangedPage: (page) {
+              if (page == mcqQuestionBank.length - 1) {
+                setState(() {
+                  // btnText = "See Results";
+                });
+              }
+            },
+          )
     );
   }
 }

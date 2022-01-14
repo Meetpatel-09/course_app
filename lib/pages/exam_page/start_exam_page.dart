@@ -14,8 +14,8 @@ class StartExamPage extends StatefulWidget {
 class _StartExamPageState extends State<StartExamPage> {
   late List<Subject> subjectList;
   late int index;
-  late String wantExamTimer;
-  late String wantQuestionTimer;
+  late bool wantExamTimer;
+  late bool wantQuestionTimer;
   late String examTime;
   late String questionTime;
   late String numQuestions;

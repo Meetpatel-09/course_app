@@ -3,7 +3,6 @@ import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart'
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:velocity_x/velocity_x.dart';
 
 class ExamChooses extends StatefulWidget {
@@ -43,8 +42,8 @@ class _ExamChoosesState extends State<ExamChooses> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                numOfQuestions(),
-                const SizedBox(height: 40.0,),
+                // numOfQuestions(),
+                // const SizedBox(height: 40.0,),
                 wantTimerExam(),
                 examTimerTextField(),
                 const SizedBox(height: 40.0,),
@@ -197,19 +196,8 @@ class _ExamChoosesState extends State<ExamChooses> {
           ),
           onPressed: () async {
             if (validate()) {
-              dio.FormData formData;
               if (isSelectedE) {
                 if (isSelectedQ) {
-
-                  formData = dio.FormData.fromMap({
-                    "token": widget.token,
-                    "setExamTimer": "Yes",
-                    "examTimer": int.parse(_examETC.value.text),
-                    "setPerQueTimer": "Yes",
-                    "perQueTimer": int.parse(_questionETC.value.text),
-                    "mbid": widget.mbid,
-                  });
-                  //
                   UserSettingsRequestModel model = UserSettingsRequestModel(
                     token: widget.token,
                     setExamTimer: "Yes",
@@ -229,9 +217,9 @@ class _ExamChoosesState extends State<ExamChooses> {
                             'index': widget.subjectIndex,
                             'token': widget.token,
                             'mbid': widget.mbid,
-                            'wantExamTimer': 'Yes',
+                            'wantExamTimer': true,
                             'examTime': _examETC.value.text,
-                            'wantQuestionTimer': 'Yes',
+                            'wantQuestionTimer': true,
                             'questionTime': _questionETC.value.text,
                             'numQuestions': _numQuestionETC.value.text,
                           }
@@ -256,15 +244,6 @@ class _ExamChoosesState extends State<ExamChooses> {
                   });
 
                 } else {
-
-                  formData = dio.FormData.fromMap({
-                    "token": widget.token,
-                    "setExamTimer": "Yes",
-                    "examTimer": int.parse(_examETC.value.text),
-                    "setPerQueTimer": "No",
-                    "mbid": widget.mbid,
-                  });
-
                   UserSettingsRequestModel model = UserSettingsRequestModel(
                     token: widget.token,
                     setExamTimer: "Yes",
@@ -283,9 +262,9 @@ class _ExamChoosesState extends State<ExamChooses> {
                             'index': widget.subjectIndex,
                             'token': widget.token,
                             'mbid': widget.mbid,
-                            'wantExamTimer': 'Yes',
+                            'wantExamTimer': true,
                             'examTime': _examETC.value.text,
-                            'wantQuestionTimer': 'No',
+                            'wantQuestionTimer': false,
                             'questionTime': 'notSet',
                             'numQuestions': _numQuestionETC.value.text
                           }
@@ -310,14 +289,6 @@ class _ExamChoosesState extends State<ExamChooses> {
                   });
                 }
               } else {
-
-                formData = dio.FormData.fromMap({
-                  "token": widget.token,
-                  "setExamTimer": "No",
-                  "setPerQueTimer": "No",
-                  "mbid": widget.mbid,
-                });
-
                 UserSettingsRequestModel model = UserSettingsRequestModel(
                   token: widget.token,
                   setExamTimer: "No",
@@ -335,9 +306,9 @@ class _ExamChoosesState extends State<ExamChooses> {
                           'index': widget.subjectIndex,
                           'token': widget.token,
                           'mbid': widget.mbid,
-                          'wantExamTimer': 'No',
+                          'wantExamTimer': false,
                           'examTime': 'notSet',
-                          'wantQuestionTimer': 'No',
+                          'wantQuestionTimer': false,
                           'questionTime': 'notSet',
                           'numQuestions': _numQuestionETC.value.text
                         }

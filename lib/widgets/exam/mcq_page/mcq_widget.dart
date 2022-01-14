@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MCQWidget extends StatefulWidget {
+  final bool wantExamTimer;
+  final bool wantQuestionTimer;
   final List<Result> mcqQuestions;
   final PageController controller;
   final ValueChanged<int> onChangedPage;
-  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage}) : super(key: key);
+  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage, required this.wantExamTimer, required this.wantQuestionTimer}) : super(key: key);
 
   @override
   _MCQWidgetState createState() => _MCQWidgetState();
@@ -54,14 +56,15 @@ class _MCQWidgetState extends State<MCQWidget> {
                                 margin: const EdgeInsets.symmetric(vertical: 6),
                                 padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                    color: userAnswer.containsKey(index + 1)
-                                        ?
-                                    userAnswer[index + 1] == (i + 1).toString()
-                                        ? context.backgroundColor
-                                        : context.backgroundColor
-                                        : context.backgroundColor,
+                                    color: context.backgroundColor,
                                     borderRadius: BorderRadius.circular(14),
-                                    border: Border.all(color: Colors.black38, width: 2)
+                                    border: Border.all(
+                                        color:
+                                        userAnswer[index + 1] == (i + 1).toString()
+                                            ? context.primaryColor
+                                            : Colors.black38,
+                                        width: 2
+                                    )
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -87,17 +90,19 @@ class _MCQWidgetState extends State<MCQWidget> {
         children: [
           Row(
             children: [
-              mcqOptionCodes[i].text.xl.make(),
+              mcqOptionCodes[i].text.xl.color(
+                userAnswer[index + 1] == (i + 1).toString()
+                  ? context.primaryColor
+                  : Colors.black,
+              ).make(),
               const SizedBox(width: 10,),
-              SizedBox(width: MediaQuery.of(context).size.width - 150, child: widget.mcqQuestions[index].options[i].text.xl.make()),
+              SizedBox(width: MediaQuery.of(context).size.width - 150, child: widget.mcqQuestions[index].options[i].text.xl.color(
+                userAnswer[index + 1] == (i + 1).toString()
+                    ? context.primaryColor
+                    : Colors.black,
+              ).make()),
             ],
           ),
-          // Icon(
-          //   userAnswer[index + 1] == (i + 1).toString() ?
-          //       Icons.circle
-          //   :
-          //       Icons.circle_outlined
-          //   , color: Colors.black38,),
           userAnswer[index + 1] == (i + 1).toString() ?
             Icon(Icons.circle, color: context.primaryColor,)
                 :
