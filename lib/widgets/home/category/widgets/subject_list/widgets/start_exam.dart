@@ -25,7 +25,7 @@ class _StartExamState extends State<StartExam> {
         alignment: Alignment.center,
         child: ElevatedButton(
             onPressed: () {
-              _sharedServices.checkLogIn("token").then((value) {
+              _sharedServices.getData("token").then((value) {
                 if (value != null) {
                   return
                     APIServices.getMCQBank(widget.subjectID).then((mcqBanks) {

@@ -1,6 +1,6 @@
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
-import 'package:course_app_ui/widgets/exam/mcq_page/button_widget.dart';
-import 'package:course_app_ui/widgets/exam/mcq_page/question_widget.dart';
+import 'package:course_app_ui/widgets/exam/mcq_page/widgets/button_widget.dart';
+import 'package:course_app_ui/widgets/exam/mcq_page/widgets/question_widget/question_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 

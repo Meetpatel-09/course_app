@@ -12,7 +12,6 @@ class GoogleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Center(
       child: TextButton(
         style: ButtonStyle(
@@ -26,7 +25,6 @@ class GoogleButton extends StatelessWidget {
         ),
         onPressed: () async {
           final user = await GoogleSignInAPI.login();
-
           if (user == null) {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Sign In Failed'),
@@ -136,5 +134,6 @@ class GoogleButton extends StatelessWidget {
   Future<void> setToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('token', token);
+    prefs.setString('isGoogle', 'Yes');
   }
 }

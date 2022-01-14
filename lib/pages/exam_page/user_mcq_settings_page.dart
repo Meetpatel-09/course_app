@@ -23,7 +23,7 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
 
   @override
   void initState() {
-    _sharedServices.checkLogIn("token").then((value) {
+    _sharedServices.getData("token").then((value) {
       if (value != null) {
         setState(() {
           token = value;

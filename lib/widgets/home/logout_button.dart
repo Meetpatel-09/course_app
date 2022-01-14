@@ -21,15 +21,18 @@ class _LogoutIconButtonState extends State<LogoutIconButton> {
   @override
   void initState() {
     super.initState();
-    _sharedServices.checkLogIn("token").then((value) {
+    _sharedServices.getData("token").then((value) {
       if (value != null) {
         setState(() {
           isLoggedIn = true;
         });
       }
-      final arg = ModalRoute.of(context)!.settings.arguments as Map;
-      if (arg['isGoogle'] != null) {
-        isGoogle = arg['isGoogle'];
+    });
+    _sharedServices.getData("isGoogle").then((value) {
+      if (value != null) {
+        setState(() {
+          isGoogle = "yes";
+        });
       }
     });
   }

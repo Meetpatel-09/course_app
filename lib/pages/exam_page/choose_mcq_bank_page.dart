@@ -21,7 +21,7 @@ class _ChooseMCQBankPageState extends State<ChooseMCQBankPage> {
 
   @override
   void initState() {
-    _sharedServices.checkLogIn("token").then((value) {
+    _sharedServices.getData("token").then((value) {
       if (value != null) {
         setState(() {
           token = value;

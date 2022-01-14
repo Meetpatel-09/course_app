@@ -17,16 +17,15 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-    _sharedServices.checkLogIn("token").then((value) {
+    _sharedServices.getData("token").then((value) {
       if (value != null) {
         return Timer(const Duration(seconds: 2),
-                () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.homeRoute, (route) => false, arguments: {'isGoogle': "no"}));
+                () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.homeRoute, (route) => false));
       } else {
         return Timer(const Duration(seconds: 2),
-                () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.homeRoute, (route) => false, arguments: {'isGoogle': "no"}));
+                () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.homeRoute, (route) => false));
       }
-    }
-    );
+    });
     super.initState();
   }
 

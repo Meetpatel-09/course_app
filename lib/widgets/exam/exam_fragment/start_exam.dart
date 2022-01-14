@@ -24,7 +24,7 @@ class _StartExamState extends State<StartExam> {
         child: IconButton(
           icon: const Icon(Icons.arrow_forward),
           onPressed: () {
-            _sharedServices.checkLogIn("token").then((value) {
+            _sharedServices.getData("token").then((value) {
               if (value != null) {
                 return
                   APIServices.getMCQBank(widget.subjectID).then((mcqBanks) {
