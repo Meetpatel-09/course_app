@@ -1,19 +1,93 @@
+import 'dart:async';
+
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class QuestionWidget extends StatefulWidget {
-  final String? question;
-  final int? questionNumber;
-  const QuestionWidget({Key? key, this.question, this.questionNumber}) : super(key: key);
+  final String question;
+  final bool wantExamTimer;
+  final String examTimerMinutes;
+  final String examTimerSeconds;
+  final bool wantQuestionTimer;
+  final String questionTimer;
+  final int questionIndex;
+  const QuestionWidget({Key? key, required this.question, required this.questionIndex, required this.wantQuestionTimer, required this.questionTimer, required this.wantExamTimer, required this.examTimerMinutes, required this.examTimerSeconds}) : super(key: key);
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
 }
 
 class _QuestionWidgetState extends State<QuestionWidget> {
+  static Duration countdownDurationQuestion = const Duration();
+  Duration durationQuestion = const Duration();
+  Timer? timerQuestion;
+
+  @override
+  void initState() {
+    super.initState();
+    reset();
+    startTimer();
+  }
+
+  void reset() {
+    if (widget.wantQuestionTimer) {
+      countdownDurationQuestion = Duration(minutes: int.parse(widget.questionTimer));
+      setState(() => durationQuestion = countdownDurationQuestion);
+    } else {
+      setState(() => durationQuestion = const Duration(hours: 10));
+    }
+  }
+
+  void addTime() {
+    const addSeconds = -1;
+
+    setState(() {
+      final seconds = durationQuestion.inSeconds + addSeconds;
+
+      if(seconds < 0) {
+        timerQuestion?.cancel();
+      } else {
+        durationQuestion = Duration(seconds: seconds);
+      }
+    });
+  }
+
+  void startTimer({bool resets = true}) {
+    if(resets) {
+      reset();
+    }
+    timerQuestion = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
+  }
+
+  void stopTimer({bool resets = true}) {
+    if (resets) {
+      reset();
+    }
+
+    setState(() => timerQuestion?.cancel());
+  }
+
+  @override
+  void dispose() {
+    timerQuestion?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    if (widget.wantQuestionTimer) {
+      final isRunning = timerQuestion == null ? false : timerQuestion!.isActive;
+      int uSeconds = int.parse(widget.questionTimer) * 60;
+      final isCompleted = durationQuestion.inSeconds == uSeconds || durationQuestion.inSeconds == 0;
+    }
+
+    // 9 --> 09     11 --> 11
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutesQuestion = twoDigits(durationQuestion.inMinutes.remainder(60));
+    final secondsQuestion = twoDigits(durationQuestion.inSeconds.remainder(60));
+
     return
         Container(
             width: MediaQuery.of(context).size.width,
@@ -32,7 +106,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         color: MyTheme.lightBlue,
                         borderRadius: const BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10))
                     ),
-                    child: "${widget.questionNumber}. ${widget.question!}".richText.semiBold.xl.color(context.primaryColor).letterSpacing(1).justify.make(),
+                    child: "${widget.questionIndex + 1}. ${widget.question}".richText.semiBold.xl.color(context.primaryColor).letterSpacing(1).justify.make(),
                   ),
                 ),
                 Align(
@@ -53,7 +127,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         ),
                       ]
                     ),
-                    child: "${widget.questionNumber}. ${widget.question!}".richText.semiBold.xl.letterSpacing(1).justify.make(),
+                    child: "${widget.questionIndex + 1}. ${widget.question}".richText.semiBold.xl.letterSpacing(1).justify.make(),
                   ),
                 ),
                 Align(
@@ -69,7 +143,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                     margin: const EdgeInsets.only(top: 70, left: 18, right: 18,),
-                    child: buildQuestionTimer(),
+                    child: widget.wantQuestionTimer ? buildQuestionTimer(minutesQuestion, secondsQuestion) : const SizedBox(),
                   ),
                 ),
               ],
@@ -77,12 +151,12 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     );
   }
 
-  Widget buildQuestionTimer() => Row(
+  Widget buildQuestionTimer(String minutesQuestion, String secondsQuestion) => Row(
     mainAxisAlignment: MainAxisAlignment.end,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       const Icon(Icons.access_alarm),
-      "00:30".text.make(),
+      "$minutesQuestion : $secondsQuestion".text.make(),
     ],
   );
 
@@ -107,7 +181,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         "Exam Timer".text.center.lg.make(),
-        "45:34".text.xl.make(),
+        "${widget.examTimerMinutes} : ${widget.examTimerSeconds}".text.xl.make(),
       ],
     )),
   );

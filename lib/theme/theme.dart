@@ -10,7 +10,7 @@ class MyTheme {
       cardColor: black,
       primaryColor: lightBlue,
       backgroundColor: white,
-      fontFamily: GoogleFonts.poppins().fontFamily,
+      fontFamily: GoogleFonts.notoSans().fontFamily,
       appBarTheme: AppBarTheme(
           backgroundColor: lightBlue,
           elevation: 0.0,
@@ -34,7 +34,7 @@ class MyTheme {
       cardColor: white,
       primaryColor: lightBluishColor,
       backgroundColor: black,
-      fontFamily: GoogleFonts.poppins().fontFamily,
+      fontFamily: GoogleFonts.notoSans().fontFamily,
       appBarTheme: AppBarTheme(
           backgroundColor: lightBluishColor,
           elevation: 0.0,

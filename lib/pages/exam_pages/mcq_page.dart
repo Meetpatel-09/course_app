@@ -61,6 +61,8 @@ class _MCQPageState extends State<MCQPage> {
       body: MCQWidget(
               wantExamTimer: wantExamTimer,
               wantQuestionTimer: wantQuestionTimer,
+              examTimer: examTime,
+              questionTimer: questionTime,
               mcqQuestions: mcqQuestionBank,
               controller: controller,
               onChangedPage: (page) {

@@ -30,10 +30,10 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.4
-  velocity_x: ^3.3.0
+  velocity_x: ^3.4.0
   url_strategy: ^0.2.0
   flutter_staggered_grid_view: ^0.4.1
-  google_fonts: ^2.1.0
+  google_fonts: ^2.2.0
   shared_preferences: ^2.0.11
   snippet_coder_utils: ^1.0.9
   path_provider: ^2.0.8
