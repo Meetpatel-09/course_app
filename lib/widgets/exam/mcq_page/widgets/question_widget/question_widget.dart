@@ -11,8 +11,9 @@ class QuestionWidget extends StatefulWidget {
   final String examTimerSeconds;
   final bool wantQuestionTimer;
   final String questionTimer;
-  final int questionIndex;
-  const QuestionWidget({Key? key, required this.question, required this.questionIndex, required this.wantQuestionTimer, required this.questionTimer, required this.wantExamTimer, required this.examTimerMinutes, required this.examTimerSeconds}) : super(key: key);
+  final int questionNumber;
+  final Map<int, Duration> userMCQQuestionTimer;
+  const QuestionWidget({Key? key, required this.question, required this.questionNumber, required this.wantQuestionTimer, required this.questionTimer, required this.wantExamTimer, required this.examTimerMinutes, required this.examTimerSeconds, required this.userMCQQuestionTimer}) : super(key: key);
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -26,13 +27,23 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   void initState() {
     super.initState();
-    reset();
     startTimer();
+  }
+
+  void startTimer({bool resets = true}) {
+    if(resets) {
+      reset();
+    }
+    timerQuestion = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
   }
 
   void reset() {
     if (widget.wantQuestionTimer) {
-      countdownDurationQuestion = Duration(minutes: int.parse(widget.questionTimer));
+      if (widget.userMCQQuestionTimer.containsKey(widget.questionNumber)) {
+        countdownDurationQuestion = widget.userMCQQuestionTimer[widget.questionNumber]!;
+      } else {
+        countdownDurationQuestion = Duration(minutes: int.parse(widget.questionTimer));
+      }
       setState(() => durationQuestion = countdownDurationQuestion);
     } else {
       setState(() => durationQuestion = const Duration(hours: 10));
@@ -41,7 +52,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   void addTime() {
     const addSeconds = -1;
-
+    widget.userMCQQuestionTimer[widget.questionNumber] = durationQuestion;
     setState(() {
       final seconds = durationQuestion.inSeconds + addSeconds;
 
@@ -51,13 +62,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         durationQuestion = Duration(seconds: seconds);
       }
     });
-  }
-
-  void startTimer({bool resets = true}) {
-    if(resets) {
-      reset();
-    }
-    timerQuestion = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
   }
 
   void stopTimer({bool resets = true}) {
@@ -106,7 +110,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         color: MyTheme.lightBlue,
                         borderRadius: const BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10))
                     ),
-                    child: "${widget.questionIndex + 1}. ${widget.question}".richText.semiBold.xl.color(context.primaryColor).letterSpacing(1).justify.make(),
+                    child: "${widget.questionNumber}. ${widget.question}".richText.semiBold.xl.color(context.primaryColor).letterSpacing(1).justify.make(),
                   ),
                 ),
                 Align(
@@ -127,7 +131,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         ),
                       ]
                     ),
-                    child: "${widget.questionIndex + 1}. ${widget.question}".richText.semiBold.xl.letterSpacing(1).justify.make(),
+                    child: "${widget.questionNumber}. ${widget.question}".richText.semiBold.xl.letterSpacing(1).justify.make(),
                   ),
                 ),
                 Align(

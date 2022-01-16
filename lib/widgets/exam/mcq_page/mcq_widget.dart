@@ -25,7 +25,7 @@ class _MCQWidgetState extends State<MCQWidget> {
   String btnText = "Next Question";
   List<String> mcqOptionCodes = ["A", "B", "C", "D"];
   Map<int, String> userAnswer = {};
-  Map<int, String> userMCQQuestionTimer = {};
+  Map<int, Duration> userMCQQuestionTimer = {};
 
   static Duration countdownDurationExam = const Duration();
   Duration durationExam = const Duration();
@@ -94,6 +94,8 @@ class _MCQWidgetState extends State<MCQWidget> {
     final minutes = twoDigits(durationExam.inMinutes.remainder(60));
     final seconds = twoDigits(durationExam.inSeconds.remainder(60));
 
+    print(userMCQQuestionTimer);
+
     return PageView.builder(
       physics: const NeverScrollableScrollPhysics(),
       onPageChanged: widget.onChangedPage,
@@ -111,14 +113,14 @@ class _MCQWidgetState extends State<MCQWidget> {
                   children: [
                     QuestionWidget(
                       question: widget.mcqQuestions[index].que,
-                      questionIndex: index,
+                      questionNumber: index + 1,
                       wantExamTimer: widget.wantExamTimer,
                       examTimerMinutes: minutes,
                       examTimerSeconds: seconds,
                       wantQuestionTimer: widget.wantQuestionTimer,
                       questionTimer: widget.questionTimer,
+                      userMCQQuestionTimer: userMCQQuestionTimer,
                     ),
-                    // Text(minutes + " : " + seconds),
                     const SizedBox(height: 30,),
                     Column(
                       children: [
