@@ -1,6 +1,5 @@
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
 import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class ButtonWidget extends StatelessWidget {
   final List<Result> mcqQuestions;
@@ -10,7 +9,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 18.0),
+      padding: const EdgeInsets.fromLTRB(18, 5, 18, 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
