@@ -33,47 +33,52 @@ class _MCQWidgetState extends State<MCQWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            children: [
-              QuestionWidget(
-                question: widget.mcqQuestions[index].que,
-                questionNumber: index + 1,
-              ),
-              const SizedBox(height: 30,),
-              Column(
+          SizedBox(
+            height: 600,
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
-                  for (int i = 0; i < 4; i++)
-                    GestureDetector(
-                      onTap: () {
-                        userAnswer[index + 1] = (i + 1).toString();
-                        setState(() {});
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: Container(
-                            margin: const EdgeInsets.symmetric(vertical: 6),
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                                color: context.backgroundColor,
-                                borderRadius: BorderRadius.circular(14),
-                                border: Border.all(
-                                    color:
-                                    userAnswer[index + 1] == (i + 1).toString()
-                                        ? context.primaryColor
-                                        : Colors.black38,
-                                    width: 2
+                  QuestionWidget(
+                    question: widget.mcqQuestions[index].que,
+                    questionNumber: index + 1,
+                  ),
+                  const SizedBox(height: 30,),
+                  Column(
+                    children: [
+                      for (int i = 0; i < 4; i++)
+                        GestureDetector(
+                          onTap: () {
+                            userAnswer[index + 1] = (i + 1).toString();
+                            setState(() {});
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 18),
+                            child: Container(
+                                margin: const EdgeInsets.symmetric(vertical: 6),
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                    color: context.backgroundColor,
+                                    borderRadius: BorderRadius.circular(14),
+                                    border: Border.all(
+                                        color:
+                                        userAnswer[index + 1] == (i + 1).toString()
+                                            ? context.primaryColor
+                                            : Colors.black38,
+                                        width: 2
+                                    )
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: buildAnswer(i, index),
                                 )
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                              child: buildAnswer(i, index),
-                            )
+                          ),
                         ),
-                      ),
-                    ),
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
           ButtonWidget(mcqQuestions: widget.mcqQuestions, controller: widget.controller,),
         ],

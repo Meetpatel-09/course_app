@@ -8,9 +8,11 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(18, 5, 18, 12),
-      child: Row(
+    return
+      Padding(
+      padding: const EdgeInsets.fromLTRB(18, 0, 18, 6),
+      child:
+      Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           TextButton(
