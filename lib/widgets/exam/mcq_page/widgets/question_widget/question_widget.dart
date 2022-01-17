@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class QuestionWidget extends StatefulWidget {
@@ -27,7 +28,9 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   void initState() {
     super.initState();
-    startTimer();
+    if (widget.wantQuestionTimer) {
+      startTimer();
+    }
   }
 
   void startTimer({bool resets = true}) {
@@ -160,7 +163,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       const Icon(Icons.access_alarm),
-      "$minutesQuestion : $secondsQuestion".text.make(),
+      "$minutesQuestion : $secondsQuestion".text.textStyle(GoogleFonts.lato()).make(),
     ],
   );
 
@@ -185,7 +188,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         "Exam Timer".text.center.lg.make(),
-        "${widget.examTimerMinutes} : ${widget.examTimerSeconds}".text.xl.make(),
+        widget.wantExamTimer ? "${widget.examTimerMinutes} : ${widget.examTimerSeconds}".text.xl.textStyle(GoogleFonts.lato()).make() : "∞".text.xl4.make(),
       ],
     )),
   );

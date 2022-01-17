@@ -34,8 +34,9 @@ class _MCQWidgetState extends State<MCQWidget> {
   @override
   void initState() {
     super.initState();
-    reset();
-    startTimer();
+    if (widget.wantExamTimer) {
+      startTimer();
+    }
   }
 
   void reset() {
@@ -85,16 +86,16 @@ class _MCQWidgetState extends State<MCQWidget> {
   @override
   Widget build(BuildContext context) {
 
-    final isRunning = timerExam == null ? false : timerExam!.isActive;
-    int uSeconds = int.parse(widget.examTimer) * 60;
-    final isCompleted = durationExam.inSeconds == uSeconds || durationExam.inSeconds == 0;
+    if (widget.wantExamTimer) {
+      final isRunning = timerExam == null ? false : timerExam!.isActive;
+      int uSeconds = int.parse(widget.examTimer) * 60;
+      final isCompleted = durationExam.inSeconds == uSeconds || durationExam.inSeconds == 0;
+    }
 
     // 9 --> 09     11 --> 11
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final minutes = twoDigits(durationExam.inMinutes.remainder(60));
     final seconds = twoDigits(durationExam.inSeconds.remainder(60));
-
-    print(userMCQQuestionTimer);
 
     return PageView.builder(
       physics: const NeverScrollableScrollPhysics(),
