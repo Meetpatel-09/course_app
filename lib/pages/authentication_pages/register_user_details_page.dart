@@ -8,6 +8,8 @@ import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/links/terms_conditions.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
@@ -368,11 +370,41 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
 
       if(image == null) return;
 
+      File? croppedFile = await ImageCropper.cropImage(
+          sourcePath: image.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio16x9
+          ],
+          androidUiSettings: AndroidUiSettings(
+              toolbarTitle: 'Crop Image',
+              toolbarColor: context.primaryColor,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          iosUiSettings: const IOSUiSettings(
+            minimumAspectRatio: 1.0,
+          )
+      );
+
+      final result = await FlutterImageCompress.compressAndGetFile(
+        croppedFile!.path,
+        image.path,
+        quality: 75,
+        minWidth: 512,
+        minHeight: 512,
+      );
 
       // Images stored in chase memory temporary
-      final imageTemporary = File(image.path);
+      // final imageTemporary = File(image.path);
       // print(image.saveTo("assets/images/"));
-      setState(() => this.image = imageTemporary);
+      setState(() => this.image = result);
+      //
+      // print("cropped ${croppedFile.lengthSync()}");
+      // print("compressed ${result?.lengthSync()}");
 
     } catch(e) {
       FormHelper.showSimpleAlertDialog(
