@@ -44,138 +44,144 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget _registerUI(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const CreateAccount(),
+          const SizedBox(height: 40,),
+          formFields(),
           const SizedBox(height: 30,),
-          FormHelper.inputFieldWidget(
-            context,
-            const Icon(Icons.mail),
-            "email",
-            "Email",
-                (onValidateVal) {
-              if (onValidateVal.isEmpty) {
-                return "Email cannot be empty.";
-              }
-              return null;
-            },
-                (onSavedVal) {
-              email = onSavedVal;
-            },
-            borderFocusColor: context.cardColor,
-            prefixIconColor:context.cardColor,
-            borderColor: context.cardColor,
-            textColor: context.cardColor,
-            hintColor: context.cardColor.withOpacity(0.7),
-            borderRadius: 10,
-          ),
-          const SizedBox(height: 10,),
-          FormHelper.inputFieldWidget(
-            context,
-            const Icon(Icons.lock),
-            "password",
-            "Password",
-                (onValidateVal) {
-              if (onValidateVal.isEmpty) {
-                return "Password cannot be empty.";
-              } else if (onValidateVal.toString().length < 8) {
-                return "Password too short";
-              }
-              return null;
-            },
-                (onSavedVal) {
-              password = onSavedVal;
-            },
-            borderFocusColor: context.cardColor,
-            prefixIconColor:context.cardColor,
-            borderColor: context.cardColor,
-            textColor: context.cardColor,
-            hintColor: context.cardColor.withOpacity(0.7),
-            borderRadius: 10,
-            obscureText: hidePassword,
-            suffixIcon: IconButton(
-              onPressed: () {
-                setState(() {
-                  hidePassword = !hidePassword;
-                });
-              },
-              color: context.cardColor.withOpacity(0.7),
-              icon:
-              Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
-            ),
-          ),
-          const SizedBox(height: 10,),
-          FormHelper.inputFieldWidget(
-            context,
-            const Icon(Icons.lock),
-            "confirm_password",
-            "Confirm Password",
-                (onValidateVal) {
-              if (onValidateVal.isEmpty) {
-                return "Confirm Password cannot be empty.";
-              } else if(password != confirmPassword){
-                return "Password must be same.";
-              } else {
-                return null;
-              }
-            },
-                (onSavedVal) {
-              confirmPassword = onSavedVal;
-            },
-            borderFocusColor: context.cardColor,
-            prefixIconColor:context.cardColor,
-            borderColor: context.cardColor,
-            textColor: context.cardColor,
-            hintColor: context.cardColor.withOpacity(0.7),
-            borderRadius: 10,
-            obscureText: hidePassword,
-            suffixIcon: IconButton(
-              onPressed: () {
-                setState(() {
-                  hidePassword = !hidePassword;
-                });
-              },
-              color: context.cardColor.withOpacity(0.7),
-              icon:
-              Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
-            ),
-          ),
+          // const FacebookButton(),
+          const SizedBox(height: 50,),
+          const GoogleButton(isRegisterPage: true,),
           const SizedBox(height: 15,),
-          Center(
-            child: FormHelper.submitButton(
-              "Continue",
+          const LoginLink(),
+          const SizedBox(height: 20,),
+        ],
+      ),
+    );
+  }
+
+  Widget formFields() => Column(
+    children: [
+      FormHelper.inputFieldWidget(
+        context,
+        const Icon(Icons.mail),
+        "email",
+        "Email",
+            (onValidateVal) {
+          if (onValidateVal.isEmpty) {
+            return "Email cannot be empty.";
+          }
+          return null;
+        },
+            (onSavedVal) {
+          email = onSavedVal;
+        },
+        borderFocusColor: context.cardColor,
+        prefixIconColor:context.cardColor,
+        borderColor: context.cardColor,
+        textColor: context.cardColor,
+        hintColor: context.cardColor.withOpacity(0.7),
+        borderRadius: 10,
+      ),
+      const SizedBox(height: 10,),
+      FormHelper.inputFieldWidget(
+        context,
+        const Icon(Icons.lock),
+        "password",
+        "Password",
+            (onValidateVal) {
+          if (onValidateVal.isEmpty) {
+            return "Password cannot be empty.";
+          } else if (onValidateVal.toString().length < 8) {
+            return "Password too short";
+          }
+          return null;
+        },
+            (onSavedVal) {
+          password = onSavedVal;
+        },
+        borderFocusColor: context.cardColor,
+        prefixIconColor:context.cardColor,
+        borderColor: context.cardColor,
+        textColor: context.cardColor,
+        hintColor: context.cardColor.withOpacity(0.7),
+        borderRadius: 10,
+        obscureText: hidePassword,
+        suffixIcon: IconButton(
+          onPressed: () {
+            setState(() {
+              hidePassword = !hidePassword;
+            });
+          },
+          color: context.cardColor.withOpacity(0.7),
+          icon:
+          Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
+        ),
+      ),
+      const SizedBox(height: 10,),
+      FormHelper.inputFieldWidget(
+        context,
+        const Icon(Icons.lock),
+        "confirm_password",
+        "Confirm Password",
+            (onValidateVal) {
+          if (onValidateVal.isEmpty) {
+            return "Confirm Password cannot be empty.";
+          } else if(password != confirmPassword){
+            return "Password must be same.";
+          } else {
+            return null;
+          }
+        },
+            (onSavedVal) {
+          confirmPassword = onSavedVal;
+        },
+        borderFocusColor: context.cardColor,
+        prefixIconColor:context.cardColor,
+        borderColor: context.cardColor,
+        textColor: context.cardColor,
+        hintColor: context.cardColor.withOpacity(0.7),
+        borderRadius: 10,
+        obscureText: hidePassword,
+        suffixIcon: IconButton(
+          onPressed: () {
+            setState(() {
+              hidePassword = !hidePassword;
+            });
+          },
+          color: context.cardColor.withOpacity(0.7),
+          icon:
+          Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
+        ),
+      ),
+      const SizedBox(height: 15,),
+      Center(
+        child: FormHelper.submitButton(
+          "Continue",
               () {
-              if (validateAndSave()) {
-                Navigator.pushNamed(
+            if (validateAndSave()) {
+              Navigator.pushNamed(
                   context,
                   MyRoutes.registerDetailsRoute,
                   arguments: {
                     'email': email, 'password': password
                   }
-                );
-              }
-              },
-              width: MediaQuery.of(context).size.width - 40,
-              btnColor: context.primaryColor,
-              borderColor: context.cardColor,
-              txtColor: MyTheme.white,
-              borderRadius: 10,
-            ),
-          ),
-          const SizedBox(height: 5,),
-          const TermsAndConditions().px20(),
-          const SizedBox(height: 30,),
-          const FacebookButton(),
-          const SizedBox(height: 10,),
-          const GoogleButton(isRegisterPage: true,),
-          const SizedBox(height: 25,),
-          const LoginLink(),
-          const SizedBox(height: 25,),
-        ],
+              );
+            }
+          },
+          width: MediaQuery.of(context).size.width - 40,
+          btnColor: context.primaryColor,
+          borderColor: context.cardColor,
+          txtColor: MyTheme.white,
+          borderRadius: 10,
+        ),
       ),
-    );
-  }
+      const SizedBox(height: 5,),
+      const TermsAndConditions().px20(),
+    ],
+  );
 
   bool validateAndSave() {
     final form = globalFormKey.currentState;
