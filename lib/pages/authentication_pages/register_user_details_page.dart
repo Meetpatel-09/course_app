@@ -41,13 +41,18 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
 
   @override
   Widget build(BuildContext context) {
+    // Getting the arguments send from the registration page and/or google button on registration page
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
     email = arg['email'];
     password = arg['password'];
+    // Checking is user has registered with Google
     if (arg['isGoogle'] != null) {
       isGoogle = arg['isGoogle'];
+      // Getting the name
       name = arg['name'];
+      // Google gives us full name of user e.g. Rohit Sharma so splitting the name
       fullName = name.split(" ");
+      // Setting the user name to variables
       firstName = fullName[0];
       lastName = fullName[1];
     }
@@ -398,13 +403,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
         minHeight: 512,
       );
 
-      // Images stored in chase memory temporary
-      // final imageTemporary = File(image.path);
-      // print(image.saveTo("assets/images/"));
       setState(() => this.image = result);
-      //
-      // print("cropped ${croppedFile.lengthSync()}");
-      // print("compressed ${result?.lengthSync()}");
 
     } catch(e) {
       FormHelper.showSimpleAlertDialog(

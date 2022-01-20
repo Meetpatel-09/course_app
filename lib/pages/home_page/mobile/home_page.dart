@@ -24,7 +24,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    return  Scaffold(
+    return Scaffold(
+      // considering different types of devices and their pre-occupied constraints of screen like status bar
+      // Using SafeArea Widget in order to make our UI adaptive and error-free.
       body: SafeArea(
         child: IndexedStack(
           index: currentIndex,
