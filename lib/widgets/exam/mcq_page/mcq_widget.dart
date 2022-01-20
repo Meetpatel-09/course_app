@@ -14,7 +14,8 @@ class MCQWidget extends StatefulWidget {
   final List<Result> mcqQuestions;
   final PageController controller;
   final ValueChanged<int> onChangedPage;
-  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTimer, required this.questionTimer}) : super(key: key);
+  final String token;
+  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTimer, required this.questionTimer, required this.token}) : super(key: key);
 
   @override
   _MCQWidgetState createState() => _MCQWidgetState();
@@ -88,17 +89,18 @@ class _MCQWidgetState extends State<MCQWidget> {
   @override
   Widget build(BuildContext context) {
 
-    if (widget.wantExamTimer) {
-      final isRunning = timerExam == null ? false : timerExam!.isActive;
-      int uSeconds = int.parse(widget.examTimer) * 60;
-      final isCompleted = durationExam.inSeconds == uSeconds || durationExam.inSeconds == 0;
-    }
+    // if (widget.wantExamTimer) {
+    //   final isRunning = timerExam == null ? false : timerExam!.isActive;
+    //   int uSeconds = int.parse(widget.examTimer) * 60;
+    //   final isCompleted = durationExam.inSeconds == uSeconds || durationExam.inSeconds == 0;
+    // }
 
     // 9 --> 09     11 --> 11
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final minutes = twoDigits(durationExam.inMinutes.remainder(60));
     final seconds = twoDigits(durationExam.inSeconds.remainder(60));
 
+    // print(userMCQQuestionTimer);
     return PageView.builder(
       physics: const NeverScrollableScrollPhysics(),
       onPageChanged: widget.onChangedPage,
@@ -133,14 +135,13 @@ class _MCQWidgetState extends State<MCQWidget> {
                             onTap: () {
                               if(widget.wantQuestionTimer) {
                                 int? s = userMCQQuestionTimer[widget.mcqQuestions[index].mcqid]?.inSeconds;
-                                int? m = userMCQQuestionTimer[widget.mcqQuestions[index].mcqid]?.inMinutes;
-                                if ((m! + s! )!= 0) {
+                                if (s! != 0) {
                                   userAnswer[index + 1] = (i + 1).toString();
                                   userAnswerToSend[widget.mcqQuestions[index].mcqid] = (i + 1);
                                   setState(() {});
-                                  print(userAnswer);
-                                  print(userAnswerToSend);
-                                  print(userMCQQuestionTimer);
+                                  // print(userAnswer);
+                                  // print(userAnswerToSend);
+                                  // print(userMCQQuestionTimer);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                     content: Text('Question Time Out!!'),
@@ -190,8 +191,14 @@ class _MCQWidgetState extends State<MCQWidget> {
             ),
             ButtonWidget(
               mcqQuestions: widget.mcqQuestions,
+              questionIndex: index,
               controller: widget.controller,
               userAnswer: userAnswer,
+              token: widget.token,
+              userMcqId: widget.mcqQuestions[index].mcqid,
+              userAnswerToSend: userAnswerToSend,
+              userMCQQuestionTimer: userMCQQuestionTimer,
+              questionTimer: int.parse(widget.questionTimer),
             ),
           ],
         );

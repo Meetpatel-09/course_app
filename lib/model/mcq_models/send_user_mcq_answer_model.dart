@@ -11,10 +11,10 @@ class SendUserMCQAnswers {
   late final String token;
   late final int userMcqId;
   late final int mbid;
-  late final List<int> mcqid;
-  late final List<int> ans;
-  late final List<int> queRemainingTime;
-  late final List<int> queTotalTakenTime;
+  late final List<dynamic> mcqid;
+  late final List<dynamic> ans;
+  late final List<dynamic> queRemainingTime;
+  late final List<dynamic> queTotalTakenTime;
 
   SendUserMCQAnswers.fromJson(Map<String, dynamic> json){
     token = json['token'];

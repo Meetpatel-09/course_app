@@ -1,6 +1,4 @@
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/model/mcq_models/send_user_mcq_answer_model.dart';
-import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/mcq_page/mcq_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +18,7 @@ class _MCQPageState extends State<MCQPage> {
   bool wantExamTimer = false;
   bool wantQuestionTimer = false;
   String examTime = "notSet";
-  String questionTime = "notSet";
+  String questionTime = "0";
   late String numQuestions;
   String token = "empty";
   int mbid = 0;
@@ -48,6 +46,10 @@ class _MCQPageState extends State<MCQPage> {
     questionTime = arg['questionTime'];
     numQuestions = arg['numQuestions'];
     mcqQuestionBank = arg['mcqQuestionBank'];
+
+    if(questionTime == "notSet") {
+       questionTime = "0";
+    }
 
     return WillPopScope(
       onWillPop: () async {
@@ -91,6 +93,7 @@ class _MCQPageState extends State<MCQPage> {
                 questionTimer: questionTime,
                 mcqQuestions: mcqQuestionBank,
                 controller: controller,
+                token: token,
                 onChangedPage: (page) {
                   if (page == mcqQuestionBank.length - 1) {
                     setState(() {

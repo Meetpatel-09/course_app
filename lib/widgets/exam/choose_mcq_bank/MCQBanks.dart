@@ -29,26 +29,29 @@ class _MCQBanksState extends State<MCQBanks> {
   }
 
   Widget mcqBank() {
-    return Container(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 6),
-        child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              crossAxisCount: 3,
-              childAspectRatio: 3/4
-            ),
-            itemCount: widget.mcqBanks!.result!.length,
-            itemBuilder: (context, index) {
-              return MCQBanksList(
-                mcqBanks: widget.mcqBanks,
-                mcqBanksIndex: index,
-                subjectIndex: widget.subjectIndex,
-                subjectList: widget.subjectList,
-              );
-            }
-        )
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 6),
+          child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                crossAxisCount: 3,
+                childAspectRatio: 3/4
+              ),
+              itemCount: widget.mcqBanks!.result!.length,
+              itemBuilder: (context, index) {
+                return MCQBanksList(
+                  mcqBanks: widget.mcqBanks,
+                  mcqBanksIndex: index,
+                  subjectIndex: widget.subjectIndex,
+                  subjectList: widget.subjectList,
+                );
+              }
+          )
+      ),
     );
   }
 }

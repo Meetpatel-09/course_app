@@ -56,8 +56,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   void addTime() {
     const addSeconds = -1;
-    widget.userMCQQuestionTimer[widget.mcqid] = durationQuestion;
     setState(() {
+      widget.userMCQQuestionTimer[widget.mcqid] = durationQuestion;
       final seconds = durationQuestion.inSeconds + addSeconds;
 
       if(seconds < 0) {
