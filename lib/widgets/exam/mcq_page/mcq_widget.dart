@@ -25,7 +25,9 @@ class _MCQWidgetState extends State<MCQWidget> {
   String btnText = "Next Question";
   List<String> mcqOptionCodes = ["A", "B", "C", "D"];
   Map<int, String> userAnswer = {};
+  Map<int, int> userAnswerToSend = {};
   Map<int, Duration> userMCQQuestionTimer = {};
+  late int mcqId;
 
   static Duration countdownDurationExam = const Duration();
   Duration durationExam = const Duration();
@@ -121,6 +123,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                       wantQuestionTimer: widget.wantQuestionTimer,
                       questionTimer: widget.questionTimer,
                       userMCQQuestionTimer: userMCQQuestionTimer,
+                      mcqid: widget.mcqQuestions[index].mcqid,
                     ),
                     const SizedBox(height: 30,),
                     Column(
@@ -128,8 +131,29 @@ class _MCQWidgetState extends State<MCQWidget> {
                         for (int i = 0; i < 4; i++)
                           GestureDetector(
                             onTap: () {
-                              userAnswer[index + 1] = (i + 1).toString();
-                              setState(() {});
+                              if(widget.wantQuestionTimer) {
+                                int? s = userMCQQuestionTimer[widget.mcqQuestions[index].mcqid]?.inSeconds;
+                                int? m = userMCQQuestionTimer[widget.mcqQuestions[index].mcqid]?.inMinutes;
+                                if ((m! + s! )!= 0) {
+                                  userAnswer[index + 1] = (i + 1).toString();
+                                  userAnswerToSend[widget.mcqQuestions[index].mcqid] = (i + 1);
+                                  setState(() {});
+                                  print(userAnswer);
+                                  print(userAnswerToSend);
+                                  print(userMCQQuestionTimer);
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text('Question Time Out!!'),
+                                  ));
+                                }
+                              } else {
+                                userAnswer[index + 1] = (i + 1).toString();
+                                userAnswerToSend[widget.mcqQuestions[index].mcqid] = (i + 1);
+                                setState(() {});
+                                // print(userAnswer);
+                                // print(userAnswerToSend);
+                                // print(userMCQQuestionTimer);
+                              }
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -164,8 +188,11 @@ class _MCQWidgetState extends State<MCQWidget> {
                 ),
               ),
             ),
-            ButtonWidget(mcqQuestions: widget.mcqQuestions,
-              controller: widget.controller,),
+            ButtonWidget(
+              mcqQuestions: widget.mcqQuestions,
+              controller: widget.controller,
+              userAnswer: userAnswer,
+            ),
           ],
         );
       },

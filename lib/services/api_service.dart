@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
+import 'package:course_app_ui/model/mcq_models/send_user_mcq_answer_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_mcq_answer-response_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_settings_response_model.dart';
 import 'package:course_app_ui/utils/config.dart';
@@ -89,6 +91,28 @@ class APIServices {
       }
     } catch(e) {
       return MCQQuestionBankModel();
+    }
+  }
+
+  static Future<UserMCQAnswersResponseModel> sendMCQUserAnswer(SendUserMCQAnswers model) async {
+    Map<String, String> requestHeaders = {
+      // 'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'token': model.token,
+    };
+
+    var url = Uri.parse(Config().sendMCQUserAnswer);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(model.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      return UserMCQAnswersResponseModel(status: response.statusCode);
+    } else {
+      return UserMCQAnswersResponseModel(status: response.statusCode, msg: response.reasonPhrase);
     }
   }
 }

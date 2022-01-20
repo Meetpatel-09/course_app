@@ -13,8 +13,9 @@ class QuestionWidget extends StatefulWidget {
   final bool wantQuestionTimer;
   final String questionTimer;
   final int questionNumber;
+  final int mcqid;
   final Map<int, Duration> userMCQQuestionTimer;
-  const QuestionWidget({Key? key, required this.question, required this.questionNumber, required this.wantQuestionTimer, required this.questionTimer, required this.wantExamTimer, required this.examTimerMinutes, required this.examTimerSeconds, required this.userMCQQuestionTimer}) : super(key: key);
+  const QuestionWidget({Key? key, required this.question, required this.questionNumber, required this.wantQuestionTimer, required this.questionTimer, required this.wantExamTimer, required this.examTimerMinutes, required this.examTimerSeconds, required this.userMCQQuestionTimer, required this.mcqid}) : super(key: key);
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -42,8 +43,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   void reset() {
     if (widget.wantQuestionTimer) {
-      if (widget.userMCQQuestionTimer.containsKey(widget.questionNumber)) {
-        countdownDurationQuestion = widget.userMCQQuestionTimer[widget.questionNumber]!;
+      if (widget.userMCQQuestionTimer.containsKey(widget.mcqid)) {
+        countdownDurationQuestion = widget.userMCQQuestionTimer[widget.mcqid]!;
       } else {
         countdownDurationQuestion = Duration(minutes: int.parse(widget.questionTimer));
       }
@@ -55,7 +56,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   void addTime() {
     const addSeconds = -1;
-    widget.userMCQQuestionTimer[widget.questionNumber] = durationQuestion;
+    widget.userMCQQuestionTimer[widget.mcqid] = durationQuestion;
     setState(() {
       final seconds = durationQuestion.inSeconds + addSeconds;
 
