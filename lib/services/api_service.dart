@@ -96,20 +96,29 @@ class APIServices {
   }
 
   static Future<UserMCQAnswersResponseModel> sendMCQUserAnswer(SendUserMCQAnswers model, String token) async { {
-    // List<int> comments = [22, 33, 44, 43, 45, 34, 23];
-    // Map<String, dynamic> args = {"mcqid": comments};
-    // var url = Uri.parse(Config().sendMCQUserAnswer);
-    // var body = json.encode(args);
-    // final response = await http
-    //     .post(url, body: body, headers: {'Content-type': 'application/json'});
+    // List mcqid = model.mcqid;
+    // List ans = model.ans;
+    // List queTotalTakenTime = model.queTotalTakenTime;
+    // List queRemainingTime = model.queRemainingTime;
+    var url = Uri.parse(Config().sendMCQUserAnswer);
 
-    print(model.ans);
-    print(model.token);
-    print(model.mcqid);
-    print(model.mbid);
-    print(model.queTotalTakenTime);
-    print(model.queRemainingTime);
+    Map<String, dynamic> args = {"user_mcq_id": model.userMcqId, "mbid": model.mbid, "mcqid":  model.mcqid, "ans": model.ans, "que_remaining_time": model.queRemainingTime, "que_total_taken_time": model.queTotalTakenTime};
 
-    return UserMCQAnswersResponseModel(status: 200);
+    // print(args);
+
+    // print(model.ans);
+    // print(model.token);
+    // print(model.mcqid);
+    // print(model.mbid);
+    // print(model.userMcqId);
+    // print(model.queTotalTakenTime);
+    // print(model.queRemainingTime);
+
+
+    var body = json.encode(args);
+    // print(body);
+    final response = await http
+        .post(url, body: body, headers: {'Content-type': 'application/json'});
+    return UserMCQAnswersResponseModel(status: response.statusCode);
   }}
 }
