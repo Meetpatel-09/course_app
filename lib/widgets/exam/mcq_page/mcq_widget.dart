@@ -27,15 +27,10 @@ class _MCQWidgetState extends State<MCQWidget> {
   List<String> mcqOptionCodes = ["A", "B", "C", "D"];
   Map<int, String> userAnswer = {};
   // user answers
-  Map<int, int> userAnswerToSend = {};
+  Map<int, String> userAnswerToSend = {};
   Map<int, Duration> userMCQQuestionTimer = {};
   late int mcqId;
-
-  var mcqIDs = [];
-  var ans = [];
-  var queTime = [];
-  var remainingTime = [];
-
+  List<int> mcqIDs = [];
 
   static Duration countdownDurationExam = const Duration();
   Duration durationExam = const Duration();
@@ -44,6 +39,9 @@ class _MCQWidgetState extends State<MCQWidget> {
   @override
   void initState() {
     super.initState();
+    for (int i = 0; i < widget.mcqQuestions.length; i++) {
+      mcqIDs.add(widget.mcqQuestions[i].mcqid);
+    }
     if (widget.wantExamTimer) {
       startTimer();
     }
@@ -96,25 +94,10 @@ class _MCQWidgetState extends State<MCQWidget> {
   @override
   Widget build(BuildContext context) {
 
-    // if (widget.wantExamTimer) {
-    //   final isRunning = timerExam == null ? false : timerExam!.isActive;
-    //   int uSeconds = int.parse(widget.examTimer) * 60;
-    //   final isCompleted = durationExam.inSeconds == uSeconds || durationExam.inSeconds == 0;
-    // }
-
     // 9 --> 09     11 --> 11
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final minutes = twoDigits(durationExam.inMinutes.remainder(60));
     final seconds = twoDigits(durationExam.inSeconds.remainder(60));
-
-
-    for (int i = 0; i < widget.mcqQuestions.length; i++) {
-      mcqIDs.add(widget.mcqQuestions[i].mcqid);
-      ans.add("");
-      queTime.add(0);
-      remainingTime.add(0);
-    }
-
 
     // print(userMCQQuestionTimer);
     return PageView.builder(
@@ -153,7 +136,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                                 int? s = userMCQQuestionTimer[widget.mcqQuestions[index].mcqid]?.inSeconds;
                                 if (s! != 0) {
                                   userAnswer[index + 1] = (i + 1).toString();
-                                  userAnswerToSend[widget.mcqQuestions[index].mcqid] = (i + 1);
+                                  userAnswerToSend[widget.mcqQuestions[index].mcqid] = widget.mcqQuestions[index].options[i];
                                   setState(() {});
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -162,7 +145,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                                 }
                               } else {
                                 userAnswer[index + 1] = (i + 1).toString();
-                                userAnswerToSend[widget.mcqQuestions[index].mcqid] = (i + 1);
+                                userAnswerToSend[widget.mcqQuestions[index].mcqid] = widget.mcqQuestions[index].options[i];
                                 setState(() {});
                               }
                             },

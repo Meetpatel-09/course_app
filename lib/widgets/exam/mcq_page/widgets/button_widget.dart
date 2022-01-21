@@ -12,11 +12,11 @@ class ButtonWidget extends StatelessWidget {
   final Map<int, String> userAnswer;
   final String token;
   final int userMcqId;
-  final Map<int, int> userAnswerToSend;
+  final Map<int, String> userAnswerToSend;
   final Map<int, Duration> userMCQQuestionTimer;
   final int questionTimer;
-  final mcqIDs;
-  const ButtonWidget({Key? key, required this.mcqQuestions, required this.controller, required this.userAnswer, required this.questionIndex, required this.token, required this.userMcqId, required this.userAnswerToSend, required this.userMCQQuestionTimer, required this.questionTimer, this.mcqIDs}) : super(key: key);
+  final List<int> mcqIDs;
+  const ButtonWidget({Key? key, required this.mcqQuestions, required this.controller, required this.userAnswer, required this.questionIndex, required this.token, required this.userMcqId, required this.userAnswerToSend, required this.userMCQQuestionTimer, required this.questionTimer, required this.mcqIDs,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,27 +64,27 @@ class ButtonWidget extends StatelessWidget {
               onPressed: () async {
                 if (controller.page?.toInt() == mcqQuestions.length - 1) {
 
-                  // Sorting the mcq question id which are answered in ascending
-                  var sortedKeys = userAnswerToSend.keys.toList()..sort();
+                  // print(userAnswerToSend);
+                  // print(mcqIDs);
+                  String na= "Not Answered";
+
+                  Map<int ,String> finalAnswers = {};
+
+                  for (var element in mcqIDs) {
+                    finalAnswers[element] = na;
+                  }
+
+                  final thirdMap = {
+                    ...finalAnswers,
+                    ...userAnswerToSend,
+                  };
+
+                  // print(thirdMap);
 
                   // variables to store mcq questions and answers
                   int key;
-                  List q = [];
-                  List a = [];
-
-                  // iterating the "Map" of questions and answers
-                  for(int i = 0; i < userAnswerToSend.length; i++) {
-
-                    // at each iteration set a 'key' to get the mcq question id
-                    key = sortedKeys[i];
-
-                    // in variable 'q' storing the ids of question which are answered
-                    q.add(sortedKeys[i]);
-                    // in variable 'a' storing the answers of question which are answered
-                    a.add(userAnswerToSend[key]);
-                  }
-
-                  print(a);
+                  List<int> q = thirdMap.keys.toList();
+                  List<String> a = thirdMap.values.toList();
 
                   List queRemainingTime = [];
                   List queTotalTakenTime = [];
@@ -104,32 +104,28 @@ class ButtonWidget extends StatelessWidget {
                     }
                   }
 
-                  // dio.FormData formData;
-                  // formData = dio.FormData.fromMap({
-                  //   "mcqIds": mcqIDs,
-                  //   // "userMcqId": userMcqId,
-                  //   // "mbid": mcqQuestions[questionIndex].mbid,
-                  //   // "ans": a,
-                  //   // "mcqid": q,
-                  //   // "queRemainingTime": queRemainingTime,
-                  //   // "queTotalTakenTime": queTotalTakenTime,
-                  // });
+                  // print(mcqIDs);
+                  // print(a);
+                  // print("printed a");
+                  // print(q);
+                  // print("printed q");
+                  // print(queTotalTakenTime);
+                  // print("printed qtt");
+                  // print(queRemainingTime);
+                  // print("printed qtr");
 
-                  // SendUserMCQAnswers model = SendUserMCQAnswers(
-                  //   token: token,
-                  //   userMcqId: userMcqId,
-                  //   mbid: mcqQuestions[questionIndex].mbid,
-                  //   ans: a,
-                  //   mcqid: q,
-                  //   queRemainingTime: queRemainingTime,
-                  //   queTotalTakenTime: queTotalTakenTime,
-                  //   );
 
-                  var data = {
-                  "mcqID": q
-                  };
+                  SendUserMCQAnswers model = SendUserMCQAnswers(
+                    token: token,
+                    userMcqId: userMcqId,
+                    mbid: mcqQuestions[questionIndex].mbid,
+                    ans: a,
+                    mcqid: q,
+                    queRemainingTime: queRemainingTime,
+                    queTotalTakenTime: queTotalTakenTime,
+                    );
 
-                  await APIServices.sendMCQUserAnswer(data, token).then((response) {
+                  await APIServices.sendMCQUserAnswer(model, token).then((response) {
                     if (response.status == 200) {
                       showDialog(
                           context: context,

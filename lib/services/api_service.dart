@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
+import 'package:course_app_ui/model/mcq_models/send_user_mcq_answer_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_mcq_answer-response_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_settings_response_model.dart';
@@ -94,84 +95,21 @@ class APIServices {
     }
   }
 
-  // static Future<UserMCQAnswersResponseModel> sendMCQUserAnswer(FormData data, String token) async {
-  //
-  //   print(data.fields);
-  //   print("new request");
-  //
-  //
-  //   var dio = Dio();
-  //
-  //   dio.options.headers= {
-  //     'Accept': '*/*',
-  //     'Content-Type': 'multipart/form-data',
-  //     'token': token,
-  //   };
-  //
-  //   var response = await dio.post(
-  //     Config().sendMCQUserAnswer,
-  //     data: data,
-  //   );
-  //
-  //   print(response);
-  //   if (response.statusCode == 200) {
-  //     Map<String, dynamic> map = response.data;
-  //     int status = int.parse(map.values.first.toString());
-  //     if(status == 200) {
-  //
-  //       return UserMCQAnswersResponseModel(status: status);
-  //     } else {
-  //       String msg = map.values.last.toString();
-  //       return UserMCQAnswersResponseModel(status: status, msg: msg);
-  //     }
-  //   } else {
-  //     return UserMCQAnswersResponseModel(status: response.statusCode!, msg: response.statusMessage!);
-  //   }
-  // }
+  static Future<UserMCQAnswersResponseModel> sendMCQUserAnswer(SendUserMCQAnswers model, String token) async { {
+    // List<int> comments = [22, 33, 44, 43, 45, 34, 23];
+    // Map<String, dynamic> args = {"mcqid": comments};
+    // var url = Uri.parse(Config().sendMCQUserAnswer);
+    // var body = json.encode(args);
+    // final response = await http
+    //     .post(url, body: body, headers: {'Content-type': 'application/json'});
 
-  // static Future<UserMCQAnswersResponseModel> sendMCQUserAnswer(var model, String token) async {
-  //   Map<String, String> requestHeaders = {
-  //     // 'Content-Type': 'application/json',
-  //     'Accept': 'application/json',
-  //     'token': token,
-  //   };
-  //
-  //   print(model);
-  //   // print(model.queTotalTakenTime);
-  //   // print(model.mcqid);
-  //
-  //   var url = Uri.parse(Config().sendMCQUserAnswer);
-  //   // List<String> mcqID =  ["22", "23", "24", "25", "26", "27", '28', "29", "30", "31"];
-  //   //
-  //   // Map<String,String>data = {};
-  //   //
-  //   // for(int i=0;i<10;i++){
-  //   //   data.addAll({“mcqID[$i]”:id[i]});
-  //   // }
-  //   // for(int i=0;i<10;i++){
-  //   //   data.addAll({“mcqID[$i]”:prices[i]});
-  //   // }
-  //
-  //   var response = await client.post(
-  //     url,
-  //     headers: requestHeaders,
-  //     body: json.encode(model),
-  //   );
-  //
-  //   if (response.statusCode == 200) {
-  //     return UserMCQAnswersResponseModel(status: response.statusCode);
-  //   } else {
-  //     return UserMCQAnswersResponseModel(status: response.statusCode, msg: response.reasonPhrase);
-  //   }
-  // }
+    print(model.ans);
+    print(model.token);
+    print(model.mcqid);
+    print(model.mbid);
+    print(model.queTotalTakenTime);
+    print(model.queRemainingTime);
 
-  static Future<UserMCQAnswersResponseModel> sendMCQUserAnswer(var model, String token) async { {
-    List<int> comments = [22, 33, 44, 43, 45, 34, 23];
-    Map<String, dynamic> args = {"mcqid": comments};
-    var url = Uri.parse(Config().sendMCQUserAnswer);
-    var body = json.encode(args);
-    final response = await http
-        .post(url, body: body, headers: {'Content-type': 'application/json'});
     return UserMCQAnswersResponseModel(status: 200);
   }}
 }

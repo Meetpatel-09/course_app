@@ -48,7 +48,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       } else {
         countdownDurationQuestion = Duration(minutes: int.parse(widget.questionTimer));
       }
-      setState(() => durationQuestion = countdownDurationQuestion);
+      setState(() {
+        durationQuestion = countdownDurationQuestion;
+        widget.userMCQQuestionTimer[widget.mcqid] = durationQuestion;
+      });
     } else {
       setState(() => durationQuestion = const Duration(hours: 10));
     }
