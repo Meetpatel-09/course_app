@@ -8,7 +8,6 @@ import 'package:course_app_ui/model/mcq_models/user_mcq_answer-response_model.da
 import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_settings_response_model.dart';
 import 'package:course_app_ui/utils/config.dart';
-import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 class APIServices {
@@ -60,6 +59,8 @@ class APIServices {
       'token': model.token,
     };
 
+    // print(model.token);
+
     var url = Uri.parse(Config().sendUserSettingsAPI);
 
     var response = await client.post(
@@ -67,9 +68,63 @@ class APIServices {
       headers: requestHeaders,
       body: jsonEncode(model.toJson()),
     );
+    // print("priting response model");
+    print(response.body);
 
     if (response.statusCode == 200) {
-      return UserSettingsResponseModel(status: response.statusCode);
+      // print("priting response model in 200");
+      // String user_mcq_id = response.body;
+      // print(user_mcq_id);
+
+      if (response.body == '"invalid token"') {
+        return UserSettingsResponseModel(status: 422, msg: "Invalid Token");
+      } else {
+        final UserSettingsResponseModel responseModel = userSettingsResponseModelFromJson(response.body);
+
+        // print("priting response model in 200 decoded");
+        // print(responseModel.user_mcq_id);
+        return responseModel;
+      }
+
+    } else {
+      return UserSettingsResponseModel(status: response.statusCode, msg: response.reasonPhrase);
+    }
+  }
+
+  static Future<UserSettingsResponseModel> putUserSettings(UserSettingsRequestModel model, String userMCQPID) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'token': model.token,
+    };
+
+    // print(model.token);
+
+    var url = Uri.parse(Config().putUserSettingsAPI + userMCQPID);
+
+    var response = await client.put(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(model.toJson()),
+    );
+    // print("priting response model");
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      // print("priting response model in 200");
+      // String user_mcq_id = response.body;
+      // print(user_mcq_id);
+
+      if (response.body == '"invalid token"') {
+        return UserSettingsResponseModel(status: 422, msg: "Invalid Token");
+      } else {
+        final UserSettingsResponseModel responseModel = userSettingsResponseModelFromJson(response.body);
+
+        // print("priting response model in 200 decoded");
+        // print(responseModel.user_mcq_id);
+        return responseModel;
+      }
+
     } else {
       return UserSettingsResponseModel(status: response.statusCode, msg: response.reasonPhrase);
     }
@@ -96,29 +151,17 @@ class APIServices {
   }
 
   static Future<UserMCQAnswersResponseModel> sendMCQUserAnswer(SendUserMCQAnswers model, String token) async { {
-    // List mcqid = model.mcqid;
-    // List ans = model.ans;
-    // List queTotalTakenTime = model.queTotalTakenTime;
-    // List queRemainingTime = model.queRemainingTime;
+
     var url = Uri.parse(Config().sendMCQUserAnswer);
 
     Map<String, dynamic> args = {"user_mcq_id": model.userMcqId, "mbid": model.mbid, "mcqid":  model.mcqid, "ans": model.ans, "que_remaining_time": model.queRemainingTime, "que_total_taken_time": model.queTotalTakenTime};
 
-    // print(args);
-
-    // print(model.ans);
-    // print(model.token);
-    // print(model.mcqid);
-    // print(model.mbid);
-    // print(model.userMcqId);
-    // print(model.queTotalTakenTime);
-    // print(model.queRemainingTime);
-
-
     var body = json.encode(args);
-    // print(body);
+
     final response = await http
-        .post(url, body: body, headers: {'Content-type': 'application/json'});
+        .post(url, body: body, headers: {'Content-type': 'application/json', 'token': token});
+
+    // print(response.body);
     return UserMCQAnswersResponseModel(status: response.statusCode);
   }}
 }

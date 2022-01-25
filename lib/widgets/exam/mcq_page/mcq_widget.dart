@@ -15,7 +15,8 @@ class MCQWidget extends StatefulWidget {
   final PageController controller;
   final ValueChanged<int> onChangedPage;
   final String token;
-  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTimer, required this.questionTimer, required this.token}) : super(key: key);
+  final String userMCQID;
+  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTimer, required this.questionTimer, required this.token, required this.userMCQID}) : super(key: key);
 
   @override
   _MCQWidgetState createState() => _MCQWidgetState();
@@ -189,10 +190,12 @@ class _MCQWidgetState extends State<MCQWidget> {
               controller: widget.controller,
               userAnswer: userAnswer,
               token: widget.token,
-              userMcqId: widget.mcqQuestions[index].mcqid,
+              // userMcqId: widget.mcqQuestions[index].mcqid,
+              userMcqId: widget.userMCQID,
               userAnswerToSend: userAnswerToSend,
               userMCQQuestionTimer: userMCQQuestionTimer,
               questionTimer: int.parse(widget.questionTimer),
+
             ),
           ],
         );

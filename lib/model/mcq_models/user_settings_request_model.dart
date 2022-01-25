@@ -6,6 +6,9 @@ class UserSettingsRequestModel {
     this.setPerQueTimer,
     this.perQueTimer,
     this.mbid,
+    this.queRemainingTime,
+    this.queTotalTakenTime,
+    this.mcqStartDatetime
   });
   late final String token;
   late final String? setExamTimer;
@@ -13,6 +16,9 @@ class UserSettingsRequestModel {
   late final String? setPerQueTimer;
   late final int? perQueTimer;
   late final int? mbid;
+  late final List<String>? queRemainingTime;
+  late final List<String>? queTotalTakenTime;
+  late final bool? mcqStartDatetime;
 
   UserSettingsRequestModel.fromJson(Map<String, dynamic> json){
     token = json['token'];
@@ -21,6 +27,9 @@ class UserSettingsRequestModel {
     setPerQueTimer = json['set_per_que_timer'];
     perQueTimer = json['per_que_timer'];
     mbid = json['mbid'];
+    queRemainingTime = json['que_remaining_time'];
+    queTotalTakenTime = json['que_total_taken_time '];
+    mcqStartDatetime = json['mcq_start_datetime '];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +40,9 @@ class UserSettingsRequestModel {
     _data['set_per_que_timer'] = setPerQueTimer;
     _data['per_que_timer'] = perQueTimer;
     _data['mbid'] = mbid;
+    _data['que_remaining_time'] = queRemainingTime;
+    _data['que_total_taken_time '] = queTotalTakenTime;
+    _data['mcq_start_datetime'] = mcqStartDatetime;
     return _data;
   }
 }

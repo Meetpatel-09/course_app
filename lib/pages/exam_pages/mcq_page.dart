@@ -24,6 +24,7 @@ class _MCQPageState extends State<MCQPage> {
   int mbid = 0;
   late List<mcq_questions.Result> mcqQuestionBank = [];
   late PageController controller;
+  String userMCQID = "userMCQID";
 
   @override
   void initState() {
@@ -46,6 +47,7 @@ class _MCQPageState extends State<MCQPage> {
     questionTime = arg['questionTime'];
     numQuestions = arg['numQuestions'];
     mcqQuestionBank = arg['mcqQuestionBank'];
+    userMCQID = arg['userMCQID'];
 
 
     if(questionTime == "notSet") {
@@ -95,6 +97,7 @@ class _MCQPageState extends State<MCQPage> {
                 mcqQuestions: mcqQuestionBank,
                 controller: controller,
                 token: token,
+                userMCQID: userMCQID,
                 onChangedPage: (page) {
                   if (page == mcqQuestionBank.length - 1) {
                     setState(() {

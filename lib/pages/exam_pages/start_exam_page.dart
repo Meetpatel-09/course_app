@@ -1,40 +1,24 @@
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart' as mcq_questions;
-import 'package:course_app_ui/widgets/exam/start_exam_page/start_exam_button.dart';
+import 'package:course_app_ui/widgets/exam/start_exam_page/start_exam_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class StartExamPage extends StatefulWidget {
+class StartExamPage extends StatelessWidget {
   const StartExamPage({Key? key}) : super(key: key);
-
-  @override
-  State<StartExamPage> createState() => _StartExamPageState();
-}
-
-class _StartExamPageState extends State<StartExamPage> {
-  late List<Subject> subjectList;
-  late int index;
-  late bool wantExamTimer;
-  late bool wantQuestionTimer;
-  late String examTime;
-  late String questionTime;
-  late String numQuestions;
-  late String token;
-  late int mbid;
-  late List<mcq_questions.Result> mcqQuestionsList;
 
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
-    subjectList = arg['subjectList'];
-    index = arg['index'];
-    token = arg['token'];
-    mbid = arg['mbid'];
-    examTime = arg['examTime'];
-    wantExamTimer = arg['wantExamTimer'];
-    wantQuestionTimer = arg['wantQuestionTimer'];
-    questionTime = arg['questionTime'];
-    numQuestions = arg['numQuestions'];
+    List<Subject> subjectList = arg['subjectList'];
+    int index = arg['index'];
+    String token = arg['token'];
+    int mbid = arg['mbid'];
+    String examTime = arg['examTime'];
+    bool wantExamTimer = arg['wantExamTimer'];
+    bool wantQuestionTimer = arg['wantQuestionTimer'];
+    String questionTime = arg['questionTime'];
+    String numQuestions = arg['numQuestions'];
+    String userMCQID = arg['user_mcq_id'];
 
     return Scaffold(
       appBar: AppBar(
@@ -46,33 +30,18 @@ class _StartExamPageState extends State<StartExamPage> {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: container(),
-        )
-      ),
-    );
-  }
-
-  Widget container() {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height - 100,
-      child: Align(
-        child: nextButton(),
+      body: StartExamWidget(
+          token: token,
+          index: index,
+          mbid: mbid,
+          subjectList: subjectList,
+          wantExamTimer: wantExamTimer,
+          examTime: examTime,
+          wantQuestionTimer: wantQuestionTimer,
+          questionTime: questionTime,
+          numQuestions: numQuestions,
+          userMCQID: userMCQID
       )
     );
   }
-
-  Widget nextButton() => StartExamButton(
-    token: token,
-    index: index,
-    mbid: mbid,
-    subjectList: subjectList,
-    wantExamTimer: wantExamTimer,
-    examTime: examTime,
-    wantQuestionTimer: wantQuestionTimer,
-    questionTime: questionTime,
-    numQuestions: numQuestions,
-  );
 }

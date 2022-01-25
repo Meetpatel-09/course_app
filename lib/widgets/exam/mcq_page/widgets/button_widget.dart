@@ -3,7 +3,6 @@ import 'package:course_app_ui/model/mcq_models/send_user_mcq_answer_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart' as dio;
 
 class ButtonWidget extends StatelessWidget {
   final List<Result> mcqQuestions;
@@ -11,12 +10,12 @@ class ButtonWidget extends StatelessWidget {
   final PageController controller;
   final Map<int, String> userAnswer;
   final String token;
-  final int userMcqId;
+  final String userMcqId;
   final Map<int, String> userAnswerToSend;
   final Map<int, Duration> userMCQQuestionTimer;
   final int questionTimer;
   final List<int> mcqIDs;
-  const ButtonWidget({Key? key, required this.mcqQuestions, required this.controller, required this.userAnswer, required this.questionIndex, required this.token, required this.userMcqId, required this.userAnswerToSend, required this.userMCQQuestionTimer, required this.questionTimer, required this.mcqIDs,}) : super(key: key);
+  const ButtonWidget({Key? key, required this.mcqQuestions, required this.controller, required this.userAnswer, required this.questionIndex, required this.token, required this.userMcqId, required this.userAnswerToSend, required this.userMCQQuestionTimer, required this.questionTimer, required this.mcqIDs}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +65,7 @@ class ButtonWidget extends StatelessWidget {
 
                   // print(userAnswerToSend);
                   // print(mcqIDs);
-                  String na= "Not Answered";
+                  String na= "";
 
                   Map<int ,String> finalAnswers = {};
 
@@ -104,7 +103,11 @@ class ButtonWidget extends StatelessWidget {
                     }
                   }
 
-                  // print(mcqIDs);
+                  // print("user_mcq_id $userMcqId");
+                  // print("mbid ${mcqQuestions[questionIndex].mbid}");
+                  // print(token);
+                  // print("mcqIDs $mcqIDs");
+                  // print("printed");
                   // print(a);
                   // print("printed a");
                   // print(q);
@@ -114,10 +117,9 @@ class ButtonWidget extends StatelessWidget {
                   // print(queRemainingTime);
                   // print("printed qtr");
 
-
                   SendUserMCQAnswers model = SendUserMCQAnswers(
                     token: token,
-                    userMcqId: userMcqId,
+                    userMcqId: int.parse(userMcqId),
                     mbid: mcqQuestions[questionIndex].mbid,
                     ans: a,
                     mcqid: q,
