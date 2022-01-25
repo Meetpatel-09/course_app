@@ -14,7 +14,7 @@ class StartExamButton extends StatelessWidget {
   final String numQuestions;
   final String token;
   final int mbid;
-  final String userMCQID;
+  final int userMCQID;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class StartExamButton extends StatelessWidget {
                       'questionTime': questionTime,
                       'numQuestions': numQuestions,
                       'mcqQuestionBank': response.result,
-                      'userMCQID': userMCQID
+                      'userMCQID': userMCQID.toString()
                     }
                 );
               } else {

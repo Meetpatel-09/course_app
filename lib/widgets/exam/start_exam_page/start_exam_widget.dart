@@ -15,7 +15,7 @@ class StartExamWidget extends StatefulWidget {
   final String numQuestions;
   final String token;
   final int mbid;
-  final String userMCQID;
+  final int userMCQID;
   const StartExamWidget({Key? key, required this.subjectList, required this.index, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTime, required this.questionTime, required this.numQuestions, required this.token, required this.mbid, required this.userMCQID}) : super(key: key);
 
   @override
@@ -40,7 +40,7 @@ class _StartExamWidgetState extends State<StartExamWidget> {
       mcqStartDatetime: true
     );
 
-    APIServices.putUserSettings(model, widget.userMCQID).then((response) {
+    APIServices.putUserSettings(model, widget.userMCQID.toString()).then((response) {
       if (response.toString().isNotEmpty) {
         if (response.status == 200) {
           isCorrect = true;

@@ -18,7 +18,7 @@ class StartExamPage extends StatelessWidget {
     bool wantQuestionTimer = arg['wantQuestionTimer'];
     String questionTime = arg['questionTime'];
     String numQuestions = arg['numQuestions'];
-    String userMCQID = arg['user_mcq_id'];
+    int userMCQID = arg['user_mcq_id'];
 
     return Scaffold(
       appBar: AppBar(

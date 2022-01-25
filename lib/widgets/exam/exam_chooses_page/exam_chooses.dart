@@ -19,15 +19,36 @@ class ExamChooses extends StatefulWidget {
 class _ExamChoosesState extends State<ExamChooses> {
   bool isSelectedE = true;
   bool isSelectedQ = false;
-  final _examETC = TextEditingController(text: "40");
-  final _questionETC = TextEditingController(text: "2");
-  final _numQuestionETC = TextEditingController(text: "20");
+  TextEditingController _examETC = TextEditingController(text: "40");
+  TextEditingController _questionETC = TextEditingController(text: "2");
+  TextEditingController _numQuestionETC = TextEditingController(text: "20");
+  bool _isLoading = true;
+  bool _lockSettings = false;
+
+  @override
+  void initState() {
+    super.initState();
+    APIServices.getUserSettings(widget.mbid.toString(), widget.token.toString()).then((response) {
+      if (response.toString().isNotEmpty) {
+        if (response.status == 200) {
+          _lockSettings = true;
+          _examETC = TextEditingController(text: "");
+          _questionETC = TextEditingController(text: "");
+          _numQuestionETC = TextEditingController(text: "");
+        }
+        if (!mounted) return;
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(18),
-      child: Column(
+      child: _isLoading ? const Center(child: CircularProgressIndicator(),) : Column(
         children: [
           "Welcome to MCQ Page. By appearing for the exam, students will be able to understand various question patterns. We also provide you with the statistics based on your MCQ results. You may choose timer for every MCQ.".richText.justify.make(),
           const SizedBox(height: 18.0,),
@@ -86,6 +107,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                 onChanged: (_) => setState(() {}),
                 keyboardType: TextInputType.number,
                 controller: _examETC,
+                enabled: _lockSettings ? false : true,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(0),
@@ -137,6 +159,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 controller: _questionETC,
+                enabled: _lockSettings ? false : true,
                 decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(0),
                     isDense: true,
@@ -166,6 +189,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   controller: _numQuestionETC,
+                  enabled: _lockSettings ? false : true,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(0),
                     isDense: true,

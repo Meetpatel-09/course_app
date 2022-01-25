@@ -34,6 +34,7 @@ class Result {
     required this.chapterid,
     required this.negatveMarking,
     required this.isFreeMcqBank,
+    required this.isActive,
   });
   late final int mbid;
   late final String queBankName;
@@ -41,6 +42,7 @@ class Result {
   late final int chapterid;
   late final String negatveMarking;
   late final int isFreeMcqBank;
+  late final String isActive;
 
   Result.fromJson(Map<String, dynamic> json){
     mbid = json['mbid'];
@@ -49,6 +51,7 @@ class Result {
     chapterid = json['chapterid'];
     negatveMarking = json['negatve_marking'];
     isFreeMcqBank = json['isFreeMcqBank'];
+    isActive = json['isActive'];
   }
 
   Map<String, dynamic> toJson() {
@@ -59,6 +62,7 @@ class Result {
     _data['chapterid'] = chapterid;
     _data['negatve_marking'] = negatveMarking;
     _data['isFreeMcqBank'] = isFreeMcqBank;
+    _data['isActive'] = isActive;
     return _data;
   }
 }

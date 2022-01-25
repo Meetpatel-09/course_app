@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/model/mcq_models/get_user_settings_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
 import 'package:course_app_ui/model/mcq_models/send_user_mcq_answer_model.dart';
@@ -130,6 +131,36 @@ class APIServices {
     }
   }
 
+  static Future<GetUserSettingsModel> getUserSettings(String mbid, String token) async {
+
+    var url = Uri.parse(Config().getMCQQuestionBank + mbid);
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-type': 'application/json',
+          'token': token
+        }
+      );
+
+      if(200 == response.statusCode) {
+
+        final GetUserSettingsModel getUserSettingsModel = getUserSettingsModelFromJson(response.body);
+
+        if (getUserSettingsModel.status == 200) {
+          return getUserSettingsModel;
+        } else {
+          return GetUserSettingsModel(status: 422, message: "Error Occurred");
+        }
+      } else {
+        return GetUserSettingsModel(status: response.statusCode, message: response.reasonPhrase);
+      }
+    } catch(e) {
+      return GetUserSettingsModel();
+    }
+  }
+
   static Future<MCQQuestionBankModel> getMCQQuestionBank(String mbid) async {
 
     var url = Uri.parse(Config().getMCQQuestionBank + mbid);
@@ -154,12 +185,25 @@ class APIServices {
 
     var url = Uri.parse(Config().sendMCQUserAnswer);
 
-    Map<String, dynamic> args = {"user_mcq_id": model.userMcqId, "mbid": model.mbid, "mcqid":  model.mcqid, "ans": model.ans, "que_remaining_time": model.queRemainingTime, "que_total_taken_time": model.queTotalTakenTime};
+    Map<String, dynamic> args = {
+      "user_mcq_id": model.userMcqId,
+      "mbid": model.mbid,
+      "mcqid":  model.mcqid,
+      "ans": model.ans,
+      "que_remaining_time": model.queRemainingTime,
+      "que_total_taken_time": model.queTotalTakenTime
+    };
 
     var body = json.encode(args);
 
-    final response = await http
-        .post(url, body: body, headers: {'Content-type': 'application/json', 'token': token});
+    final response = await http.post(
+        url,
+        body: body,
+        headers: {
+          'Content-type': 'application/json',
+          'token': token
+        }
+    );
 
     // print(response.body);
     return UserMCQAnswersResponseModel(status: response.statusCode);

@@ -24,6 +24,7 @@ class _StartExamState extends State<StartExam> {
         child: IconButton(
           icon: const Icon(Icons.arrow_forward),
           onPressed: () {
+            // if you to edit this code make sure to do the same in Home fragment start exam button
             _sharedServices.getData("token").then((value) {
               if (value != null) {
                 return
