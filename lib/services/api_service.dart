@@ -61,7 +61,7 @@ class APIServices {
     };
 
     // print(model.token);
-
+    print("send Setting");
     var url = Uri.parse(Config().sendUserSettingsAPI);
 
     var response = await client.post(
@@ -133,7 +133,7 @@ class APIServices {
 
   static Future<GetUserSettingsModel> getUserSettings(String mbid, String token) async {
 
-    var url = Uri.parse(Config().getMCQQuestionBank + mbid);
+    var url = Uri.parse(Config().getUserSettingsAPI + mbid);
 
     try {
       final response = await http.get(
@@ -143,12 +143,15 @@ class APIServices {
           'token': token
         }
       );
-
+      print(token);
+      print("get user Setting ${response.body}");
       if(200 == response.statusCode) {
 
         final GetUserSettingsModel getUserSettingsModel = getUserSettingsModelFromJson(response.body);
 
         if (getUserSettingsModel.status == 200) {
+
+          // print();
           return getUserSettingsModel;
         } else {
           return GetUserSettingsModel(status: 422, message: "Error Occurred");

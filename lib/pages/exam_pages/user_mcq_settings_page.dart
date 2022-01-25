@@ -16,6 +16,7 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
   List<Subject>? subjectList = [];
   int subjectIndex = 0;
   bool _isEmpty = true;
+  bool _isloading = true;
   String token = "empty";
   MCQBanksModel? mcqBanks;
   int mcqBanksIndex = 0;
@@ -27,9 +28,12 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
       if (value != null) {
         setState(() {
           token = value;
+          print("user setting $token");
+          _isloading = false;
         });
       } else {
         token = "empty";
+        print("is empty token = $token");
       }
     });
     super.initState();
@@ -59,7 +63,7 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
         ),
       ),
       backgroundColor: context.canvasColor,
-      body: _isEmpty ?
+      body: _isEmpty | _isloading ?
       const Center(child: CircularProgressIndicator(),)
           :
       SingleChildScrollView(

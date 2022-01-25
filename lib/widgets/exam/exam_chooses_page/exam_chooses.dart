@@ -27,6 +27,7 @@ class _ExamChoosesState extends State<ExamChooses> {
 
   @override
   void initState() {
+    print("exam choose ${widget.token}");
     super.initState();
     APIServices.getUserSettings(widget.mbid.toString(), widget.token.toString()).then((response) {
       if (response.toString().isNotEmpty) {
