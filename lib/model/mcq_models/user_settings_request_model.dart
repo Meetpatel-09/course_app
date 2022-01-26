@@ -1,6 +1,6 @@
 class UserSettingsRequestModel {
   UserSettingsRequestModel({
-    required this.token,
+    this.token,
     this.setExamTimer,
     this.examTimer,
     this.setPerQueTimer,
@@ -10,7 +10,7 @@ class UserSettingsRequestModel {
     this.queTotalTakenTime,
     this.mcqStartDatetime
   });
-  late final String token;
+  late final String? token;
   late final String? setExamTimer;
   late final int? examTimer;
   late final String? setPerQueTimer;

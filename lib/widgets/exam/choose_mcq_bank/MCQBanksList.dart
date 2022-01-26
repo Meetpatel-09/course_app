@@ -26,7 +26,7 @@ class MCQBanksList extends StatelessWidget {
         child: InkWell(
           onTap: () {
 
-            if (mcqBanksIndex == 0) {
+            if (mcqBanks!.result![mcqBanksIndex].isActive != "Disabled") {
               Navigator.pushNamed(
                   context,
                   MyRoutes.userMCQSettingsRoute,
@@ -40,7 +40,7 @@ class MCQBanksList extends StatelessWidget {
             }
 
           },
-          splashColor: mcqBanksIndex == 0 ? context.primaryColor.withOpacity(0.5) : context.canvasColor,
+          splashColor: mcqBanks!.result![mcqBanksIndex].isActive != "Disabled" ? context.primaryColor.withOpacity(0.5) : context.canvasColor,
           child: Padding(
             padding: const EdgeInsets.all(11.0),
             child: Column(
@@ -51,14 +51,14 @@ class MCQBanksList extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child:
-                  mcqBanksIndex == 0 ?
+                  mcqBanks!.result![mcqBanksIndex].isActive != "Disabled" ?
                       Image.asset("assets/images/mcq-bank.png", width: 60, height: 60, color: context.cardColor,)
                         :
                       Image.asset("assets/images/mcq-bank.png", width: 60, height: 60, color: context.cardColor.withOpacity(0.5),)
 
                 ),
                 const SizedBox(height: 15,),
-                Align(child:  mcqBanksIndex == 0 ? mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.letterSpacing(1).color(context.cardColor).make() : mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.letterSpacing(1).color(context.cardColor.withOpacity(0.5)).make()),
+                Align(child: mcqBanks!.result![mcqBanksIndex].isActive != "Disabled" ? mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.letterSpacing(1).color(context.cardColor).make() : mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.letterSpacing(1).color(context.cardColor.withOpacity(0.5)).make()),
               ],
             ),
           ),

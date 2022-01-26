@@ -29,7 +29,7 @@ class _StartExamState extends State<StartExam> {
               _sharedServices.getData("token").then((value) {
                 if (value != null) {
                   return
-                    APIServices.getMCQBank(widget.subjectID).then((mcqBanks) {
+                    APIServices.getMCQBank(widget.subjectID, value).then((mcqBanks) {
                       if (mcqBanks.status == 200) {
                         Navigator.pushNamed(
                             context,

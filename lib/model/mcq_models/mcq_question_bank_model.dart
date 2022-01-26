@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 MCQQuestionBankModel mcqQuestionBankModelFromJson(String str) => MCQQuestionBankModel.fromJson(json.decode(str));

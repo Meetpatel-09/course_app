@@ -25,18 +25,61 @@ class _ExamChoosesState extends State<ExamChooses> {
   bool _isLoading = true;
   bool _lockSettings = false;
 
+  String numQuestions = "20";
+  late int userMCQId;
+  late String wantExamTimer;
+  late String examTime;
+  late String wantQuestionTimer;
+  late String questionTime;
+  dynamic remainingTime;
+  dynamic totalTakenTime;
+
   @override
   void initState() {
-    print("exam choose ${widget.token}");
+    print("object 1");
+    // print("exam choose ${widget.token}");
     super.initState();
+    // print(widget.mbid);
+    print("object");
     APIServices.getUserSettings(widget.mbid.toString(), widget.token.toString()).then((response) {
+      print(response.result);
+      print(widget.token.toString());
       if (response.toString().isNotEmpty) {
         if (response.status == 200) {
-          _lockSettings = true;
-          _examETC = TextEditingController(text: "");
-          _questionETC = TextEditingController(text: "");
-          _numQuestionETC = TextEditingController(text: "");
+          print(response.result);
+          setState(() {
+            _lockSettings = true;
+          });
+
+          print(response.result!.length == 0);
+
+          if (response.result!.isEmpty) {
+            // print("empty");
+            setState(() {
+              _lockSettings = false;
+            });
+          } else {
+            // print("not empty empty");
+            // print(_lockSettings);
+            userMCQId = response.result![0].userMcqId;
+            wantExamTimer = response.result![0].setExamTimer;
+            if (response.result![0].setExamTimer == "Yes") {
+              examTime = response.result![0].examTimer.toString();
+              _examETC = TextEditingController(text: examTime);
+            }
+            wantQuestionTimer = response.result![0].setPerQueTimer;
+            if (response.result![0].setPerQueTimer == "Yes") {
+              questionTime = response.result![0].setPerQueTimer;
+              _questionETC = TextEditingController(text: questionTime);
+            }
+            remainingTime = response.result![0].remainingTime;
+            totalTakenTime = response.result![0].totalTakenTime;
+
+
+            _numQuestionETC = TextEditingController(text: "");
+          }
         }
+
         if (!mounted) return;
         setState(() {
           _isLoading = false;
@@ -47,6 +90,8 @@ class _ExamChoosesState extends State<ExamChooses> {
 
   @override
   Widget build(BuildContext context) {
+    print(_lockSettings);
+
     return Padding(
       padding: const EdgeInsets.all(18),
       child: _isLoading ? const Center(child: CircularProgressIndicator(),) : Column(
@@ -86,13 +131,19 @@ class _ExamChoosesState extends State<ExamChooses> {
       "Want to set timer?".text.lg.bold.letterSpacing(1).make(),
       Switch(
           value: isSelectedE,
-          onChanged: (_) => setState(() {
-            if (isSelectedE) {
-              isSelectedE = false;
+          onChanged: (_) {
+            if (_lockSettings) {
+              null;
             } else {
-              isSelectedE = true;
+              setState(() {
+                if (isSelectedE) {
+                  isSelectedE = false;
+                } else {
+                  isSelectedE = true;
+                }
+              },);
             }
-          },)
+          }
       )
     ],
   );
@@ -132,14 +183,19 @@ class _ExamChoosesState extends State<ExamChooses> {
           "Want to set per Question?".text.lg.bold.letterSpacing(1).make(),
           Switch(
               value: isSelectedQ,
-              onChanged: (_) =>
+              onChanged: (_) {
+                if (_lockSettings) {
+                  null;
+                } else {
                   setState(() {
                     if (isSelectedQ) {
                       isSelectedQ = false;
                     } else {
                       isSelectedQ = true;
                     }
-                  },)
+                  },);
+                }
+              }
           )
         ],
       );
@@ -221,60 +277,166 @@ class _ExamChoosesState extends State<ExamChooses> {
           ),
           onPressed: () async {
             // const Center(heightFactor: 10, child: CircularProgressIndicator());
-            if (validate()) {
-              if (isSelectedE) {
-                if (isSelectedQ) {
-                  UserSettingsRequestModel model = UserSettingsRequestModel(
-                    token: widget.token,
-                    setExamTimer: "Yes",
-                    examTimer: int.parse(_examETC.value.text),
-                    setPerQueTimer: "Yes",
-                    perQueTimer: int.parse(_questionETC.value.text),
-                    mbid: widget.mbid,
+            if (_lockSettings) {
+              if (wantExamTimer == "Yes") {
+                if (wantQuestionTimer == "Yes") {
+                    Navigator.pushNamed(
+                        context,
+                        MyRoutes.startExamRoute,
+                        arguments: {
+                          'subjectList': widget.subjectList,
+                          'index': widget.subjectIndex,
+                          'token': widget.token,
+                          'mbid': widget.mbid,
+                          'wantExamTimer': true,
+                          'examTime': examTime,
+                          'wantQuestionTimer': true,
+                          'questionTime': questionTime,
+                          'numQuestions': numQuestions,
+                          'user_mcq_id': userMCQId
+                        }
+                    );
+
+                } else {
+                  Navigator.pushNamed(
+                      context,
+                      MyRoutes.startExamRoute,
+                      arguments: {
+                        'subjectList': widget.subjectList,
+                        'index': widget.subjectIndex,
+                        'token': widget.token,
+                        'mbid': widget.mbid,
+                        'wantExamTimer': true,
+                        'examTime': examTime,
+                        'wantQuestionTimer': false,
+                        'questionTime': 'notSet',
+                        'numQuestions': numQuestions,
+                        'user_mcq_id': userMCQId
+                      }
                   );
-
-                  APIServices.userSettings(model).then((response) {
-                    if (response.status == 200) {
-                      Navigator.pushNamed(
-                          context,
-                          MyRoutes.startExamRoute,
-                          arguments: {
-                            'subjectList': widget.subjectList,
-                            'index': widget.subjectIndex,
-                            'token': widget.token,
-                            'mbid': widget.mbid,
-                            'wantExamTimer': true,
-                            'examTime': _examETC.value.text,
-                            'wantQuestionTimer': true,
-                            'questionTime': _questionETC.value.text,
-                            'numQuestions': _numQuestionETC.value.text,
-                            'user_mcq_id': response.userMCQID
-                          }
-                      );
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text(response.status.toString()),
-                            content: Text(response.msg!),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.pushNamed(context, MyRoutes.homeRoute);
-                                  },
-                                  child: const Text("OK")),
-                            ],
-                          )
-                      );
+                }
+              } else {
+                Navigator.pushNamed(
+                    context,
+                    MyRoutes.startExamRoute,
+                    arguments: {
+                      'subjectList': widget.subjectList,
+                      'index': widget.subjectIndex,
+                      'token': widget.token,
+                      'mbid': widget.mbid,
+                      'wantExamTimer': false,
+                      'examTime': 'notSet',
+                      'wantQuestionTimer': false,
+                      'questionTime': 'notSet',
+                      'numQuestions': numQuestions,
+                      'user_mcq_id': userMCQId
                     }
-                  });
+                );
+              }
+              print("locked");
+            } else {
+              if (validate()) {
+                if (isSelectedE) {
+                  if (isSelectedQ) {
+                    UserSettingsRequestModel model = UserSettingsRequestModel(
+                      token: widget.token,
+                      setExamTimer: "Yes",
+                      examTimer: int.parse(_examETC.value.text),
+                      setPerQueTimer: "Yes",
+                      perQueTimer: int.parse(_questionETC.value.text),
+                      mbid: widget.mbid,
+                    );
 
+                    APIServices.userSettings(model).then((response) {
+                      if (response.status == 200) {
+                        Navigator.pushNamed(
+                            context,
+                            MyRoutes.startExamRoute,
+                            arguments: {
+                              'subjectList': widget.subjectList,
+                              'index': widget.subjectIndex,
+                              'token': widget.token,
+                              'mbid': widget.mbid,
+                              'wantExamTimer': true,
+                              'examTime': _examETC.value.text,
+                              'wantQuestionTimer': true,
+                              'questionTime': _questionETC.value.text,
+                              'numQuestions': _numQuestionETC.value.text,
+                              'user_mcq_id': response.userMCQID
+                            }
+                        );
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) =>
+                                AlertDialog(
+                                  title: Text(response.status.toString()),
+                                  content: Text(response.msg!),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          Navigator.pushNamed(
+                                              context, MyRoutes.homeRoute);
+                                        },
+                                        child: const Text("OK")),
+                                  ],
+                                )
+                        );
+                      }
+                    });
+                  } else {
+                    UserSettingsRequestModel model = UserSettingsRequestModel(
+                      token: widget.token,
+                      setExamTimer: "Yes",
+                      examTimer: int.parse(_examETC.value.text),
+                      setPerQueTimer: "No",
+                      mbid: widget.mbid,
+                    );
+
+                    APIServices.userSettings(model).then((response) {
+                      if (response.status == 200) {
+                        Navigator.pushNamed(
+                            context,
+                            MyRoutes.startExamRoute,
+                            arguments: {
+                              'subjectList': widget.subjectList,
+                              'index': widget.subjectIndex,
+                              'token': widget.token,
+                              'mbid': widget.mbid,
+                              'wantExamTimer': true,
+                              'examTime': _examETC.value.text,
+                              'wantQuestionTimer': false,
+                              'questionTime': 'notSet',
+                              'numQuestions': _numQuestionETC.value.text,
+                              'user_mcq_id': response.userMCQID
+                            }
+                        );
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) =>
+                                AlertDialog(
+                                  title: Text(response.status.toString()),
+                                  content: Text(response.msg!),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          Navigator.pushNamed(
+                                              context, MyRoutes.homeRoute);
+                                        },
+                                        child: const Text("OK")),
+                                  ],
+                                )
+                        );
+                      }
+                    });
+                  }
                 } else {
                   UserSettingsRequestModel model = UserSettingsRequestModel(
                     token: widget.token,
-                    setExamTimer: "Yes",
-                    examTimer: int.parse(_examETC.value.text),
+                    setExamTimer: "No",
                     setPerQueTimer: "No",
                     mbid: widget.mbid,
                   );
@@ -289,8 +451,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                             'index': widget.subjectIndex,
                             'token': widget.token,
                             'mbid': widget.mbid,
-                            'wantExamTimer': true,
-                            'examTime': _examETC.value.text,
+                            'wantExamTimer': false,
+                            'examTime': 'notSet',
                             'wantQuestionTimer': false,
                             'questionTime': 'notSet',
                             'numQuestions': _numQuestionETC.value.text,
@@ -300,66 +462,24 @@ class _ExamChoosesState extends State<ExamChooses> {
                     } else {
                       showDialog(
                           context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text(response.status.toString()),
-                            content: Text(response.msg!),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.pushNamed(context, MyRoutes.homeRoute);
-                                  },
-                                  child: const Text("OK")),
-                            ],
-                          )
+                          builder: (context) =>
+                              AlertDialog(
+                                title: Text(response.status.toString()),
+                                content: Text(response.msg!),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.pushNamed(
+                                            context, MyRoutes.homeRoute);
+                                      },
+                                      child: const Text("OK")),
+                                ],
+                              )
                       );
                     }
                   });
                 }
-              } else {
-                UserSettingsRequestModel model = UserSettingsRequestModel(
-                  token: widget.token,
-                  setExamTimer: "No",
-                  setPerQueTimer: "No",
-                  mbid: widget.mbid,
-                );
-
-                APIServices.userSettings(model).then((response) {
-                  if (response.status == 200) {
-                    Navigator.pushNamed(
-                        context,
-                        MyRoutes.startExamRoute,
-                        arguments: {
-                          'subjectList': widget.subjectList,
-                          'index': widget.subjectIndex,
-                          'token': widget.token,
-                          'mbid': widget.mbid,
-                          'wantExamTimer': false,
-                          'examTime': 'notSet',
-                          'wantQuestionTimer': false,
-                          'questionTime': 'notSet',
-                          'numQuestions': _numQuestionETC.value.text,
-                          'user_mcq_id': response.userMCQID
-                        }
-                    );
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(response.status.toString()),
-                          content: Text(response.msg!),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.pushNamed(context, MyRoutes.homeRoute);
-                                },
-                                child: const Text("OK")),
-                          ],
-                        )
-                    );
-                  }
-                });
               }
             }
           },

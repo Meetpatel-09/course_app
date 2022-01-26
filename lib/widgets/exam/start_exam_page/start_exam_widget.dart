@@ -30,17 +30,17 @@ class _StartExamWidgetState extends State<StartExamWidget> {
   void initState() {
     super.initState();
 
+    // mbid: widget.mbid,
+    // setExamTimer: widget.wantExamTimer? "Yes" : "No",
+    // setPerQueTimer: widget.wantQuestionTimer? "Yes" : "No",
+    // queRemainingTime: ,
+    // queTotalTakenTime: ,
+
     UserSettingsRequestModel model = UserSettingsRequestModel(
-      token: widget.token,
-      mbid: widget.mbid,
-      setExamTimer: widget.wantExamTimer? "Yes" : "No",
-      setPerQueTimer: widget.wantQuestionTimer? "Yes" : "No",
-      // queRemainingTime: ,
-      // queTotalTakenTime: ,
       mcqStartDatetime: true
     );
 
-    APIServices.putUserSettings(model, widget.userMCQID.toString()).then((response) {
+    APIServices.putUserSettings(model, widget.userMCQID.toString(), widget.token).then((response) {
       if (response.toString().isNotEmpty) {
         if (response.status == 200) {
           isCorrect = true;
@@ -75,11 +75,7 @@ class _StartExamWidgetState extends State<StartExamWidget> {
         ?
     const Center(child: CircularProgressIndicator(),)
         :
-    Container();
-  }
-
-  Widget container() {
-    return SizedBox(
+    SizedBox(
         height: MediaQuery.of(context).size.height - 100,
         child: Align(
           child: StartExamButton(

@@ -33,13 +33,21 @@ class APIServices {
     }
   }
 
-  static Future<MCQBanksModel> getMCQBank(String subjectID) async {
+  static Future<MCQBanksModel> getMCQBank(String subjectID, String token) async {
 
     var url = Uri.parse(Config().getMCQBankAPI + subjectID);
 
-    try {
-      final response = await http.get(url);
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'token': token,
+    };
 
+    // print(token);
+    try {
+      final response = await http.get(url, headers: requestHeaders);
+
+      // print(response.body);
       if(200 == response.statusCode) {
 
         final MCQBanksModel mcqBanks = mcqBanksModelFromJson(response.body);
@@ -57,11 +65,11 @@ class APIServices {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'token': model.token,
+      'token': model.token!,
     };
 
     // print(model.token);
-    print("send Setting");
+    // print("send Setting");
     var url = Uri.parse(Config().sendUserSettingsAPI);
 
     var response = await client.post(
@@ -70,7 +78,7 @@ class APIServices {
       body: jsonEncode(model.toJson()),
     );
     // print("priting response model");
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       // print("priting response model in 200");
@@ -92,14 +100,15 @@ class APIServices {
     }
   }
 
-  static Future<UserSettingsResponseModel> putUserSettings(UserSettingsRequestModel model, String userMCQPID) async {
+  static Future<UserSettingsResponseModel> putUserSettings(UserSettingsRequestModel model, String userMCQPID, String token) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'token': model.token,
+      'token': token,
     };
 
-    // print(model.token);
+    // print("Token");
+    // print("put settings");
 
     var url = Uri.parse(Config().putUserSettingsAPI + userMCQPID);
 
@@ -109,7 +118,7 @@ class APIServices {
       body: jsonEncode(model.toJson()),
     );
     // print("priting response model");
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       // print("priting response model in 200");
@@ -143,14 +152,18 @@ class APIServices {
           'token': token
         }
       );
-      print(token);
-      print("get user Setting ${response.body}");
+      // print(token);
+      // print("get user Setting ${response.body}");
+      // print(response.statusCode);
       if(200 == response.statusCode) {
 
+        // print("200");
         final GetUserSettingsModel getUserSettingsModel = getUserSettingsModelFromJson(response.body);
-
+        // print("object dfsdf");
+        // print("sdf $getUserSettingsModel");
         if (getUserSettingsModel.status == 200) {
 
+          // print(getUserSettingsModel);
           // print();
           return getUserSettingsModel;
         } else {
@@ -160,7 +173,7 @@ class APIServices {
         return GetUserSettingsModel(status: response.statusCode, message: response.reasonPhrase);
       }
     } catch(e) {
-      return GetUserSettingsModel();
+      return GetUserSettingsModel(status: 422);
     }
   }
 
