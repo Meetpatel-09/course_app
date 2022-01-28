@@ -20,7 +20,7 @@ class StartExamPage extends StatelessWidget {
     String numQuestions = arg['numQuestions'];
     int userMCQID = arg['user_mcq_id'];
 
-    print('token: $token, index: $index, mbid: $mbid, subjectList: $subjectList, wantExamTimer: $wantExamTimer, examTime: $examTime, wantQuestionTimer: $wantQuestionTimer, questionTime: $questionTime, numQuestions: $numQuestions,userMCQID: $userMCQID');
+    // print('token: $token, index: $index, mbid: $mbid, subjectList: $subjectList, wantExamTimer: $wantExamTimer, examTime: $examTime, wantQuestionTimer: $wantQuestionTimer, questionTime: $questionTime, numQuestions: $numQuestions,userMCQID: $userMCQID');
 
     return Scaffold(
       appBar: AppBar(

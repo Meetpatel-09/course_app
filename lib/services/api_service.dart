@@ -222,6 +222,10 @@ class APIServices {
     );
 
     // print(response.body);
-    return UserMCQAnswersResponseModel(status: response.statusCode);
+    if (response.statusCode == 200) {
+      return UserMCQAnswersResponseModel(status: response.statusCode);
+    } else {
+      return UserMCQAnswersResponseModel(status: response.statusCode, msg: response.reasonPhrase);
+    }
   }}
 }

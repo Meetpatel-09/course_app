@@ -190,7 +190,6 @@ class _MCQWidgetState extends State<MCQWidget> {
               controller: widget.controller,
               userAnswer: userAnswer,
               token: widget.token,
-              // userMcqId: widget.mcqQuestions[index].mcqid,
               userMcqId: widget.userMCQID,
               userAnswerToSend: userAnswerToSend,
               userMCQQuestionTimer: userMCQQuestionTimer,

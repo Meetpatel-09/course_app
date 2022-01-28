@@ -36,22 +36,22 @@ class _ExamChoosesState extends State<ExamChooses> {
 
   @override
   void initState() {
-    print("object 1");
+    // print("object 1");
     // print("exam choose ${widget.token}");
     super.initState();
     // print(widget.mbid);
-    print("object");
+    // print("object");
     APIServices.getUserSettings(widget.mbid.toString(), widget.token.toString()).then((response) {
-      print(response.result);
-      print(widget.token.toString());
+      // print(response.result);
+      // print(widget.token.toString());
       if (response.toString().isNotEmpty) {
         if (response.status == 200) {
-          print(response.result);
+          // print(response.result);
           setState(() {
             _lockSettings = true;
           });
 
-          print(response.result!.length == 0);
+          // print(response.result!.length == 0);
 
           if (response.result!.isEmpty) {
             // print("empty");
@@ -90,7 +90,7 @@ class _ExamChoosesState extends State<ExamChooses> {
 
   @override
   Widget build(BuildContext context) {
-    print(_lockSettings);
+    // print(_lockSettings);
 
     return Padding(
       padding: const EdgeInsets.all(18),
@@ -333,7 +333,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                     }
                 );
               }
-              print("locked");
+              // print("locked");
             } else {
               if (validate()) {
                 if (isSelectedE) {

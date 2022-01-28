@@ -19,8 +19,7 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Padding(
+    return Padding(
       padding: const EdgeInsets.fromLTRB(18, 0, 18, 6),
       child:
       Row(
@@ -63,105 +62,125 @@ class ButtonWidget extends StatelessWidget {
               onPressed: () async {
                 if (controller.page?.toInt() == mcqQuestions.length - 1) {
 
-                  // print(userAnswerToSend);
-                  // print(mcqIDs);
-                  String na= "";
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        // title: const Text("Unknown Error"),
+                        content: const Text("Want to Submit Your Answers?"),
+                        actions: [
+                          TextButton(
+                              onPressed: () async {
+                                // print(userAnswerToSend);
+                                // print(mcqIDs);
+                                String na= "";
 
-                  Map<int ,String> finalAnswers = {};
+                                Map<int ,String> finalAnswers = {};
 
-                  for (var element in mcqIDs) {
-                    finalAnswers[element] = na;
-                  }
+                                for (var element in mcqIDs) {
+                                  finalAnswers[element] = na;
+                                }
 
-                  final thirdMap = {
-                    ...finalAnswers,
-                    ...userAnswerToSend,
-                  };
+                                final thirdMap = {
+                                  ...finalAnswers,
+                                  ...userAnswerToSend,
+                                };
 
-                  // print(thirdMap);
+                                // print(thirdMap);
 
-                  // variables to store mcq questions and answers
-                  int key;
-                  List<int> q = thirdMap.keys.toList();
-                  List<String> a = thirdMap.values.toList();
+                                // variables to store mcq questions and answers
+                                int key;
+                                List<int> q = thirdMap.keys.toList();
+                                List<String> a = thirdMap.values.toList();
 
-                  List queRemainingTime = [];
-                  List queTotalTakenTime = [];
+                                List queRemainingTime = [];
+                                List queTotalTakenTime = [];
 
-                  // checking if there was a question timer
-                  if(userMCQQuestionTimer.isNotEmpty) {
+                                // checking if there was a question timer
+                                if(userMCQQuestionTimer.isNotEmpty) {
 
-                    for(int i = 0; i < mcqQuestions.length; i++) {
+                                  for(int i = 0; i < mcqQuestions.length; i++) {
 
-                      int n = mcqQuestions[i].mcqid;
-                      int? s = userMCQQuestionTimer[n]?.inSeconds;
-                      int? r = s!;
-                      int? t = (questionTimer * 60) - r;
+                                    int n = mcqQuestions[i].mcqid;
+                                    int? s = userMCQQuestionTimer[n]?.inSeconds;
+                                    int? r = s!;
+                                    int? t = (questionTimer * 60) - r;
 
-                      queRemainingTime.add(r);
-                      queTotalTakenTime.add(t);
-                    }
-                  }
+                                    queRemainingTime.add(r);
+                                    queTotalTakenTime.add(t);
+                                  }
+                                }
 
-                  // print("user_mcq_id $userMcqId");
-                  // print("mbid ${mcqQuestions[questionIndex].mbid}");
-                  // print(token);
-                  // print("mcqIDs $mcqIDs");
-                  // print("printed");
-                  // print(a);
-                  // print("printed a");
-                  // print(q);
-                  // print("printed q");
-                  // print(queTotalTakenTime);
-                  // print("printed qtt");
-                  // print(queRemainingTime);
-                  // print("printed qtr");
+                                // print("user_mcq_id $userMcqId");
+                                // print("mbid ${mcqQuestions[questionIndex].mbid}");
+                                // print(token);
+                                // print("mcqIDs $mcqIDs");
+                                // print("printed");
+                                // print(a);
+                                // print("printed a");
+                                // print(q);
+                                // print("printed q");
+                                // print(queTotalTakenTime);
+                                // print("printed qtt");
+                                // print(queRemainingTime);
+                                // print("printed qtr");
 
-                  SendUserMCQAnswers model = SendUserMCQAnswers(
-                    token: token,
-                    userMcqId: int.parse(userMcqId),
-                    mbid: mcqQuestions[questionIndex].mbid,
-                    ans: a,
-                    mcqid: q,
-                    queRemainingTime: queRemainingTime,
-                    queTotalTakenTime: queTotalTakenTime,
-                    );
+                                SendUserMCQAnswers model = SendUserMCQAnswers(
+                                  token: token,
+                                  userMcqId: int.parse(userMcqId),
+                                  mbid: mcqQuestions[questionIndex].mbid,
+                                  ans: a,
+                                  mcqid: q,
+                                  queRemainingTime: queRemainingTime,
+                                  queTotalTakenTime: queTotalTakenTime,
+                                );
 
-                  await APIServices.sendMCQUserAnswer(model, token).then((response) {
-                    if (response.status == 200) {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text("Congratulations"),
-                            content: const Text("Answers Submitted Successfully"),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
-                                  },
-                                  child: const Text("OK")),
-                            ],
-                          )
-                      );
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text(response.status.toString()),
-                            content: Text(response.msg!),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.pushNamed(context, MyRoutes.homeRoute);
-                                  },
-                                  child: const Text("OK")),
-                            ],
-                          )
-                      );
-                    }
-                  });
+                                await APIServices.sendMCQUserAnswer(model, token).then((response) {
+                                  if (response.status == 200) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: const Text("Congratulations"),
+                                          content: const Text("Answers Submitted Successfully"),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                  Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
+                                                },
+                                                child: const Text("OK")),
+                                          ],
+                                        )
+                                    );
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text(response.status.toString()),
+                                          content: Text(response.msg!),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                  Navigator.pushNamed(context, MyRoutes.homeRoute);
+                                                },
+                                                child: const Text("OK")),
+                                          ],
+                                        )
+                                    );
+                                  }
+                                });
+                              },
+                              child: const Text("Yes"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text("No"),
+                          ),
+                        ],
+                      )
+                  );
                 } else {
                   controller.nextPage(
                       duration: const Duration(milliseconds: 250),
