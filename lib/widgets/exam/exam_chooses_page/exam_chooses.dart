@@ -69,7 +69,8 @@ class _ExamChoosesState extends State<ExamChooses> {
             }
             wantQuestionTimer = response.result![0].setPerQueTimer;
             if (response.result![0].setPerQueTimer == "Yes") {
-              questionTime = response.result![0].setPerQueTimer;
+              isSelectedQ = true;
+              questionTime = response.result![0].perQueTimer.toString();
               _questionETC = TextEditingController(text: questionTime);
             }
             remainingTime = response.result![0].remainingTime;

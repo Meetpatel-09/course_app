@@ -197,9 +197,17 @@ class APIServices {
     }
   }
 
-  static Future<UserMCQAnswersResponseModel> sendMCQUserAnswer(SendUserMCQAnswers model, String token) async { {
+  static Future<UserMCQAnswersResponseModel> sendMCQUserAnswer(SendUserMCQAnswers model, String token, bool isFinished) async { {
 
-    var url = Uri.parse(Config().sendMCQUserAnswer);
+    // print("outo");
+
+    Uri url;
+
+    if (isFinished) {
+      url = Uri.parse(Config().sendMCQUserAnswer + "?finish=true");
+    } else {
+      url = Uri.parse(Config().sendMCQUserAnswer);
+    }
 
     Map<String, dynamic> args = {
       "user_mcq_id": model.userMcqId,
@@ -223,6 +231,7 @@ class APIServices {
 
     // print(response.body);
     if (response.statusCode == 200) {
+      print(response.body);
       return UserMCQAnswersResponseModel(status: response.statusCode);
     } else {
       return UserMCQAnswersResponseModel(status: response.statusCode, msg: response.reasonPhrase);

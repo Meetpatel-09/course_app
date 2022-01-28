@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -11,11 +10,11 @@ class QuestionWidget extends StatefulWidget {
   final String examTimerMinutes;
   final String examTimerSeconds;
   final bool wantQuestionTimer;
-  final String questionTimer;
+  final String questionTime;
   final int questionNumber;
   final int mcqid;
   final Map<int, Duration> userMCQQuestionTimer;
-  const QuestionWidget({Key? key, required this.question, required this.questionNumber, required this.wantQuestionTimer, required this.questionTimer, required this.wantExamTimer, required this.examTimerMinutes, required this.examTimerSeconds, required this.userMCQQuestionTimer, required this.mcqid}) : super(key: key);
+  const QuestionWidget({Key? key, required this.question, required this.questionNumber, required this.wantQuestionTimer, required this.questionTime, required this.wantExamTimer, required this.examTimerMinutes, required this.examTimerSeconds, required this.userMCQQuestionTimer, required this.mcqid}) : super(key: key);
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -46,7 +45,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       if (widget.userMCQQuestionTimer.containsKey(widget.mcqid)) {
         countdownDurationQuestion = widget.userMCQQuestionTimer[widget.mcqid]!;
       } else {
-        countdownDurationQuestion = Duration(minutes: int.parse(widget.questionTimer));
+        countdownDurationQuestion = Duration(minutes: int.parse(widget.questionTime));
       }
       setState(() {
         durationQuestion = countdownDurationQuestion;
@@ -90,7 +89,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
     if (widget.wantQuestionTimer) {
       final isRunning = timerQuestion == null ? false : timerQuestion!.isActive;
-      int uSeconds = int.parse(widget.questionTimer) * 60;
+      int uSeconds = int.parse(widget.questionTime) * 60;
       final isCompleted = durationQuestion.inSeconds == uSeconds || durationQuestion.inSeconds == 0;
     }
 
@@ -114,7 +113,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                     padding: const EdgeInsets.fromLTRB(15, 90, 15, 15),
                     margin: const EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
-                        color: MyTheme.lightBlue,
+                        color: context.primaryColor,
                         borderRadius: const BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10))
                     ),
                     child: "${widget.questionNumber}. ${widget.question}".richText.semiBold.xl.color(context.primaryColor).letterSpacing(1).justify.make(),

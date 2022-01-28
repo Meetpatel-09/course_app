@@ -49,7 +49,6 @@ class _MCQPageState extends State<MCQPage> {
     mcqQuestionBank = arg['mcqQuestionBank'];
     userMCQID = arg['userMCQID'];
 
-
     if(questionTime == "notSet") {
        questionTime = "0";
     }
@@ -93,8 +92,9 @@ class _MCQPageState extends State<MCQPage> {
                 wantExamTimer: wantExamTimer,
                 wantQuestionTimer: wantQuestionTimer,
                 examTimer: examTime,
-                questionTimer: questionTime,
+                questionTime: questionTime,
                 mcqQuestions: mcqQuestionBank,
+                mbid: mbid,
                 controller: controller,
                 token: token,
                 userMCQID: userMCQID,

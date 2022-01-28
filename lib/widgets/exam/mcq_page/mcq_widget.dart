@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
+import 'package:course_app_ui/model/mcq_models/send_user_mcq_answer_model.dart';
+import 'package:course_app_ui/services/api_service.dart';
+import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/mcq_page/widgets/button_widget.dart';
 import 'package:course_app_ui/widgets/exam/mcq_page/widgets/question_widget/question_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +13,14 @@ class MCQWidget extends StatefulWidget {
   final bool wantExamTimer;
   final bool wantQuestionTimer;
   final String examTimer;
-  final String questionTimer;
+  final String questionTime;
   final List<Result> mcqQuestions;
   final PageController controller;
   final ValueChanged<int> onChangedPage;
   final String token;
   final String userMCQID;
-  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTimer, required this.questionTimer, required this.token, required this.userMCQID}) : super(key: key);
+  final int mbid;
+  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTimer, required this.questionTime, required this.token, required this.userMCQID, required this.mbid}) : super(key: key);
 
   @override
   _MCQWidgetState createState() => _MCQWidgetState();
@@ -59,12 +63,15 @@ class _MCQWidgetState extends State<MCQWidget> {
 
   void addTime() {
     const addSeconds = -1;
-
     setState(() {
       final seconds = durationExam.inSeconds + addSeconds;
 
       if(seconds < 0) {
         timerExam?.cancel();
+        sendData();
+        Future.delayed(Duration.zero, () {
+          showTimeOutDialog();
+        });
       } else {
         durationExam = Duration(seconds: seconds);
       }
@@ -112,7 +119,7 @@ class _MCQWidgetState extends State<MCQWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 600,
+              height: 615,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -123,7 +130,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                       examTimerMinutes: minutes,
                       examTimerSeconds: seconds,
                       wantQuestionTimer: widget.wantQuestionTimer,
-                      questionTimer: widget.questionTimer,
+                      questionTime: widget.questionTime,
                       userMCQQuestionTimer: userMCQQuestionTimer,
                       mcqid: widget.mcqQuestions[index].mcqid,
                     ),
@@ -165,7 +172,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                                           userAnswer[index + 1] ==
                                               (i + 1).toString()
                                               ? context.primaryColor
-                                              : Colors.black38,
+                                              : context.cardColor.withOpacity(0.7),
                                           width: 2
                                       )
                                   ),
@@ -193,10 +200,49 @@ class _MCQWidgetState extends State<MCQWidget> {
               userMcqId: widget.userMCQID,
               userAnswerToSend: userAnswerToSend,
               userMCQQuestionTimer: userMCQQuestionTimer,
-              questionTimer: int.parse(widget.questionTimer),
-
+              questionTime: int.parse(widget.questionTime),
             ),
           ],
+        );
+      },
+    );
+  }
+
+
+  showTimeOutDialog() {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Container(
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: context.canvasColor
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const SizedBox(height: 25,),
+                  "Exam Time Out!! Answers submitted".text.xl.make(),
+                  const SizedBox(height: 15,),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
+                    },
+                    child: "Ok".text.xl.end.make()
+                  ),
+                  const SizedBox(height: 10,),
+                ],
+              ),
+            ),
+          ),
         );
       },
     );
@@ -211,14 +257,14 @@ class _MCQWidgetState extends State<MCQWidget> {
               mcqOptionCodes[i].text.xl.color(
                 userAnswer[index + 1] == (i + 1).toString()
                   ? context.primaryColor
-                  : Colors.black,
+                  : context.cardColor,
               ).make(),
               const SizedBox(width: 10,),
               SizedBox(width: MediaQuery.of(context).size.width - 150,
                   child: widget.mcqQuestions[index].options[i].text.xl.color(
                     userAnswer[index + 1] == (i + 1).toString()
                         ? context.primaryColor
-                        : Colors.black,
+                        : context.cardColor,
                   ).make()
               ),
             ],
@@ -226,9 +272,74 @@ class _MCQWidgetState extends State<MCQWidget> {
           userAnswer[index + 1] == (i + 1).toString() ?
             Icon(Icons.circle, color: context.primaryColor,)
                 :
-            const Icon(Icons.circle_outlined, color: Colors.black38,)
+          Icon(Icons.circle_outlined, color: context.cardColor,)
     ]
     );
+  }
+
+  sendData() {
+    // print(userAnswerToSend);
+    // print(mcqIDs);
+    String na= "";
+
+    Map<int ,String> finalAnswers = {};
+    Map<int ,Duration> finalQuestionTime = {};
+
+    for (var element in mcqIDs) {
+      finalAnswers[element] = na;
+    }
+
+    for (var element in mcqIDs) {
+      finalQuestionTime[element] = Duration(seconds: int.parse(widget.questionTime));
+    }
+
+    final thirdMap = {
+      ...finalAnswers,
+      ...userAnswerToSend,
+    };
+
+    final thirdMap2 = {
+      ...finalQuestionTime,
+      ...userMCQQuestionTimer,
+    };
+
+    // print(thirdMap);
+
+    // variables to store mcq questions and answers
+    List<int> q = thirdMap.keys.toList();
+    List<String> a = thirdMap.values.toList();
+
+    List queRemainingTime = [];
+    List queTotalTakenTime = [];
+
+    // checking if there was a question timer
+    if(widget.wantQuestionTimer) {
+
+      for(int i = 0; i < thirdMap2.length; i++) {
+
+        int n = widget.mcqQuestions[i].mcqid;
+        int? s = thirdMap2[n]?.inSeconds;
+        int? r = s!;
+        int? t = (int.parse(widget.questionTime) * 60) - r;
+
+        queRemainingTime.add(r);
+        queTotalTakenTime.add(t);
+      }
+    }
+
+    SendUserMCQAnswers model = SendUserMCQAnswers(
+      token: widget.token,
+      userMcqId: int.parse(widget.userMCQID),
+      mbid: widget.mbid,
+      ans: a,
+      mcqid: q,
+      queRemainingTime: queRemainingTime,
+      queTotalTakenTime: queTotalTakenTime,
+    );
+
+    print("${model.mbid}, ${model.userMcqId}, ${model.token}, ${model.mcqid}, ${model.queTotalTakenTime}, ${model.queRemainingTime}, ${model.ans} ");
+
+    APIServices.sendMCQUserAnswer(model, widget.token, true);
   }
 
 }
