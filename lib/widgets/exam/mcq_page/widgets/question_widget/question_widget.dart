@@ -88,9 +88,9 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   Widget build(BuildContext context) {
 
     if (widget.wantQuestionTimer) {
-      final isRunning = timerQuestion == null ? false : timerQuestion!.isActive;
-      int uSeconds = int.parse(widget.questionTime) * 60;
-      final isCompleted = durationQuestion.inSeconds == uSeconds || durationQuestion.inSeconds == 0;
+      // final isRunning = timerQuestion == null ? false : timerQuestion!.isActive;
+      // int uSeconds = int.parse(widget.questionTime) * 60;
+      // final isCompleted = durationQuestion.inSeconds == uSeconds || durationQuestion.inSeconds == 0;
     }
 
     // 9 --> 09     11 --> 11

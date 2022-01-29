@@ -5,7 +5,7 @@ import 'package:course_app_ui/model/mcq_models/get_user_settings_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
 import 'package:course_app_ui/model/mcq_models/send_user_mcq_answer_model.dart';
-import 'package:course_app_ui/model/mcq_models/user_mcq_answer-response_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_mcq_answer_response_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_settings_response_model.dart';
 import 'package:course_app_ui/utils/config.dart';

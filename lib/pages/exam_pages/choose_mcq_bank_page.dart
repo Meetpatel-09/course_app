@@ -1,7 +1,7 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/services/shared_service.dart';
-import 'package:course_app_ui/widgets/exam/choose_mcq_bank/MCQBanks.dart';
+import 'package:course_app_ui/widgets/exam/choose_mcq_bank/mcq_bank.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 

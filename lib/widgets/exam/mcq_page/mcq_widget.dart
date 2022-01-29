@@ -172,7 +172,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                                           userAnswer[index + 1] ==
                                               (i + 1).toString()
                                               ? context.primaryColor
-                                              : context.cardColor.withOpacity(0.7),
+                                              : context.cardColor.withOpacity(0.5),
                                           width: 2
                                       )
                                   ),
@@ -272,7 +272,7 @@ class _MCQWidgetState extends State<MCQWidget> {
           userAnswer[index + 1] == (i + 1).toString() ?
             Icon(Icons.circle, color: context.primaryColor,)
                 :
-          Icon(Icons.circle_outlined, color: context.cardColor,)
+          Icon(Icons.circle_outlined, color: context.cardColor.withOpacity(0.5),)
     ]
     );
   }
