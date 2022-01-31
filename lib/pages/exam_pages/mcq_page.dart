@@ -77,31 +77,7 @@ class _MCQPageState extends State<MCQPage> {
         );
         return true;
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: "Exam".text.make(),
-          actions: [
-            // IconButton(onPressed: () {}, icon: Icon(Icons.save, size: 25,)),
-            // IconButton(onPressed: () {}, icon: Icon(Icons.assignment_turned_in_outlined, size: 25,)),
-
-            TextButton(
-                onPressed: () {print("Save");},
-                child: "Save".text.white.extraBold.size(19).letterSpacing(1).make().pOnly(right: 16, bottom: 0),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(0),
-                ),
-            ),
-            TextButton(
-                onPressed: () {print("Finish");},
-                child: "Finish".text.white.extraBold.size(19).letterSpacing(1).make().pOnly(right: 16, bottom: 0),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(0),
-                ),
-            )
-          ],
-        ),
-        backgroundColor: context.canvasColor,
-        body: MCQWidget(
+      child: MCQWidget(
                 wantExamTimer: wantExamTimer,
                 wantQuestionTimer: wantQuestionTimer,
                 examTimer: examTime,
@@ -119,7 +95,7 @@ class _MCQPageState extends State<MCQPage> {
                   }
                 },
             )
-      ),
+      // ),
     );
   }
 }

@@ -68,9 +68,9 @@ class _MCQWidgetState extends State<MCQWidget> {
 
       if(seconds < 0) {
         timerExam?.cancel();
-        sendData();
+        sendData(true);
         Future.delayed(Duration.zero, () {
-          showTimeOutDialog();
+          showTimeOutDialog("Exam Time Out!! Answers submitted", false, false);
         });
       } else {
         durationExam = Duration(seconds: seconds);
@@ -108,108 +108,139 @@ class _MCQWidgetState extends State<MCQWidget> {
     final seconds = twoDigits(durationExam.inSeconds.remainder(60));
 
     // print(userMCQQuestionTimer);
-    return PageView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      onPageChanged: widget.onChangedPage,
-      controller: widget.controller,
-      itemCount: widget.mcqQuestions.length,
-      itemBuilder: (context, index) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 615,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    QuestionWidget(
-                      question: widget.mcqQuestions[index].que,
-                      questionNumber: index + 1,
-                      wantExamTimer: widget.wantExamTimer,
-                      examTimerMinutes: minutes,
-                      examTimerSeconds: seconds,
-                      wantQuestionTimer: widget.wantQuestionTimer,
-                      questionTime: widget.questionTime,
-                      userMCQQuestionTimer: userMCQQuestionTimer,
-                      mcqid: widget.mcqQuestions[index].mcqid,
-                    ),
-                    const SizedBox(height: 30,),
-                    Column(
-                      children: [
-                        for (int i = 0; i < 4; i++)
-                          GestureDetector(
-                            onTap: () {
-                              if(widget.wantQuestionTimer) {
-                                int? s = userMCQQuestionTimer[widget.mcqQuestions[index].mcqid]?.inSeconds;
-                                if (s! != 0) {
+    return Scaffold(
+      appBar: AppBar(
+        title: "Exam".text.make(),
+        actions: [
+          // IconButton(onPressed: () {}, icon: Icon(Icons.save, size: 25,)),
+          // IconButton(onPressed: () {}, icon: Icon(Icons.assignment_turned_in_outlined, size: 25,)),
+
+          TextButton(
+            onPressed: () {
+              sendData(false);
+              showTimeOutDialog("Answers Saved Successfully", false, true);
+            },
+            child: "Save".text.white.extraBold.size(19).letterSpacing(1).make().pOnly(right: 16, bottom: 0),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(0),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              sendData(true);
+              showTimeOutDialog("Do you want to finish Exam", true, false);
+            },
+            child: "Finish".text.white.extraBold.size(19).letterSpacing(1).make().pOnly(right: 16, bottom: 0),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(0),
+            ),
+          )
+        ],
+      ),
+      backgroundColor: context.canvasColor,
+      body: PageView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        onPageChanged: widget.onChangedPage,
+        controller: widget.controller,
+        itemCount: widget.mcqQuestions.length,
+        itemBuilder: (context, index) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 615,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      QuestionWidget(
+                        question: widget.mcqQuestions[index].que,
+                        questionNumber: index + 1,
+                        wantExamTimer: widget.wantExamTimer,
+                        examTimerMinutes: minutes,
+                        examTimerSeconds: seconds,
+                        wantQuestionTimer: widget.wantQuestionTimer,
+                        questionTime: widget.questionTime,
+                        userMCQQuestionTimer: userMCQQuestionTimer,
+                        mcqid: widget.mcqQuestions[index].mcqid,
+                      ),
+                      const SizedBox(height: 30,),
+                      Column(
+                        children: [
+                          for (int i = 0; i < 4; i++)
+                            GestureDetector(
+                              onTap: () {
+                                if(widget.wantQuestionTimer) {
+                                  int? s = userMCQQuestionTimer[widget.mcqQuestions[index].mcqid]?.inSeconds;
+                                  if (s! != 0) {
+                                    userAnswer[index + 1] = (i + 1).toString();
+                                    userAnswerToSend[widget.mcqQuestions[index].mcqid] = widget.mcqQuestions[index].options[i];
+                                    setState(() {});
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                      content: Text('Question Time Out!!'),
+                                    ));
+                                  }
+                                } else {
                                   userAnswer[index + 1] = (i + 1).toString();
                                   userAnswerToSend[widget.mcqQuestions[index].mcqid] = widget.mcqQuestions[index].options[i];
                                   setState(() {});
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                    content: Text('Question Time Out!!'),
-                                  ));
                                 }
-                              } else {
-                                userAnswer[index + 1] = (i + 1).toString();
-                                userAnswerToSend[widget.mcqQuestions[index].mcqid] = widget.mcqQuestions[index].options[i];
-                                setState(() {});
-                              }
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 18),
-                              child: Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 6),
-                                  padding: const EdgeInsets.all(12),
-                                  decoration: BoxDecoration(
-                                      color: context.backgroundColor,
-                                      borderRadius: BorderRadius.circular(14),
-                                      border: Border.all(
-                                          color:
-                                          userAnswer[index + 1] ==
-                                              (i + 1).toString()
-                                              ? context.primaryColor
-                                              : context.cardColor.withOpacity(0.5),
-                                          width: 2
-                                      )
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: buildAnswer(i, index),
-                                  )
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 18),
+                                child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 6),
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                        color: context.backgroundColor,
+                                        borderRadius: BorderRadius.circular(14),
+                                        border: Border.all(
+                                            color:
+                                            userAnswer[index + 1] ==
+                                                (i + 1).toString()
+                                                ? context.primaryColor
+                                                : context.cardColor.withOpacity(0.5),
+                                            width: 2
+                                        )
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: buildAnswer(i, index),
+                                    )
+                                ),
                               ),
                             ),
-                          ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            ButtonWidget(
-              mcqIDs: mcqIDs,
-              mcqQuestions: widget.mcqQuestions,
-              questionIndex: index,
-              controller: widget.controller,
-              userAnswer: userAnswer,
-              token: widget.token,
-              userMcqId: widget.userMCQID,
-              userAnswerToSend: userAnswerToSend,
-              userMCQQuestionTimer: userMCQQuestionTimer,
-              questionTime: int.parse(widget.questionTime),
-            ),
-          ],
-        );
-      },
+              ButtonWidget(
+                mcqIDs: mcqIDs,
+                mcqQuestions: widget.mcqQuestions,
+                questionIndex: index,
+                controller: widget.controller,
+                userAnswer: userAnswer,
+                token: widget.token,
+                userMcqId: widget.userMCQID,
+                userAnswerToSend: userAnswerToSend,
+                userMCQQuestionTimer: userMCQQuestionTimer,
+                questionTime: int.parse(widget.questionTime),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 
 
-  showTimeOutDialog() {
+  showTimeOutDialog(String message, bool isFinished, bool isSave) {
     return showDialog(
       barrierDismissible: false,
       context: context,
@@ -226,17 +257,36 @@ class _MCQWidgetState extends State<MCQWidget> {
               padding: const EdgeInsets.all(18.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 25,),
-                  "Exam Time Out!! Answers submitted".text.xl.make(),
+                  message.text.xl.make(),
                   const SizedBox(height: 15,),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
-                    },
-                    child: "Ok".text.xl.end.make()
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      isFinished ? TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
+                          },
+                          child: "Yes".text.xl.end.make()
+                      ) :  TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            if (!isSave) {
+                              Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
+                            }
+                          },
+                          child: "Ok".text.xl.end.make()
+                      ),
+                      isFinished ?  TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: "No".text.xl.end.make()
+                      ) : const SizedBox(),
+                    ],
                   ),
                   const SizedBox(height: 10,),
                 ],
@@ -277,7 +327,7 @@ class _MCQWidgetState extends State<MCQWidget> {
     );
   }
 
-  sendData() {
+  sendData(bool isComplete) {
     // print(userAnswerToSend);
     // print(mcqIDs);
     String na= "";
@@ -339,7 +389,12 @@ class _MCQWidgetState extends State<MCQWidget> {
 
     print("${model.mbid}, ${model.userMcqId}, ${model.token}, ${model.mcqid}, ${model.queTotalTakenTime}, ${model.queRemainingTime}, ${model.ans} ");
 
-    APIServices.sendMCQUserAnswer(model, widget.token, true);
+    if (isComplete) {
+      APIServices.sendMCQUserAnswer(model, widget.token, true);
+    } else {
+      APIServices.sendMCQUserAnswer(model, widget.token, false);
+    }
+
   }
 
 }
