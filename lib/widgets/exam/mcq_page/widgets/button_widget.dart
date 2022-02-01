@@ -114,7 +114,7 @@ class ButtonWidget extends StatelessWidget {
 
                   APIServices.sendMCQUserAnswer(model, token, false);
                   controller.previousPage(
-                      duration: const Duration(milliseconds: 250),
+                      duration: const Duration(milliseconds: 1),
                       curve: Curves.easeInExpo);
                 }
               },
@@ -158,7 +158,6 @@ class ButtonWidget extends StatelessWidget {
                   ...finalQuestionTime,
                   ...userMCQQuestionTimer,
                 };
-
 
                 // print(thirdMap);
 
@@ -280,7 +279,7 @@ class ButtonWidget extends StatelessWidget {
 
                   APIServices.sendMCQUserAnswer(model, token, false);
                   controller.nextPage(
-                      duration: const Duration(milliseconds: 250),
+                      duration: const Duration(milliseconds: 1),
                       curve: Curves.easeInExpo);
                 }
               },

@@ -7,6 +7,7 @@ import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/mcq_page/widgets/button_widget.dart';
 import 'package:course_app_ui/widgets/exam/mcq_page/widgets/question_widget/question_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MCQWidget extends StatefulWidget {
@@ -89,7 +90,6 @@ class _MCQWidgetState extends State<MCQWidget> {
     if (resets) {
       reset();
     }
-
     setState(() => timerExam?.cancel());
   }
 
@@ -177,9 +177,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                                     userAnswerToSend[widget.mcqQuestions[index].mcqid] = widget.mcqQuestions[index].options[i];
                                     setState(() {});
                                   } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                      content: Text('Question Time Out!!'),
-                                    ));
+                                    Fluttertoast.showToast(msg: "Question Time Out!!", fontSize: 18);
                                   }
                                 } else {
                                   userAnswer[index + 1] = (i + 1).toString();
@@ -238,7 +236,6 @@ class _MCQWidgetState extends State<MCQWidget> {
       ),
     );
   }
-
 
   showTimeOutDialog(String message, bool isFinished, bool isSave) {
     return showDialog(
@@ -394,7 +391,5 @@ class _MCQWidgetState extends State<MCQWidget> {
     } else {
       APIServices.sendMCQUserAnswer(model, widget.token, false);
     }
-
   }
-
 }
