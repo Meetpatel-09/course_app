@@ -1,5 +1,5 @@
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
-import 'package:course_app_ui/model/mcq_models/send_user_mcq_answer_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_answers/send_user_mcq_answer_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_request_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/start_exam_page/start_exam_button.dart';

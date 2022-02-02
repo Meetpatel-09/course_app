@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:path_provider/path_provider.dart';
-// import 'package:path/path.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ProfileImageWidget extends StatefulWidget {
@@ -110,11 +108,4 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
     }
   }
 
-  // Future<File> saveImagePermanently(String imagePath) async {
-  //   final directory = await getApplicationDocumentsDirectory();
-  //   final name = basename(imagePath);
-  //   final image = File('${directory.path}/$name');
-  //
-  //   return File(imagePath).copy(image.path);
-  // }
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
-import 'package:course_app_ui/model/mcq_models/send_user_mcq_answer_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_answers/send_user_mcq_answer_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/mcq_page/widgets/button_widget.dart';
@@ -230,6 +230,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                 userMCQQuestionTimer: userMCQQuestionTimer,
                 questionTime: int.parse(widget.questionTime),
               ),
+
             ],
           );
         },
@@ -245,18 +246,17 @@ class _MCQWidgetState extends State<MCQWidget> {
         return Dialog(
           backgroundColor: Colors.transparent,
           child: Container(
-            height: 200,
+            height: 150,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: context.canvasColor
+              borderRadius: BorderRadius.circular(5),
+              color: context.backgroundColor
             ),
             child: Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 25,),
                   message.text.xl.make(),
                   const SizedBox(height: 15,),
                   Row(
@@ -267,7 +267,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                             Navigator.pop(context);
                             Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
                           },
-                          child: "Yes".text.xl.end.make()
+                          child: "Yes".text.end.make()
                       ) :  TextButton(
                           onPressed: () {
                             Navigator.pop(context);
@@ -275,17 +275,16 @@ class _MCQWidgetState extends State<MCQWidget> {
                               Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
                             }
                           },
-                          child: "Ok".text.xl.end.make()
+                          child: "Ok".text.end.make()
                       ),
                       isFinished ?  TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: "No".text.xl.end.make()
+                          child: "No".text.end.make()
                       ) : const SizedBox(),
                     ],
                   ),
-                  const SizedBox(height: 10,),
                 ],
               ),
             ),
@@ -384,7 +383,7 @@ class _MCQWidgetState extends State<MCQWidget> {
       queTotalTakenTime: queTotalTakenTime,
     );
 
-    print("${model.mbid}, ${model.userMcqId}, ${model.token}, ${model.mcqid}, ${model.queTotalTakenTime}, ${model.queRemainingTime}, ${model.ans} ");
+    // print("${model.mbid}, ${model.userMcqId}, ${model.token}, ${model.mcqid}, ${model.queTotalTakenTime}, ${model.queRemainingTime}, ${model.ans} ");
 
     if (isComplete) {
       APIServices.sendMCQUserAnswer(model, widget.token, true);

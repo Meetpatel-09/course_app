@@ -137,7 +137,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         ),
                       ]
                     ),
-                    child: "${widget.questionNumber}. ${widget.question}".richText.semiBold.xl.letterSpacing(1).justify.make(),
+                    child: "${widget.questionNumber}. ${widget.question}".richText.semiBold.lg.letterSpacing(1).justify.make(),
                   ),
                 ),
                 Align(

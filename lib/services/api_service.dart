@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/model/mcq_models/get_user_settings_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_mcq_settings/get_user_settings_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
-import 'package:course_app_ui/model/mcq_models/send_user_mcq_answer_model.dart';
-import 'package:course_app_ui/model/mcq_models/user_mcq_answer_response_model.dart';
-import 'package:course_app_ui/model/mcq_models/user_settings_request_model.dart';
-import 'package:course_app_ui/model/mcq_models/user_settings_response_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_answers/send_user_mcq_answer_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_answers/user_mcq_answer_response_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_request_model.dart';
+import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_response_model.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:http/http.dart' as http;
 
@@ -43,11 +43,9 @@ class APIServices {
       'token': token,
     };
 
-    // print(token);
     try {
       final response = await http.get(url, headers: requestHeaders);
 
-      // print(response.body);
       if(200 == response.statusCode) {
 
         final MCQBanksModel mcqBanks = mcqBanksModelFromJson(response.body);
@@ -68,8 +66,6 @@ class APIServices {
       'token': model.token!,
     };
 
-    // print(model.token);
-    // print("send Setting");
     var url = Uri.parse(Config().sendUserSettingsAPI);
 
     var response = await client.post(
@@ -77,21 +73,14 @@ class APIServices {
       headers: requestHeaders,
       body: jsonEncode(model.toJson()),
     );
-    // print("priting response model");
-    // print(response.body);
 
     if (response.statusCode == 200) {
-      // print("priting response model in 200");
-      // String user_mcq_id = response.body;
-      // print(user_mcq_id);
 
       if (response.body == '"invalid token"') {
         return UserSettingsResponseModel(status: 422, msg: "Invalid Token");
       } else {
         final UserSettingsResponseModel responseModel = userSettingsResponseModelFromJson(response.body);
 
-        // print("priting response model in 200 decoded");
-        // print(responseModel.user_mcq_id);
         return responseModel;
       }
 
@@ -107,9 +96,6 @@ class APIServices {
       'token': token,
     };
 
-    // print("Token");
-    // print("put settings");
-
     var url = Uri.parse(Config().putUserSettingsAPI + userMCQPID);
 
     var response = await client.put(
@@ -117,21 +103,14 @@ class APIServices {
       headers: requestHeaders,
       body: jsonEncode(model.toJson()),
     );
-    // print("priting response model");
-    // print(response.body);
 
     if (response.statusCode == 200) {
-      // print("priting response model in 200");
-      // String user_mcq_id = response.body;
-      // print(user_mcq_id);
 
       if (response.body == '"invalid token"') {
         return UserSettingsResponseModel(status: 422, msg: "Invalid Token");
       } else {
         final UserSettingsResponseModel responseModel = userSettingsResponseModelFromJson(response.body);
 
-        // print("priting response model in 200 decoded");
-        // print(responseModel.user_mcq_id);
         return responseModel;
       }
 
@@ -152,19 +131,12 @@ class APIServices {
           'token': token
         }
       );
-      // print(token);
-      // print("get user Setting ${response.body}");
-      // print(response.statusCode);
+
       if(200 == response.statusCode) {
 
-        // print("200");
         final GetUserSettingsModel getUserSettingsModel = getUserSettingsModelFromJson(response.body);
-        // print("object dfsdf");
-        // print("sdf $getUserSettingsModel");
         if (getUserSettingsModel.status == 200) {
 
-          // print(getUserSettingsModel);
-          // print();
           return getUserSettingsModel;
         } else {
           return GetUserSettingsModel(status: 422, message: "Error Occurred");
@@ -199,8 +171,6 @@ class APIServices {
 
   static Future<UserMCQAnswersResponseModel> sendMCQUserAnswer(SendUserMCQAnswers model, String token, bool isFinished) async { {
 
-    // print("outo");
-
     Uri url;
 
     if (isFinished) {
@@ -229,9 +199,7 @@ class APIServices {
         }
     );
 
-    // print(response.body);
     if (response.statusCode == 200) {
-      print(response.body);
       return UserMCQAnswersResponseModel(status: response.statusCode);
     } else {
       return UserMCQAnswersResponseModel(status: response.statusCode, msg: response.reasonPhrase);
