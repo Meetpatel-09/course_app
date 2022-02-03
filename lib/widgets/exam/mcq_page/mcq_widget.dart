@@ -5,7 +5,8 @@ import 'package:course_app_ui/model/mcq_models/user_answers/send_user_mcq_answer
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/mcq_page/widgets/button_widget.dart';
-import 'package:course_app_ui/widgets/exam/mcq_page/widgets/question_widget/question_widget.dart';
+import 'package:course_app_ui/widgets/exam/mcq_page/widgets/pagination_buttons.dart';
+import 'package:course_app_ui/widgets/exam/mcq_page/widgets/question_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -149,7 +150,7 @@ class _MCQWidgetState extends State<MCQWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 615,
+                height: 555,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -164,7 +165,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                         userMCQQuestionTimer: userMCQQuestionTimer,
                         mcqid: widget.mcqQuestions[index].mcqid,
                       ),
-                      const SizedBox(height: 30,),
+                      const SizedBox(height: 15,),
                       Column(
                         children: [
                           for (int i = 0; i < 4; i++)
@@ -230,7 +231,18 @@ class _MCQWidgetState extends State<MCQWidget> {
                 userMCQQuestionTimer: userMCQQuestionTimer,
                 questionTime: int.parse(widget.questionTime),
               ),
-
+              PaginationButtons(
+                mcqIDs: mcqIDs,
+                mcqQuestions: widget.mcqQuestions,
+                questionIndex: index,
+                controller: widget.controller,
+                userAnswer: userAnswer,
+                token: widget.token,
+                userMcqId: widget.userMCQID,
+                userAnswerToSend: userAnswerToSend,
+                userMCQQuestionTimer: userMCQQuestionTimer,
+                questionTime: int.parse(widget.questionTime),
+              ),
             ],
           );
         },
@@ -349,8 +361,6 @@ class _MCQWidgetState extends State<MCQWidget> {
       ...userMCQQuestionTimer,
     };
 
-    // print(thirdMap);
-
     // variables to store mcq questions and answers
     List<int> q = thirdMap.keys.toList();
     List<String> a = thirdMap.values.toList();
@@ -382,8 +392,6 @@ class _MCQWidgetState extends State<MCQWidget> {
       queRemainingTime: queRemainingTime,
       queTotalTakenTime: queTotalTakenTime,
     );
-
-    // print("${model.mbid}, ${model.userMcqId}, ${model.token}, ${model.mcqid}, ${model.queTotalTakenTime}, ${model.queRemainingTime}, ${model.ans} ");
 
     if (isComplete) {
       APIServices.sendMCQUserAnswer(model, widget.token, true);

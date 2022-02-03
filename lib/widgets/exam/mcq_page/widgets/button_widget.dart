@@ -21,7 +21,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(18, 0, 18, 6),
+      padding: const EdgeInsets.fromLTRB(18.0, 6.0, 18.0, 0.0),
       child:
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,20 +60,15 @@ class ButtonWidget extends StatelessWidget {
                   ...userMCQQuestionTimer,
                 };
 
-
-                // print(thirdMap);
-
                 // variables to store mcq questions and answers
                 List<int> q = thirdMap.keys.toList();
                 List<String> a = thirdMap.values.toList();
 
                 List queRemainingTime = [];
                 List queTotalTakenTime = [];
-                print(thirdMap2);
                 // checking if there was a question timer
                 if(userMCQQuestionTimer.isNotEmpty) {
 
-                  print(userMCQQuestionTimer);
                   for(int i = 0; i < thirdMap2.length; i++) {
 
                     int n = mcqQuestions[i].mcqid;
@@ -134,8 +129,6 @@ class ButtonWidget extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // print(userAnswerToSend);
-                // print(mcqIDs);
                 String na= "";
 
                 Map<int ,String> finalAnswers = {};
@@ -159,19 +152,15 @@ class ButtonWidget extends StatelessWidget {
                   ...userMCQQuestionTimer,
                 };
 
-                // print(thirdMap);
-
                 // variables to store mcq questions and answers
                 List<int> q = thirdMap.keys.toList();
                 List<String> a = thirdMap.values.toList();
 
                 List queRemainingTime = [];
                 List queTotalTakenTime = [];
-                print(thirdMap2);
                 // checking if there was a question timer
                 if(userMCQQuestionTimer.isNotEmpty) {
 
-                  print(userMCQQuestionTimer);
                   for(int i = 0; i < thirdMap2.length; i++) {
 
                     int n = mcqQuestions[i].mcqid;
@@ -193,20 +182,6 @@ class ButtonWidget extends StatelessWidget {
                         actions: [
                           TextButton(
                               onPressed: () async {
-                                // print("user_mcq_id $userMcqId");
-                                // print("mbid ${mcqQuestions[questionIndex].mbid}");
-                                // print(token);
-                                // print("mcqIDs $mcqIDs");
-                                // print("printed");
-                                // print(a);
-                                // print("printed a");
-                                // print(q);
-                                // print("printed q");
-                                // print(queTotalTakenTime);
-                                // print("printed qtt");
-                                // print(queRemainingTime);
-                                // print("printed qtr");
-
                                 SendUserMCQAnswers model = SendUserMCQAnswers(
                                   token: token,
                                   userMcqId: int.parse(userMcqId),
@@ -216,7 +191,6 @@ class ButtonWidget extends StatelessWidget {
                                   queRemainingTime: queRemainingTime,
                                   queTotalTakenTime: queTotalTakenTime,
                                 );
-                                print("${model.mbid}, ${model.userMcqId}, ${model.token}, ${model.mcqid}, ${model.queTotalTakenTime}, ${model.queRemainingTime}, ${model.ans} ");
 
                                 await APIServices.sendMCQUserAnswer(model, token, true).then((response) {
                                   if (response.status == 200) {

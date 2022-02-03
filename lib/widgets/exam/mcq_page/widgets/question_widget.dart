@@ -87,12 +87,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
 
-    if (widget.wantQuestionTimer) {
-      // final isRunning = timerQuestion == null ? false : timerQuestion!.isActive;
-      // int uSeconds = int.parse(widget.questionTime) * 60;
-      // final isCompleted = durationQuestion.inSeconds == uSeconds || durationQuestion.inSeconds == 0;
-    }
-
     // 9 --> 09     11 --> 11
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final minutesQuestion = twoDigits(durationQuestion.inMinutes.remainder(60));
