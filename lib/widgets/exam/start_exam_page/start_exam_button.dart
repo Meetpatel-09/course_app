@@ -1,13 +1,9 @@
-import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 
 class StartExamButton extends StatelessWidget {
-  const StartExamButton({Key? key, required this.subjectList, required this.index, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTime, required this.questionTime, required this.numQuestions, required this.token, required this.mbid, required this.userMCQID, required this.mcqBanks}) : super(key: key);
-  final List<Subject> subjectList;
-  final int index;
+  const StartExamButton({Key? key, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTime, required this.questionTime, required this.numQuestions, required this.token, required this.mbid, required this.userMCQID}) : super(key: key);
   final bool wantExamTimer;
   final bool wantQuestionTimer;
   final String examTime;
@@ -16,7 +12,6 @@ class StartExamButton extends StatelessWidget {
   final String token;
   final int mbid;
   final int userMCQID;
-  final MCQBanksModel mcqBanks;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +34,6 @@ class StartExamButton extends StatelessWidget {
                     context,
                     MyRoutes.mcqPageRoute,
                     arguments: {
-                      'subjectList': subjectList,
-                      'mcqBanks': mcqBanks,
-                      'index': index,
                       'token': token,
                       'mbid': mbid,
                       'wantExamTimer': wantExamTimer,

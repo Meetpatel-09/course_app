@@ -1,5 +1,4 @@
 import 'package:course_app_ui/model/course_model.dart';
-import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_request_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
@@ -7,10 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ExamChooses extends StatefulWidget {
-  const ExamChooses({Key? key, this.subjectList, this.subjectIndex, required this.token, this.mbid, this.mcqBanks}) : super(key: key);
+  const ExamChooses({Key? key, this.subjectList, this.subjectIndex, required this.token, this.mbid}) : super(key: key);
   final List<Subject>? subjectList;
   final int? subjectIndex;
-  final MCQBanksModel? mcqBanks;
   final String token;
   final int? mbid;
 
@@ -273,7 +271,6 @@ class _ExamChoosesState extends State<ExamChooses> {
                         arguments: {
                           'subjectList': widget.subjectList,
                           'index': widget.subjectIndex,
-                          'mcqBanks': widget.mcqBanks,
                           'token': widget.token,
                           'mbid': widget.mbid,
                           'wantExamTimer': true,
@@ -292,7 +289,6 @@ class _ExamChoosesState extends State<ExamChooses> {
                       arguments: {
                         'subjectList': widget.subjectList,
                         'index': widget.subjectIndex,
-                        'mcqBanks': widget.mcqBanks,
                         'token': widget.token,
                         'mbid': widget.mbid,
                         'wantExamTimer': true,
@@ -311,7 +307,6 @@ class _ExamChoosesState extends State<ExamChooses> {
                     arguments: {
                       'subjectList': widget.subjectList,
                       'index': widget.subjectIndex,
-                      'mcqBanks': widget.mcqBanks,
                       'token': widget.token,
                       'mbid': widget.mbid,
                       'wantExamTimer': false,
@@ -345,7 +340,6 @@ class _ExamChoosesState extends State<ExamChooses> {
                             arguments: {
                               'subjectList': widget.subjectList,
                               'index': widget.subjectIndex,
-                              'mcqBanks': widget.mcqBanks,
                               'token': widget.token,
                               'mbid': widget.mbid,
                               'wantExamTimer': true,
@@ -393,7 +387,6 @@ class _ExamChoosesState extends State<ExamChooses> {
                             arguments: {
                               'subjectList': widget.subjectList,
                               'index': widget.subjectIndex,
-                              'mcqBanks': widget.mcqBanks,
                               'token': widget.token,
                               'mbid': widget.mbid,
                               'wantExamTimer': true,
@@ -441,7 +434,6 @@ class _ExamChoosesState extends State<ExamChooses> {
                           arguments: {
                             'subjectList': widget.subjectList,
                             'index': widget.subjectIndex,
-                            'mcqBanks': widget.mcqBanks,
                             'token': widget.token,
                             'mbid': widget.mbid,
                             'wantExamTimer': false,

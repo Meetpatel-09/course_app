@@ -28,12 +28,10 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
       if (value != null) {
         setState(() {
           token = value;
-          // print("user setting $token");
           _isLoading = false;
         });
       } else {
         token = "empty";
-        // print("is empty token = $token");
       }
     });
     super.initState();
@@ -70,7 +68,6 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
           child: ExamChooses(
             subjectIndex: subjectIndex,
             subjectList: subjectList,
-            mcqBanks: mcqBanks,
             mbid: mcqBanks!.result![mcqBanksIndex].mbid,
             token: token,
           )

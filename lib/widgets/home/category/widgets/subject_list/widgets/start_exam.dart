@@ -31,9 +31,6 @@ class _StartExamState extends State<StartExam> {
                   return
                     APIServices.getMCQBank(widget.subjectID, value).then((mcqBanks) {
                       if (mcqBanks.status == 200) {
-                        print("start exam subjectList${widget.subjectList.first}");
-                        print("subjectIndex${widget.subjectIndex}");
-                        print("mcqBanks${mcqBanks.result?.first}");
                         Navigator.pushNamed(
                             context,
                             MyRoutes.chooseMCQBankRoute,

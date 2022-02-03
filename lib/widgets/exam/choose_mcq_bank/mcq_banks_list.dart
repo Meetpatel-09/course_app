@@ -21,7 +21,6 @@ class MCQBanksList extends StatelessWidget {
           color: context.backgroundColor
       ),
       child: Material(
-        // color: context.primaryColor.withOpacity(0.2),
         borderRadius: BorderRadius.circular(10.0),
         child: InkWell(
           onTap: () {
@@ -38,7 +37,6 @@ class MCQBanksList extends StatelessWidget {
                   }
               );
             }
-
           },
           splashColor: mcqBanks!.result![mcqBanksIndex].isActive != "Disabled" ? context.primaryColor.withOpacity(0.5) : context.canvasColor,
           child: Padding(
@@ -55,7 +53,6 @@ class MCQBanksList extends StatelessWidget {
                       Image.asset("assets/images/mcq-bank.png", width: 60, height: 60, color: context.cardColor,)
                         :
                       Image.asset("assets/images/mcq-bank.png", width: 60, height: 60, color: context.cardColor.withOpacity(0.5),)
-
                 ),
                 const SizedBox(height: 15,),
                 Align(child: mcqBanks!.result![mcqBanksIndex].isActive != "Disabled" ? mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.letterSpacing(1).color(context.cardColor).make() : mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.letterSpacing(1).color(context.cardColor.withOpacity(0.5)).make()),
