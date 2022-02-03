@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/mcq_page/mcq_widget.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class MCQPage extends StatefulWidget {
 }
 
 class _MCQPageState extends State<MCQPage> {
-  List<Subject>? subjectList = [];
+  List<Subject> subjectList = [];
   int index = 0;
   bool wantExamTimer = false;
   bool wantQuestionTimer = false;
@@ -24,6 +25,7 @@ class _MCQPageState extends State<MCQPage> {
   late List<mcq_questions.Result> mcqQuestionBank = [];
   late PageController controller;
   String userMCQID = "userMCQID";
+  late MCQBanksModel mcqBanks;
 
   @override
   void initState() {
@@ -46,6 +48,7 @@ class _MCQPageState extends State<MCQPage> {
     numQuestions = arg['numQuestions'];
     mcqQuestionBank = arg['mcqQuestionBank'];
     userMCQID = arg['userMCQID'];
+    mcqBanks = arg['mcqBanks'];
 
     if(questionTime == "notSet") {
        questionTime = "0";
@@ -76,6 +79,9 @@ class _MCQPageState extends State<MCQPage> {
         return true;
       },
       child: MCQWidget(
+        subjectIndex: index,
+        subjectList: subjectList,
+        mcqBanks: mcqBanks,
         wantExamTimer: wantExamTimer,
         wantQuestionTimer: wantQuestionTimer,
         examTimer: examTime,

@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_request_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
@@ -6,9 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ExamChooses extends StatefulWidget {
-  const ExamChooses({Key? key, this.subjectList, this.subjectIndex, required this.token, this.mbid}) : super(key: key);
+  const ExamChooses({Key? key, this.subjectList, this.subjectIndex, required this.token, this.mbid, this.mcqBanks}) : super(key: key);
   final List<Subject>? subjectList;
   final int? subjectIndex;
+  final MCQBanksModel? mcqBanks;
   final String token;
   final int? mbid;
 
@@ -36,31 +38,19 @@ class _ExamChoosesState extends State<ExamChooses> {
 
   @override
   void initState() {
-    // print("object 1");
-    // print("exam choose ${widget.token}");
     super.initState();
-    // print(widget.mbid);
-    // print("object");
     APIServices.getUserSettings(widget.mbid.toString(), widget.token.toString()).then((response) {
-      // print(response.result);
-      // print(widget.token.toString());
       if (response.toString().isNotEmpty) {
         if (response.status == 200) {
-          // print(response.result);
           setState(() {
             _lockSettings = true;
           });
 
-          // print(response.result!.length == 0);
-
           if (response.result!.isEmpty) {
-            // print("empty");
             setState(() {
               _lockSettings = false;
             });
           } else {
-            // print("not empty empty");
-            // print(_lockSettings);
             userMCQId = response.result![0].userMcqId;
             wantExamTimer = response.result![0].setExamTimer;
             if (response.result![0].setExamTimer == "Yes") {
@@ -75,7 +65,6 @@ class _ExamChoosesState extends State<ExamChooses> {
             }
             remainingTime = response.result![0].remainingTime;
             totalTakenTime = response.result![0].totalTakenTime;
-
 
             _numQuestionETC = TextEditingController(text: "");
           }
@@ -110,8 +99,6 @@ class _ExamChoosesState extends State<ExamChooses> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // numOfQuestions(),
-                // const SizedBox(height: 40.0,),
                 wantTimerExam(),
                 examTimerTextField(),
                 const SizedBox(height: 40.0,),
@@ -277,7 +264,6 @@ class _ExamChoosesState extends State<ExamChooses> {
             ),
           ),
           onPressed: () async {
-            // const Center(heightFactor: 10, child: CircularProgressIndicator());
             if (_lockSettings) {
               if (wantExamTimer == "Yes") {
                 if (wantQuestionTimer == "Yes") {
@@ -287,6 +273,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                         arguments: {
                           'subjectList': widget.subjectList,
                           'index': widget.subjectIndex,
+                          'mcqBanks': widget.mcqBanks,
                           'token': widget.token,
                           'mbid': widget.mbid,
                           'wantExamTimer': true,
@@ -305,6 +292,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                       arguments: {
                         'subjectList': widget.subjectList,
                         'index': widget.subjectIndex,
+                        'mcqBanks': widget.mcqBanks,
                         'token': widget.token,
                         'mbid': widget.mbid,
                         'wantExamTimer': true,
@@ -323,6 +311,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                     arguments: {
                       'subjectList': widget.subjectList,
                       'index': widget.subjectIndex,
+                      'mcqBanks': widget.mcqBanks,
                       'token': widget.token,
                       'mbid': widget.mbid,
                       'wantExamTimer': false,
@@ -356,6 +345,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                             arguments: {
                               'subjectList': widget.subjectList,
                               'index': widget.subjectIndex,
+                              'mcqBanks': widget.mcqBanks,
                               'token': widget.token,
                               'mbid': widget.mbid,
                               'wantExamTimer': true,
@@ -403,6 +393,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                             arguments: {
                               'subjectList': widget.subjectList,
                               'index': widget.subjectIndex,
+                              'mcqBanks': widget.mcqBanks,
                               'token': widget.token,
                               'mbid': widget.mbid,
                               'wantExamTimer': true,
@@ -450,6 +441,7 @@ class _ExamChoosesState extends State<ExamChooses> {
                           arguments: {
                             'subjectList': widget.subjectList,
                             'index': widget.subjectIndex,
+                            'mcqBanks': widget.mcqBanks,
                             'token': widget.token,
                             'mbid': widget.mbid,
                             'wantExamTimer': false,

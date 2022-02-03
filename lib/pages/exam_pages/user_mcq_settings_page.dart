@@ -70,6 +70,7 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
           child: ExamChooses(
             subjectIndex: subjectIndex,
             subjectList: subjectList,
+            mcqBanks: mcqBanks,
             mbid: mcqBanks!.result![mcqBanksIndex].mbid,
             token: token,
           )

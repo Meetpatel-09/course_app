@@ -1,6 +1,8 @@
 import 'dart:async';
 
-import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
+import 'package:course_app_ui/model/course_model.dart' as course;
+import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
+import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart' as questions;
 import 'package:course_app_ui/model/mcq_models/user_answers/send_user_mcq_answer_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
@@ -16,13 +18,16 @@ class MCQWidget extends StatefulWidget {
   final bool wantQuestionTimer;
   final String examTimer;
   final String questionTime;
-  final List<Result> mcqQuestions;
+  final List<questions.Result> mcqQuestions;
   final PageController controller;
   final ValueChanged<int> onChangedPage;
   final String token;
   final String userMCQID;
   final int mbid;
-  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTimer, required this.questionTime, required this.token, required this.userMCQID, required this.mbid}) : super(key: key);
+  final List<course.Subject> subjectList;
+  final int subjectIndex;
+  final MCQBanksModel mcqBanks;
+  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTimer, required this.questionTime, required this.token, required this.userMCQID, required this.mbid, required this.subjectList, required this.subjectIndex, required this.mcqBanks}) : super(key: key);
 
   @override
   _MCQWidgetState createState() => _MCQWidgetState();
@@ -276,15 +281,39 @@ class _MCQWidgetState extends State<MCQWidget> {
                     children: [
                       isFinished ? TextButton(
                           onPressed: () {
+                            print("mcq widget subjectList${widget.subjectList.first}");
+                            print("subjectIndex${widget.subjectIndex}");
+                            print("mcqBanks${widget.mcqBanks.result?.first}");
                             Navigator.pop(context);
-                            Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                MyRoutes.chooseMCQBankRoute,
+                                    (route) => false,
+                                arguments: {
+                                  'subjectList': widget.subjectList,
+                                  'subjectIndex': widget.subjectIndex,
+                                  'mcqBanks': widget.mcqBanks,
+                                }
+                            );
                           },
                           child: "Yes".text.end.make()
                       ) :  TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                             if (!isSave) {
-                              Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
+                              print("mcq widget subjectList${widget.subjectList.first}");
+                              print("subjectIndex${widget.subjectIndex}");
+                              print("mcqBanks${widget.mcqBanks.result?.first}");
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  MyRoutes.chooseMCQBankRoute,
+                                 (route) => false,
+                                  arguments: {
+                                    'subjectList': widget.subjectList,
+                                    'subjectIndex': widget.subjectIndex,
+                                    'mcqBanks': widget.mcqBanks,
+                                  }
+                              );
                             }
                           },
                           child: "Ok".text.end.make()

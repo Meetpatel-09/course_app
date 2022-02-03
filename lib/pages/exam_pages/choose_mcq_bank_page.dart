@@ -39,6 +39,9 @@ class _ChooseMCQBankPageState extends State<ChooseMCQBankPage> {
     subjectList = arg['subjectList'];
     subjectIndex = arg['subjectIndex'];
     mcqBanks = arg['mcqBanks'];
+    print("choose mcq subjectList${subjectList?.first}");
+    print("subjectIndex${subjectIndex}");
+    print("mcqBanks${mcqBanks.result?.first}");
     return Scaffold(
       appBar: AppBar(
         title: Row(
