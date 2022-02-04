@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart' as questions;
 import 'package:course_app_ui/model/mcq_models/user_answers/send_user_mcq_answer_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
@@ -22,7 +23,10 @@ class MCQWidget extends StatefulWidget {
   final String token;
   final String userMCQID;
   final int mbid;
-  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTimer, required this.questionTime, required this.token, required this.userMCQID, required this.mbid}) : super(key: key);
+  final List<Subject> subjectList;
+  final int subjectIndex;
+  final String subjectID;
+  const MCQWidget({Key? key, required this.mcqQuestions, required this.controller, required this.onChangedPage, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTimer, required this.questionTime, required this.token, required this.userMCQID, required this.mbid, required this.subjectList, required this.subjectIndex, required this.subjectID}) : super(key: key);
 
   @override
   _MCQWidgetState createState() => _MCQWidgetState();
@@ -229,6 +233,9 @@ class _MCQWidgetState extends State<MCQWidget> {
                 userAnswerToSend: userAnswerToSend,
                 userMCQQuestionTimer: userMCQQuestionTimer,
                 questionTime: int.parse(widget.questionTime),
+                subjectIndex: widget.subjectIndex,
+                subjectList: widget.subjectList,
+                subjectID: widget.subjectID,
               ),
               PaginationButtons(
                 mcqIDs: mcqIDs,
@@ -275,35 +282,75 @@ class _MCQWidgetState extends State<MCQWidget> {
                     children: [
                       isFinished ? TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
-                            // Navigator.pushNamedAndRemoveUntil(
-                            //     context,
-                            //     MyRoutes.chooseMCQBankRoute,
-                            //         (route) => false,
-                            //     arguments: {
-                            //       'subjectList': widget.subjectList,
-                            //       'subjectIndex': widget.subjectIndex,
-                            //       // 'mcqBanks': widget.mcqBanks,
-                            //     }
-                            // );
-                            Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
+                            // Navigator.pop(context);
+                            APIServices.getMCQBank(widget.subjectID, widget.token).then((mcqBanks) {
+                              if (mcqBanks.status == 200) {
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    MyRoutes.chooseMCQBankRoute,
+                                    (route) => false,
+                                    arguments: {
+                                      'subjectList': widget.subjectList,
+                                      'subjectIndex': widget.subjectIndex,
+                                      'mcqBanks': mcqBanks,
+                                      'subjectID': widget.subjectID
+                                    }
+                                );
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text("Unknown Error"),
+                                      content: const Text("This is an error message!!!"),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              Navigator.pushNamed(context, MyRoutes.loginRoute);
+                                            },
+                                            child: const Text("OK")),
+                                      ],
+                                    )
+                                );
+                              }
+                            });
                           },
                           child: "Yes".text.end.make()
                       ) :  TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            // Navigator.pop(context);
                             if (!isSave) {
-                              // Navigator.pushNamedAndRemoveUntil(
-                              //     context,
-                              //     MyRoutes.chooseMCQBankRoute,
-                              //    (route) => false,
-                              //     arguments: {
-                              //       'subjectList': widget.subjectList,
-                              //       'subjectIndex': widget.subjectIndex,
-                              //       // 'mcqBanks': widget.mcqBanks,
-                              //     }
-                              // );
-                              Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
+                              APIServices.getMCQBank(widget.subjectID, widget.token).then((mcqBanks) {
+                                if (mcqBanks.status == 200) {
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      MyRoutes.chooseMCQBankRoute,
+                                      (route) => false,
+                                      arguments: {
+                                        'subjectList': widget.subjectList,
+                                        'subjectIndex': widget.subjectIndex,
+                                        'mcqBanks': mcqBanks,
+                                        'subjectID': widget.subjectID
+                                      }
+                                  );
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: const Text("Unknown Error"),
+                                        content: const Text("This is an error message!!!"),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                Navigator.pushNamed(context, MyRoutes.loginRoute);
+                                              },
+                                              child: const Text("OK")),
+                                        ],
+                                      )
+                                  );
+                                }
+                              });
                             }
                           },
                           child: "Ok".text.end.make()

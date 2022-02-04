@@ -6,11 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ExamChooses extends StatefulWidget {
-  const ExamChooses({Key? key, this.subjectList, this.subjectIndex, required this.token, this.mbid}) : super(key: key);
+  const ExamChooses({Key? key, this.subjectList, this.subjectIndex, required this.token, this.mbid, this.subjectID}) : super(key: key);
   final List<Subject>? subjectList;
   final int? subjectIndex;
   final String token;
   final int? mbid;
+  final String? subjectID;
 
   @override
   _ExamChoosesState createState() => _ExamChoosesState();
@@ -278,7 +279,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                           'wantQuestionTimer': true,
                           'questionTime': questionTime,
                           'numQuestions': numQuestions,
-                          'user_mcq_id': userMCQId
+                          'user_mcq_id': userMCQId,
+                          'subjectID': widget.subjectID
                         }
                     );
 
@@ -296,7 +298,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                         'wantQuestionTimer': false,
                         'questionTime': 'notSet',
                         'numQuestions': numQuestions,
-                        'user_mcq_id': userMCQId
+                        'user_mcq_id': userMCQId,
+                        'subjectID': widget.subjectID
                       }
                   );
                 }
@@ -314,7 +317,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                       'wantQuestionTimer': false,
                       'questionTime': 'notSet',
                       'numQuestions': numQuestions,
-                      'user_mcq_id': userMCQId
+                      'user_mcq_id': userMCQId,
+                      'subjectID': widget.subjectID
                     }
                 );
               }
@@ -347,7 +351,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                               'wantQuestionTimer': true,
                               'questionTime': _questionETC.value.text,
                               'numQuestions': _numQuestionETC.value.text,
-                              'user_mcq_id': response.userMCQID
+                              'user_mcq_id': response.userMCQID,
+                              'subjectID': widget.subjectID
                             }
                         );
                       } else {
@@ -394,7 +399,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                               'wantQuestionTimer': false,
                               'questionTime': 'notSet',
                               'numQuestions': _numQuestionETC.value.text,
-                              'user_mcq_id': response.userMCQID
+                              'user_mcq_id': response.userMCQID,
+                              'subjectID': widget.subjectID
                             }
                         );
                       } else {
@@ -441,7 +447,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                             'wantQuestionTimer': false,
                             'questionTime': 'notSet',
                             'numQuestions': _numQuestionETC.value.text,
-                            'user_mcq_id': response.userMCQID
+                            'user_mcq_id': response.userMCQID,
+                            'subjectID': widget.subjectID
                           }
                       );
                     } else {

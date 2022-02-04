@@ -1,3 +1,4 @@
+import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/mcq_page/mcq_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,9 @@ class _MCQPageState extends State<MCQPage> {
   late List<mcq_questions.Result> mcqQuestionBank = [];
   late PageController controller;
   String userMCQID = "userMCQID";
+  late List<Subject> subjectList;
+  late int subjectIndex;
+  String subjectID = "";
 
   @override
   void initState() {
@@ -41,6 +45,9 @@ class _MCQPageState extends State<MCQPage> {
     numQuestions = arg['numQuestions'];
     mcqQuestionBank = arg['mcqQuestionBank'];
     userMCQID = arg['userMCQID'];
+    subjectList = arg['subjectList'];
+    subjectIndex = arg['subjectIndex'];
+    subjectID = arg['subjectID'];
 
     if(questionTime == "notSet") {
        questionTime = "0";
@@ -80,6 +87,9 @@ class _MCQPageState extends State<MCQPage> {
         controller: controller,
         token: token,
         userMCQID: userMCQID,
+        subjectIndex: subjectIndex,
+        subjectList: subjectList,
+        subjectID: subjectID,
         onChangedPage: (page) {
           if (page == mcqQuestionBank.length - 1) {
             setState(() {

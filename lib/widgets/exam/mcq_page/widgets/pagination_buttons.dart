@@ -83,7 +83,7 @@ class _PaginationButtonsState extends State<PaginationButtons> {
   Widget tButton(int i) => Container(
       margin: const EdgeInsets.only(right: 2.0, left: 0),
       height: 40,
-      width: 40,
+      width: 80,
       decoration: BoxDecoration(
         border: Border.all(color: context.primaryColor, width: 2),
         borderRadius: const BorderRadius.all(Radius.circular(5)),
@@ -91,7 +91,7 @@ class _PaginationButtonsState extends State<PaginationButtons> {
       ),
       child: Center(
         child: Text(
-          (i + 1).toString(),
+          "Q No. - " + (i + 1).toString(),
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: isSelected[i] ? MyTheme.white : context.cardColor,

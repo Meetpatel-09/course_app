@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MCQBanks extends StatefulWidget {
-  const MCQBanks({Key? key, this.mcqBanks, this.subjectList, this.subjectIndex}) : super(key: key);
+  const MCQBanks({Key? key, this.mcqBanks, this.subjectList, this.subjectIndex, this.subjectID}) : super(key: key);
   final MCQBanksModel? mcqBanks;
   final List<Subject>? subjectList;
   final int? subjectIndex;
+  final String? subjectID;
 
   @override
   State<MCQBanks> createState() => _MCQBanksState();
@@ -48,6 +49,7 @@ class _MCQBanksState extends State<MCQBanks> {
                   mcqBanksIndex: index,
                   subjectIndex: widget.subjectIndex,
                   subjectList: widget.subjectList,
+                  subjectID: widget.subjectID
                 );
               }
           )

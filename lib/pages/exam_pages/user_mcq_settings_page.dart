@@ -21,6 +21,7 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
   MCQBanksModel? mcqBanks;
   int mcqBanksIndex = 0;
   final SharedServices _sharedServices = SharedServices();
+  String subjectID = "";
 
   @override
   void initState() {
@@ -45,6 +46,7 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
     subjectIndex = arg['subjectIndex'];
     mcqBanks = arg['mcqBanks'];
     mcqBanksIndex = arg['mcqBanksIndex'];
+    subjectID = arg['subjectID'];
 
     if (subjectList != null) {
       _isEmpty = false;
@@ -70,6 +72,7 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
             subjectList: subjectList,
             mbid: mcqBanks!.result![mcqBanksIndex].mbid,
             token: token,
+            subjectID: subjectID
           )
       ),
     );

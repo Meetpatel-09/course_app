@@ -18,6 +18,7 @@ class _ChooseMCQBankPageState extends State<ChooseMCQBankPage> {
   late MCQBanksModel mcqBanks;
   String token = "empty";
   final SharedServices _sharedServices = SharedServices();
+  String subjectID = "";
 
   @override
   void initState() {
@@ -39,6 +40,7 @@ class _ChooseMCQBankPageState extends State<ChooseMCQBankPage> {
     subjectList = arg['subjectList'];
     subjectIndex = arg['subjectIndex'];
     mcqBanks = arg['mcqBanks'];
+    subjectID = arg['subjectID'];
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -53,7 +55,7 @@ class _ChooseMCQBankPageState extends State<ChooseMCQBankPage> {
       body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(18.0),
-            child: MCQBanks(subjectList: subjectList,subjectIndex: subjectIndex,mcqBanks: mcqBanks,),
+            child: MCQBanks(subjectList: subjectList,subjectIndex: subjectIndex,mcqBanks: mcqBanks, subjectID: subjectID),
           )
       ),
     );

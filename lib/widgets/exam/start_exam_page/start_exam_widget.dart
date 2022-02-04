@@ -1,3 +1,4 @@
+import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_request_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
@@ -13,7 +14,10 @@ class StartExamWidget extends StatefulWidget {
   final String token;
   final int mbid;
   final int userMCQID;
-  const StartExamWidget({Key? key, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTime, required this.questionTime, required this.numQuestions, required this.token, required this.mbid, required this.userMCQID}) : super(key: key);
+  final List<Subject>? subjectList;
+  final int? subjectIndex;
+  final String? subjectID;
+  const StartExamWidget({Key? key, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTime, required this.questionTime, required this.numQuestions, required this.token, required this.mbid, required this.userMCQID, this.subjectList, this.subjectIndex, this.subjectID}) : super(key: key);
 
   @override
   _StartExamWidgetState createState() => _StartExamWidgetState();
@@ -77,7 +81,10 @@ class _StartExamWidgetState extends State<StartExamWidget> {
               wantQuestionTimer: widget.wantQuestionTimer,
               questionTime: widget.questionTime,
               numQuestions: widget.numQuestions,
-              userMCQID: widget.userMCQID
+              userMCQID: widget.userMCQID,
+              subjectIndex: widget.subjectIndex,
+              subjectList: widget.subjectList,
+              subjectID: widget.subjectID
           ),
         )
     );

@@ -1,9 +1,10 @@
+import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 
 class StartExamButton extends StatelessWidget {
-  const StartExamButton({Key? key, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTime, required this.questionTime, required this.numQuestions, required this.token, required this.mbid, required this.userMCQID}) : super(key: key);
+  const StartExamButton({Key? key, required this.wantExamTimer, required this.wantQuestionTimer, required this.examTime, required this.questionTime, required this.numQuestions, required this.token, required this.mbid, required this.userMCQID, this.subjectList, this.subjectIndex, this.subjectID}) : super(key: key);
   final bool wantExamTimer;
   final bool wantQuestionTimer;
   final String examTime;
@@ -12,6 +13,9 @@ class StartExamButton extends StatelessWidget {
   final String token;
   final int mbid;
   final int userMCQID;
+  final List<Subject>? subjectList;
+  final int? subjectIndex;
+  final String? subjectID;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +46,10 @@ class StartExamButton extends StatelessWidget {
                       'questionTime': questionTime,
                       'numQuestions': numQuestions,
                       'mcqQuestionBank': response.result,
-                      'userMCQID': userMCQID.toString()
+                      'userMCQID': userMCQID.toString(),
+                      'subjectList': subjectList,
+                      'subjectIndex': subjectIndex,
+                      'subjectID': subjectID
                     }
                 );
               } else {

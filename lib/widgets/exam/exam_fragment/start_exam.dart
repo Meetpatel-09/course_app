@@ -37,6 +37,7 @@ class _StartExamState extends State<StartExam> {
                             'subjectList': widget.subjectList,
                             'subjectIndex': widget.subjectIndex,
                             'mcqBanks': mcqBanks,
+                            'subjectID': widget.subjectID
                           }
                       );
                     } else {

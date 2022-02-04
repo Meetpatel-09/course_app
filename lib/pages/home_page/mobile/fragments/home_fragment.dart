@@ -5,14 +5,8 @@ import 'package:course_app_ui/widgets/home/share_box.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class HomeFragment extends StatefulWidget {
+class HomeFragment extends StatelessWidget {
   const HomeFragment({Key? key}) : super(key: key);
-
-  @override
-  _HomeFragmentState createState() => _HomeFragmentState();
-}
-
-class _HomeFragmentState extends State<HomeFragment> {
 
   @override
   Widget build(BuildContext context) {

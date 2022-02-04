@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MCQBanksList extends StatelessWidget {
-  const MCQBanksList({Key? key, this.mcqBanks, required this.mcqBanksIndex, this.subjectList, this.subjectIndex}) : super(key: key);
+  const MCQBanksList({Key? key, this.mcqBanks, required this.mcqBanksIndex, this.subjectList, this.subjectIndex, this.subjectID}) : super(key: key);
   final int mcqBanksIndex;
   final MCQBanksModel? mcqBanks;
   final List<Subject>? subjectList;
   final int? subjectIndex;
+  final String? subjectID;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,7 @@ class MCQBanksList extends StatelessWidget {
                     'subjectIndex': subjectIndex,
                     'mcqBanks': mcqBanks,
                     'mcqBanksIndex': mcqBanksIndex,
+                    'subjectID': subjectID
                   }
               );
             }

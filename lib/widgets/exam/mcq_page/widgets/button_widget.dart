@@ -1,4 +1,5 @@
-import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
+import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart' as questions;
 import 'package:course_app_ui/model/mcq_models/user_answers/send_user_mcq_answer_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ButtonWidget extends StatelessWidget {
-  final List<Result> mcqQuestions;
+  final List<questions.Result> mcqQuestions;
   final int questionIndex;
   final PageController controller;
   final Map<int, String> userAnswer;
@@ -16,7 +17,10 @@ class ButtonWidget extends StatelessWidget {
   final Map<int, Duration> userMCQQuestionTimer;
   final int questionTime;
   final List<int> mcqIDs;
-  const ButtonWidget({Key? key, required this.mcqQuestions, required this.controller, required this.userAnswer, required this.questionIndex, required this.token, required this.userMcqId, required this.userAnswerToSend, required this.userMCQQuestionTimer, required this.questionTime, required this.mcqIDs}) : super(key: key);
+  final List<Subject> subjectList;
+  final int subjectIndex;
+  final String subjectID;
+  const ButtonWidget({Key? key, required this.mcqQuestions, required this.controller, required this.userAnswer, required this.questionIndex, required this.token, required this.userMcqId, required this.userAnswerToSend, required this.userMCQQuestionTimer, required this.questionTime, required this.mcqIDs, required this.subjectList, required this.subjectIndex, required this.subjectID}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -202,8 +206,37 @@ class ButtonWidget extends StatelessWidget {
                                           actions: [
                                             TextButton(
                                                 onPressed: () {
-                                                  Navigator.pop(context);
-                                                  Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
+                                                  APIServices.getMCQBank(subjectID, token).then((mcqBanks) {
+                                                    if (mcqBanks.status == 200) {
+                                                      Navigator.pushNamedAndRemoveUntil(
+                                                          context,
+                                                          MyRoutes.chooseMCQBankRoute,
+                                                              (route) => false,
+                                                          arguments: {
+                                                            'subjectList': subjectList,
+                                                            'subjectIndex': subjectIndex,
+                                                            'mcqBanks': mcqBanks,
+                                                            'subjectID': subjectID
+                                                          }
+                                                      );
+                                                    } else {
+                                                      showDialog(
+                                                          context: context,
+                                                          builder: (context) => AlertDialog(
+                                                            title: const Text("Unknown Error"),
+                                                            content: const Text("This is an error message!!!"),
+                                                            actions: [
+                                                              TextButton(
+                                                                  onPressed: () {
+                                                                    Navigator.pop(context);
+                                                                    Navigator.pushNamed(context, MyRoutes.loginRoute);
+                                                                  },
+                                                                  child: const Text("OK")),
+                                                            ],
+                                                          )
+                                                      );
+                                                    }
+                                                  });
                                                 },
                                                 child: const Text("OK")),
                                           ],
@@ -227,7 +260,6 @@ class ButtonWidget extends StatelessWidget {
                                     );
                                   }
                                 });
-
                               },
                               child: const Text("Yes"),
                           ),
