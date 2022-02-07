@@ -25,6 +25,7 @@ class _PaginationButtonsState extends State<PaginationButtons> {
   List<bool> isSelected = [];
   List<Widget> toggleButton = [];
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,37 +41,48 @@ class _PaginationButtonsState extends State<PaginationButtons> {
 
   @override
   Widget build(BuildContext context) {
+    // print("question index ${widget.questionIndex}");
+    for (int index = 0; index < widget.mcqQuestions.length; index++) {
+      if (index == widget.questionIndex) {
+        isSelected[index] = true;
+      } else {
+        isSelected[index] = false;
+      }
+    }
     return Padding(
       padding: const EdgeInsets.fromLTRB(18.0, 0.0, 18.0, 6.0),
       child: slidingButtons(),
     );
   }
 
-  Widget slidingButtons() => SingleChildScrollView(
-    scrollDirection: Axis.vertical,
-    child: SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: ToggleButtons(
-        isSelected: isSelected,
-        renderBorder: false,
-        fillColor: context.canvasColor,
-        splashColor: context.canvasColor,
-        children: toggleChild(),
-        onPressed: (int newIndex) {
-          setState(() {
-            for (int index = 0; index < widget.mcqQuestions.length; index++) {
-              if (index == newIndex) {
-                isSelected[index] = true;
-                widget.controller.jumpToPage(index);
-              } else {
-                isSelected[index] = false;
+  Widget slidingButtons() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: ToggleButtons(
+          isSelected: isSelected,
+          renderBorder: false,
+          fillColor: context.canvasColor,
+          splashColor: context.canvasColor,
+          children: toggleChild(),
+          onPressed: (int newIndex) {
+            // print(newIndex);
+            setState(() {
+              for (int index = 0; index < widget.mcqQuestions.length; index++) {
+                if (index == newIndex) {
+                  // isSelected[index] = true;
+                  widget.controller.jumpToPage(index);
+                } else {
+                  // isSelected[index] = false;
+                }
               }
-            }
-          });
-        },
+            });
+          },
+        ),
       ),
-    ),
-  );
+    );
+  }
 
   List<Widget> toggleChild() {
     toggleButton = [];

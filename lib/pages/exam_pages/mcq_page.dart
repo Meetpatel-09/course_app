@@ -34,6 +34,12 @@ class _MCQPageState extends State<MCQPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
     token = arg['token'];
