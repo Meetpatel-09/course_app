@@ -25,9 +25,9 @@ class _PaginationButtonsState extends State<PaginationButtons> {
   List<bool> isSelected = [];
   List<Widget> toggleButton = [];
 
-
   @override
   void initState() {
+    print("init");
     // TODO: implement initState
     super.initState();
     for (int i = 0; i < widget.mcqQuestions.length; i++) {
@@ -41,14 +41,6 @@ class _PaginationButtonsState extends State<PaginationButtons> {
 
   @override
   Widget build(BuildContext context) {
-    // print("question index ${widget.questionIndex}");
-    for (int index = 0; index < widget.mcqQuestions.length; index++) {
-      if (index == widget.questionIndex) {
-        isSelected[index] = true;
-      } else {
-        isSelected[index] = false;
-      }
-    }
     return Padding(
       padding: const EdgeInsets.fromLTRB(18.0, 0.0, 18.0, 6.0),
       child: slidingButtons(),
@@ -69,14 +61,7 @@ class _PaginationButtonsState extends State<PaginationButtons> {
           onPressed: (int newIndex) {
             // print(newIndex);
             setState(() {
-              for (int index = 0; index < widget.mcqQuestions.length; index++) {
-                if (index == newIndex) {
-                  // isSelected[index] = true;
-                  widget.controller.jumpToPage(index);
-                } else {
-                  // isSelected[index] = false;
-                }
-              }
+              widget.controller.jumpToPage(newIndex);
             });
           },
         ),
@@ -87,27 +72,31 @@ class _PaginationButtonsState extends State<PaginationButtons> {
   List<Widget> toggleChild() {
     toggleButton = [];
     for (int i = 0; i < widget.mcqQuestions.length; i++) {
+      print(i);
       toggleButton.add(tButton(i));
     }
     return toggleButton;
   }
 
-  Widget tButton(int i) => Container(
+  Widget tButton(int i) {
+    print("tButton");
+    return Container(
       margin: const EdgeInsets.only(right: 2.0, left: 0),
       height: 40,
       width: 80,
       decoration: BoxDecoration(
         border: Border.all(color: context.primaryColor, width: 2),
         borderRadius: const BorderRadius.all(Radius.circular(5)),
-        color: isSelected[i] ? context.primaryColor : context.canvasColor,
+        color: i == widget.questionIndex ? context.primaryColor : context.canvasColor,
       ),
       child: Center(
         child: Text(
           "Q No. - " + (i + 1).toString(),
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: isSelected[i] ? MyTheme.white : context.cardColor,
+            color: i == widget.questionIndex ? MyTheme.white : context.cardColor,
           ),
         ),
       ));
+  }
 }
