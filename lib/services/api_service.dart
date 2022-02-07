@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 class APIServices {
   static var client = http.Client();
 
+  // To GET the Categories and their subjects to sen on Home fragment and Exam fragment
   static Future<CourseModel> getCourses() async {
 
     var url = Uri.parse(Config().courseAPI);
@@ -33,6 +34,7 @@ class APIServices {
     }
   }
 
+  // To GET the MCQ banks as per subject selected
   static Future<MCQBanksModel> getMCQBank(String subjectID, String token) async {
 
     var url = Uri.parse(Config().getMCQBankAPI + subjectID);
@@ -59,6 +61,7 @@ class APIServices {
     }
   }
 
+  // To POST the user settings
   static Future<UserSettingsResponseModel> userSettings(UserSettingsRequestModel model) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -89,6 +92,7 @@ class APIServices {
     }
   }
 
+  // To PUT the user settings
   static Future<UserSettingsResponseModel> putUserSettings(UserSettingsRequestModel model, String userMCQPID, String token) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -119,6 +123,7 @@ class APIServices {
     }
   }
 
+  // To GET the user settings
   static Future<GetUserSettingsModel> getUserSettings(String mbid, String token) async {
 
     var url = Uri.parse(Config().getUserSettingsAPI + mbid);
@@ -149,6 +154,7 @@ class APIServices {
     }
   }
 
+  // To GET the MCQ Question of a particular Question bank as per MCQ Bank id
   static Future<MCQQuestionBankModel> getMCQQuestionBank(String mbid) async {
 
     var url = Uri.parse(Config().getMCQQuestionBank + mbid);
@@ -169,6 +175,7 @@ class APIServices {
     }
   }
 
+  // To POST the answers of the user
   static Future<UserMCQAnswersResponseModel> sendMCQUserAnswer(SendUserMCQAnswers model, String token, bool isFinished) async { {
 
     Uri url;
@@ -205,4 +212,6 @@ class APIServices {
       return UserMCQAnswersResponseModel(status: response.statusCode, msg: response.reasonPhrase);
     }
   }}
+
+
 }

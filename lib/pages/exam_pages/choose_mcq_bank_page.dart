@@ -45,26 +45,6 @@ class _ChooseMCQBankPageState extends State<ChooseMCQBankPage> {
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
-        // showDialog(
-        //     context: context,
-        //     builder: (context) => AlertDialog(
-        //       title: const Text("Alert"),
-        //       content: const Text("Do you want to go back to home?"),
-        //       actions: [
-        //         TextButton(
-        //             onPressed: () {
-        //               Navigator.pop(context);
-        //               Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
-        //             },
-        //             child: const Text("Yes")),
-        //         TextButton(
-        //             onPressed: () {
-        //               Navigator.of(context).pop();
-        //             },
-        //             child: const Text("No")),
-        //       ],
-        //     )
-        // );
         return true;
       },
       child: Scaffold(
@@ -89,5 +69,4 @@ class _ChooseMCQBankPageState extends State<ChooseMCQBankPage> {
       ),
     );
   }
-
 }

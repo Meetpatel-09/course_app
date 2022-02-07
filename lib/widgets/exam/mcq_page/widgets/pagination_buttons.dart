@@ -1,3 +1,5 @@
+// import 'dart:async';
+
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,11 @@ class _PaginationButtonsState extends State<PaginationButtons> {
   List<bool> isSelected = [];
   List<Widget> toggleButton = [];
 
+
+  // static Duration countdownDurationExam = const Duration();
+  // Duration durationExam = const Duration(minutes: 100);
+  // Timer? timerExam;
+
   @override
   void initState() {
     print("init");
@@ -37,10 +44,33 @@ class _PaginationButtonsState extends State<PaginationButtons> {
         isSelected.add(false);
       }
     }
+    // timerExam = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
   }
+
+  // void addTime() {
+  //   const addSeconds = -1;
+  //   print(durationExam.inSeconds);
+  //   setState(() {
+  //     // widget.userMCQQuestionTimer[widget.mcqid] = durationQuestion;
+  //     final seconds = durationExam.inSeconds + addSeconds;
+  //
+  //     if(seconds < 0) {
+  //       // timerQuestion?.cancel();
+  //     } else {
+  //       durationExam = Duration(seconds: seconds);
+  //     }
+  //   });
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   timerExam?.cancel();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    print("build ${widget.questionIndex} ");
     return Padding(
       padding: const EdgeInsets.fromLTRB(18.0, 0.0, 18.0, 6.0),
       child: slidingButtons(),
@@ -72,14 +102,14 @@ class _PaginationButtonsState extends State<PaginationButtons> {
   List<Widget> toggleChild() {
     toggleButton = [];
     for (int i = 0; i < widget.mcqQuestions.length; i++) {
-      print(i);
+      // print(i);
       toggleButton.add(tButton(i));
     }
     return toggleButton;
   }
 
   Widget tButton(int i) {
-    print("tButton");
+    // print("tButton ${widget.questionIndex} ");
     return Container(
       margin: const EdgeInsets.only(right: 2.0, left: 0),
       height: 40,

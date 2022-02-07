@@ -56,6 +56,8 @@ class _MCQWidgetState extends State<MCQWidget> {
     }
     if (widget.wantExamTimer) {
       startTimer();
+    } else {
+      startTimer();
     }
   }
 
@@ -117,9 +119,6 @@ class _MCQWidgetState extends State<MCQWidget> {
       appBar: AppBar(
         title: "Exam".text.make(),
         actions: [
-          // IconButton(onPressed: () {}, icon: Icon(Icons.save, size: 25,)),
-          // IconButton(onPressed: () {}, icon: Icon(Icons.assignment_turned_in_outlined, size: 25,)),
-
           TextButton(
             onPressed: () {
               sendData(false);
@@ -154,83 +153,77 @@ class _MCQWidgetState extends State<MCQWidget> {
               itemCount: widget.mcqQuestions.length,
               itemBuilder: (context, index) {
                 pageIndex = index;
-                return
-                  // Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  // children: [
-                    SizedBox(
-                      height: 555,
-                      child: SingleChildScrollView(
-                        child: Column(
+                return SizedBox(
+                  height: 555,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        QuestionWidget(
+                          question: widget.mcqQuestions[pageIndex].que,
+                          questionNumber: pageIndex + 1,
+                          wantExamTimer: widget.wantExamTimer,
+                          examTimerMinutes: minutes,
+                          examTimerSeconds: seconds,
+                          examTime: widget.examTimer,
+                          wantQuestionTimer: widget.wantQuestionTimer,
+                          questionTime: widget.questionTime,
+                          userMCQQuestionTimer: userMCQQuestionTimer,
+                          mcqid: widget.mcqQuestions[pageIndex].mcqid,
+                        ),
+                        const SizedBox(height: 15,),
+                        Column(
                           children: [
-                            QuestionWidget(
-                              question: widget.mcqQuestions[pageIndex].que,
-                              questionNumber: pageIndex + 1,
-                              wantExamTimer: widget.wantExamTimer,
-                              examTimerMinutes: minutes,
-                              examTimerSeconds: seconds,
-                              wantQuestionTimer: widget.wantQuestionTimer,
-                              questionTime: widget.questionTime,
-                              userMCQQuestionTimer: userMCQQuestionTimer,
-                              mcqid: widget.mcqQuestions[pageIndex].mcqid,
-                            ),
-                            const SizedBox(height: 15,),
-                            Column(
-                              children: [
-                                for (int i = 0; i < 4; i++)
-                                  GestureDetector(
-                                    onTap: () {
-                                      if(widget.wantQuestionTimer) {
-                                        int? s = userMCQQuestionTimer[widget.mcqQuestions[pageIndex].mcqid]?.inSeconds;
-                                        if (s! != 0) {
-                                          userAnswer[pageIndex + 1] = (i + 1).toString();
-                                          userAnswerToSend[widget.mcqQuestions[pageIndex].mcqid] = widget.mcqQuestions[pageIndex].options[i];
-                                          setState(() {});
-                                        } else {
-                                          Fluttertoast.showToast(msg: "Question Time Out!!", fontSize: 18);
-                                        }
-                                      } else {
-                                        userAnswer[pageIndex + 1] = (i + 1).toString();
-                                        userAnswerToSend[widget.mcqQuestions[pageIndex].mcqid] = widget.mcqQuestions[pageIndex].options[i];
-                                        setState(() {});
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 18),
-                                      child: Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 6),
-                                          padding: const EdgeInsets.all(12),
-                                          decoration: BoxDecoration(
-                                              color: context.backgroundColor,
-                                              borderRadius: BorderRadius.circular(14),
-                                              border: Border.all(
-                                                  color:
-                                                  userAnswer[pageIndex + 1] ==
-                                                      (i + 1).toString()
-                                                      ? context.primaryColor
-                                                      : context.cardColor.withOpacity(0.5),
-                                                  width: 2
-                                              )
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10),
-                                            child: buildAnswer(i, pageIndex),
+                            for (int i = 0; i < 4; i++)
+                              GestureDetector(
+                                onTap: () {
+                                  if(widget.wantQuestionTimer) {
+                                    int? s = userMCQQuestionTimer[widget.mcqQuestions[pageIndex].mcqid]?.inSeconds;
+                                    if (s! != 0) {
+                                      userAnswer[pageIndex + 1] = (i + 1).toString();
+                                      userAnswerToSend[widget.mcqQuestions[pageIndex].mcqid] = widget.mcqQuestions[pageIndex].options[i];
+                                      setState(() {});
+                                    } else {
+                                      Fluttertoast.showToast(msg: "Question Time Out!!", fontSize: 18);
+                                    }
+                                  } else {
+                                    userAnswer[pageIndex + 1] = (i + 1).toString();
+                                    userAnswerToSend[widget.mcqQuestions[pageIndex].mcqid] = widget.mcqQuestions[pageIndex].options[i];
+                                    setState(() {});
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 18),
+                                  child: Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 6),
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                          color: context.backgroundColor,
+                                          borderRadius: BorderRadius.circular(14),
+                                          border: Border.all(
+                                              color:
+                                              userAnswer[pageIndex + 1] ==
+                                                  (i + 1).toString()
+                                                  ? context.primaryColor
+                                                  : context.cardColor.withOpacity(0.5),
+                                              width: 2
                                           )
                                       ),
-                                    ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: buildAnswer(i, pageIndex),
+                                      )
                                   ),
-                              ],
-                            ),
+                                ),
+                              ),
                           ],
                         ),
-                      ),
-                    );
-                //   ],
-                // );
+                      ],
+                    ),
+                  ),
+                );
               },
             ),
           ),

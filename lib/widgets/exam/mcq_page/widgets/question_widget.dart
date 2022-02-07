@@ -9,12 +9,13 @@ class QuestionWidget extends StatefulWidget {
   final bool wantExamTimer;
   final String examTimerMinutes;
   final String examTimerSeconds;
+  final String examTime;
   final bool wantQuestionTimer;
   final String questionTime;
   final int questionNumber;
   final int mcqid;
   final Map<int, Duration> userMCQQuestionTimer;
-  const QuestionWidget({Key? key, required this.question, required this.questionNumber, required this.wantQuestionTimer, required this.questionTime, required this.wantExamTimer, required this.examTimerMinutes, required this.examTimerSeconds, required this.userMCQQuestionTimer, required this.mcqid}) : super(key: key);
+  const QuestionWidget({Key? key, required this.question, required this.questionNumber, required this.wantQuestionTimer, required this.examTimerMinutes, required this.wantExamTimer, required this.examTimerSeconds, required this.questionTime, required this.examTime, required this.userMCQQuestionTimer, required this.mcqid}) : super(key: key);
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -140,6 +141,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                     padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                     margin: const EdgeInsets.only(top: 10, left: 18, right: 18,),
                     child: timer(),
+                    // child: ExamTimer(wantExamTimer: widget.wantExamTimer, examTime: widget.examTime,),
                   ),
                 ),
                 Align(
