@@ -30,9 +30,10 @@ class _StartExamState extends State<StartExam> {
                 return
                   APIServices.getMCQBank(widget.subjectID, value).then((mcqBanks) {
                     if (mcqBanks.status == 200) {
-                      Navigator.pushNamed(
+                      Navigator.pushNamedAndRemoveUntil(
                           context,
                           MyRoutes.chooseMCQBankRoute,
+                          (route) => false,
                           arguments: {
                             'subjectList': widget.subjectList,
                             'subjectIndex': widget.subjectIndex,
