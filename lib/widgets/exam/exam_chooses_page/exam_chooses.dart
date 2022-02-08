@@ -53,8 +53,11 @@ class _ExamChoosesState extends State<ExamChooses> {
             userMCQId = response.result![0].userMcqId;
             wantExamTimer = response.result![0].setExamTimer;
             if (response.result![0].setExamTimer == "Yes") {
+              isSelectedE = true;
               examTime = response.result![0].examTimer.toString();
               _examETC = TextEditingController(text: examTime);
+            } else {
+              isSelectedE = false;
             }
             wantQuestionTimer = response.result![0].setPerQueTimer;
             if (response.result![0].setPerQueTimer == "Yes") {

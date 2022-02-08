@@ -8,6 +8,7 @@ import 'package:course_app_ui/model/mcq_models/user_answers/send_user_mcq_answer
 import 'package:course_app_ui/model/mcq_models/user_answers/user_mcq_answer_response_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_request_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_response_model.dart';
+import 'package:course_app_ui/model/my_exam_models/my_exam_model.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:http/http.dart' as http;
 
@@ -213,5 +214,30 @@ class APIServices {
     }
   }}
 
+  // To GET My Exam fragment data
+  static Future<MyExamModel> getMyExams(String token) async {
+    var url = Uri.parse(Config().getMyExams);
 
+    try {
+      final response = await http.get(
+          url,
+          headers: {
+            'Content-type': 'application/json',
+            'token': token
+          }
+      );
+
+      print(response.body);
+
+      if (200 == response.statusCode) {
+        final MyExamModel myExam = myExamModelFromJson(response.body);
+
+        return myExam;
+      } else {
+        return MyExamModel(status: 422);
+      }
+    } catch (e) {
+      return MyExamModel(status: 422);
+    }
+  }
 }
