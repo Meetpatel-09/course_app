@@ -20,7 +20,6 @@ class _CategoryWidgetMyExamState extends State<CategoryWidgetMyExam> {
   void initState() {
     super.initState();
     _sharedServices.getData("token").then((value) {
-      print(value);
       if (value != null) {
         APIServices.getMyExams(value).then((result) {
           if (result.status == 200) {
@@ -44,13 +43,13 @@ class _CategoryWidgetMyExamState extends State<CategoryWidgetMyExam> {
 
   Widget detailsCard() => Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      height: MediaQuery.of(context).size.height -  (MediaQuery.of(context).size.height / 4),
+      height: MediaQuery.of(context).size.height -  (MediaQuery.of(context).size.height / 5),
       child: ListView.builder(
           itemCount: _subjectList.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: index == _subjectList.length - 1
-                  ? const EdgeInsets.only(bottom: 60)
+                  ? const EdgeInsets.only(bottom: 30)
                   : const EdgeInsets.only(bottom: 8),
               child: SubjectList(
                   subjectList: _subjectList,

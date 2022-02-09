@@ -8,6 +8,7 @@ import 'package:course_app_ui/model/mcq_models/user_answers/send_user_mcq_answer
 import 'package:course_app_ui/model/mcq_models/user_answers/user_mcq_answer_response_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_request_model.dart';
 import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_response_model.dart';
+import 'package:course_app_ui/model/my_exam_models/my_exam_banks_model.dart';
 import 'package:course_app_ui/model/my_exam_models/my_exam_model.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:http/http.dart' as http;
@@ -227,8 +228,6 @@ class APIServices {
           }
       );
 
-      print(response.body);
-
       if (200 == response.statusCode) {
         final MyExamModel myExam = myExamModelFromJson(response.body);
 
@@ -238,6 +237,38 @@ class APIServices {
       }
     } catch (e) {
       return MyExamModel(status: 422);
+    }
+  }
+
+  // To GET the MCQ banks as per subject selected for my exams
+  static Future<MyExamBanksModel> getMyExamMCQBank(String subjectID, String token) async {
+
+    var url = Uri.parse(Config().getMyExamsBanks + subjectID);
+
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'token': token,
+    };
+
+    try {
+      final response = await http.get(url, headers: requestHeaders);
+
+      print(response.statusCode);
+      print(response.body);
+
+      if(200 == response.statusCode) {
+
+        final MyExamBanksModel mcqBanks = myExamBanksModelFromJson(response.body);
+
+        print(mcqBanks.result);
+
+        return mcqBanks;
+      } else {
+        return MyExamBanksModel();
+      }
+    } catch(e) {
+      return MyExamBanksModel();
     }
   }
 }

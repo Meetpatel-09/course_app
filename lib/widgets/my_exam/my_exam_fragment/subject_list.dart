@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/my_exam_models/my_exam_model.dart';
+import 'package:course_app_ui/widgets/my_exam/my_exam_fragment/start_exam.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -11,7 +12,7 @@ class SubjectList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 15, top: 10, bottom: 10),
-      height: 100,
+      height: 115,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: context.primaryColor),
@@ -32,10 +33,11 @@ class SubjectList extends StatelessWidget {
                       child: subjectList[subjectIndex].subject.richText.bold.size(16).make()
                   ),
                 ),
-                // Align(alignment: Alignment.topLeft, child: "Total ${subjectList[subjectIndex].totalMcqInSubject} MCQs".text.center.color(context.cardColor.withOpacity(0.5)).make()),
+                Align(alignment: Alignment.topLeft, child: "Total ${subjectList[subjectIndex].totalMcqBankAttempted} MCQ Banks Attempted".text.center.color(context.cardColor.withOpacity(0.5)).make()),
+                Align(alignment: Alignment.topLeft, child: "Out Of ${subjectList[subjectIndex].totalMcqBank} MCQ Banks".text.center.color(context.cardColor.withOpacity(0.5)).make()),
               ],
             ),
-            // Align(alignment: Alignment.centerRight, child: StartExam(subjectList: subjectList, subjectIndex: subjectIndex, subjectID: subjectList[subjectIndex].subjectid.toString(),)),
+            Align(alignment: Alignment.centerRight, child: StartExam(subjectID: subjectList[subjectIndex].subjectid.toString()),),
           ],
         ),
       ),

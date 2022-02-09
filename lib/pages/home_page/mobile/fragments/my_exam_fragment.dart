@@ -17,12 +17,6 @@ class MyExamFragment extends StatelessWidget {
             Text('My Exam'),
           ],
         ),
-        // actions: const [
-        //   Align(
-        //       alignment: Alignment.centerRight,
-        //       child: LogoutIconButton()
-        //   )
-        // ],
       ),
       backgroundColor: context.canvasColor,
       body: SingleChildScrollView(
