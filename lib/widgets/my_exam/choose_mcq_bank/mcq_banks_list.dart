@@ -6,7 +6,7 @@ import 'package:velocity_x/velocity_x.dart';
 class MCQBanksList extends StatelessWidget {
   const MCQBanksList({Key? key, required this.mcqBanksIndex, this.mcqBanks, this.subjectID}) : super(key: key);
   final int mcqBanksIndex;
-  final List<Result>?  mcqBanks;
+  final List<Result>? mcqBanks;
   final String? subjectID;
 
   @override
@@ -23,10 +23,9 @@ class MCQBanksList extends StatelessWidget {
           onTap: () {
               Navigator.pushNamed(
                   context,
-                  MyRoutes.userMCQSettingsRoute,
+                  MyRoutes.viewResultPageRoute,
                   arguments: {
-                    'mcqBanks': mcqBanks,
-                    'mcqBanksIndex': mcqBanksIndex,
+                    'mbid': mcqBanks![mcqBanksIndex].mbid,
                     'subjectID': subjectID
                   }
               );

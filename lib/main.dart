@@ -1,5 +1,7 @@
 import 'package:course_app_ui/pages/export_pages.dart';
 import 'package:course_app_ui/pages/my_exam_pages/choose_my_exam_mcq_bank_page.dart';
+import 'package:course_app_ui/pages/my_exam_pages/my_exam_mcq_page.dart';
+import 'package:course_app_ui/pages/my_exam_pages/view_result_page.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +34,8 @@ class MyApp extends StatelessWidget {
         MyRoutes.startExamRoute: (context) => const StartExamPage(),
         MyRoutes.mcqPageRoute: (context) => const MCQPage(),
         MyRoutes.chooseMyExamMCQBankRoute: (context) => const ChooseMyExamMCQBankPage(),
+        MyRoutes.myExamMCQPageRoute: (context) => const MyExamMCQPage(),
+        MyRoutes.viewResultPageRoute: (context) => const ViewResultPage(),
       },
     );
   }

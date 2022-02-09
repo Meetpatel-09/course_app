@@ -10,6 +10,7 @@ import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_r
 import 'package:course_app_ui/model/mcq_models/user_mcq_settings/user_settings_response_model.dart';
 import 'package:course_app_ui/model/my_exam_models/my_exam_banks_model.dart';
 import 'package:course_app_ui/model/my_exam_models/my_exam_model.dart';
+import 'package:course_app_ui/model/my_exam_models/my_exam_result_model.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:http/http.dart' as http;
 
@@ -264,6 +265,33 @@ class APIServices {
       }
     } catch(e) {
       return MyExamBanksModel();
+    }
+  }
+
+  // To GET  for my exams
+  static Future<MyExamResultModel> getMyExamResult(String mbid, String token) async {
+
+    var url = Uri.parse(Config().getMyExamResult + mbid);
+
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'token': token,
+    };
+
+    try {
+      final response = await http.get(url, headers: requestHeaders);
+
+      if(200 == response.statusCode) {
+
+        final MyExamResultModel mcqBanks = myExamResultModelFromJson(response.body);
+
+        return mcqBanks;
+      } else {
+        return MyExamResultModel(status: response.statusCode);
+      }
+    } catch(e) {
+      return MyExamResultModel(status: 422);
     }
   }
 }
