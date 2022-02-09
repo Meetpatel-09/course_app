@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/my_exam_models/my_exam_result_model.dart';
+import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -8,6 +9,7 @@ class ViewResultButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(myExamResultList!.length);
     return Center(
       child: TextButton(
           style: ButtonStyle(
@@ -20,7 +22,13 @@ class ViewResultButton extends StatelessWidget {
             ),
           ),
           onPressed: () {
-
+            Navigator.pushNamed(
+                context,
+                MyRoutes.myExamMCQPageRoute,
+                arguments: {
+                  'myExamResultList': myExamResultList
+                }
+            );
           },
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 55),

@@ -34,7 +34,7 @@ class _PaginationButtonsState extends State<PaginationButtons> {
 
   @override
   void initState() {
-    print("init");
+    // print("init");
     // TODO: implement initState
     super.initState();
     for (int i = 0; i < widget.mcqQuestions.length; i++) {
@@ -70,7 +70,7 @@ class _PaginationButtonsState extends State<PaginationButtons> {
 
   @override
   Widget build(BuildContext context) {
-    print("build ${widget.questionIndex} ");
+    // print("build ${widget.questionIndex} ");
     return Padding(
       padding: const EdgeInsets.fromLTRB(18.0, 0.0, 18.0, 6.0),
       child: slidingButtons(),

@@ -17,7 +17,7 @@ class _ViewResultWidgetState extends State<ViewResultWidget> {
   bool isLoading = true;
   String token = "empty";
   final SharedServices _sharedServices = SharedServices();
-  late List<Result> myExamResultList;
+  List<Result> myExamResultList = [];
 
   @override
   void initState() {
@@ -27,18 +27,18 @@ class _ViewResultWidgetState extends State<ViewResultWidget> {
         token = value;
         APIServices.getMyExamResult(widget.mbid.toString(), token).then((response) {
           if (response.toString().isNotEmpty) {
+            print(response.result!.length);
             if (response.status == 200) {
-              myExamResultList = response.result!;
+              setState(() {
+                myExamResultList = response.result!;
+                isLoading = false;
+              });
             }
           }
         });
       } else {
         token = "empty";
       }
-      if (!mounted) return;
-      setState(() {
-        isLoading = false;
-      });
     });
   }
 

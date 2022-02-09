@@ -34,7 +34,6 @@ class MCQWidget extends StatefulWidget {
 
 class _MCQWidgetState extends State<MCQWidget> {
   int optionIndex = -1;
-  String btnText = "Next Question";
   List<String> mcqOptionCodes = ["A", "B", "C", "D"];
   Map<int, String> userAnswer = {};
   int pageIndex = 0;
@@ -66,7 +65,7 @@ class _MCQWidgetState extends State<MCQWidget> {
       countdownDurationExam = Duration(minutes: int.parse(widget.examTimer));
       setState(() => durationExam = countdownDurationExam);
     } else {
-      setState(() => durationExam = const Duration(hours: 10));
+      setState(() => durationExam = const Duration(hours: 2));
     }
   }
 

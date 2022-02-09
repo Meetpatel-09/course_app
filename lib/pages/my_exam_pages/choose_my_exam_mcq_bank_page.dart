@@ -1,6 +1,5 @@
 import 'package:course_app_ui/model/my_exam_models/my_exam_banks_model.dart';
 import 'package:course_app_ui/services/shared_service.dart';
-import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/my_exam/choose_mcq_bank/mcq_bank.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -44,8 +43,8 @@ class _ChooseMyExamMCQBankPageState extends State<ChooseMyExamMCQBankPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false)),
-            const SizedBox(width: 10,),
+            // IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false)),
+            // const SizedBox(width: 10,),
             "Exam".text.make()
           ],
         ),
