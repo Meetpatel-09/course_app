@@ -30,7 +30,7 @@ class _StartExamState extends State<StartExam> {
                           context,
                           MyRoutes.chooseMyExamMCQBankRoute,
                           arguments: {
-                            'mcqBanks': mcqBanks,
+                            'mcqBanks': mcqBanks.result,
                             'subjectID': widget.subjectID
                           }
                       );

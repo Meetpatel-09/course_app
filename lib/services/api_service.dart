@@ -254,14 +254,9 @@ class APIServices {
     try {
       final response = await http.get(url, headers: requestHeaders);
 
-      print(response.statusCode);
-      print(response.body);
-
       if(200 == response.statusCode) {
 
         final MyExamBanksModel mcqBanks = myExamBanksModelFromJson(response.body);
-
-        print(mcqBanks.result);
 
         return mcqBanks;
       } else {
