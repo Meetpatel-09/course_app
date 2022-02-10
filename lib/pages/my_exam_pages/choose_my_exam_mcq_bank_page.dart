@@ -15,6 +15,7 @@ class _ChooseMyExamMCQBankPageState extends State<ChooseMyExamMCQBankPage> {
   String subjectID = "";
   List<Result>? mcqBanks = [];
   String token = "empty";
+  bool _isloading = true;
   final SharedServices _sharedServices = SharedServices();
 
   @override
@@ -23,9 +24,13 @@ class _ChooseMyExamMCQBankPageState extends State<ChooseMyExamMCQBankPage> {
       if (value != null) {
         setState(() {
           token = value;
+          _isloading = false;
         });
       } else {
-        token = "empty";
+        setState(() {
+          token = "empty";
+          _isloading = false;
+        });
       }
     });
     super.initState();
@@ -43,17 +48,15 @@ class _ChooseMyExamMCQBankPageState extends State<ChooseMyExamMCQBankPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false)),
-            // const SizedBox(width: 10,),
-            "Exam".text.make()
+            "My Exam".text.make()
           ],
         ),
       ),
       backgroundColor: context.canvasColor,
       body: SingleChildScrollView(
-          child: Padding(
+          child: _isloading ? const Center(child: CircularProgressIndicator(),) : Padding(
             padding: const EdgeInsets.all(18.0),
-            child: MCQBanks(mcqBanks: mcqBanks, subjectID: subjectID),
+            child: MCQBanks(mcqBanks: mcqBanks, subjectID: subjectID, token: token,),
           )
       ),
     );
