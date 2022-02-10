@@ -16,7 +16,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     return Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: context.accentColor.withOpacity(0.5),
+          // color: context.accentColor.withOpacity(0.5),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Container(

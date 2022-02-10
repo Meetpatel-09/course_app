@@ -11,6 +11,5 @@ class MyRoutes {
   static String mcqPageRoute = "/mcq_page";
   static String chooseMyExamMCQBankRoute = "/my_exam_choose_mcq_bank";
   static String myExamMCQPageRoute = "/my_exam_mcq_page";
-  static String viewResultPageRoute = "/view_result";
   // static String tempRoute = "/temp";
 }
