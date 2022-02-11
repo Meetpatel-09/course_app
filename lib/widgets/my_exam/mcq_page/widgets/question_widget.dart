@@ -16,17 +16,14 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     return Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          // color: context.accentColor.withOpacity(0.5),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Container(
-          // width: MediaQuery.of(context).size.width - ,
           padding: const EdgeInsets.all(20),
           margin: const EdgeInsets.only(top: 20, left: 18, right: 18,),
           decoration: BoxDecoration(
               color: context.backgroundColor,
               borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: context.cardColor),
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(0.8),
@@ -40,5 +37,4 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         ),
     );
   }
-
 }

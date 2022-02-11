@@ -37,10 +37,8 @@ class _MCQWidgetState extends State<MCQWidget> {
               return Container(
                 margin: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  color: context.accentColor.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                // height: 555,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -63,13 +61,6 @@ class _MCQWidgetState extends State<MCQWidget> {
                                     decoration: BoxDecoration(
                                         color: context.backgroundColor,
                                         borderRadius: BorderRadius.circular(14),
-                                        border: Border.all(
-                                            color:
-                                            widget.myExamResultList![index].options[i] == widget.myExamResultList![index].correctAns
-                                                ? Colors.green
-                                                : widget.myExamResultList![index].options[i] == widget.myExamResultList![index].ans && !widget.myExamResultList![index].isCorrect ? Colors.red : context.cardColor.withOpacity(0.5),
-                                            width: 2
-                                        )
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -117,7 +108,7 @@ class _MCQWidgetState extends State<MCQWidget> {
               :
           widget.myExamResultList![index].options[i] == widget.myExamResultList![index].ans && !widget.myExamResultList![index].isCorrect
               ?
-          const Icon(Icons.circle_outlined, color: Colors.red,)
+          const Icon(Icons.circle, color: Colors.red,)
               :
           Icon(Icons.circle_outlined, color: context.cardColor.withOpacity(0.5),)
         ]
