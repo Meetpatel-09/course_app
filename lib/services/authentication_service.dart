@@ -18,6 +18,8 @@ class AuthService {
       'Content-Type': 'application/json',
     };
 
+    // 'Config.dart' file consist all the api links
+    // using 'Config()' we can get the link which we want after putting '.' and the link name
     var url = Uri.parse(Config().loginAPI);
 
     var response = await client.post(

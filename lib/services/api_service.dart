@@ -20,6 +20,8 @@ class APIServices {
   // To GET the Categories and their subjects to sen on Home fragment and Exam fragment
   static Future<CourseModel> getCourses() async {
 
+    // 'Config.dart' file consist all the api links
+    // using 'Config()' we can get the link which we want after putting '.' and the link name
     var url = Uri.parse(Config().courseAPI);
 
     try {

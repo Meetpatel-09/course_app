@@ -4,6 +4,7 @@ import 'package:course_app_ui/services/google_sign_in_api.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GoogleButton extends StatelessWidget {
@@ -26,9 +27,7 @@ class GoogleButton extends StatelessWidget {
         onPressed: () async {
           final user = await GoogleSignInAPI.login();
           if (user == null) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Sign In Failed'),
-            ));
+            Fluttertoast.showToast(msg: 'Sign In Failed', toastLength: Toast.LENGTH_LONG, fontSize: 16.0);
           } else {
             if(isRegisterPage! == true) {
               Navigator.pushNamed(

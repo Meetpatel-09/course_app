@@ -1,6 +1,4 @@
 import 'package:course_app_ui/pages/export_pages.dart';
-import 'package:course_app_ui/pages/my_exam_pages/choose_my_exam_mcq_bank_page.dart';
-import 'package:course_app_ui/pages/my_exam_pages/my_exam_mcq_page.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: MyRoutes.splashRoute,
       routes: {
-        "/": (context) => const SplashPage(),
+        "/": (context) => const HomePage(),
         MyRoutes.splashRoute: (context) => const SplashPage(),
         MyRoutes.homeRoute: (context) => const HomePage(),
         MyRoutes.loginRoute: (context) => const LoginPage(),
