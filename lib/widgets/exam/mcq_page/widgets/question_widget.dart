@@ -141,7 +141,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                     padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                     margin: const EdgeInsets.only(top: 10, left: 18, right: 18,),
                     child: timer(),
-                    // child: ExamTimer(wantExamTimer: widget.wantExamTimer, examTime: widget.examTime,),
                   ),
                 ),
                 Align(

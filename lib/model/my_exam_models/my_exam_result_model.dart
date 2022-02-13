@@ -50,8 +50,8 @@ class Result {
   late final String ans;
   late final int marks;
   late final bool isCorrect;
-  late final Null queRemainingTime;
-  late final Null queTotalTakenTime;
+  late final dynamic queRemainingTime;
+  late final dynamic queTotalTakenTime;
 
   Result.fromJson(Map<String, dynamic> json){
     mcqid = json['mcqid'];
@@ -102,11 +102,11 @@ class Mcqsetting {
   late final String setExamTimer;
   late final int examTimer;
   late final String setPerQueTimer;
-  late final Null perQueTimer;
-  late final Null remainingTime;
+  late final dynamic perQueTimer;
+  late final dynamic remainingTime;
   late final String completeDate;
-  late final Null mcqStartDatetime;
-  late final Null totalTakenTime;
+  late final dynamic mcqStartDatetime;
+  late final dynamic totalTakenTime;
 
   Mcqsetting.fromJson(Map<String, dynamic> json){
     userMcqId = json['user_mcq_id'];
