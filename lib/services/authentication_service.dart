@@ -5,6 +5,8 @@ import 'package:course_app_ui/model/auth_models/login/login_response_model.dart'
 import 'package:course_app_ui/model/auth_models/otp_verification/otp_request_model.dart';
 import 'package:course_app_ui/model/auth_models/otp_verification/otp_response_model.dart';
 import 'package:course_app_ui/model/auth_models/otp_verification/resend_otp_request_model.dart';
+import 'package:course_app_ui/model/auth_models/profile/edit_profile_response_model.dart';
+import 'package:course_app_ui/model/auth_models/profile/get_user_profile_model.dart';
 import 'package:course_app_ui/model/auth_models/register/register_response_model.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:dio/dio.dart';
@@ -113,6 +115,64 @@ class AuthService {
     );
 
     return otpResponseJson(response.body);
+  }
+
+  static Future<GetUserProfileModel> getUserProfile(String token) async {
+
+    var url = Uri.parse(Config().getUserProfile);
+
+    try {
+      final response = await http.get(
+          url,
+          headers: {
+            'Content-type': 'application/json',
+            'token': token
+          }
+      );
+
+      if(200 == response.statusCode) {
+
+        final GetUserProfileModel getUserProfileModel = getUserProfileJson(response.body);
+        if (getUserProfileModel.status == 200) {
+
+          return getUserProfileModel;
+        } else {
+          return GetUserProfileModel(status: 422);
+        }
+      } else {
+        return GetUserProfileModel(status: response.statusCode);
+      }
+    } catch(e) {
+      return GetUserProfileModel(status: 422);
+    }
+  }
+
+  static Future<EditProfileResponseModel> editProfile(FormData data, String token) async {
+
+    // Dio dio = Dio();
+    // dio.options.headers["token"] = token;
+    // var putData = data;
+
+    var response = await Dio().put(
+      Config().getUserProfile,
+      data: data,
+      options: Options(
+        headers: {
+        "token": token
+        }
+      )
+    );
+
+    print(response.data);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> map = response.data;
+      // int status = int.parse(map.values.first.toString());
+      // String msg = map.values.last.toString();
+      return EditProfileResponseModel(status: response.statusCode!);
+    } else {
+      return EditProfileResponseModel(status: response.statusCode!);
+    }
   }
 
 }

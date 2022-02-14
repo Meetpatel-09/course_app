@@ -14,4 +14,8 @@ class Config {
   String getMyExams = "http://vpsmcq.in/API/myexam";
   String getMyExamsBanks = "http://vpsmcq.in/API/myexam/"; // after '/' send subjectid, syntax: /subjectid example: /1
   String getMyExamResult = "http://vpsmcq.in/API/result/"; // after '/' send mbid, syntax: /mbid example: /1
+  String getUserProfile = "http://vpsmcq.in/API/user/profile";
+
+
+  String mediaAPI = "http://vpsmcq.in/API/media/"; // after '/' send file name, syntax: /fileName.extension example: /img.jpg
 }

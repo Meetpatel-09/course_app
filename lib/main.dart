@@ -1,4 +1,5 @@
 import 'package:course_app_ui/pages/export_pages.dart';
+import 'package:course_app_ui/pages/my_profile_pages/edit_profile_page.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.mcqPageRoute: (context) => const MCQPage(),
         MyRoutes.chooseMyExamMCQBankRoute: (context) => const ChooseMyExamMCQBankPage(),
         MyRoutes.myExamMCQPageRoute: (context) => const MyExamMCQPage(),
+        MyRoutes.editProfileRoute: (context) => const EditProfilePage(),
       },
     );
   }
