@@ -271,7 +271,7 @@ class APIServices {
     }
   }
 
-  // To GET  for my exams
+  // To GET for my exams results
   static Future<MyExamResultModel> getMyExamResult(String mbid, String token) async {
 
     var url = Uri.parse(Config().getMyExamResult + mbid);
