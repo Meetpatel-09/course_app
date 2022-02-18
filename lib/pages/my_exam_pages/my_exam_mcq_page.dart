@@ -11,6 +11,7 @@ class MyExamMCQPage extends StatefulWidget {
 
 class _MyExamMCQPageState extends State<MyExamMCQPage> {
   late List<Result> myExamResultList;
+  late MyExamResultModel myExamResult;
   late PageController controller;
 
   @override
@@ -28,11 +29,17 @@ class _MyExamMCQPageState extends State<MyExamMCQPage> {
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
-    myExamResultList = arg['myExamResultList'];
+    myExamResult = arg['myExamResult'];
+    myExamResultList = myExamResult.result!;
+    // myExamResultList = arg['myExamResultList'];
+
+    print("object");
+    print(myExamResult.summery?.totalQuestions);
 
     return MCQWidget(
       controller: controller,
       myExamResultList: myExamResultList,
+      myExamResult: myExamResult,
       onChangedPage: (page) {
         if (page == myExamResultList.length - 1) {
           setState(() {

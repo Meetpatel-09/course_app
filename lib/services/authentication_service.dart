@@ -163,12 +163,7 @@ class AuthService {
       )
     );
 
-    print(response.data);
-
     if (response.statusCode == 200) {
-      Map<String, dynamic> map = response.data;
-      // int status = int.parse(map.values.first.toString());
-      // String msg = map.values.last.toString();
       return EditProfileResponseModel(status: response.statusCode!);
     } else {
       return EditProfileResponseModel(status: response.statusCode!);

@@ -15,7 +15,7 @@ class MCQBanksList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SharedServices _sharedServices = SharedServices();
-    List<banks.Result> myExamResultList = [];
+    banks.MyExamResultModel myExamResult;
     late int mbid;
 
     return Container(
@@ -34,12 +34,14 @@ class MCQBanksList extends StatelessWidget {
                 APIServices.getMyExamResult(mbid.toString(), value).then((response) {
                   if (response.toString().isNotEmpty) {
                     if (response.status == 200) {
-                        myExamResultList = response.result!;
+                        myExamResult = response;
+                        // print("object");
+                        // print(myExamResult.summery?.totalQuestions);
                         Navigator.pushNamed(
                             context,
                             MyRoutes.myExamMCQPageRoute,
                             arguments: {
-                              'myExamResultList': myExamResultList
+                              'myExamResult': myExamResult
                             }
                         );
                     }

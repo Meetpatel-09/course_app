@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   int currentIndex = 0;
+  bool isClicked = false;
   final screens = [
     const HomeFragment(),
     const ExamFragment(),
@@ -23,6 +24,20 @@ class _HomePageState extends State<HomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    if (!isClicked) {
+      if (ModalRoute
+          .of(context)
+          ?.settings
+          .arguments != null) {
+        final arg = ModalRoute
+            .of(context)!
+            .settings
+            .arguments as Map;
+        if (arg['index'] != null) {
+          currentIndex = arg['index'];
+        }
+      }
+    }
 
     return Scaffold(
       // considering different types of devices and their pre-occupied constraints of screen like status bar
@@ -45,7 +60,10 @@ class _HomePageState extends State<HomePage> {
           height: 70,
           selectedIndex: currentIndex,
           onDestinationSelected: (currentIndex) =>
-              setState(() => this.currentIndex = currentIndex),
+              setState(() {
+                this.currentIndex = currentIndex;
+                isClicked = true;
+              }),
           destinations: const [
             NavigationDestination(
               icon: Icon(Icons.home),

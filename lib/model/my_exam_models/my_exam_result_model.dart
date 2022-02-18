@@ -9,15 +9,18 @@ class MyExamResultModel {
     required this.status,
     this.result,
     this.mcqsetting,
+    this.summery,
   });
   late final int status;
   late final List<Result>? result;
   late final List<Mcqsetting>? mcqsetting;
+  late final Summery? summery;
 
   MyExamResultModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     result = List.from(json['result']).map((e)=>Result.fromJson(e)).toList();
     mcqsetting = List.from(json['mcqsetting']).map((e)=>Mcqsetting.fromJson(e)).toList();
+    summery = Summery.fromJson(json['summery']);
   }
 
   Map<String, dynamic> toJson() {
@@ -25,6 +28,7 @@ class MyExamResultModel {
     _data['status'] = status;
     _data['result'] = result?.map((e)=>e.toJson()).toList();
     _data['mcqsetting'] = mcqsetting?.map((e)=>e.toJson()).toList();
+    _data['summery'] = summery?.toJson();
     return _data;
   }
 }
@@ -135,6 +139,36 @@ class Mcqsetting {
     _data['complete_date'] = completeDate;
     _data['mcq_start_datetime'] = mcqStartDatetime;
     _data['total_taken_time'] = totalTakenTime;
+    return _data;
+  }
+}
+
+class Summery {
+  Summery({
+    required this.totalQuestions,
+    required this.totalAttempted,
+    required this.totalCorrect,
+    required this.totalWrong,
+  });
+
+  late final int totalQuestions;
+  late final int totalAttempted;
+  late final int totalCorrect;
+  late final int totalWrong;
+
+  Summery.fromJson(Map<String, dynamic> json){
+    totalQuestions = json['totalQuestions'];
+    totalAttempted = json['totalAttempted'];
+    totalCorrect = json['totalCorrect'];
+    totalWrong = json['totalWrong'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['totalQuestions'] = totalQuestions;
+    _data['totalAttempted'] = totalAttempted;
+    _data['totalCorrect'] = totalCorrect;
+    _data['totalWrong'] = totalWrong;
     return _data;
   }
 }

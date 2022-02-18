@@ -242,9 +242,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 });
                 if(response.status == 200) {
                   Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      MyRoutes.homeRoute,
-                          (route) => false,
+                    context,
+                    MyRoutes.homeRoute,
+                    (route) => false,
+                    arguments: {
+                      'index': 3
+                    }
                   );
                 } else {
                   FormHelper.showSimpleAlertDialog(

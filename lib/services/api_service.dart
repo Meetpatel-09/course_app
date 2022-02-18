@@ -12,6 +12,7 @@ import 'package:course_app_ui/model/my_exam_models/my_exam_banks_model.dart';
 import 'package:course_app_ui/model/my_exam_models/my_exam_model.dart';
 import 'package:course_app_ui/model/my_exam_models/my_exam_result_model.dart';
 import 'package:course_app_ui/utils/config.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class APIServices {
@@ -287,6 +288,9 @@ class APIServices {
       if(200 == response.statusCode) {
 
         final MyExamResultModel mcqBanks = myExamResultModelFromJson(response.body);
+
+        // print("object");
+        // print(mcqBanks.summery?.totalAttempted);
 
         return mcqBanks;
       } else {
