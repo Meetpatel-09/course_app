@@ -33,9 +33,6 @@ class _MyExamMCQPageState extends State<MyExamMCQPage> {
     myExamResultList = myExamResult.result!;
     // myExamResultList = arg['myExamResultList'];
 
-    print("object");
-    print(myExamResult.summery?.totalQuestions);
-
     return MCQWidget(
       controller: controller,
       myExamResultList: myExamResultList,

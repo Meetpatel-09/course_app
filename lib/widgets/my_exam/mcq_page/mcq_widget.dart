@@ -30,19 +30,17 @@ class _MCQWidgetState extends State<MCQWidget> {
           children: [
             summary(),
             SizedBox(
-              height: MediaQuery.of(context).size.height - 275,
+              height: MediaQuery.of(context).size.height - 285,
                 child: mcq())
           ],
         )
-
-        // ),
     );
   }
 
   Widget summary() => Container(
     height: 170,
     padding: const EdgeInsets.all(25.0),
-    margin: const EdgeInsets.only(bottom: 0, top: 15, left: 10, right: 10),
+    margin: const EdgeInsets.only(bottom: 15, top: 15, left: 10, right: 10),
     decoration: BoxDecoration(
       color: context.backgroundColor,
       borderRadius: BorderRadius.circular(15.0)
