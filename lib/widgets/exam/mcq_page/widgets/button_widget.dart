@@ -41,12 +41,14 @@ class ButtonWidget extends StatelessWidget {
                 ),
               ),
               onPressed: () {
+                // variable to set empty in MCQ IDs - MCQ option for those MCQs which are not answered by the user
                 String na= "";
 
                 Map<int ,String> finalAnswers = {};
                 Map<int ,Duration> finalQuestionTime = {};
 
                 for (var element in mcqIDs) {
+                  // initially setting all the answers as empty
                   finalAnswers[element] = na;
                 }
 
@@ -54,6 +56,7 @@ class ButtonWidget extends StatelessWidget {
                   finalQuestionTime[element] = Duration(seconds: questionTime);
                 }
 
+                // merging the empty answers with selected answers
                 final thirdMap = {
                   ...finalAnswers,
                   ...userAnswerToSend,
@@ -64,18 +67,21 @@ class ButtonWidget extends StatelessWidget {
                   ...userMCQQuestionTimer,
                 };
 
-                // variables to store mcq questions and answers
+                // storing the MCQ ids in a variable 'q'
                 List<int> q = thirdMap.keys.toList();
+                // storing the MCQ answers in a variable 'a'
                 List<String> a = thirdMap.values.toList();
 
                 List queRemainingTime = [];
                 List queTotalTakenTime = [];
+
                 // checking if there was a question timer
                 if(userMCQQuestionTimer.isNotEmpty) {
 
                   for(int i = 0; i < thirdMap2.length; i++) {
-
+                    // storing the MCQ ID form the list of MCQ IDs one by one in each iteration for.....
                     int n = mcqQuestions[i].mcqid;
+                    // .... using them to set per question time as per MCQ IDs
                     int? s = thirdMap2[n]?.inSeconds;
                     int? r = s!;
                     int? t = (questionTime * 60) - r;
@@ -133,12 +139,14 @@ class ButtonWidget extends StatelessWidget {
                 ),
               ),
               onPressed: () {
+                // variable to set empty in MCQ IDs - MCQ option for those MCQs which are not answered by the user
                 String na= "";
 
                 Map<int ,String> finalAnswers = {};
                 Map<int ,Duration> finalQuestionTime = {};
 
                 for (var element in mcqIDs) {
+                  // initially setting all the answers as empty
                   finalAnswers[element] = na;
                 }
 
@@ -146,6 +154,7 @@ class ButtonWidget extends StatelessWidget {
                   finalQuestionTime[element] = Duration(seconds: questionTime);
                 }
 
+                // merging the empty answers with selected answers
                 final thirdMap = {
                   ...finalAnswers,
                   ...userAnswerToSend,
@@ -156,18 +165,22 @@ class ButtonWidget extends StatelessWidget {
                   ...userMCQQuestionTimer,
                 };
 
-                // variables to store mcq questions and answers
+                // storing the MCQ ids in a variable 'q'
                 List<int> q = thirdMap.keys.toList();
+                // storing the MCQ answers in a variable 'a'
                 List<String> a = thirdMap.values.toList();
 
                 List queRemainingTime = [];
                 List queTotalTakenTime = [];
+
                 // checking if there was a question timer
                 if(userMCQQuestionTimer.isNotEmpty) {
 
+                  // mapping the question time
                   for(int i = 0; i < thirdMap2.length; i++) {
-
+                    // storing the MCQ ID form the list of MCQ IDs one by one in each iteration for.....
                     int n = mcqQuestions[i].mcqid;
+                    // .... using them to set per question time as per MCQ IDs
                     int? s = thirdMap2[n]?.inSeconds;
                     int? r = s!;
                     int? t = (questionTime * 60) - r;

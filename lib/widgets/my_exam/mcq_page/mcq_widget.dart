@@ -15,7 +15,7 @@ class MCQWidget extends StatefulWidget {
 }
 
 class _MCQWidgetState extends State<MCQWidget> {
-  int optionIndex = -1;
+  int optionIndex = -1; // for selecting mcq option
   List<String> mcqOptionCodes = ["A", "B", "C", "D"];
   int pageIndex = 0;
 
@@ -248,10 +248,12 @@ class _MCQWidgetState extends State<MCQWidget> {
               ),
             ],
           ),
+          // if answer is correct
           widget.myExamResultList![index].options[i] == widget.myExamResultList![index].correctAns
               ?
           const Icon(Icons.circle, color: Colors.green,)
               :
+          // if option was selected and wrong
           widget.myExamResultList![index].options[i] == widget.myExamResultList![index].ans && !widget.myExamResultList![index].isCorrect
               ?
           const Icon(Icons.circle, color: Colors.red,)

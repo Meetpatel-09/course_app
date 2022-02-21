@@ -97,7 +97,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         const SizedBox(height: 30,),
         FormHelper.inputFieldWidget(
           context,
-          const Icon(Icons.person),
           "f_name",
           "First Name",
               (onValidateVal) {
@@ -109,6 +108,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               (onSavedVal) {
             firstName = onSavedVal;
           },
+          prefixIcon: const Icon(Icons.person),
           initialValue: firstName,
           borderFocusColor: context.cardColor,
           prefixIconColor: context.cardColor,
@@ -122,7 +122,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
         FormHelper.inputFieldWidget(
           context,
-          const Icon(Icons.person),
           "l_name",
           "Last Name",
               (onValidateVal) {
@@ -134,6 +133,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               (onSavedVal) {
             lastName = onSavedVal;
           },
+          prefixIcon: const Icon(Icons.person),
           initialValue: lastName,
           borderFocusColor: context.cardColor,
           prefixIconColor: context.cardColor,
@@ -147,7 +147,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
         FormHelper.inputFieldWidget(
           context,
-          const Icon(Icons.phone_android),
           "p_number",
           "Phone Number",
               (onValidateVal) {
@@ -168,6 +167,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               (onSavedVal) {
             mobileNo = onSavedVal;
           },
+          prefixIcon: const Icon(Icons.phone_android),
           initialValue: mobileNo,
           borderFocusColor: context.cardColor,
           prefixIconColor: context.cardColor,
@@ -181,7 +181,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
         FormHelper.inputFieldWidget(
           context,
-          const Icon(Icons.home),
           "address",
           "Address",
               (onValidateVal) {
@@ -193,6 +192,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               (onSavedVal) {
             address = onSavedVal;
           },
+          prefixIcon: const Icon(Icons.home),
           initialValue: address,
           isMultiline: true,
           borderFocusColor: context.cardColor,
@@ -360,7 +360,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
       // enabling the user to crop image using the package:image_cropper/src/cropper.dart package
       // for more details visit https://pub.dev/packages/image_cropper
-      File? croppedFile = await ImageCropper.cropImage(
+      File? croppedFile = await ImageCropper().cropImage(
           sourcePath: image.path,
           aspectRatioPresets: [
             CropAspectRatioPreset.square,

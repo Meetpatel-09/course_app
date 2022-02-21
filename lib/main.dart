@@ -8,6 +8,8 @@ void main() {
   runApp(const MyApp());
 }
 
+// view the pubspec.yaml file first for getting the information about the packages used in the project
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 

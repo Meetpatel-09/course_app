@@ -191,6 +191,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     )),
   );
 
+  // code to build circle
   buildCircle({
     required Color color,
     required double all,

@@ -206,6 +206,8 @@ class _ExamChoosesState extends State<ExamChooses> {
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 controller: _questionETC,
+                // if user has already attempted the but not completed and again try to give exam.
+                // so then lock exam settings so it can edit them
                 enabled: _lockSettings ? false : true,
                 decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(0),
@@ -415,12 +417,12 @@ class _ExamChoosesState extends State<ExamChooses> {
                                   content: Text(response.msg!),
                                   actions: [
                                     TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          Navigator.pushNamed(
-                                              context, MyRoutes.homeRoute);
-                                        },
-                                        child: const Text("OK")),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.pushNamed(
+                                            context, MyRoutes.homeRoute);
+                                      },
+                                      child: const Text("OK")),
                                   ],
                                 )
                         );
@@ -456,21 +458,21 @@ class _ExamChoosesState extends State<ExamChooses> {
                       );
                     } else {
                       showDialog(
-                          context: context,
-                          builder: (context) =>
-                              AlertDialog(
-                                title: Text(response.status.toString()),
-                                content: Text(response.msg!),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.pushNamed(
-                                            context, MyRoutes.homeRoute);
-                                      },
-                                      child: const Text("OK")),
-                                ],
-                              )
+                        context: context,
+                        builder: (context) =>
+                          AlertDialog(
+                            title: Text(response.status.toString()),
+                            content: Text(response.msg!),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Navigator.pushNamed(
+                                        context, MyRoutes.homeRoute);
+                                  },
+                                  child: const Text("OK")),
+                            ],
+                          )
                       );
                     }
                   });
@@ -507,6 +509,7 @@ class _ExamChoosesState extends State<ExamChooses> {
     }
   }
 
+  // Validating the exam time text field
   String? get _examErrorText {
     final text = _examETC.value.text;
     if (text.isEmpty) {
@@ -515,6 +518,7 @@ class _ExamChoosesState extends State<ExamChooses> {
     return null;
   }
 
+  // Validating the time per question text field
   String? get _questionErrorText {
     final text = _questionETC.value.text;
     if (text.isEmpty) {
@@ -527,6 +531,7 @@ class _ExamChoosesState extends State<ExamChooses> {
     return null;
   }
 
+  // Validating the number of question text field
   String? get _numQuestionErrorText {
     final text = _numQuestionETC.value.text;
     if (text.isEmpty) {

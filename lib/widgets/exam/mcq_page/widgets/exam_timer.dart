@@ -28,9 +28,7 @@ class _ExamTimerState extends State<ExamTimer> {
 
   void addTime() {
     const addSeconds = -1;
-    // print(durationExam.inSeconds);
     setState(() {
-      // widget.userMCQQuestionTimer[widget.mcqid] = durationQuestion;
       final seconds = durationExam.inSeconds + addSeconds;
 
       if(seconds < 0) {

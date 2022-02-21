@@ -33,7 +33,7 @@ class MCQWidget extends StatefulWidget {
 }
 
 class _MCQWidgetState extends State<MCQWidget> {
-  int optionIndex = -1;
+  int optionIndex = -1; // for selecting mcq option
   List<String> mcqOptionCodes = ["A", "B", "C", "D"];
   Map<int, String> userAnswer = {};
   int pageIndex = 0;
@@ -177,9 +177,9 @@ class _MCQWidgetState extends State<MCQWidget> {
                                   for (int i = 0; i < 4; i++)
                                     GestureDetector(
                                       onTap: () {
-                                        if(widget.wantQuestionTimer) {
+                                        if(widget.wantQuestionTimer) { // check if there is per question timer
                                           int? s = userMCQQuestionTimer[widget.mcqQuestions[pageIndex].mcqid]?.inSeconds;
-                                          if (s! != 0) {
+                                          if (s! != 0) { // to check if question time is over or not
                                             userAnswer[pageIndex + 1] = (i + 1).toString();
                                             userAnswerToSend[widget.mcqQuestions[pageIndex].mcqid] = widget.mcqQuestions[pageIndex].options[i];
                                             setState(() {});
@@ -414,12 +414,14 @@ class _MCQWidgetState extends State<MCQWidget> {
   }
 
   sendData(bool isComplete) {
+    // variable to set empty in MCQ IDs - MCQ option for those MCQs which are not answered by the user
     String na= "";
 
     Map<int ,String> finalAnswers = {};
     Map<int ,Duration> finalQuestionTime = {};
 
     for (var element in mcqIDs) {
+      // initially setting all the answers as empty
       finalAnswers[element] = na;
     }
 
@@ -427,6 +429,7 @@ class _MCQWidgetState extends State<MCQWidget> {
       finalQuestionTime[element] = Duration(seconds: int.parse(widget.questionTime));
     }
 
+    // merging the empty answers with selected answers
     final thirdMap = {
       ...finalAnswers,
       ...userAnswerToSend,
@@ -437,8 +440,9 @@ class _MCQWidgetState extends State<MCQWidget> {
       ...userMCQQuestionTimer,
     };
 
-    // variables to store mcq questions and answers
+    // storing the MCQ ids in a variable 'q'
     List<int> q = thirdMap.keys.toList();
+    // storing the MCQ answers in a variable 'a'
     List<String> a = thirdMap.values.toList();
 
     List queRemainingTime = [];
@@ -448,8 +452,9 @@ class _MCQWidgetState extends State<MCQWidget> {
     if(widget.wantQuestionTimer) {
 
       for(int i = 0; i < thirdMap2.length; i++) {
-
+        // storing the MCQ ID form the list of MCQ IDs one by one in each iteration for.....
         int n = widget.mcqQuestions[i].mcqid;
+        // .... using them to set per question time as per MCQ IDs
         int? s = thirdMap2[n]?.inSeconds;
         int? r = s!;
         int? t = (int.parse(widget.questionTime) * 60) - r;

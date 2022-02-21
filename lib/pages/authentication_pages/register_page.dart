@@ -69,7 +69,6 @@ class _RegisterPageState extends State<RegisterPage> {
     children: [
       FormHelper.inputFieldWidget(
         context,
-        const Icon(Icons.mail),
         "email",
         "Email",
             (onValidateVal) {
@@ -81,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
             (onSavedVal) {
           email = onSavedVal;
         },
+        prefixIcon: const Icon(Icons.mail),
         borderFocusColor: context.cardColor,
         prefixIconColor:context.cardColor,
         borderColor: context.cardColor,
@@ -91,7 +91,6 @@ class _RegisterPageState extends State<RegisterPage> {
       const SizedBox(height: 10,),
       FormHelper.inputFieldWidget(
         context,
-        const Icon(Icons.lock),
         "password",
         "Password",
             (onValidateVal) {
@@ -105,6 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
             (onSavedVal) {
           password = onSavedVal;
         },
+        prefixIcon: const Icon(Icons.lock),
         borderFocusColor: context.cardColor,
         prefixIconColor:context.cardColor,
         borderColor: context.cardColor,
@@ -126,7 +126,6 @@ class _RegisterPageState extends State<RegisterPage> {
       const SizedBox(height: 10,),
       FormHelper.inputFieldWidget(
         context,
-        const Icon(Icons.lock),
         "confirm_password",
         "Confirm Password",
             (onValidateVal) {
@@ -141,6 +140,7 @@ class _RegisterPageState extends State<RegisterPage> {
             (onSavedVal) {
           confirmPassword = onSavedVal;
         },
+        prefixIcon: const Icon(Icons.lock),
         borderFocusColor: context.cardColor,
         prefixIconColor:context.cardColor,
         borderColor: context.cardColor,

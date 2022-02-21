@@ -74,7 +74,6 @@ class _LoginPageState extends State<LoginPage> {
     children: [
       FormHelper.inputFieldWidget(
         context,
-        const Icon(Icons.person),
         "email",
         "Email",
             (onValidateVal) {
@@ -86,6 +85,7 @@ class _LoginPageState extends State<LoginPage> {
             (onSavedVal) {
           email = onSavedVal;
         },
+        prefixIcon: const Icon(Icons.person),
         borderFocusColor: context.cardColor,
         prefixIconColor: context.cardColor,
         borderColor: context.cardColor,
@@ -96,7 +96,6 @@ class _LoginPageState extends State<LoginPage> {
       const SizedBox(height: 10,),
       FormHelper.inputFieldWidget(
         context,
-        const Icon(Icons.lock,),
         "password",
         "Password",
             (onValidateVal) {
@@ -108,6 +107,7 @@ class _LoginPageState extends State<LoginPage> {
             (onSavedVal) {
           password = onSavedVal;
         },
+        prefixIcon: const Icon(Icons.lock,),
         borderFocusColor: context.cardColor,
         prefixIconColor:context.cardColor,
         borderColor: context.cardColor,
