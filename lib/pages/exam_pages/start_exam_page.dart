@@ -32,17 +32,17 @@ class StartExamPage extends StatelessWidget {
         ),
       ),
       body: StartExamWidget(
-          token: token,
-          mbid: mbid,
-          wantExamTimer: wantExamTimer,
-          examTime: examTime,
-          wantQuestionTimer: wantQuestionTimer,
-          questionTime: questionTime,
-          numQuestions: numQuestions,
-          userMCQID: userMCQID,
-          subjectIndex: subjectIndex,
-          subjectList: subjectList,
-          subjectID: subjectID
+        token: token,
+        mbid: mbid,
+        wantExamTimer: wantExamTimer,
+        examTime: examTime,
+        wantQuestionTimer: wantQuestionTimer,
+        questionTime: questionTime,
+        numQuestions: numQuestions,
+        userMCQID: userMCQID,
+        subjectIndex: subjectIndex,
+        subjectList: subjectList,
+        subjectID: subjectID
       )
     );
   }

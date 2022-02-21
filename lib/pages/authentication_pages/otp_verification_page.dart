@@ -205,8 +205,6 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
             }
           }
           if (otpVerify) {
-            // ignore: avoid_print
-            print(otpVerify);
 
             OTPRequestModel model = OTPRequestModel(
                 email: email!,
@@ -245,6 +243,18 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                 );
               }
             });
+          } else {
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(Config().appName),
+                  content: const Text("Please Enter Valid OTP"),
+                  actions: [
+                    TextButton(onPressed: () {
+                      Navigator.pop(context);
+                    }, child: const Text("OK")),
+                  ],
+                ));
           }
         },
         child: AnimatedContainer(
@@ -264,6 +274,9 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
   }
 
   Widget resendOTPTimer() {
+
+    // 9 --> 09     11 --> 11
+    // adding '0' in front of single digit number
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final seconds = twoDigits(duration.inSeconds.remainder(60));
 

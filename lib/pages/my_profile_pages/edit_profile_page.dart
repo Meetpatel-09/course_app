@@ -71,8 +71,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         children: [
           const SizedBox(height: 30,),
           formFields(),
-          const SizedBox(height: 5,),
-          const SizedBox(height: 15,),
+          const SizedBox(height: 20,),
         ],
       ),
     );
@@ -83,6 +82,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       children: [
         Stack(
           children: [
+            // here "image" is the image which is selected form gallery,
+            // "userImageString" means the image form the server
             image != null ? userImage() : userImageString.isNotEmpty ? userImgNetwork() : buildImage(),
             Positioned(
                 bottom: 0,
@@ -142,10 +143,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           borderRadius: 10,
         ),
         const SizedBox(
-          height: 10,
-        ),
-        const SizedBox(
-          height: 10,
+          height: 20,
         ),
         FormHelper.inputFieldWidget(
           context,
@@ -166,7 +164,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
             } catch(e) {
               return "Enter valid Phone Number";
             }
-
           },
               (onSavedVal) {
             mobileNo = onSavedVal;
@@ -274,6 +271,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
+  // the image which the user selected image form his/her gallery
   Widget userImage() {
     return ClipOval(
       child: Material(
@@ -289,6 +287,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
+  // the image which we get form server
   Widget userImgNetwork() {
     return ClipOval(
       child: Material(
@@ -304,6 +303,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
+  // the default image when the page is first loaded. when the user has not select an image
   Widget buildImage() {
     return ClipOval(
       child: Material(
@@ -319,6 +319,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
+  // the add image icon displayed at the bottom right conner
   Widget buildAddImageIcon() => buildCircle(
       color: context.canvasColor,
       all: 3,
@@ -334,6 +335,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       )
   );
 
+  // code to draw circle
   buildCircle({
     required Color color,
     required double all,
@@ -349,10 +351,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
   // Getting the profile picture of the user
   Future pickImage() async {
     try {
+
+      // to pick image have use package:image_picker/image_picker.dart package
+      // for more details visit https://pub.dev/packages/image_picker
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
       if(image == null) return;
 
+      // enabling the user to crop image using the package:image_cropper/src/cropper.dart package
+      // for more details visit https://pub.dev/packages/image_cropper
       File? croppedFile = await ImageCropper.cropImage(
           sourcePath: image.path,
           aspectRatioPresets: [

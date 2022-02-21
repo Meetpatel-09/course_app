@@ -62,13 +62,25 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
+
+      // Here, if the status code code is 200 then, have manually derived
+      // the token, user type from response string
+
+      // mapping the response data
       Map<String, dynamic> map = response.data;
+
+      // getting the first element from 'map' which is response 'status' sent in response host server
       int status = int.parse(map.values.first.toString());
       if(status == 200) {
+
+        // Storing the last element from response map in a sting variable which is the user type
         String u = map.values.last.toString();
+        // declaring and initializing a string variable 'token'
         String token = "";
+        // declaring and initializing an integer variable 'i'
         int i = 0;
 
+        // in the response the second element is token so deriving it using for loop
         for (var v in map.values) {
           i++;
           if (i == 2) {
@@ -148,10 +160,6 @@ class AuthService {
   }
 
   static Future<EditProfileResponseModel> editProfile(FormData data, String token) async {
-
-    // Dio dio = Dio();
-    // dio.options.headers["token"] = token;
-    // var putData = data;
 
     var response = await Dio().put(
       Config().getUserProfile,

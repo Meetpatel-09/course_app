@@ -6,7 +6,7 @@ import 'package:velocity_x/velocity_x.dart';
 class MCQWidget extends StatefulWidget {
   final PageController controller;
   final ValueChanged<int> onChangedPage;
-  final List<Result>? myExamResultList;
+  final List<Result>? myExamResultList; // to store user results dats
   final MyExamResultModel myExamResult;
   const MCQWidget({Key? key, required this.controller, required this.onChangedPage, this.myExamResultList, required this.myExamResult}) : super(key: key);
 
@@ -43,7 +43,14 @@ class _MCQWidgetState extends State<MCQWidget> {
     margin: const EdgeInsets.only(bottom: 15, top: 15, left: 10, right: 10),
     decoration: BoxDecoration(
       color: context.backgroundColor,
-      borderRadius: BorderRadius.circular(15.0)
+      borderRadius: BorderRadius.circular(15.0),
+      boxShadow: [
+        BoxShadow(
+            color: Colors.grey.withOpacity(0.8),
+            blurRadius: 15,
+            offset: const Offset(0.0, 0.50)
+        ),
+      ]
     ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

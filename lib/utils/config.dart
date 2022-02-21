@@ -1,3 +1,6 @@
+
+// This file consist all api links
+
 class Config {
   final String appName = "Courses App";
   String courseAPI = "http://vpsmcq.in/API/home";
@@ -16,5 +19,6 @@ class Config {
   String getMyExamResult = "http://vpsmcq.in/API/result/"; // after '/' send mbid, syntax: /mbid example: /1
   String getUserProfile = "http://vpsmcq.in/API/user/profile";
 
+  // API use to get access of media files
   String mediaAPI = "http://vpsmcq.in/API/media/"; // after '/' send file name, syntax: /fileName.extension example: /img.jpg
 }

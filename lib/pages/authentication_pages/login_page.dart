@@ -35,6 +35,9 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       backgroundColor: context.canvasColor,
+      // used the 'snippet_coder_utils' package for form
+      // https://pub.dev/packages/snippet_coder_utils
+      // from more details visit the above URL.
       body: ProgressHUD(
           child: Form(key: globalFormKey, child: _loginUI(context)),
           inAsyncCall: isAPICallProcess,
@@ -225,17 +228,18 @@ class _LoginPageState extends State<LoginPage> {
     ],
   );
 
+  // Validating the fields of the form
   bool validateAndSave() {
     final form = globalFormKey.currentState;
     if (form!.validate()) {
       form.save();
       return true;
-      // return false;
     } else {
       return false;
     }
   }
 
+  // Storing the user token for future reference
   Future<void> setToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('token', token);

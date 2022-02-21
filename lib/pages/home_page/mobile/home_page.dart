@@ -14,25 +14,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  // index of fragments initialized by the value '0' so when app is first launched it is home fragment
   int currentIndex = 0;
+  // boolean variable set to false on load to redirect to the desire fragment e.g profile fragment
   bool isClicked = false;
+
   final screens = [
     const HomeFragment(),
     const ExamFragment(),
     const MyExamFragment(),
     const ProfileFragment(),
   ];
+
   @override
   Widget build(BuildContext context) {
     if (!isClicked) {
-      if (ModalRoute
-          .of(context)
-          ?.settings
-          .arguments != null) {
-        final arg = ModalRoute
-            .of(context)!
-            .settings
-            .arguments as Map;
+      if (ModalRoute.of(context)?.settings.arguments != null) {
+        final arg = ModalRoute.of(context)!.settings.arguments as Map;
         if (arg['index'] != null) {
           currentIndex = arg['index'];
         }

@@ -30,6 +30,7 @@ class SubjectList extends StatelessWidget {
               ),
             ),
             Align(child: "Total ${subjectList[subjectIndex].totalMcqInSubject} MCQs".text.center.color(context.cardColor.withOpacity(0.5)).make()),
+            // Start button to go to MCQ banks page
             Align(alignment: Alignment.bottomCenter, child: StartExam(subjectID: subjectList[subjectIndex].subjectid.toString(), subjectIndex: subjectIndex, subjectList: subjectList,)),
           ],
         ),

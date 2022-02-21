@@ -64,6 +64,9 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
         title: "Complete Profile".text.color(context.primaryColor).make(),
       ),
       backgroundColor: context.canvasColor,
+      // used the 'snippet_coder_utils' package for form
+      // https://pub.dev/packages/snippet_coder_utils
+      // from more details visit the above URL.
       body: ProgressHUD(
           child: Form(key: globalFormKey, child: _takeDetailsUI(context)),
           inAsyncCall: isAPICallProcess,
@@ -94,7 +97,9 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
       children: [
         Stack(
           children: [
+            // checking if user use has selected an image from gallery
             image != null ? userImage() : buildImage(),
+            // positioning the add image icon
             Positioned(
                 bottom: 0,
                 right: 4,
@@ -174,7 +179,6 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
             } catch(e) {
               return "Enter valid Phone Number";
             }
-
           },
               (onSavedVal) {
             phoneNo = onSavedVal;
@@ -231,7 +235,6 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
                       "user_role": 'user',
                       "profile": await dio.MultipartFile.fromFile(image!.path,
                           filename: image!.path.split('/').last),
-                      "provider": 'Google'
                     });
 
                     AuthService.googleRegister(formData).then((response) async {
@@ -311,6 +314,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
     );
   }
 
+  // the image which the user selected image form his/her gallery
   Widget userImage() {
     return ClipOval(
       child: Material(
@@ -326,6 +330,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
     );
   }
 
+  // the default image when the page is first loaded. when the user has not select an image
   Widget buildImage() {
     return ClipOval(
       child: Material(
@@ -341,6 +346,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
     );
   }
 
+  // the add image icon displayed at the bottom right conner
   Widget buildAddImageIcon() => buildCircle(
       color: context.canvasColor,
       all: 3,
@@ -356,6 +362,7 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
       )
   );
 
+  // code to draw circle
   buildCircle({
     required Color color,
     required double all,
@@ -371,10 +378,15 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
   // Getting the profile picture of the user
   Future pickImage() async {
     try {
+
+      // to pick image have use package:image_picker/image_picker.dart package
+      // for more details visit https://pub.dev/packages/image_picker
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
       if(image == null) return;
 
+      // enabling the user to crop image using the package:image_cropper/src/cropper.dart package
+      // for more details visit https://pub.dev/packages/image_cropper
       File? croppedFile = await ImageCropper.cropImage(
           sourcePath: image.path,
           aspectRatioPresets: [
@@ -395,6 +407,8 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
           )
       );
 
+      // compressing the image using package:flutter_image_compress/flutter_image_compress.dart
+      // for more details visit https://pub.dev/packages/flutter_image_compress
       final result = await FlutterImageCompress.compressAndGetFile(
         croppedFile!.path,
         image.path,
@@ -402,17 +416,15 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
         minWidth: 512,
         minHeight: 512,
       );
-
       setState(() => this.image = result);
-
     } catch(e) {
       FormHelper.showSimpleAlertDialog(
         context,
         Config().appName,
         e.toString(),
         "OK", () {
-        Navigator.of(context).pop();
-      },
+          Navigator.of(context).pop();
+        },
       );
     }
   }
@@ -440,9 +452,9 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
     }
   }
 
+  // Storing the user token for future reference
   Future<void> setToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('token', token);
   }
-
 }

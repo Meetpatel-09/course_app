@@ -67,13 +67,13 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
       const Center(child: CircularProgressIndicator(),)
           :
       SingleChildScrollView(
-          child: ExamChooses(
-            subjectIndex: subjectIndex,
-            subjectList: subjectList,
-            mbid: mcqBanks!.result![mcqBanksIndex].mbid,
-            token: token,
-            subjectID: subjectID
-          )
+        child: ExamChooses(
+          subjectIndex: subjectIndex,
+          subjectList: subjectList,
+          mbid: mcqBanks!.result![mcqBanksIndex].mbid,
+          token: token,
+          subjectID: subjectID
+        )
       ),
     );
   }

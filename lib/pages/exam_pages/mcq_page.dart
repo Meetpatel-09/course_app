@@ -68,16 +68,16 @@ class _MCQPageState extends State<MCQPage> {
             content: const Text("Do you want to quit exam?"),
             actions: [
               TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
-                  },
-                  child: const Text("Yes")),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);
+                },
+                child: const Text("Yes")),
               TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("No")),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("No")),
             ],
           )
         );

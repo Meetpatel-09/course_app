@@ -14,23 +14,23 @@ class CategoryWidget extends StatefulWidget {
 }
 
 class _CategoryWidgetState extends State<CategoryWidget> {
-  late List<Result> _coursesList;
-  late List<Subject> _subjectList;
+  late List<Result> _coursesList; // to store all the data from from home API
+  late List<Subject> _subjectList; // to store the all subject details for the selected category
   bool _isLoading = true;
-  List<bool> isSelected = [];
+  List<bool> isSelected = []; // list of boolean for toggle button
   List<Widget> toggleButton = [];
-  late int catIndex;
+  late int catIndex; // to store the index of category which is selected
 
   @override
   void initState() {
     super.initState();
     APIServices.getCourses().then((courses) {
       if (courses.toString().isNotEmpty) {
-        _coursesList = courses.result!;
-        _subjectList = _coursesList[0].subject!;
-        catIndex = 0;
-        for (int i = 0; i < _coursesList.length; i++) {
-          if (i == 0) {
+        _coursesList = courses.result!; // storing all the data from home API
+        _subjectList = _coursesList[0].subject!; // storing the subject details of the first (index 0) category initially
+        catIndex = 0; // initially setting the category index 0
+        for (int i = 0; i < _coursesList.length; i++) { // setting selected and not selected the toggle button
+          if (i == 0) { // keeping the first category toggle button as selected
             isSelected.add(true);
           } else {
             isSelected.add(false);
@@ -71,13 +71,13 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         fillColor: context.canvasColor,
         splashColor: context.canvasColor,
         children: toggleChild(),
-        onPressed: (int newIndex) {
+        onPressed: (int newIndex) { // when use clicks on any category toggle button we get the index of that button
           setState(() {
             for (int index = 0; index < _coursesList.length; index++) {
               if (index == newIndex) {
-                isSelected[index] = true;
-                catIndex = newIndex;
-                _subjectList = _coursesList[newIndex].subject!;
+                isSelected[index] = true; // making the clicked button as selected category
+                catIndex = newIndex; // setting the new category index
+                _subjectList = _coursesList[newIndex].subject!; // setting the subject list data as per selected category
               } else {
                 isSelected[index] = false;
               }

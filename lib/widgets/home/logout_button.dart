@@ -21,6 +21,7 @@ class _LogoutIconButtonState extends State<LogoutIconButton> {
   @override
   void initState() {
     super.initState();
+    // checking the token to verify if the user is signed
     _sharedServices.getData("token").then((value) {
       if (value != null) {
         setState(() {
@@ -28,6 +29,7 @@ class _LogoutIconButtonState extends State<LogoutIconButton> {
         });
       }
     });
+    // checking if the user have singed in/up using google
     _sharedServices.getData("isGoogle").then((value) {
       if (value != null) {
         setState(() {
@@ -41,11 +43,14 @@ class _LogoutIconButtonState extends State<LogoutIconButton> {
   Widget build(BuildContext context) {
     return isLoggedIn ? IconButton(
         onPressed: () async {
+          // removing the token
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.remove('token');
           if (isGoogle == "yes") {
+            // if yes then, calling the logout method form GoogleSignInAPI dart file previously created
             await GoogleSignInAPI.logout();
           }
+          // redirecting the use to sign in page
           Navigator.pushNamedAndRemoveUntil(
             context,
             MyRoutes.loginRoute,
@@ -55,6 +60,7 @@ class _LogoutIconButtonState extends State<LogoutIconButton> {
         icon: const Icon(Icons.logout)
     ) :  TextButton(
       onPressed: () {
+        // redirecting the use to sign in page
         Navigator.pushNamedAndRemoveUntil(
           context,
           MyRoutes.loginRoute,

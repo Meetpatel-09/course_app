@@ -1,8 +1,10 @@
 import 'package:course_app_ui/services/authentication_service.dart';
+import 'package:course_app_ui/services/google_sign_in_api.dart';
 import 'package:course_app_ui/services/shared_service.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ProfileFragment extends StatefulWidget {
@@ -229,7 +231,10 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                             ),
                           ).pOnly(left: 20),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              // method to sign out the user and redirect to Sign In Page
+                              signOut();
+                            },
                             child: "Sign Out".text.semiBold.lg.color(context.backgroundColor).make(),
                             style: ElevatedButton.styleFrom(
                               fixedSize: const Size(125, 35),
@@ -254,16 +259,48 @@ class _ProfileFragmentState extends State<ProfileFragment> {
 
   String greetingMessage(){
 
+    // getting the current time hours
     var timeNow = DateTime.now().hour;
 
-    if (timeNow < 12) {
+    if (timeNow < 12) {  // from mid-night 12:00 A.M. to to 11:59 A.M.
       return 'Good Morning';
-    } else if ((timeNow >= 12) && (timeNow <= 16)) {
+    } else if ((timeNow >= 12) && (timeNow <= 16)) { // from 12:00 P.M. to to 03:59 P.M.
       return 'Good Afternoon';
-    } else if ((timeNow > 16) && (timeNow < 20)) {
+    } else if ((timeNow > 16) && (timeNow < 20)) { // from 4:00 P.M. to to 07:59 P.M.
       return 'Good Evening';
-    } else {
+    } else { // from 08:00 P.M. to to 11:59 P.M.
       return 'Good Night';
     }
+  }
+
+  void signOut() {
+    // checking the token to verify if the user is signed
+    _sharedServices.getData("token").then((value) async {
+      if (value != null) {
+        // if yes removing the token
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.remove('token');
+        // checking if the user have singed in/up using google
+        _sharedServices.getData("isGoogle").then((google) async {
+          if (google != null) {
+            // if yes then, calling the logout method form GoogleSignInAPI dart file previously created
+            await GoogleSignInAPI.logout();
+            // redirecting the use to sign in page
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              MyRoutes.loginRoute,
+                  (route) => false,
+            );
+          } else {
+            // redirecting the use to sign in page
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              MyRoutes.loginRoute,
+                  (route) => false,
+            );
+          }
+        });
+      }
+    });
   }
 }

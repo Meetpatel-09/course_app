@@ -12,7 +12,6 @@ import 'package:course_app_ui/model/my_exam_models/my_exam_banks_model.dart';
 import 'package:course_app_ui/model/my_exam_models/my_exam_model.dart';
 import 'package:course_app_ui/model/my_exam_models/my_exam_result_model.dart';
 import 'package:course_app_ui/utils/config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class APIServices {
@@ -114,18 +113,24 @@ class APIServices {
       body: jsonEncode(model.toJson()),
     );
 
-    if (response.statusCode == 200) {
+    try {
+      if (response.statusCode == 200) {
 
-      if (response.body == '"invalid token"') {
-        return UserSettingsResponseModel(status: 422, msg: "Invalid Token");
+        if (response.body == '"invalid token"') {
+          // Have Manually set the response status as '422' when response is 'invalid token'
+          return UserSettingsResponseModel(status: 422, msg: "Invalid Token");
+        } else {
+          final UserSettingsResponseModel responseModel = userSettingsResponseModelFromJson(response.body);
+
+          return responseModel;
+        }
+
       } else {
-        final UserSettingsResponseModel responseModel = userSettingsResponseModelFromJson(response.body);
-
-        return responseModel;
+        return UserSettingsResponseModel(status: response.statusCode, msg: response.reasonPhrase);
       }
-
-    } else {
-      return UserSettingsResponseModel(status: response.statusCode, msg: response.reasonPhrase);
+    } catch (e) {
+      // Have Manually set the response status as '422' if there is an error while getting response
+      return UserSettingsResponseModel(status: 422, msg: "Error Occurred");
     }
   }
 
@@ -150,13 +155,15 @@ class APIServices {
 
           return getUserSettingsModel;
         } else {
+          // Have Manually set the response status as '422' if the response code is not 200
           return GetUserSettingsModel(status: 422, message: "Error Occurred");
         }
       } else {
         return GetUserSettingsModel(status: response.statusCode, message: response.reasonPhrase);
       }
     } catch(e) {
-      return GetUserSettingsModel(status: 422);
+      // Have Manually set the response status as '422' if there is an error while getting response
+      return GetUserSettingsModel(status: 422, message: "Error Occurred");
     }
   }
 
@@ -237,9 +244,11 @@ class APIServices {
 
         return myExam;
       } else {
+        // Have Manually set the response status as '422' if the response code is not 200
         return MyExamModel(status: 422);
       }
     } catch (e) {
+      // Have Manually set the response status as '422' if there is an error while getting response
       return MyExamModel(status: 422);
     }
   }
@@ -289,14 +298,12 @@ class APIServices {
 
         final MyExamResultModel mcqBanks = myExamResultModelFromJson(response.body);
 
-        // print("object");
-        // print(mcqBanks.summery?.totalAttempted);
-
         return mcqBanks;
       } else {
         return MyExamResultModel(status: response.statusCode);
       }
     } catch(e) {
+      // Have Manually set the response status as '422' if there is an error while getting response
       return MyExamResultModel(status: 422);
     }
   }

@@ -37,6 +37,7 @@ class SubjectList extends StatelessWidget {
                 Align(alignment: Alignment.topLeft, child: "Out Of ${subjectList[subjectIndex].totalMcqBank} MCQ Banks".text.center.color(context.cardColor.withOpacity(0.5)).make()),
               ],
             ),
+            // Start button go to MCQ banks page
             Align(alignment: Alignment.centerRight, child: StartExam(subjectID: subjectList[subjectIndex].subjectid.toString()),),
           ],
         ),

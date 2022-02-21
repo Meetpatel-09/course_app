@@ -35,8 +35,6 @@ class MCQBanksList extends StatelessWidget {
                   if (response.toString().isNotEmpty) {
                     if (response.status == 200) {
                         myExamResult = response;
-                        // print("object");
-                        // print(myExamResult.summery?.totalQuestions);
                         Navigator.pushNamed(
                             context,
                             MyRoutes.myExamMCQPageRoute,

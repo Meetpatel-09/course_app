@@ -32,15 +32,15 @@ class _StartExamState extends State<StartExam> {
                     APIServices.getMCQBank(widget.subjectID, value).then((mcqBanks) {
                       if (mcqBanks.status == 200) {
                         Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            MyRoutes.chooseMCQBankRoute,
-                            (route) => false,
-                            arguments: {
-                              'subjectList': widget.subjectList,
-                              'subjectIndex': widget.subjectIndex,
-                              'mcqBanks': mcqBanks,
-                              'subjectID': widget.subjectID
-                            }
+                          context,
+                          MyRoutes.chooseMCQBankRoute,
+                          (route) => false,
+                          arguments: {
+                            'subjectList': widget.subjectList,
+                            'subjectIndex': widget.subjectIndex,
+                            'mcqBanks': mcqBanks,
+                            'subjectID': widget.subjectID
+                          }
                         );
                       } else {
                         showDialog(
@@ -50,11 +50,11 @@ class _StartExamState extends State<StartExam> {
                               content: const Text("This is an error message!!!"),
                               actions: [
                                 TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      Navigator.pushNamed(context, MyRoutes.loginRoute);
-                                    },
-                                    child: const Text("OK")),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Navigator.pushNamed(context, MyRoutes.loginRoute);
+                                  },
+                                  child: const Text("OK")),
                               ],
                             )
                         );

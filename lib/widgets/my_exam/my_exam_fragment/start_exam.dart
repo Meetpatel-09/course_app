@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 class StartExam extends StatefulWidget {
   final String subjectID;
-  // final int? subjectIndex;
   const StartExam({Key? key, required this.subjectID}) : super(key: key);
 
   @override
@@ -36,19 +35,19 @@ class _StartExamState extends State<StartExam> {
                       );
                     } else {
                       showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text("Unknown Error"),
-                            content: const Text("This is an error message!!!"),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.pushNamed(context, MyRoutes.loginRoute);
-                                  },
-                                  child: const Text("OK")),
-                            ],
-                          )
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text("Unknown Error"),
+                          content: const Text("This is an error message!!!"),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.pushNamed(context, MyRoutes.loginRoute);
+                              },
+                              child: const Text("OK")),
+                          ],
+                        )
                       );
                     }
                   });

@@ -9,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class GoogleButton extends StatelessWidget {
   const GoogleButton({Key? key, this.isRegisterPage}) : super(key: key);
+  // this google button widget is used in both login and register page
+  // so, to check if it is pressed form form login or register page
   final bool? isRegisterPage;
 
   @override
@@ -26,9 +28,11 @@ class GoogleButton extends StatelessWidget {
         ),
         onPressed: () async {
           final user = await GoogleSignInAPI.login();
+          // when is user not found on google api
           if (user == null) {
             Fluttertoast.showToast(msg: 'Sign In Failed', toastLength: Toast.LENGTH_LONG, fontSize: 16.0);
           } else {
+            // when the button is pressed on register button
             if(isRegisterPage! == true) {
               Navigator.pushNamed(
                   context,
@@ -37,7 +41,7 @@ class GoogleButton extends StatelessWidget {
                     'email': user.email, 'isGoogle': "yes", 'name': user.displayName
                   }
               );
-            } else {
+            } else { // when the button is pressed on login button
               LoginRequestModel model = LoginRequestModel(
                 email: user.email,
                 password: 'Google',
@@ -130,6 +134,7 @@ class GoogleButton extends StatelessWidget {
     );
   }
 
+  // Storing the user token and isGoogle as 'Yes' for future reference
   Future<void> setToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('token', token);

@@ -15,7 +15,7 @@ class _ChooseMyExamMCQBankPageState extends State<ChooseMyExamMCQBankPage> {
   String subjectID = "";
   List<Result>? mcqBanks = [];
   String token = "empty";
-  bool _isloading = true;
+  bool _isLoading = true;
   final SharedServices _sharedServices = SharedServices();
 
   @override
@@ -24,12 +24,12 @@ class _ChooseMyExamMCQBankPageState extends State<ChooseMyExamMCQBankPage> {
       if (value != null) {
         setState(() {
           token = value;
-          _isloading = false;
+          _isLoading = false;
         });
       } else {
         setState(() {
           token = "empty";
-          _isloading = false;
+          _isLoading = false;
         });
       }
     });
@@ -54,7 +54,7 @@ class _ChooseMyExamMCQBankPageState extends State<ChooseMyExamMCQBankPage> {
       ),
       backgroundColor: context.canvasColor,
       body: SingleChildScrollView(
-          child: _isloading ? const Center(child: CircularProgressIndicator(),) : Padding(
+          child: _isLoading ? const Center(child: CircularProgressIndicator(),) : Padding(
             padding: const EdgeInsets.all(18.0),
             child: MCQBanks(mcqBanks: mcqBanks, subjectID: subjectID, token: token,),
           )

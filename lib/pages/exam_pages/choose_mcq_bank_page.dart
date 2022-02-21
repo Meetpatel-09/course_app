@@ -23,6 +23,7 @@ class _ChooseMCQBankPageState extends State<ChooseMCQBankPage> {
 
   @override
   void initState() {
+    // getting the token which was stored while signing up/in
     _sharedServices.getData("token").then((value) {
       if (value != null) {
         setState(() {
@@ -42,6 +43,9 @@ class _ChooseMCQBankPageState extends State<ChooseMCQBankPage> {
     subjectIndex = arg['subjectIndex'];
     mcqBanks = arg['mcqBanks'];
     subjectID = arg['subjectID'];
+
+    // when user press the back button redirecting to home page using WillPopScope
+    // done because if use comes to this page after completing exam and then tries to go back
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushNamedAndRemoveUntil(context, MyRoutes.homeRoute, (route) => false);

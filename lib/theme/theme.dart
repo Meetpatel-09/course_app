@@ -3,10 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MyTheme {
+
+  // Theme data consist of all the the theme setting throughout the application
+  // settings such as colors, font size, font style, app bar, bottom navigation bar, etc.
+
+  // Theme data for light theme.
   static ThemeData lightTheme(BuildContext context) => ThemeData(
       primarySwatch: Colors.lightBlue,
       canvasColor: const Color(0xffe8f4f8),
-      // canvasColor: creamColor,
       cardColor: black,
       primaryColor: lightBlue,
       backgroundColor: white,
@@ -27,6 +31,7 @@ class MyTheme {
       )
   );
 
+  // Theme data for light theme.
   static ThemeData darkTheme(BuildContext context) => ThemeData(
       primarySwatch: Colors.indigo,
       brightness: Brightness.dark,

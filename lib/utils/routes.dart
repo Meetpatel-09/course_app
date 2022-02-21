@@ -1,3 +1,7 @@
+
+// this file consist all the routes in the application
+// which are used to redirect the user as per requirement
+
 class MyRoutes {
   static String splashRoute = "/splash";
   static String loginRoute = "/login";
@@ -12,5 +16,4 @@ class MyRoutes {
   static String chooseMyExamMCQBankRoute = "/my_exam_choose_mcq_bank";
   static String myExamMCQPageRoute = "/my_exam_mcq_page";
   static String editProfileRoute = "/edit_profile";
-  // static String tempRoute = "/temp";
 }

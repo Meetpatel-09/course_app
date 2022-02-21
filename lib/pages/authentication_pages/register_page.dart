@@ -32,6 +32,9 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
       backgroundColor: context.canvasColor,
+      // used the 'snippet_coder_utils' package for form
+      // https://pub.dev/packages/snippet_coder_utils
+      // from more details visit the above URL.
       body: ProgressHUD(
           child: Form(key: globalFormKey, child: _registerUI(context)),
           inAsyncCall: isAPICallProcess,
@@ -179,6 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
       const SizedBox(height: 5,),
+      // using the velocity_x package have given Horizontal padding of 20 by '.px20()'
       const TermsAndConditions().px20(),
     ],
   );

@@ -14,10 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // setting the default light
       themeMode: ThemeMode.light,
       theme: MyTheme.lightTheme(context),
       darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
+      // initial route is called when the app is first launched
       initialRoute: MyRoutes.splashRoute,
       routes: {
         "/": (context) => const HomePage(),

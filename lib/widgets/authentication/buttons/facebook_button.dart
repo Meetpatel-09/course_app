@@ -1,4 +1,3 @@
-import 'package:course_app_ui/services/google_sign_in_api.dart';
 import 'package:flutter/material.dart';
 
 class FacebookButton extends StatelessWidget {
@@ -17,9 +16,7 @@ class FacebookButton extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: () async {
-          await GoogleSignInAPI.logout();
-        },
+        onPressed: () {},
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 55),
           child: Row(

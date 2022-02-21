@@ -17,12 +17,14 @@ class _MyExamMCQPageState extends State<MyExamMCQPage> {
   @override
   void initState() {
     super.initState();
+    // initializing the page controller
     controller = PageController(initialPage: 0);
   }
 
   @override
   void dispose() {
     super.dispose();
+    // disposing the page controller
     controller.dispose();
   }
 
@@ -31,7 +33,6 @@ class _MyExamMCQPageState extends State<MyExamMCQPage> {
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
     myExamResult = arg['myExamResult'];
     myExamResultList = myExamResult.result!;
-    // myExamResultList = arg['myExamResultList'];
 
     return MCQWidget(
       controller: controller,
