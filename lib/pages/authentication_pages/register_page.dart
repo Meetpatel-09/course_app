@@ -80,6 +80,10 @@ class _RegisterPageState extends State<RegisterPage> {
             (onSavedVal) {
           email = onSavedVal;
         },
+        showPrefixIcon: true,
+        prefixIconPaddingLeft: 20.0,
+        prefixIconPaddingTop: 20.0,
+        prefixIconPaddingBottom: 20.0,
         prefixIcon: const Icon(Icons.mail),
         borderFocusColor: context.cardColor,
         prefixIconColor:context.cardColor,
@@ -104,6 +108,10 @@ class _RegisterPageState extends State<RegisterPage> {
             (onSavedVal) {
           password = onSavedVal;
         },
+        showPrefixIcon: true,
+        prefixIconPaddingLeft: 20.0,
+        prefixIconPaddingTop: 20.0,
+        prefixIconPaddingBottom: 20.0,
         prefixIcon: const Icon(Icons.lock),
         borderFocusColor: context.cardColor,
         prefixIconColor:context.cardColor,
@@ -140,6 +148,10 @@ class _RegisterPageState extends State<RegisterPage> {
             (onSavedVal) {
           confirmPassword = onSavedVal;
         },
+        showPrefixIcon: true,
+        prefixIconPaddingLeft: 20.0,
+        prefixIconPaddingTop: 20.0,
+        prefixIconPaddingBottom: 20.0,
         prefixIcon: const Icon(Icons.lock),
         borderFocusColor: context.cardColor,
         prefixIconColor:context.cardColor,

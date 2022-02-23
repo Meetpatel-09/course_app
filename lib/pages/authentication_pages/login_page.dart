@@ -85,6 +85,12 @@ class _LoginPageState extends State<LoginPage> {
             (onSavedVal) {
           email = onSavedVal;
         },
+        // paddingTop: 10,
+        // paddingBottom: 10,
+        showPrefixIcon: true,
+        prefixIconPaddingLeft: 20.0,
+        prefixIconPaddingTop: 20.0,
+        prefixIconPaddingBottom: 20.0,
         prefixIcon: const Icon(Icons.person),
         borderFocusColor: context.cardColor,
         prefixIconColor: context.cardColor,
@@ -107,9 +113,13 @@ class _LoginPageState extends State<LoginPage> {
             (onSavedVal) {
           password = onSavedVal;
         },
+        showPrefixIcon: true,
+        prefixIconPaddingLeft: 20.0,
+        prefixIconPaddingTop: 20.0,
+        prefixIconPaddingBottom: 20.0,
         prefixIcon: const Icon(Icons.lock,),
-        borderFocusColor: context.cardColor,
         prefixIconColor:context.cardColor,
+        borderFocusColor: context.cardColor,
         borderColor: context.cardColor,
         textColor: context.cardColor,
         hintColor: context.cardColor.withOpacity(0.7),

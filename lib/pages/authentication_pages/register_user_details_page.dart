@@ -123,6 +123,10 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
               (onSavedVal) {
             firstName = onSavedVal;
           },
+          showPrefixIcon: true,
+          prefixIconPaddingLeft: 20.0,
+          prefixIconPaddingTop: 20.0,
+          prefixIconPaddingBottom: 20.0,
           prefixIcon: const Icon(Icons.person),
           initialValue: firstName,
           borderFocusColor: context.cardColor,
@@ -148,6 +152,10 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
               (onSavedVal) {
             lastName = onSavedVal;
           },
+          showPrefixIcon: true,
+          prefixIconPaddingLeft: 20.0,
+          prefixIconPaddingTop: 20.0,
+          prefixIconPaddingBottom: 20.0,
           prefixIcon: const Icon(Icons.person),
           initialValue: lastName,
           borderFocusColor: context.cardColor,
@@ -182,6 +190,10 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
               (onSavedVal) {
             phoneNo = onSavedVal;
           },
+          showPrefixIcon: true,
+          prefixIconPaddingLeft: 20.0,
+          prefixIconPaddingTop: 20.0,
+          prefixIconPaddingBottom: 20.0,
           prefixIcon: const Icon(Icons.phone_android),
           borderFocusColor: context.cardColor,
           prefixIconColor: context.cardColor,
@@ -206,6 +218,10 @@ class _RegisterUserDetailsState extends State<RegisterUserDetails> {
               (onSavedVal) {
             address = onSavedVal;
           },
+          showPrefixIcon: true,
+          prefixIconPaddingLeft: 20.0,
+          prefixIconPaddingTop: 20.0,
+          prefixIconPaddingBottom: 20.0,
           prefixIcon: const Icon(Icons.home),
           isMultiline: true,
           borderFocusColor: context.cardColor,
