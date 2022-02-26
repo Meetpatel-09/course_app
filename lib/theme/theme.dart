@@ -9,14 +9,14 @@ class MyTheme {
 
   // Theme data for light theme.
   static ThemeData lightTheme(BuildContext context) => ThemeData(
-      primarySwatch: Colors.lightBlue,
+      primarySwatch: Colors.blue,
       canvasColor: const Color(0xffe8f4f8),
       cardColor: black,
-      primaryColor: lightBlue,
+      primaryColor: customBlue,
       backgroundColor: white,
       fontFamily: GoogleFonts.poppins().fontFamily,
       appBarTheme: AppBarTheme(
-          backgroundColor: lightBlue,
+          backgroundColor: customBlue,
           elevation: 0.0,
           iconTheme: IconThemeData(color: white),
           titleTextStyle: TextStyle(
@@ -25,7 +25,7 @@ class MyTheme {
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
-        selectedItemColor: lightBlue,
+        selectedItemColor: customBlue,
         backgroundColor: Colors.white,
           unselectedItemColor: Colors.blueGrey
       )
@@ -56,7 +56,7 @@ class MyTheme {
   );
 
   // Colors
-  static Color lightBlue = Colors.lightBlue;
+  static Color customBlue = const Color(0xff007bff);
   static Color deepPurple = Colors.deepPurple;
   static Color blueGrey = Colors.blueGrey;
   static Color white = Colors.white;

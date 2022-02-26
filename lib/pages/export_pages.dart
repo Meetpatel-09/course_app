@@ -4,7 +4,7 @@
 export 'package:course_app_ui/pages/splash_page.dart';
 
 // Home Page
-export 'package:course_app_ui/pages/home_page/mobile/home_page.dart';
+export 'package:course_app_ui/pages/home_page/home_page.dart';
 
 // Authentication Pages
 export 'package:course_app_ui/pages/authentication_pages/login_page.dart';
