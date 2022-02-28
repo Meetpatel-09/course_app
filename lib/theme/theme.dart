@@ -56,7 +56,8 @@ class MyTheme {
   );
 
   // Colors
-  static Color customBlue = const Color(0xff007bff);
+  // static Color customBlue = const Color(0xff007bff);
+  static Color customBlue = Colors.lightBlue;
   static Color deepPurple = Colors.deepPurple;
   static Color blueGrey = Colors.blueGrey;
   static Color white = Colors.white;

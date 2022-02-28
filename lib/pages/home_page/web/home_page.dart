@@ -1,6 +1,8 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/widgets/home/search_bar.dart';
+import 'package:course_app_ui/widgets/home/web/mid_section.dart';
+import 'package:course_app_ui/widgets/home/web/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -25,6 +27,20 @@ class _HomePageState extends State<HomePage> {
       }
     });
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return SafeArea(
+  //       child: Scaffold(
+  //         body: Column(
+  //           children: [
+  //             CustomNavigationBar(coursesList: _coursesList),
+  //             const MidSection(),
+  //           ],
+  //         ),
+  //       )
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -66,56 +82,59 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          // mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(
-              height: 250,
-              width: 500,
-              child: Center(
-                child: SearchBar(),
-              ),
-            ),
-            Divider(
-              // thickness: 5, // thickness of the line
-              indent: 20, // empty space to the leading edge of divider.
-              endIndent: 20, // empty space to the trailing edge of the divider.
-              color: Colors.black.withOpacity(0.3), // The color to use when painting the line.
-              height: 1, // The divider's height extent.
-            ),
             Container(
-              decoration: BoxDecoration(
-                  color: context.backgroundColor,
-                  borderRadius: BorderRadius.circular(28.0)
+              color: context.backgroundColor,
+              constraints: const BoxConstraints(
+                maxWidth: 1500
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Image.asset("assets/images/download_from_google_play.png", fit: BoxFit.contain, width: 200,),
-                        const SizedBox(height: 30,),
-                        Row(
-                          children: [
-                            Image.asset("assets/images/ss1.png", fit: BoxFit.cover, width: 200,),
-                            const SizedBox(width: 20,),
-                            Image.asset("assets/images/ss4.png", fit: BoxFit.contain, width: 200,),
-                            const SizedBox(width: 20,),
-                            Image.asset("assets/images/ss5.png", fit: BoxFit.contain, width: 200,),
-                            const SizedBox(width: 20,),
-                            Image.asset("assets/images/ss3.png", fit: BoxFit.contain, width: 200,),
-                            const SizedBox(width: 20,),
-                          ],
-                        )
-                      ],
+                  const SizedBox(
+                    height: 250,
+                    width: 500,
+                    child: Center(
+                      child: SearchBar(),
                     ),
                   ),
-                  Center(child: Image.asset("assets/images/google_ads.png", fit: BoxFit.contain, width: 500,))
+                  Divider(
+                    // thickness: 5, // thickness of the line
+                    indent: 20, // empty space to the leading edge of divider.
+                    endIndent: 20, // empty space to the trailing edge of the divider.
+                    color: Colors.black.withOpacity(0.3), // The color to use when painting the line.
+                    height: 1, // The divider's height extent.
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            Image.asset("assets/images/download_from_google_play.png", fit: BoxFit.contain, width: 200,),
+                            const SizedBox(height: 30,),
+                            Row(
+                              children: [
+                                Image.asset("assets/images/ss1.png", fit: BoxFit.cover, width: 200,),
+                                const SizedBox(width: 20,),
+                                Image.asset("assets/images/ss4.png", fit: BoxFit.contain, width: 200,),
+                                const SizedBox(width: 20,),
+                                Image.asset("assets/images/ss5.png", fit: BoxFit.contain, width: 200,),
+                                const SizedBox(width: 20,),
+                                Image.asset("assets/images/ss3.png", fit: BoxFit.contain, width: 200,),
+                                const SizedBox(width: 20,),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Center(child: Image.asset("assets/images/google_ads.png", fit: BoxFit.contain, width: 500,))
+                    ],
+                  ).p16(),
                 ],
               ),
-            ).p16(),
+            ).centered(),
             Container(
               color: context.primaryColor,
               height: 60,
@@ -124,7 +143,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ],
-        ).centered(),
+        ),
       ),
     );
   }
