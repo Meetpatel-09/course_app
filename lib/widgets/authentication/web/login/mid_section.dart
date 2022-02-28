@@ -27,21 +27,21 @@ class _MidSectionState extends State<MidSection> {
 
   @override
   Widget build(BuildContext context) {
-    // used the 'snippet_coder_utils' package for form
-    // https://pub.dev/packages/snippet_coder_utils
-    // from more details visit the above URL.
     return Container(
       constraints: BoxConstraints(
           maxWidth: 1500,
           minHeight: MediaQuery.of(context).size.height - 125
       ),
       color: context.backgroundColor,
+      // used the 'snippet_coder_utils' package for form
+      // https://pub.dev/packages/snippet_coder_utils
+      // from more details visit the above URL.
       child: ProgressHUD(
-          child: Form(key: globalFormKey, child: _loginUI(context)),
-          inAsyncCall: isAPICallProcess,
-          opacity: 0.3,
-          key: UniqueKey(),
-        ),
+        child: Form(key: globalFormKey, child: _loginUI(context)),
+        inAsyncCall: isAPICallProcess,
+        opacity: 0.3,
+        key: UniqueKey(),
+      ),
     );
   }
 
@@ -53,7 +53,7 @@ class _MidSectionState extends State<MidSection> {
         children: [
           // const LogoWidget(),
           const SizedBox(height: 25,),
-          Align(child: "Log In".text.semiBold.xl5.make()),
+          Align(child: "Log In".text.semiBold.xl5.color(context.primaryColor).make()),
           const SizedBox(height: 30,),
           formFields(),
           const SizedBox(height: 25,),

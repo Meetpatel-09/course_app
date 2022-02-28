@@ -58,7 +58,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                         child: "Log In".text.xl.color(context.backgroundColor).make()
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, MyRoutes.registerRoute);
+                        },
                         child: "Register".text.xl.color(context.backgroundColor).make()
                     )
                   ],
