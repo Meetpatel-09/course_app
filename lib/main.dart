@@ -1,7 +1,5 @@
+
 import 'package:course_app_ui/pages/export_pages.dart';
-import 'package:course_app_ui/pages/home_page/mobile/home_page.dart' as mobile;
-import 'package:course_app_ui/pages/home_page/web/home_page.dart' as web;
-import 'package:course_app_ui/pages/my_profile_pages/edit_profile_page.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -26,10 +24,10 @@ class MyApp extends StatelessWidget {
       // initial route is called when the app is first launched
       initialRoute: MyRoutes.splashRoute,
       routes: {
-        "/": (context) => const HomePage(mobileScreenLayout: mobile.HomePage(), webScreenLayout: web.HomePage()),
+        "/": (context) => const HomePage(mobileScreenLayout: HomePageMobile(), webScreenLayout: HomePageWeb()),
         MyRoutes.splashRoute: (context) => const SplashPage(),
-        MyRoutes.homeRoute: (context) => const HomePage(mobileScreenLayout: mobile.HomePage(), webScreenLayout: web.HomePage()),
-        MyRoutes.loginRoute: (context) => const LoginPage(),
+        MyRoutes.homeRoute: (context) => const HomePage(mobileScreenLayout: HomePageMobile(), webScreenLayout: HomePageWeb()),
+        MyRoutes.loginRoute: (context) => const LogInPage(mobileScreenLayout: LogInPageMobile(), webScreenLayout: LogInPageWeb()),
         MyRoutes.registerRoute: (context) => const RegisterPage(),
         MyRoutes.registerDetailsRoute: (context) => const RegisterUserDetails(),
         MyRoutes.otpVerificationRoute: (context) => const OTPVerificationPage(),

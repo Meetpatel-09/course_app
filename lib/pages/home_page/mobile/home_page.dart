@@ -5,14 +5,14 @@ import 'package:course_app_ui/pages/home_page/mobile/fragments/profile_fragment.
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePageMobile extends StatefulWidget {
+  const HomePageMobile({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageMobileState createState() => _HomePageMobileState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageMobileState extends State<HomePageMobile> {
 
   // index of fragments initialized by the value '0' so when app is first launched it is home fragment
   int currentIndex = 0;

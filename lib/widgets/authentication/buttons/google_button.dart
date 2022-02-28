@@ -106,7 +106,7 @@ class GoogleButton extends StatelessWidget {
           }
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 65),
+          padding: const EdgeInsets.symmetric(horizontal: 65, vertical: 10),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
