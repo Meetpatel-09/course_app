@@ -1,7 +1,5 @@
-
-import 'package:course_app_ui/pages/authentication_pages/mobile/register_page.dart';
-import 'package:course_app_ui/pages/authentication_pages/web/register_page.dart';
 import 'package:course_app_ui/pages/export_pages.dart';
+import 'package:course_app_ui/pages/temp_page.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +22,14 @@ class MyApp extends StatelessWidget {
       darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
       // initial route is called when the app is first launched
-      initialRoute: MyRoutes.splashRoute,
+      initialRoute: MyRoutes.temp,
       routes: {
         "/": (context) => const HomePage(mobileScreenLayout: HomePageMobile(), webScreenLayout: HomePageWeb()),
         MyRoutes.splashRoute: (context) => const SplashPage(),
         MyRoutes.homeRoute: (context) => const HomePage(mobileScreenLayout: HomePageMobile(), webScreenLayout: HomePageWeb()),
         MyRoutes.loginRoute: (context) => const LogInPage(mobileScreenLayout: LogInPageMobile(), webScreenLayout: LogInPageWeb()),
         MyRoutes.registerRoute: (context) => const RegisterPage(mobileScreenLayout: RegisterPageMobile(), webScreenLayout: RegisterPageWeb()),
-        MyRoutes.registerDetailsRoute: (context) => const RegisterUserDetails(),
+        MyRoutes.registerDetailsRoute: (context) => const RegisterUserDetailsPage(mobileScreenLayout: RegisterUserDetailsMobile(), webScreenLayout: RegisterUserDetailsWeb()),
         MyRoutes.otpVerificationRoute: (context) => const OTPVerificationPage(),
         MyRoutes.chooseMCQBankRoute: (context) => const ChooseMCQBankPage(),
         MyRoutes.userMCQSettingsRoute: (context) => const UserMCQSettingsPage(),
@@ -40,6 +38,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.chooseMyExamMCQBankRoute: (context) => const ChooseMyExamMCQBankPage(),
         MyRoutes.myExamMCQPageRoute: (context) => const MyExamMCQPage(),
         MyRoutes.editProfileRoute: (context) => const EditProfilePage(),
+        MyRoutes.temp: (context) => const TempPage(),
       },
     );
   }

@@ -16,4 +16,5 @@ class MyRoutes {
   static String chooseMyExamMCQBankRoute = "/my_exam_choose_mcq_bank";
   static String myExamMCQPageRoute = "/my_exam_mcq_page";
   static String editProfileRoute = "/edit_profile";
+  static String temp = "/temp";
 }

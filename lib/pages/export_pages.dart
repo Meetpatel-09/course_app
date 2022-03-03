@@ -13,7 +13,11 @@ export 'package:course_app_ui/pages/authentication_pages/login_page.dart';
 export 'package:course_app_ui/pages/authentication_pages/mobile/login_page.dart';
 export 'package:course_app_ui/pages/authentication_pages/web/login_page.dart';
 export 'package:course_app_ui/pages/authentication_pages/register_page.dart';
+export 'package:course_app_ui/pages/authentication_pages/mobile/register_page.dart';
+export 'package:course_app_ui/pages/authentication_pages/web/register_page.dart';
 export 'package:course_app_ui/pages/authentication_pages/register_user_details_page.dart';
+export 'package:course_app_ui/pages/authentication_pages/mobile/register_user_details_page.dart';
+export 'package:course_app_ui/pages/authentication_pages/web/register_user_details_page.dart';
 export 'package:course_app_ui/pages/authentication_pages/otp_verification_page.dart';
 
 // Exam Pages
