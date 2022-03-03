@@ -1,10 +1,9 @@
+import 'package:course_app_ui/pages/export_pages.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 class LogInPage extends StatelessWidget {
-  final Widget mobileScreenLayout;
-  final Widget webScreenLayout;
-  const LogInPage({Key? key, required this.mobileScreenLayout, required this.webScreenLayout}) : super(key: key);
+  const LogInPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +11,10 @@ class LogInPage extends StatelessWidget {
       builder: (context, constraints) {
         if (kIsWeb) {
           // Web SCREEN
-          return webScreenLayout;
+          return const LogInPageWeb();
         } else {
           // Mobile Screen
-          return mobileScreenLayout;
+          return const LogInPageMobile();
         }
       },
     );

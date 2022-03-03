@@ -24,12 +24,12 @@ class MyApp extends StatelessWidget {
       // initial route is called when the app is first launched
       initialRoute: MyRoutes.temp,
       routes: {
-        "/": (context) => const HomePage(mobileScreenLayout: HomePageMobile(), webScreenLayout: HomePageWeb()),
+        "/": (context) => const HomePage(),
         MyRoutes.splashRoute: (context) => const SplashPage(),
-        MyRoutes.homeRoute: (context) => const HomePage(mobileScreenLayout: HomePageMobile(), webScreenLayout: HomePageWeb()),
-        MyRoutes.loginRoute: (context) => const LogInPage(mobileScreenLayout: LogInPageMobile(), webScreenLayout: LogInPageWeb()),
-        MyRoutes.registerRoute: (context) => const RegisterPage(mobileScreenLayout: RegisterPageMobile(), webScreenLayout: RegisterPageWeb()),
-        MyRoutes.registerDetailsRoute: (context) => const RegisterUserDetailsPage(mobileScreenLayout: RegisterUserDetailsMobile(), webScreenLayout: RegisterUserDetailsWeb()),
+        MyRoutes.homeRoute: (context) => const HomePage(),
+        MyRoutes.loginRoute: (context) => const LogInPage(),
+        MyRoutes.registerRoute: (context) => const RegisterPage(),
+        MyRoutes.registerDetailsRoute: (context) => const RegisterUserDetailsPage(),
         MyRoutes.otpVerificationRoute: (context) => const OTPVerificationPage(),
         MyRoutes.chooseMCQBankRoute: (context) => const ChooseMCQBankPage(),
         MyRoutes.userMCQSettingsRoute: (context) => const UserMCQSettingsPage(),

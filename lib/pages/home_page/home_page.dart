@@ -1,10 +1,10 @@
+import 'package:course_app_ui/pages/home_page/mobile/home_page.dart';
+import 'package:course_app_ui/pages/home_page/web/home_page.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  final Widget mobileScreenLayout;
-  final Widget webScreenLayout;
-  const HomePage({Key? key, required this.mobileScreenLayout, required this.webScreenLayout}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +12,10 @@ class HomePage extends StatelessWidget {
         builder: (context, constraints) {
           if (kIsWeb) {
             // Web SCREEN
-            return webScreenLayout;
+            return const HomePageWeb();
           } else {
             // Mobile Screen
-            return mobileScreenLayout;
+            return const HomePageMobile();
           }
         },
     );

@@ -1,10 +1,10 @@
+import 'package:course_app_ui/pages/authentication_pages/mobile/register_page.dart';
+import 'package:course_app_ui/pages/authentication_pages/web/register_page.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget{
-  final Widget mobileScreenLayout;
-  final Widget webScreenLayout;
-  const RegisterPage({Key? key, required this.mobileScreenLayout, required this.webScreenLayout}) : super(key: key);
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +12,10 @@ class RegisterPage extends StatelessWidget{
       builder: (context, constraints) {
         if (kIsWeb) {
           // Web SCREEN
-          return webScreenLayout;
+          return const RegisterPageWeb();
         } else {
           // Mobile Screen
-          return mobileScreenLayout;
+          return const RegisterPageMobile();
         }
       },
     );
