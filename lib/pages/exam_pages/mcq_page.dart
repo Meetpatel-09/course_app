@@ -29,7 +29,6 @@ class _MCQPageState extends State<MCQPage> {
   @override
   void initState() {
     controller = PageController(initialPage: 0);
-    // TODO: implement initState
     super.initState();
   }
 

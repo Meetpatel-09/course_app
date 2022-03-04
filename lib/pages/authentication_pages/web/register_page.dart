@@ -1,5 +1,3 @@
-import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
-import 'package:course_app_ui/widgets/web/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:course_app_ui/widgets/authentication/web/register/mid_section.dart';
@@ -9,16 +7,8 @@ class RegisterPageWeb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: const [
-            CustomNavigationBar(),
-            MidSection(),
-            BottomNavigation(),
-          ],
-        ),
-      ),
+    return const Scaffold(
+      body: MidSection(),
     );
   }
 }

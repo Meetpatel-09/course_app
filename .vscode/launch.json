@@ -14,7 +14,8 @@
                "name": "course_app_ui (profile mode)",
                "request": "launch",
                "type": "dart",
-               "flutterMode": "profile"
+               "flutterMode": "profile",
+               "args": ["--web-port", "5000"]
           }
      ]
 }

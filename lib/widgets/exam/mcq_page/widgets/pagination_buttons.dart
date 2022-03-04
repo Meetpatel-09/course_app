@@ -26,7 +26,6 @@ class _PaginationButtonsState extends State<PaginationButtons> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     for (int i = 0; i < widget.mcqQuestions.length; i++) {
       if (i == widget.questionIndex) {

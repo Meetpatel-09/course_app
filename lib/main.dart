@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
       // initial route is called when the app is first launched
-      initialRoute: MyRoutes.temp,
+      initialRoute: MyRoutes.splashRoute,
       routes: {
         "/": (context) => const HomePage(),
         MyRoutes.splashRoute: (context) => const SplashPage(),
