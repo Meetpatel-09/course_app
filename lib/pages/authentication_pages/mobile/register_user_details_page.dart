@@ -17,7 +17,11 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterUserDetailsMobile extends StatefulWidget {
-  const RegisterUserDetailsMobile({Key? key}) : super(key: key);
+  final String email;
+  final String password;
+  final String isGoogle;
+  final String? name;
+  const RegisterUserDetailsMobile({Key? key, required this.email, required this.password, required this.isGoogle, this.name}) : super(key: key);
 
   @override
   _RegisterUserDetailsMobileState createState() => _RegisterUserDetailsMobileState();
@@ -29,10 +33,6 @@ class _RegisterUserDetailsMobileState extends State<RegisterUserDetailsMobile> {
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   String firstName = "";
   String lastName = "";
-  String? email;
-  String? password;
-  String isGoogle = "no";
-  String name = "";
   List<String> fullName = [];
   String? phoneNo;
   String? address;
@@ -40,17 +40,10 @@ class _RegisterUserDetailsMobileState extends State<RegisterUserDetailsMobile> {
 
   @override
   Widget build(BuildContext context) {
-    // Getting the arguments send from the registration page and/or google button on registration page
-    final arg = ModalRoute.of(context)!.settings.arguments as Map;
-    email = arg['email'];
-    password = arg['password'];
     // Checking is user has registered with Google
-    if (arg['isGoogle'] != null) {
-      isGoogle = arg['isGoogle'];
-      // Getting the name
-      name = arg['name'];
+    if (widget.isGoogle == "yes") {
       // Google gives us full name of user e.g. Rohit Sharma so splitting the name
-      fullName = name.split(" ");
+      fullName = widget.name!.split(" ");
       // Setting the user name to variables
       firstName = fullName[0];
       lastName = fullName[1];
@@ -241,10 +234,10 @@ class _RegisterUserDetailsMobileState extends State<RegisterUserDetailsMobile> {
                 isAPICallProcess = true;
               });
               dio.FormData formData;
-              if (isGoogle == "yes") {
+              if (widget.isGoogle == "yes") {
                 formData = dio.FormData.fromMap({
                   "full_name": firstName + " " + lastName,
-                  "email": email,
+                  "email": widget.email,
                   "mobile_no": phoneNo,
                   "address": address,
                   "user_role": 'user',
@@ -280,9 +273,9 @@ class _RegisterUserDetailsMobileState extends State<RegisterUserDetailsMobile> {
               } else {
                 formData = dio.FormData.fromMap({
                   "full_name": firstName + " " + lastName,
-                  "email": email,
+                  "email": widget.email,
                   "mobile_no": phoneNo,
-                  "password": password,
+                  "password": widget.password,
                   "address": address,
                   "user_role": 'user',
                   "profile": await dio.MultipartFile.fromFile(image!.path,
@@ -300,7 +293,7 @@ class _RegisterUserDetailsMobileState extends State<RegisterUserDetailsMobile> {
                         MyRoutes.otpVerificationRoute,
                             (route) => false,
                         arguments: {
-                          'email': email,
+                          'email': widget.email,
                         }
                     );
                   } else {

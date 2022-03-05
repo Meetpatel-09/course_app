@@ -8,10 +8,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GoogleButton extends StatelessWidget {
-  const GoogleButton({Key? key, this.isRegisterPage}) : super(key: key);
+  const GoogleButton({Key? key, required this.isRegisterPage}) : super(key: key);
   // this google button widget is used in both login and register page
   // so, to check if it is pressed form form login or register page
-  final bool? isRegisterPage;
+  final bool isRegisterPage;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class GoogleButton extends StatelessWidget {
             Fluttertoast.showToast(msg: 'Sign In Failed', toastLength: Toast.LENGTH_LONG, fontSize: 16.0);
           } else {
             // when the button is pressed on register button
-            if(isRegisterPage! == true) {
+            if(isRegisterPage == true) {
               Navigator.pushNamed(
                   context,
                   MyRoutes.registerDetailsRoute,
