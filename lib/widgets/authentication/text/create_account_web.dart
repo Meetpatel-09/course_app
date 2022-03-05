@@ -10,7 +10,7 @@ class CreateAccountWeb extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           'Welcome to Course App'.text.bold.size(30).color(context.cardColor).make(),
-          'Register Your account'.text.lg.color(context.cardColor.withOpacity(0.7)).make()
+          'Register Your Account'.text.lg.color(context.cardColor.withOpacity(0.7)).make()
         ]
     );
   }

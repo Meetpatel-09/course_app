@@ -14,11 +14,11 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterUserDetailsWeb extends StatefulWidget {
-  final String email;
-  final String password;
-  final String isGoogle;
+  final String? email;
+  final String? password;
+  final String? isGoogle;
   final String? name;
-  const RegisterUserDetailsWeb({Key? key, required this.email, required this.password, required this.isGoogle, this.name}) : super(key: key);
+  const RegisterUserDetailsWeb({Key? key,  this.email,  this.password,  this.isGoogle, this.name}) : super(key: key);
 
   @override
   State<RegisterUserDetailsWeb> createState() => _RegisterUserDetailsWebState();
@@ -158,6 +158,13 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              'Your Profile'.text.bold.size(30).color(context.cardColor).make(),
+              'Complete Your Profile to Continue'.text.lg.color(context.cardColor.withOpacity(0.7)).make()
+            ]
+          ),
           const SizedBox(height: 30,),
           formFields(),
           const SizedBox(height: 5,),
@@ -188,75 +195,85 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
         // Align(child: "Profile Picture".text.lg.center.make()),
         const SizedBox(height: 30,),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 4.7,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  "First Name".text.xl2.semiBold.color(context.cardColor.withOpacity(0.9)).make(),
+                  const SizedBox(height: 10),
+                  FormHelper.inputFieldWidget(
+                      context,
+                      "f_name",
+                      "First Name",
+                          (onValidateVal) {
+                        if (onValidateVal.isEmpty) {
+                          return "First Name cannot be empty.";
+                        }
+                        return null;
+                      },
+                          (onSavedVal) {
+                        firstName = onSavedVal;
+                      },
+                      showPrefixIcon: true,
+                      prefixIconPaddingLeft: 20.0,
+                      prefixIconPaddingTop: 20.0,
+                      prefixIconPaddingBottom: 20.0,
+                      prefixIcon: const Icon(Icons.person),
+                      initialValue: firstName,
+                      borderFocusColor: context.cardColor,
+                      prefixIconColor: context.cardColor,
+                      borderColor: context.cardColor,
+                      textColor: context.cardColor,
+                      hintColor: context.cardColor.withOpacity(0.7),
+                      borderRadius: 10,
+                      paddingLeft: 0.0,
+                      paddingRight: 0.0
+                  ),
+                ],
+              ),
+            ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                "First Name".text.xl2.semiBold.color(context.cardColor.withOpacity(0.9)).make(),
+                "Last Name".text.xl2.semiBold.color(context.cardColor.withOpacity(0.9)).make(),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 4.7,
+                  child: FormHelper.inputFieldWidget(
+                      context,
+                      "l_name",
+                      "Last Name",
+                          (onValidateVal) {
+                        if (onValidateVal.isEmpty) {
+                          return "Last Name cannot be empty.";
+                        }
+                        return null;
+                      },
+                          (onSavedVal) {
+                        lastName = onSavedVal;
+                      },
+                      showPrefixIcon: true,
+                      prefixIconPaddingLeft: 20.0,
+                      prefixIconPaddingTop: 20.0,
+                      prefixIconPaddingBottom: 20.0,
+                      prefixIcon: const Icon(Icons.person),
+                      initialValue: lastName,
+                      borderFocusColor: context.cardColor,
+                      prefixIconColor: context.cardColor,
+                      borderColor: context.cardColor,
+                      textColor: context.cardColor,
+                      hintColor: context.cardColor.withOpacity(0.7),
+                      borderRadius: 10,
+                      paddingLeft: 0.0,
+                      paddingRight: 0.0
+                  ),
+                ),
               ],
             )
           ],
-        ),
-        const SizedBox(height: 10),
-        FormHelper.inputFieldWidget(
-          context,
-          "f_name",
-          "First Name",
-              (onValidateVal) {
-            if (onValidateVal.isEmpty) {
-              return "First Name cannot be empty.";
-            }
-            return null;
-          },
-              (onSavedVal) {
-            firstName = onSavedVal;
-          },
-          showPrefixIcon: true,
-          prefixIconPaddingLeft: 20.0,
-          prefixIconPaddingTop: 20.0,
-          prefixIconPaddingBottom: 20.0,
-          prefixIcon: const Icon(Icons.person),
-          initialValue: firstName,
-          borderFocusColor: context.cardColor,
-          prefixIconColor: context.cardColor,
-          borderColor: context.cardColor,
-          textColor: context.cardColor,
-          hintColor: context.cardColor.withOpacity(0.7),
-          borderRadius: 10,
-          paddingLeft: 0.0,
-          paddingRight: 0.0
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        "Last Name".text.xl2.semiBold.color(context.cardColor.withOpacity(0.9)).make(),
-        const SizedBox(height: 10),
-        FormHelper.inputFieldWidget(
-          context,
-          "l_name",
-          "Last Name",
-              (onValidateVal) {
-            if (onValidateVal.isEmpty) {
-              return "Last Name cannot be empty.";
-            }
-            return null;
-          },
-              (onSavedVal) {
-            lastName = onSavedVal;
-          },
-          showPrefixIcon: true,
-          prefixIconPaddingLeft: 20.0,
-          prefixIconPaddingTop: 20.0,
-          prefixIconPaddingBottom: 20.0,
-          prefixIcon: const Icon(Icons.person),
-          initialValue: lastName,
-          borderFocusColor: context.cardColor,
-          prefixIconColor: context.cardColor,
-          borderColor: context.cardColor,
-          textColor: context.cardColor,
-          hintColor: context.cardColor.withOpacity(0.7),
-          borderRadius: 10,
-          paddingLeft: 0.0,
-          paddingRight: 0.0
         ),
         const SizedBox(
           height: 15,
