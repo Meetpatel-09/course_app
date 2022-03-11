@@ -80,7 +80,7 @@ class _RegisterPageWebState extends State<RegisterPageWeb> {
                 ),
                 child: TextButton(
                   onPressed: () {
-
+                    Navigator.pushNamed(context, MyRoutes.loginRoute);
                   },
                   child: "Sign In".text.semiBold.color(context.cardColor.withOpacity(0.5)).make(),
                   style: TextButton.styleFrom(

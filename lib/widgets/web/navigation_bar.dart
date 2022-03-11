@@ -42,10 +42,14 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               children: [
                 Row(
                   children: [
+                    TextButton(
+                        onPressed: () {},
+                        child: "Home".text.make()
+                    ),
                     for (int i = 0; i < _coursesList.length; i++)
                       TextButton(
                           onPressed: () {},
-                          child: _coursesList[i].category.toString().text.xl2.semiBold.color(context.backgroundColor).make()
+                          child: _coursesList[i].category.toString().text.xl.semiBold.color(context.backgroundColor).make()
                       ),
                   ],
                 ),

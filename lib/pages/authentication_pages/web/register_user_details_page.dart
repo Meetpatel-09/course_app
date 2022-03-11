@@ -1,24 +1,21 @@
-import 'dart:io';
-import 'package:course_app_ui/services/authentication_service.dart';
-import 'package:course_app_ui/services/google_sign_in_api.dart';
+import 'package:course_app_ui/services/api_service_web.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 
 class RegisterUserDetailsWeb extends StatefulWidget {
-  final String? email;
-  final String? password;
-  final String? isGoogle;
+  final String email;
+  final String password;
+  final String isGoogle;
   final String? name;
-  const RegisterUserDetailsWeb({Key? key,  this.email,  this.password,  this.isGoogle, this.name}) : super(key: key);
+  const RegisterUserDetailsWeb({Key? key, required this.email, required this.password, required this.isGoogle, this.name}) : super(key: key);
 
   @override
   State<RegisterUserDetailsWeb> createState() => _RegisterUserDetailsWebState();
@@ -33,7 +30,9 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
   List<String> fullName = [];
   String? phoneNo;
   String? address;
-  File? image;
+  late PlatformFile _file;
+  // File? image;
+  bool imageSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +69,7 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
           children: [
             Image.asset("assets/images/logo.png", width: 40),
             const SizedBox(width: 10,),
-            Config().appName.text.xl3 .semiBold.color(context.primaryColor).make()
+            Config().appName.text.xl3.semiBold.color(context.primaryColor).make()
           ],
         ),
         Row(
@@ -89,7 +88,7 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
                 ),
                 child: TextButton(
                   onPressed: () {
-
+                    Navigator.pushNamed(context, MyRoutes.loginRoute);
                   },
                   child: "Sign In".text.semiBold.color(context.cardColor.withOpacity(0.5)).make(),
                   style: TextButton.styleFrom(
@@ -107,6 +106,7 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
 
   Widget midSection() {
     return Container(
+      height: MediaQuery.of(context).size.height,
       padding: EdgeInsets.only(
         left: MediaQuery.of(context).size.width / 2,
         right: MediaQuery.of(context).size.width / 15,
@@ -181,7 +181,7 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
           child: Stack(
             children: [
               // checking if user use has selected an image from gallery
-              image != null ? userImage() : buildImage(),
+              imageSelected ? userImage() : buildImage(),
               // positioning the add image icon
               Positioned(
                   bottom: 0,
@@ -358,29 +358,30 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
             setState(() {
               isAPICallProcess = true;
             });
-            dio.FormData formData;
             if (widget.isGoogle == "yes") {
-              formData = dio.FormData.fromMap({
-                "full_name": firstName + " " + lastName,
-                "email": widget.email,
-                "mobile_no": phoneNo,
-                "address": address,
-                "user_role": 'user',
-                "profile": await dio.MultipartFile.fromFile(image!.path,
-                    filename: image!.path.split('/').last),
-              });
 
-              AuthService.googleRegister(formData).then((response) async {
+              await APIServicesWeb.registerNew(
+                firstName + lastName,
+                widget.email,
+                phoneNo!,
+                'password',
+                address!,
+                'user',
+                'Google',
+                _file.bytes,
+                _file.name,
+              ).then((response) async {
                 setState(() {
                   isAPICallProcess = false;
                 });
                 if(response.status == 200) {
-                  String token = response.token.toString();
-                  setToken(token);
                   Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    MyRoutes.homeRoute,
-                        (route) => false,
+                      context,
+                      MyRoutes.otpVerificationRoute,
+                          (route) => false,
+                      arguments: {
+                        'email': widget.email,
+                      }
                   );
                 } else {
                   FormHelper.showSimpleAlertDialog(
@@ -390,25 +391,23 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
                     "OK",
                         () {
                       Navigator.pop(context);
-                      GoogleSignInAPI.logout();
                     },
                   );
                 }
               });
             } else {
-              formData = dio.FormData.fromMap({
-                "full_name": firstName + " " + lastName,
-                "email": widget.email,
-                "mobile_no": phoneNo,
-                "password": widget.password,
-                "address": address,
-                "user_role": 'user',
-                "profile": await dio.MultipartFile.fromFile(image!.path,
-                    filename: image!.path.split('/').last),
-                "provider": 'VPSMCQ'
-              });
 
-              AuthService.register(formData).then((response) async {
+              await APIServicesWeb.registerNew(
+                firstName + lastName,
+                widget.email,
+                phoneNo!,
+                widget.password,
+                address!,
+                'user',
+                'VPSMCQ',
+                _file.bytes,
+                _file.name,
+              ).then((response) async {
                 setState(() {
                   isAPICallProcess = false;
                 });
@@ -453,7 +452,7 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
       child: Material(
         color: Colors.transparent,
         child: Ink.image(
-          image: NetworkImage(image!.path),
+          image: MemoryImage(_file.bytes!),
           fit: BoxFit.cover,
           width: 140,
           height: 140,
@@ -462,7 +461,6 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
       ),
     );
   }
-
 
   // the default image when the page is first loaded. when the user has not select an image
   Widget buildImage() {
@@ -512,17 +510,14 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
   // Getting the profile picture of the user
   Future pickImage() async {
     try {
+      final result = await FilePicker.platform.pickFiles();
 
-      // to pick image have use package:image_picker/image_picker.dart package
-      // for more details visit https://pub.dev/packages/image_picker
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (result == null) return;
 
-      if(image == null) return;
-
-      // Images stored in chase memory temporary
-      final imageTemporary = File(image.path);
-      // print(image.saveTo("assets/images/"));
-      setState(() => this.image = imageTemporary);
+      setState(() {
+        _file = result.files.first;
+        imageSelected = true;
+      });
 
     } catch(e) {
       FormHelper.showSimpleAlertDialog(
@@ -539,7 +534,7 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
   // Validating the fields of the form
   bool validateAndSave() {
     final form = globalFormKey.currentState;
-    if (image == null) {
+    if (!imageSelected) {
       FormHelper.showSimpleAlertDialog(
         context,
         Config().appName,
