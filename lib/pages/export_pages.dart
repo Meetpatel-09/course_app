@@ -19,6 +19,8 @@ export 'package:course_app_ui/pages/authentication_pages/register_user_details_p
 export 'package:course_app_ui/pages/authentication_pages/mobile/register_user_details_page.dart';
 export 'package:course_app_ui/pages/authentication_pages/web/register_user_details_page.dart';
 export 'package:course_app_ui/pages/authentication_pages/otp_verification_page.dart';
+export 'package:course_app_ui/pages/authentication_pages/mobile/otp_verification_page.dart';
+export 'package:course_app_ui/pages/authentication_pages/web/otp_verification_page.dart';
 
 // Exam Pages
 export 'package:course_app_ui/pages/exam_pages/user_mcq_settings_page.dart';
