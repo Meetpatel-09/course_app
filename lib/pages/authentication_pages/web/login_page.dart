@@ -285,6 +285,7 @@ class _LogInPageWebState extends State<LogInPageWeb> {
               });
               if (response.status == 200) {
                 String token = response.token.toString();
+                print(token);
                 setToken(token);
                 Navigator.pushNamedAndRemoveUntil(
                     context,

@@ -8,6 +8,8 @@ export 'package:course_app_ui/pages/home_page/home_page.dart';
 export 'package:course_app_ui/pages/home_page/mobile/home_page.dart';
 export 'package:course_app_ui/pages/home_page/web/home_page.dart';
 
+export 'package:course_app_ui/pages/home_page/web/subject_list_page.dart';
+
 // Authentication Pages
 export 'package:course_app_ui/pages/authentication_pages/login_page.dart';
 export 'package:course_app_ui/pages/authentication_pages/mobile/login_page.dart';

@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.chooseMyExamMCQBankRoute: (context) => const ChooseMyExamMCQBankPage(),
         MyRoutes.myExamMCQPageRoute: (context) => const MyExamMCQPage(),
         MyRoutes.editProfileRoute: (context) => const EditProfilePage(),
+        MyRoutes.subjectListRoute: (context) => const SubjectListPage(),
         MyRoutes.temp: (context) => const TempPage(),
       },
     );

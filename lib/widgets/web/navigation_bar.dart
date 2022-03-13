@@ -1,7 +1,10 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
+import 'package:course_app_ui/services/google_sign_in_api.dart';
+import 'package:course_app_ui/services/shared_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CustomNavigationBar extends StatefulWidget {
@@ -13,6 +16,9 @@ class CustomNavigationBar extends StatefulWidget {
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
   List<Result> _coursesList = []; // to store all the data from from home API
+  final SharedServices _sharedServices = SharedServices();
+  bool _isLoggedIn = false;
+  String isGoogle = "no";
 
   @override
   void initState() {
@@ -21,6 +27,20 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
       if (courses.toString().isNotEmpty) {
         setState(() {
           _coursesList = courses.result!; // storing all the data from home API
+        });
+      }
+    });
+    // checking the token to verify if the user is signed
+    _sharedServices.getData("token").then((value) {
+      setState(() {
+        _isLoggedIn = true;
+      });
+    });
+    // checking if the user have singed in/up using google
+    _sharedServices.getData("isGoogle").then((value) {
+      if (value != null) {
+        setState(() {
+          isGoogle = "yes";
         });
       }
     });
@@ -48,27 +68,56 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                     ),
                     for (int i = 0; i < _coursesList.length; i++)
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              MyRoutes.loginRoute,
+                              arguments: {
+                                "coursesList": _coursesList[i],
+                              }
+                            );
+                          },
                           child: _coursesList[i].category.toString().text.xl.semiBold.color(context.backgroundColor).make()
                       ),
                   ],
                 ),
-                Row(
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, MyRoutes.loginRoute);
-                        },
-                        child: "Log In".text.xl.color(context.backgroundColor).make()
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, MyRoutes.registerRoute);
-                        },
-                        child: "Register".text.xl.color(context.backgroundColor).make()
-                    )
-                  ],
-                ).pOnly(right: 50)
+                _isLoggedIn ?
+                  Row(
+                    children: [
+
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, MyRoutes.loginRoute);
+                          },
+                          child: "Log In".text.xl.color(context.backgroundColor).make()
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, MyRoutes.registerRoute);
+                          },
+                          child: "Register".text.xl.color(context.backgroundColor).make()
+                      )
+                    ],
+                  ).pOnly(right: 50)
+                :
+                  TextButton(
+                      onPressed: () async {
+                        // removing the token
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.remove('token');
+                        if (isGoogle == "yes") {
+                          // if yes then, calling the logout method form GoogleSignInAPI dart file previously created
+                          await GoogleSignInAPI.logout();
+                        }
+                        // redirecting the use to sign in page
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          MyRoutes.loginRoute,
+                              (route) => false,
+                        );
+                      },
+                      child: "Log Out".text.xl.color(context.backgroundColor).make()
+                  ),
               ],
             ),
           )
