@@ -2,6 +2,7 @@ import 'package:course_app_ui/services/api_service_web.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
+import 'package:course_app_ui/widgets/web/auth_navigation_bar.dart';
 import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,7 +45,7 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  navigationBar(),
+                  const AuthNavigationBar(fromLogIn: false),
                   Stack(
                     children: [
                       bgImage2(),
@@ -60,49 +61,6 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
     );
   }
 
-  Widget navigationBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Row(
-          children: [
-            Image.asset("assets/images/logo.png", width: 40),
-            const SizedBox(width: 10,),
-            Config().appName.text.xl3.semiBold.color(context.primaryColor).make()
-          ],
-        ),
-        Row(
-          children: [
-            "Already have an account?".text.semiBold.color(context.cardColor.withOpacity(0.5)).make(),
-            const SizedBox(width: 15,),
-            Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 1),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    border: Border.all(
-                        color: context.cardColor.withOpacity(0.5),
-                        width: 1
-                    )
-                ),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, MyRoutes.loginRoute);
-                  },
-                  child: "Sign In".text.semiBold.color(context.cardColor.withOpacity(0.5)).make(),
-                  style: TextButton.styleFrom(
-                    // padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
-                    elevation: 0,
-                    shape: const StadiumBorder(),
-                  ),
-                )
-            )
-          ],
-        ),
-      ],
-    ).pSymmetric(h: 100, v: 20);
-  }
 
   Widget midSection() {
     return Container(
