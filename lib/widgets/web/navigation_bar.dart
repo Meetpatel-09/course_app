@@ -19,6 +19,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   final SharedServices _sharedServices = SharedServices();
   bool _isLoggedIn = false;
   String isGoogle = "no";
+  String token = "";
 
   @override
   void initState() {
@@ -32,9 +33,12 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     });
     // checking the token to verify if the user is signed
     _sharedServices.getData("token").then((value) {
-      setState(() {
-        _isLoggedIn = true;
-      });
+      if (value != null) {
+        setState(() {
+          token = value;
+          _isLoggedIn = true;
+        });
+      }
     });
     // checking if the user have singed in/up using google
     _sharedServices.getData("isGoogle").then((value) {
@@ -63,61 +67,76 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                 Row(
                   children: [
                     TextButton(
-                        onPressed: () {},
-                        child: "Home".text.make()
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context,
+                              MyRoutes.homeRoute,
+                          );
+                        },
+                        child: "Home".text.xl.semiBold.color(context.backgroundColor).make()
                     ),
                     for (int i = 0; i < _coursesList.length; i++)
                       TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              MyRoutes.loginRoute,
-                              arguments: {
-                                "coursesList": _coursesList[i],
-                              }
-                            );
+                            if (_isLoggedIn) {
+                              Navigator.pushNamed(
+                                  context,
+                                  MyRoutes.subjectListRoute,
+                                  arguments: {
+                                    "coursesList": _coursesList,
+                                    "index": i,
+                                    "subjectList": _coursesList[i].subject,
+                                    "token": token
+                                  }
+                              );
+                            } else {
+                              Navigator.pushNamed(
+                                  context,
+                                  MyRoutes.loginRoute,
+                              );
+                            }
                           },
                           child: _coursesList[i].category.toString().text.xl.semiBold.color(context.backgroundColor).make()
                       ),
                   ],
                 ),
                 _isLoggedIn ?
-                  Row(
-                    children: [
-
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, MyRoutes.loginRoute);
-                          },
-                          child: "Log In".text.xl.color(context.backgroundColor).make()
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, MyRoutes.registerRoute);
-                          },
-                          child: "Register".text.xl.color(context.backgroundColor).make()
-                      )
-                    ],
-                  ).pOnly(right: 50)
+                TextButton(
+                    onPressed: () async {
+                      // removing the token
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      prefs.remove('token');
+                      if (isGoogle == "yes") {
+                        // if yes then, calling the logout method form GoogleSignInAPI dart file previously created
+                        await GoogleSignInAPI.logout();
+                      }
+                      // redirecting the use to sign in page
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        MyRoutes.loginRoute,
+                            (route) => false,
+                      );
+                    },
+                    child: "Log Out".text.xl.color(context.backgroundColor).make()
+                )
                 :
-                  TextButton(
-                      onPressed: () async {
-                        // removing the token
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        prefs.remove('token');
-                        if (isGoogle == "yes") {
-                          // if yes then, calling the logout method form GoogleSignInAPI dart file previously created
-                          await GoogleSignInAPI.logout();
-                        }
-                        // redirecting the use to sign in page
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          MyRoutes.loginRoute,
-                              (route) => false,
-                        );
-                      },
-                      child: "Log Out".text.xl.color(context.backgroundColor).make()
-                  ),
+                Row(
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, MyRoutes.loginRoute);
+                        },
+                        child: "Log In".text.xl.color(context.backgroundColor).make()
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, MyRoutes.registerRoute);
+                        },
+                        child: "Register".text.xl.color(context.backgroundColor).make()
+                    )
+                  ],
+                ).pOnly(right: 50)
+
               ],
             ),
           )
