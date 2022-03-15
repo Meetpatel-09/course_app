@@ -40,10 +40,6 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
                     Container(
                       width: 950,
                       height: 140.0 * (widget.subjectList.length / 3.0),
-                      constraints: const BoxConstraints(
-                        maxHeight: double.infinity,
-                      ),
-                      // height: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 15.0),
                       child: GridView.builder(
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -53,7 +49,7 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
                             childAspectRatio: 6/2.2
                           ),
                           itemCount: widget.subjectList.length,
-                          itemBuilder: (context, index) => SubjectList(subjectList: widget.subjectList, subjectIndex: index, token: widget.token),
+                          itemBuilder: (context, index) => SubjectList(subjectList: widget.subjectList, subjectIndex: index, token: widget.token, isResent: false),
                       ),
                     )
                   ],
@@ -64,11 +60,35 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
               ),
             ],
           ),
+          Divider(
+            thickness: 2, // thickness of the line
+            color: Colors.black.withOpacity(0.3), // The color to use when painting the line.
+            height: 20, // The divider's height extent.
+          ),
           Container(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height / 3,
+            padding: const EdgeInsets.symmetric(horizontal: 155.0, vertical: 50.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                "Recently Visited Subjects".text.xl2.semiBold.make(),
+                Container(
+                  height: 175,
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 4,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: index == widget.subjectList.length - 1
+                          ? const EdgeInsets.all(0)
+                          : const EdgeInsets.only(right: 8),
+                        child: SubjectList(subjectList: widget.subjectList, subjectIndex: index, token: widget.token, isResent: true),
+                      );
+                    }
+                  ),
+                )
+              ],
             ),
-            // child: ,
           )
         ],
       ),

@@ -6,7 +6,8 @@ class SubjectList extends StatefulWidget {
   final List<Subject> subjectList;
   final int subjectIndex;
   final String token;
-  const SubjectList({Key? key, required this.subjectList, required this.subjectIndex, required this.token}) : super(key: key);
+  final bool isResent;
+  const SubjectList({Key? key, required this.subjectList, required this.subjectIndex, required this.token, required this.isResent}) : super(key: key);
 
   @override
   State<SubjectList> createState() => _SubjectListState();
@@ -17,7 +18,7 @@ class _SubjectListState extends State<SubjectList> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15.0),
-      width: MediaQuery.of(context).size.width / 1.5,
+      width: 300.0,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: context.primaryColor),
@@ -27,19 +28,22 @@ class _SubjectListState extends State<SubjectList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          widget.isResent ? "${widget.subjectList[widget.subjectIndex].category}".text.bold.size(16).color(context.cardColor).make()
+          : const SizedBox(),
+          widget.isResent ? const SizedBox(height: 10,) : const SizedBox(),
           TextButton(
             onPressed: () {
-              //   APIServices.getMCQBank(subjectID, widget.token).then((mcqBanks) {
+              //   APIServices.getMCQBank(widget.subjectList[widget.subjectIndex].subjectid.toString(), widget.token).then((mcqBanks) {
               //     if (mcqBanks.status == 200) {
               //       Navigator.pushNamedAndRemoveUntil(
               //           context,
               //           MyRoutes.chooseMCQBankRoute,
               //               (route) => false,
               //           arguments: {
-              //             'subjectList': subjectList,
-              //             'subjectIndex': subjectIndex,
+              //             'subjectList': widget.subjectList,
+              //             'subjectIndex': widget.subjectIndex,
               //             'mcqBanks': mcqBanks,
-              //             'subjectID': subjectID
+              //             'subjectID': widget.subjectList[widget.subjectIndex].subjectid.toString()
               //           }
               //       );
               //     } else {
@@ -64,7 +68,7 @@ class _SubjectListState extends State<SubjectList> {
             },
             child: "${widget.subjectList[widget.subjectIndex].subject}".text.bold.size(18).color(context.cardColor).make()
           ),
-          "Total ${widget.subjectList[widget.subjectIndex].totalMcqInSubject} MCQs".text.lg.color(context.cardColor.withOpacity(0.5)).make(),
+          "Total ${widget.subjectList[widget.subjectIndex].totalMcqInSubject} MCQs".text.lg.color(context.cardColor.withOpacity(0.5)).make().px(10),
         ],
       ),
     );
