@@ -18,13 +18,8 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.subjectList[1].subject);
     return Container(
       color: context.backgroundColor,
-      constraints: BoxConstraints(
-        // maxWidth: 1500,
-        minHeight: MediaQuery.of(context).size.height,
-      ),
       child: Column(
         children: [
           Row(
@@ -34,10 +29,9 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
               ),
               Container(
                 // color: Colors.purple,
-                padding: const EdgeInsets.symmetric(horizontal: 55.0, vertical: 30),
+                padding: const EdgeInsets.only(top: 30.0, left: 55.0, right: 55.0),
                 constraints: BoxConstraints(
                   minWidth: MediaQuery.of(context).size.width * 0.70,
-                  minHeight: MediaQuery.of(context).size.height / 1.5,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,15 +39,18 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
                     widget.coursesList[widget.catIndex].category!.text.xl2.semiBold.make(),
                     Container(
                       width: 950,
-                      height: MediaQuery.of(context).size.height / 1.7,
-                      // color: Colors.red,
+                      height: 140.0 * (widget.subjectList.length / 3.0),
+                      constraints: const BoxConstraints(
+                        maxHeight: double.infinity,
+                      ),
+                      // height: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 15.0),
                       child: GridView.builder(
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             mainAxisSpacing: 8,
                             crossAxisSpacing: 8,
-                            childAspectRatio: 4/2
+                            childAspectRatio: 6/2.2
                           ),
                           itemCount: widget.subjectList.length,
                           itemBuilder: (context, index) => SubjectList(subjectList: widget.subjectList, subjectIndex: index, token: widget.token),
@@ -68,7 +65,6 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
             ],
           ),
           Container(
-            color: Colors.green,
             constraints: BoxConstraints(
               minHeight: MediaQuery.of(context).size.height / 3,
             ),
