@@ -1,5 +1,4 @@
 import 'package:course_app_ui/theme/theme.dart';
-import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/web/buttons/g_button.dart';
 import 'package:course_app_ui/widgets/authentication/text/create_account_web.dart';

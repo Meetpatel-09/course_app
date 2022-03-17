@@ -29,13 +29,7 @@ class APIServicesWeb {
 
     var response = await request.send();
     final respStr = await response.stream.bytesToString();
-    print(respStr);
-    // Map<String, dynamic> map = respStr as Map<String, dynamic>;
-    // print(map.values);
-    // print(map.keys);
-    // int status = int.parse(map.values.first.toString());
-    // String msg = map.values.last.toString();
-    print(registerResponseModelJson(respStr));
+
     return registerResponseModelJson(respStr);
     // return RegisterResponseModel(status: response.statusCode);
   }

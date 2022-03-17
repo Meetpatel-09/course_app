@@ -78,23 +78,16 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                     for (int i = 0; i < _coursesList.length; i++)
                       TextButton(
                           onPressed: () {
-                            if (_isLoggedIn) {
-                              Navigator.pushNamed(
-                                  context,
-                                  MyRoutes.subjectListRoute,
-                                  arguments: {
-                                    "coursesList": _coursesList,
-                                    "index": i,
-                                    "subjectList": _coursesList[i].subject,
-                                    "token": token
-                                  }
-                              );
-                            } else {
-                              Navigator.pushNamed(
-                                  context,
-                                  MyRoutes.loginRoute,
-                              );
-                            }
+                            Navigator.pushNamed(
+                                context,
+                                MyRoutes.subjectListRoute,
+                                arguments: {
+                                  "coursesList": _coursesList,
+                                  "index": i,
+                                  "subjectList": _coursesList[i].subject,
+                                  "token": token
+                                }
+                            );
                           },
                           child: _coursesList[i].category.toString().text.xl.semiBold.color(context.backgroundColor).make()
                       ),
@@ -136,7 +129,6 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                     )
                   ],
                 ).pOnly(right: 50)
-
               ],
             ),
           )

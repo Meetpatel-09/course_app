@@ -1,4 +1,6 @@
 import 'package:course_app_ui/model/course_model.dart';
+import 'package:course_app_ui/services/api_service.dart';
+import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -33,38 +35,50 @@ class _SubjectListState extends State<SubjectList> {
           widget.isResent ? const SizedBox(height: 10,) : const SizedBox(),
           TextButton(
             onPressed: () {
-              //   APIServices.getMCQBank(widget.subjectList[widget.subjectIndex].subjectid.toString(), widget.token).then((mcqBanks) {
-              //     if (mcqBanks.status == 200) {
-              //       Navigator.pushNamedAndRemoveUntil(
-              //           context,
-              //           MyRoutes.chooseMCQBankRoute,
-              //               (route) => false,
-              //           arguments: {
-              //             'subjectList': widget.subjectList,
-              //             'subjectIndex': widget.subjectIndex,
-              //             'mcqBanks': mcqBanks,
-              //             'subjectID': widget.subjectList[widget.subjectIndex].subjectid.toString()
-              //           }
-              //       );
-              //     } else {
-              //       showDialog(
-              //           context: context,
-              //           builder: (context) =>
-              //               AlertDialog(
-              //                 title: const Text("Unknown Error"),
-              //                 content: const Text("This is an error message!!!"),
-              //                 actions: [
-              //                   TextButton(
-              //                       onPressed: () {
-              //                         Navigator.pop(context);
-              //                         Navigator.pushNamed(context, MyRoutes.loginRoute);
-              //                       },
-              //                       child: const Text("OK")),
-              //                 ],
-              //               )
-              //       );
-              //     }
-              // });
+              if(widget.token != "empty") {
+                APIServices.getMCQBank(
+                    widget.subjectList[widget.subjectIndex].subjectid
+                        .toString(), widget.token).then((mcqBanks) {
+                  if (mcqBanks.status == 200) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        MyRoutes.chooseMCQBankRoute,
+                            (route) => false,
+                        arguments: {
+                          'subjectList': widget.subjectList,
+                          'subjectIndex': widget.subjectIndex,
+                          'mcqBanks': mcqBanks,
+                          'subjectID': widget.subjectList[widget.subjectIndex]
+                              .subjectid.toString(),
+                          "token": widget.token
+                        }
+                    );
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) =>
+                            AlertDialog(
+                              title: const Text("Unknown Error"),
+                              content: const Text(
+                                  "This is an error message!!!"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pushNamed(
+                                          context, MyRoutes.loginRoute);
+                                    },
+                                    child: const Text("OK")),
+                              ],
+                            )
+                    );
+                  }
+                });
+              } else {
+                Navigator.pushNamed(
+                    context,
+                    MyRoutes.loginRoute);
+              }
             },
             child: "${widget.subjectList[widget.subjectIndex].subject}".text.bold.size(18).color(context.cardColor).make()
           ),
