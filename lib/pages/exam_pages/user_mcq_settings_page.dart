@@ -1,9 +1,10 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
+import 'package:course_app_ui/pages/exam_pages/mobile/user_mcq_settings_page.dart';
+import 'package:course_app_ui/pages/exam_pages/web/user_mcq_settings_page.dart';
 import 'package:course_app_ui/services/shared_service.dart';
-import 'package:course_app_ui/widgets/exam/exam_chooses_page/exam_chooses.dart';
 import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class UserMCQSettingsPage extends StatefulWidget {
   const UserMCQSettingsPage({Key? key}) : super(key: key);
@@ -15,8 +16,6 @@ class UserMCQSettingsPage extends StatefulWidget {
 class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
   List<Subject>? subjectList = [];
   int subjectIndex = 0;
-  bool _isEmpty = true;
-  bool _isLoading = true;
   String token = "empty";
   MCQBanksModel? mcqBanks;
   int mcqBanksIndex = 0;
@@ -29,7 +28,6 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
       if (value != null) {
         setState(() {
           token = value;
-          _isLoading = false;
         });
       } else {
         token = "empty";
@@ -48,33 +46,29 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
     mcqBanksIndex = arg['mcqBanksIndex'];
     subjectID = arg['subjectID'];
 
-    if (subjectList != null) {
-      _isEmpty = false;
-    }
+    print(token);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-           'Exam'.text.make()
-          ],
-        ),
-      ),
-      backgroundColor: context.canvasColor,
-      body: _isEmpty | _isLoading ?
-      const Center(child: CircularProgressIndicator(),)
-          :
-      SingleChildScrollView(
-        child: ExamChooses(
-          subjectIndex: subjectIndex,
-          subjectList: subjectList,
-          mbid: mcqBanks!.result![mcqBanksIndex].mbid,
-          token: token,
-          subjectID: subjectID
-        )
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (kIsWeb) {
+          // Web SCREEN
+          return UserMCQSettingsPageWeb(
+              subjectIndex: subjectIndex,
+              subjectList: subjectList,
+              mbid: mcqBanks!.result![mcqBanksIndex].mbid,
+              token: token,
+              subjectID: subjectID);
+        } else {
+          // Mobile Screen
+          return UserMCQSettingsPageMobile(
+              subjectIndex: subjectIndex,
+              subjectList: subjectList,
+              mbid: mcqBanks!.result![mcqBanksIndex].mbid,
+              token: token,
+              subjectID: subjectID
+          );
+        }
+      },
     );
   }
 }
