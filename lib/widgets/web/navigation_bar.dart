@@ -94,23 +94,33 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   ],
                 ),
                 _isLoggedIn ?
-                TextButton(
-                    onPressed: () async {
-                      // removing the token
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                      prefs.remove('token');
-                      if (isGoogle == "yes") {
-                        // if yes then, calling the logout method form GoogleSignInAPI dart file previously created
-                        await GoogleSignInAPI.logout();
-                      }
-                      // redirecting the use to sign in page
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        MyRoutes.loginRoute,
-                            (route) => false,
-                      );
-                    },
-                    child: "Log Out".text.xl.color(context.backgroundColor).make()
+                Row(
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, MyRoutes.myProfile);
+                        },
+                        child: "My Profile".text.xl.color(context.backgroundColor).make()
+                    ),
+                    TextButton(
+                        onPressed: () async {
+                          // removing the token
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          prefs.remove('token');
+                          if (isGoogle == "yes") {
+                            // if yes then, calling the logout method form GoogleSignInAPI dart file previously created
+                            await GoogleSignInAPI.logout();
+                          }
+                          // redirecting the use to sign in page
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            MyRoutes.loginRoute,
+                                (route) => false,
+                          );
+                        },
+                        child: "Log Out".text.xl.color(context.backgroundColor).make()
+                    ),
+                  ],
                 )
                 :
                 Row(
