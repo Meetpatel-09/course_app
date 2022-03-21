@@ -303,7 +303,8 @@ class _MCQWidgetState extends State<MCQWidget> {
                                       'subjectList': widget.subjectList,
                                       'subjectIndex': widget.subjectIndex,
                                       'mcqBanks': mcqBanks,
-                                      'subjectID': widget.subjectID
+                                      'subjectID': widget.subjectID,
+                                      'token': widget.token
                                     }
                                 );
                               } else {
@@ -340,7 +341,8 @@ class _MCQWidgetState extends State<MCQWidget> {
                                         'subjectList': widget.subjectList,
                                         'subjectIndex': widget.subjectIndex,
                                         'mcqBanks': mcqBanks,
-                                        'subjectID': widget.subjectID
+                                        'subjectID': widget.subjectID,
+                                        'token': widget.token
                                       }
                                   );
                                 } else {
