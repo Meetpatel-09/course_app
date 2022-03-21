@@ -77,7 +77,7 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
               children: [
                 "Recently Visited Subjects".text.xl2.semiBold.make(),
                 Container(
-                  height: 175,
+                  height: 180,
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,

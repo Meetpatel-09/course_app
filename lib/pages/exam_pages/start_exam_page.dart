@@ -1,7 +1,10 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/widgets/exam/start_exam_page/start_exam_widget.dart';
+import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class StartExamPage extends StatelessWidget {
   const StartExamPage({Key? key}) : super(key: key);
@@ -22,7 +25,7 @@ class StartExamPage extends StatelessWidget {
     String subjectID = arg['subjectID'];
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: kIsWeb ? null : AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,18 +34,26 @@ class StartExamPage extends StatelessWidget {
           ],
         ),
       ),
-      body: StartExamWidget(
-        token: token,
-        mbid: mbid,
-        wantExamTimer: wantExamTimer,
-        examTime: examTime,
-        wantQuestionTimer: wantQuestionTimer,
-        questionTime: questionTime,
-        numQuestions: numQuestions,
-        userMCQID: userMCQID,
-        subjectIndex: subjectIndex,
-        subjectList: subjectList,
-        subjectID: subjectID
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            kIsWeb ? const CustomNavigationBar() : const SizedBox(),
+            StartExamWidget(
+              token: token,
+              mbid: mbid,
+              wantExamTimer: wantExamTimer,
+              examTime: examTime,
+              wantQuestionTimer: wantQuestionTimer,
+              questionTime: questionTime,
+              numQuestions: numQuestions,
+              userMCQID: userMCQID,
+              subjectIndex: subjectIndex,
+              subjectList: subjectList,
+              subjectID: subjectID
+            ),
+            kIsWeb ? const BottomNavigation() : const SizedBox(),
+          ],
+        ),
       )
     );
   }

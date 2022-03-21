@@ -46,8 +46,6 @@ class _UserMCQSettingsPageState extends State<UserMCQSettingsPage> {
     mcqBanksIndex = arg['mcqBanksIndex'];
     subjectID = arg['subjectID'];
 
-    print(token);
-
     return LayoutBuilder(
       builder: (context, constraints) {
         if (kIsWeb) {

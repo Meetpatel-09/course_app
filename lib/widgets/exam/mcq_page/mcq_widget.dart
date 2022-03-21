@@ -203,8 +203,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                                                 color: context.backgroundColor,
                                                 borderRadius: BorderRadius.circular(14),
                                                 border: Border.all(
-                                                    color:
-                                                    userAnswer[pageIndex + 1] ==
+                                                    color: userAnswer[pageIndex + 1] ==
                                                         (i + 1).toString()
                                                         ? context.primaryColor
                                                         : context.cardColor.withOpacity(0.5),
