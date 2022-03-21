@@ -8,8 +8,8 @@ class SubjectList extends StatefulWidget {
   final List<Subject> subjectList;
   final int subjectIndex;
   final String token;
-  final bool isResent;
-  const SubjectList({Key? key, required this.subjectList, required this.subjectIndex, required this.token, required this.isResent}) : super(key: key);
+  final bool isRecent;
+  const SubjectList({Key? key, required this.subjectList, required this.subjectIndex, required this.token, required this.isRecent}) : super(key: key);
 
   @override
   State<SubjectList> createState() => _SubjectListState();
@@ -30,9 +30,9 @@ class _SubjectListState extends State<SubjectList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          widget.isResent ? "${widget.subjectList[widget.subjectIndex].category}".text.bold.size(16).color(context.cardColor).make()
+          widget.isRecent ? "${widget.subjectList[widget.subjectIndex].category}".text.bold.size(16).color(context.cardColor).make()
           : const SizedBox(),
-          widget.isResent ? const SizedBox(height: 10,) : const SizedBox(),
+          widget.isRecent ? const SizedBox(height: 10,) : const SizedBox(),
           TextButton(
             onPressed: () {
               if(widget.token != "empty") {

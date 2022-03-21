@@ -7,6 +7,8 @@ import 'package:course_app_ui/widgets/web/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../widgets/my_exam/my_exam_fragment/category_widget_my_exam.dart';
+
 class TempPage extends StatelessWidget{
   const TempPage({Key? key}) : super(key: key);
 

@@ -18,5 +18,6 @@ class MyRoutes {
   static String editProfileRoute = "/edit_profile";
   static String subjectListRoute = "/subject_list";
   static String myProfile = "/my_profile";
+  static String myExam = "/my_exam";
   static String temp = "/temp";
 }

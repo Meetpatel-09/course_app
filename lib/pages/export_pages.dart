@@ -34,5 +34,8 @@ export 'package:course_app_ui/pages/exam_pages/mcq_page.dart';
 export 'package:course_app_ui/pages/my_exam_pages/choose_my_exam_mcq_bank_page.dart';
 export 'package:course_app_ui/pages/my_exam_pages/my_exam_mcq_page.dart';
 
-// My Profile Edit Page
+export 'package:course_app_ui/pages/my_exam_pages/web/my_exam_subject_list.dart';
+
+// My Profile Pages
 export 'package:course_app_ui/pages/my_profile_pages/edit_profile_page.dart';
+export 'package:course_app_ui/pages/my_profile_pages/web/my_profile_web.dart';

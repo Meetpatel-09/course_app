@@ -59,7 +59,7 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
                         childAspectRatio: 6/2.2
                       ),
                       itemCount: widget.subjectList.length,
-                      itemBuilder: (context, index) => SubjectList(subjectList: widget.subjectList, subjectIndex: index, token: token, isResent: false),
+                      itemBuilder: (context, index) => SubjectList(subjectList: widget.subjectList, subjectIndex: index, token: token, isRecent: false),
                   ),
                 )
               ],
@@ -87,7 +87,7 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
                         padding: index == widget.subjectList.length - 1
                           ? const EdgeInsets.all(0)
                           : const EdgeInsets.only(right: 8),
-                        child: SubjectList(subjectList: widget.subjectList, subjectIndex: index, token: token, isResent: true),
+                        child: SubjectList(subjectList: widget.subjectList, subjectIndex: index, token: token, isRecent: true),
                       );
                     }
                   ),
