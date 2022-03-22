@@ -4,6 +4,8 @@ import 'package:course_app_ui/services/authentication_service.dart';
 import 'package:course_app_ui/theme/theme.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
+import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -12,6 +14,7 @@ import 'package:snippet_coder_utils/ProgressHUD.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
@@ -48,17 +51,31 @@ class _EditProfilePageState extends State<EditProfilePage> {
     userImageString = arg['image'];
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: kIsWeb ? null : AppBar(
         backgroundColor: context.canvasColor,
         iconTheme: IconThemeData(color: context.primaryColor),
         title: "Edit Profile".text.color(context.primaryColor).make(),
       ),
       backgroundColor: context.canvasColor,
-      body: ProgressHUD(
-        child: Form(key: globalFormKey, child: _takeDetailsUI(context)),
-        inAsyncCall: isAPICallProcess,
-        opacity: 0.3,
-        key: UniqueKey(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            kIsWeb ? const CustomNavigationBar() : const SizedBox(),
+            Container(
+              constraints: const BoxConstraints(
+                maxWidth: 600.0
+              ),
+              height: MediaQuery.of(context).size.height,
+              child: ProgressHUD(
+                child: Form(key: globalFormKey, child: _takeDetailsUI(context)),
+                inAsyncCall: isAPICallProcess,
+                opacity: 0.3,
+                key: UniqueKey(),
+              ),
+            ),
+            kIsWeb ? const BottomNavigation() : const SizedBox(),
+          ],
+        ),
       ),
     );
   }
