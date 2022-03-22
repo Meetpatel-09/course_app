@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MCQBanks extends StatefulWidget {
-  final List<Result>?  mcqBanks;
-  final String? subjectID;
-  final String? token;
-  const MCQBanks({Key? key, this.mcqBanks, this.subjectID, this.token}) : super(key: key);
+  final List<Result> mcqBanks;
+  final String subjectID;
+  final String token;
+  const MCQBanks({Key? key, required this.mcqBanks, required this.subjectID, required this.token}) : super(key: key);
 
   @override
   _MCQBanksState createState() => _MCQBanksState();
@@ -39,7 +39,7 @@ class _MCQBanksState extends State<MCQBanks> {
                   crossAxisCount: 3,
                   childAspectRatio: 3/4
               ),
-              itemCount: widget.mcqBanks?.length,
+              itemCount: widget.mcqBanks.length,
               itemBuilder: (context, index) {
                 return MCQBanksList(
                     mcqBanks: widget.mcqBanks,

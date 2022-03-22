@@ -1,8 +1,9 @@
 import 'package:course_app_ui/model/my_exam_models/my_exam_banks_model.dart';
+import 'package:course_app_ui/pages/my_exam_pages/mobile/choose_my_exam_mcq_bank_page.dart';
+import 'package:course_app_ui/pages/my_exam_pages/web/choose_my_exam_mcq_bank_page.dart';
 import 'package:course_app_ui/services/shared_service.dart';
-import 'package:course_app_ui/widgets/my_exam/choose_mcq_bank/mcq_bank.dart';
 import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ChooseMyExamMCQBankPage extends StatefulWidget {
   const ChooseMyExamMCQBankPage({Key? key}) : super(key: key);
@@ -42,23 +43,18 @@ class _ChooseMyExamMCQBankPageState extends State<ChooseMyExamMCQBankPage> {
     subjectID = arg['subjectID'];
     mcqBanks = arg['mcqBanks'];
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            "My Exam".text.make()
-          ],
-        ),
-      ),
-      backgroundColor: context.canvasColor,
-      body: SingleChildScrollView(
-          child: _isLoading ? const Center(child: CircularProgressIndicator(),) : Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: MCQBanks(mcqBanks: mcqBanks, subjectID: subjectID, token: token,),
-          )
-      ),
+    return _isLoading ? const Center(child: CircularProgressIndicator()) : LayoutBuilder(
+      builder: (context, constraints) {
+        if (kIsWeb) {
+          // Web SCREEN
+          return ChooseMyExamMCQBankPageWeb(token: token, subjectID: subjectID, mcqBanks: mcqBanks!,);
+        } else {
+          // Mobile Screen
+          return ChooseMyExamMCQBankPageMobile(token: token, subjectID: subjectID, mcqBanks: mcqBanks!,);
+        }
+      },
     );
   }
 }
+
+//  MCQBanks(mcqBanks: mcqBanks, subjectID: subjectID, token: token,),

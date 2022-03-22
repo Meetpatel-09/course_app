@@ -21,11 +21,7 @@ class MidSectionChooseMCQBank extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            // color: Colors.purple,
             padding: const EdgeInsets.only(top: 30.0, left: 55.0, right: 55.0),
-            constraints: BoxConstraints(
-              minWidth: MediaQuery.of(context).size.width * 0.70,
-            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -38,8 +34,8 @@ class MidSectionChooseMCQBank extends StatelessWidget {
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
-                        crossAxisCount: kIsWeb ? 5 : 3,
-                        childAspectRatio: kIsWeb ? 3/2.3 : 3/4
+                        crossAxisCount: 5,
+                        childAspectRatio: 3/2.3
                     ),
                     itemCount: mcqBanks.result!.length,
                     itemBuilder: (context, index) {
