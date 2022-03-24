@@ -35,10 +35,10 @@ class _SubjectListState extends State<SubjectList> {
           widget.isRecent ? const SizedBox(height: 10,) : const SizedBox(),
           TextButton(
             onPressed: () {
-              if(widget.token != "empty") {
+              if(widget.token != "notSet") {
                 APIServices.getMCQBank(
                     widget.subjectList[widget.subjectIndex].subjectid
-                        .toString(), widget.token).then((mcqBanks) {
+                        .toString(), widget.token, false).then((mcqBanks) {
                   if (mcqBanks.status == 200) {
                     Navigator.pushNamedAndRemoveUntil(
                         context,
@@ -75,9 +75,44 @@ class _SubjectListState extends State<SubjectList> {
                   }
                 });
               } else {
-                Navigator.pushNamed(
-                    context,
-                    MyRoutes.loginRoute);
+                APIServices.getMCQBank(
+                    widget.subjectList[widget.subjectIndex].subjectid
+                        .toString(), widget.token, true).then((mcqBanks) {
+                  if (mcqBanks.status == 200) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        MyRoutes.chooseMCQBankRoute,
+                            (route) => false,
+                        arguments: {
+                          'subjectList': widget.subjectList,
+                          'subjectIndex': widget.subjectIndex,
+                          'mcqBanks': mcqBanks,
+                          'subjectID': widget.subjectList[widget.subjectIndex]
+                              .subjectid.toString(),
+                          "token": widget.token
+                        }
+                    );
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) =>
+                            AlertDialog(
+                              title: const Text("Unknown Error"),
+                              content: const Text(
+                                  "This is an error message!!!"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pushNamed(
+                                          context, MyRoutes.loginRoute);
+                                    },
+                                    child: const Text("OK")),
+                              ],
+                            )
+                    );
+                  }
+                });
               }
             },
             child: "${widget.subjectList[widget.subjectIndex].subject}".text.bold.size(18).color(context.cardColor).make()

@@ -292,7 +292,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                       isFinished ? TextButton(
                           onPressed: () {
                             // Navigator.pop(context);
-                            APIServices.getMCQBank(widget.subjectID, widget.token).then((mcqBanks) {
+                            APIServices.getMCQBank(widget.subjectID, widget.token, false).then((mcqBanks) {
                               if (mcqBanks.status == 200) {
                                 Navigator.pushNamedAndRemoveUntil(
                                     context,
@@ -330,7 +330,7 @@ class _MCQWidgetState extends State<MCQWidget> {
                           onPressed: () {
                             // Navigator.pop(context);
                             if (!isSave) {
-                              APIServices.getMCQBank(widget.subjectID, widget.token).then((mcqBanks) {
+                              APIServices.getMCQBank(widget.subjectID, widget.token, false).then((mcqBanks) {
                                 if (mcqBanks.status == 200) {
                                   Navigator.pushNamedAndRemoveUntil(
                                       context,

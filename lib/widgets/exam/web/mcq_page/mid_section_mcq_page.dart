@@ -272,7 +272,7 @@ class _MidSectionMCQPageState extends State<MidSectionMCQPage> {
                 ),
                 // const SizedBox(width: 10.0,),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width - 350,
+                  width: MediaQuery.of(context).size.width * 0.6,
                     child: TextButton(
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(
@@ -369,7 +369,7 @@ class _MidSectionMCQPageState extends State<MidSectionMCQPage> {
                       isFinished ? TextButton(
                           onPressed: () {
                             // Navigator.pop(context);
-                            APIServices.getMCQBank(widget.subjectID, widget.token).then((mcqBanks) {
+                            APIServices.getMCQBank(widget.subjectID, widget.token, false).then((mcqBanks) {
                               if (mcqBanks.status == 200) {
                                 Navigator.pushNamedAndRemoveUntil(
                                     context,
@@ -407,7 +407,7 @@ class _MidSectionMCQPageState extends State<MidSectionMCQPage> {
                           onPressed: () {
                             // Navigator.pop(context);
                             if (!isSave) {
-                              APIServices.getMCQBank(widget.subjectID, widget.token).then((mcqBanks) {
+                              APIServices.getMCQBank(widget.subjectID, widget.token, false).then((mcqBanks) {
                                 if (mcqBanks.status == 200) {
                                   Navigator.pushNamedAndRemoveUntil(
                                       context,

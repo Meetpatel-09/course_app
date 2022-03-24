@@ -31,7 +31,7 @@ class ChooseMCQBankPageWeb extends StatelessWidget {
           child: Column(
             children: [
               const CustomNavigationBar(),
-              MidSectionChooseMCQBank(subjectList: subjectList,subjectIndex: subjectIndex,mcqBanks: mcqBanks, subjectID: subjectID),
+              MidSectionChooseMCQBank(subjectList: subjectList,subjectIndex: subjectIndex,mcqBanks: mcqBanks, subjectID: subjectID, token: token),
               const BottomNavigation(),
             ],
           ),

@@ -26,6 +26,8 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
         setState(() {
           token = value;
         });
+      } else {
+        token = "notSet";
       }
     });
   }

@@ -10,24 +10,30 @@ class MidSectionChooseMCQBank extends StatelessWidget {
   final List<Subject> subjectList;
   final int subjectIndex;
   final String subjectID;
-  const MidSectionChooseMCQBank({Key? key, required this.mcqBanks, required this.subjectList, required this.subjectIndex, required this.subjectID}) : super(key: key);
+  final String token;
+  const MidSectionChooseMCQBank({Key? key, required this.mcqBanks, required this.subjectList, required this.subjectIndex, required this.subjectID, required this.token}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
+      constraints: BoxConstraints(
+          maxWidth: 1400.0,
+          minHeight: MediaQuery.of(context).size.height - 100
+      ),
       color: context.backgroundColor,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.only(top: 30.0, left: 55.0, right: 55.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 subjectList[subjectIndex].subject!.text.xl2.semiBold.make(),
                 Container(
-                  height: 200.0 * (mcqBanks.result!.length / 5.0),
+                  height: 210.0 * (mcqBanks.result!.length / 4.0),
                   width: 1400.0,
                   padding: const EdgeInsets.symmetric(horizontal: 155.0,vertical: 15.0),
                   child: GridView.builder(
@@ -35,7 +41,7 @@ class MidSectionChooseMCQBank extends StatelessWidget {
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                         crossAxisCount: 5,
-                        childAspectRatio: 3/2.3
+                        childAspectRatio: 3/2.5
                     ),
                     itemCount: mcqBanks.result!.length,
                     itemBuilder: (context, index) {
@@ -44,7 +50,8 @@ class MidSectionChooseMCQBank extends StatelessWidget {
                           mcqBanksIndex: index,
                           subjectIndex: subjectIndex,
                           subjectList: subjectList,
-                          subjectID: subjectID
+                          subjectID: subjectID,
+                          token: token
                       );
                     }
                   ),

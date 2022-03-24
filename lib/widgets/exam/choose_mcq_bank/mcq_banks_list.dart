@@ -6,12 +6,13 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/foundation.dart' show kIsWeb; // to check the platform if it is web or mobile
 
 class MCQBanksList extends StatelessWidget {
-  const MCQBanksList({Key? key, this.mcqBanks, required this.mcqBanksIndex, this.subjectList, this.subjectIndex, this.subjectID}) : super(key: key);
+  const MCQBanksList({Key? key, this.mcqBanks, required this.mcqBanksIndex, this.subjectList, this.subjectIndex, this.subjectID, this.token}) : super(key: key);
   final int mcqBanksIndex;
   final MCQBanksModel? mcqBanks;
   final List<Subject>? subjectList;
   final int? subjectIndex;
   final String? subjectID;
+  final String? token;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,14 @@ class MCQBanksList extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         child: InkWell(
           onTap: () {
+
+            if (token == "empty") {
+              Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  MyRoutes.loginRoute,
+                      (route) => false
+              );
+            }
 
             if (mcqBanks!.result![mcqBanksIndex].isActive != "Disabled") {
               Navigator.pushNamed(

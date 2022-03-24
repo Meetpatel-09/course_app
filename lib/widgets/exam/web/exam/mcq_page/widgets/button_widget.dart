@@ -209,7 +209,7 @@ class ButtonsWidget extends StatelessWidget {
                                     actions: [
                                       TextButton(
                                           onPressed: () {
-                                            APIServices.getMCQBank(subjectID, token).then((mcqBanks) {
+                                            APIServices.getMCQBank(subjectID, token, false).then((mcqBanks) {
                                               if (mcqBanks.status == 200) {
                                                 Navigator.pushNamedAndRemoveUntil(
                                                     context,

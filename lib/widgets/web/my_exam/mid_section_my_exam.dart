@@ -215,14 +215,8 @@ class _MidSectionMyExamState extends State<MidSectionMyExam> {
       children: [
         SizedBox(
             width: MediaQuery.of(context).size.width / 3,
-            child: "Question 1".text.xl.semiBold.make()
+            child: "Question ${pageIndex + 1}".text.xl.semiBold.make()
         ),
-        // Row(
-        //   children: [
-        //     "Question Timer ".text.xl.semiBold.make(),
-        //     "00:45".text.xl.semiBold.make()
-        //   ],
-        // ),
       ],
     );
   }
@@ -266,7 +260,7 @@ class _MidSectionMyExamState extends State<MidSectionMyExam> {
                 ),
                 const SizedBox(width: 10.0,),
                 SizedBox(
-                    width: MediaQuery.of(context).size.width - 350,
+                    width: MediaQuery.of(context).size.width * 0.6,
                     child: widget.myExamResultList![index].options[i].richText.xl.semiBold.make()
                 ),
               ],

@@ -30,7 +30,7 @@ class _MidSectionMCQBanksState extends State<MidSectionMCQBanks> {
           const SizedBox(height: 25.0,),
           Align(child: "Choose MCQ Bank".text.bold.xl2.make()),
           Container(
-              height: 200.0 * (widget.mcqBanks.length / 5.0),
+              height: 210.0 * (widget.mcqBanks.length > 5 ? widget.mcqBanks.length / 4.0 : widget.mcqBanks.length),
               width: 1400.0,
               padding: const EdgeInsets.symmetric(horizontal: 155.0,vertical: 15.0),
               child: GridView.builder(

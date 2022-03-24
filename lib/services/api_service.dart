@@ -40,15 +40,24 @@ class APIServices {
   }
 
   // To GET the MCQ banks as per subject selected
-  static Future<MCQBanksModel> getMCQBank(String subjectID, String token) async {
+  static Future<MCQBanksModel> getMCQBank(String subjectID, String token, bool isTokenEmpty) async {
 
     var url = Uri.parse(Config().getMCQBankAPI + subjectID);
 
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'token': token,
-    };
+    Map<String, String> requestHeaders;
+
+    if (isTokenEmpty) {
+      requestHeaders = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      };
+    } else {
+      requestHeaders = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'token': token,
+      };
+    }
 
     try {
       final response = await http.get(url, headers: requestHeaders);
