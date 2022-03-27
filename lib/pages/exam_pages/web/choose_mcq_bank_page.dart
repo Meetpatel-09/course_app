@@ -2,8 +2,8 @@ import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/web/choose_mcq_bank/mid_section_choose_mcq_bank.dart';
-import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
-import 'package:course_app_ui/widgets/web/navigation_bar.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 

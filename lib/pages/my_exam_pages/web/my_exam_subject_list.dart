@@ -2,8 +2,8 @@ import 'package:course_app_ui/model/my_exam_models/my_exam_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/services/shared_service.dart';
 import 'package:course_app_ui/widgets/my_exam/web/mid_section_subject_list.dart';
-import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
-import 'package:course_app_ui/widgets/web/navigation_bar.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class MyExamSubjectListPage extends StatefulWidget {

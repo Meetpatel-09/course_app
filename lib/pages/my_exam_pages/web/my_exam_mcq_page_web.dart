@@ -1,7 +1,7 @@
 import 'package:course_app_ui/model/my_exam_models/my_exam_result_model.dart';
-import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
 import 'package:course_app_ui/widgets/web/my_exam/mid_section_my_exam.dart';
-import 'package:course_app_ui/widgets/web/navigation_bar.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class MyExamMCQPageWeb extends StatefulWidget {

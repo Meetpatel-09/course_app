@@ -1,7 +1,7 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/widgets/exam/start_exam_page/start_exam_widget.dart';
-import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
-import 'package:course_app_ui/widgets/web/navigation_bar.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;

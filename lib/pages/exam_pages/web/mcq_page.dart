@@ -2,8 +2,8 @@ import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart' as mcq_questions;
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/web/mcq_page/mid_section_mcq_page.dart';
-import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
-import 'package:course_app_ui/widgets/web/navigation_bar.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class MCQPageWeb extends StatefulWidget {

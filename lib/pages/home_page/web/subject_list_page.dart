@@ -1,7 +1,7 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/widgets/home/web/subject_list/subject_list_mid_section.dart';
-import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
-import 'package:course_app_ui/widgets/web/navigation_bar.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class SubjectListPage extends StatelessWidget {

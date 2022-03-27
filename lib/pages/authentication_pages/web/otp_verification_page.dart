@@ -5,8 +5,8 @@ import 'package:course_app_ui/services/authentication_service.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/auth_widgets.dart';
-import 'package:course_app_ui/widgets/web/auth_navigation_bar.dart';
-import 'package:course_app_ui/widgets/web/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar//auth_navigation_bar.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
