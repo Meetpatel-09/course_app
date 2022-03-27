@@ -3,7 +3,7 @@ import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart'
 import 'package:course_app_ui/widgets/home/web/home/mid_section.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar//menu_drawer.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/navigation_bar.dart';
-import 'package:course_app_ui/widgets/web/navigation_bar//responsive.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 
 class HomePageWeb extends StatelessWidget {

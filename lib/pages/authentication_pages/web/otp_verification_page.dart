@@ -7,6 +7,7 @@ import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/auth_widgets.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar//auth_navigation_bar.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -71,7 +72,19 @@ class _OTPVerificationPageWebState extends State<OTPVerificationPageWeb> {
 
     return Scaffold(
         backgroundColor: context.canvasColor,
-        body: Stack(
+        body: ResponsiveWidget.isSmallScreen(context)
+            ?
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              const AuthNavigationBar(fromLogIn: true),
+              midSection().p(16.0),
+              const BottomNavigation(),
+            ],
+          ),
+        )
+            :
+        Stack(
             children: [
               bgImage(),
               SingleChildScrollView(
@@ -92,8 +105,6 @@ class _OTPVerificationPageWebState extends State<OTPVerificationPageWeb> {
         ).centered(),
     );
   }
-
-
 
   Widget bgImage() {
     return Container(
@@ -126,7 +137,8 @@ class _OTPVerificationPageWebState extends State<OTPVerificationPageWeb> {
     return SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.only(
+          padding:  ResponsiveWidget.isSmallScreen(context)
+              ? const EdgeInsets.all(0.0) : EdgeInsets.only(
             left: MediaQuery.of(context).size.width / 2,
             right: MediaQuery.of(context).size.width / 15,
           ),
@@ -216,7 +228,7 @@ class _OTPVerificationPageWebState extends State<OTPVerificationPageWeb> {
     return Row(
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.031,
+          width: ResponsiveWidget.isSmallScreen(context) ? MediaQuery.of(context).size.width * 0.1 : MediaQuery.of(context).size.width * 0.031,
           child: TextField(
             focusNode: newFocusNode1,
             textAlign: TextAlign.center,
@@ -247,7 +259,7 @@ class _OTPVerificationPageWebState extends State<OTPVerificationPageWeb> {
   Widget verifyButton() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20,),
-      width: MediaQuery.of(context).size.width / 3,
+      width: ResponsiveWidget.isSmallScreen(context) ? MediaQuery.of(context).size.width - 100 : MediaQuery.of(context).size.width / 3,
       decoration: BoxDecoration(
         color: context.primaryColor,
         borderRadius: BorderRadius.circular(8),

@@ -1,5 +1,5 @@
 import 'package:course_app_ui/widgets/home/search_bar.dart';
-import 'package:course_app_ui/widgets/web/navigation_bar/responsive.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 

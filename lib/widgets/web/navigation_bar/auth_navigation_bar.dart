@@ -1,5 +1,6 @@
 import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -32,7 +33,7 @@ class AuthNavigationBar extends StatelessWidget {
         ),
         Row(
           children: [
-            fromLogIn ?
+            ResponsiveWidget.isSmallScreen(context) ? const SizedBox() : fromLogIn ?
             "Not having an account?".text.semiBold.color(context.cardColor.withOpacity(0.5)).make()
             :
             "Already have an account?".text.semiBold.color(context.cardColor.withOpacity(0.5)).make(),
@@ -69,6 +70,6 @@ class AuthNavigationBar extends StatelessWidget {
           ],
         ),
       ],
-    ).pSymmetric(h: 100, v: 20);
+    ).pSymmetric(h: ResponsiveWidget.isSmallScreen(context) ? 50 : 100, v: 20);
   }
 }

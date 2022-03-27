@@ -4,6 +4,7 @@ import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/auth_navigation_bar.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
@@ -39,7 +40,19 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.backgroundColor,
-      body: Stack(
+      body: ResponsiveWidget.isSmallScreen(context)
+          ?
+      SingleChildScrollView(
+        child: Column(
+          children: [
+            const AuthNavigationBar(fromLogIn: true),
+            regForm().p(16.0),
+            const BottomNavigation(),
+          ],
+        ),
+      )
+          :
+      Stack(
           children: [
             bgImage(),
             SingleChildScrollView(
@@ -102,11 +115,14 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
   }
 
   Widget regForm() {
-    return ProgressHUD(
-      child: Form(key: globalFormKey, child: _takeDetailsUI(context)),
-      inAsyncCall: isAPICallProcess,
-      opacity: 0.3,
-      key: UniqueKey(),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: ProgressHUD(
+        child: Form(key: globalFormKey, child: _takeDetailsUI(context)),
+        inAsyncCall: isAPICallProcess,
+        opacity: 0.3,
+        key: UniqueKey(),
+      ),
     );
   }
 
@@ -156,7 +172,7 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width / 4.7,
+              width: ResponsiveWidget.isSmallScreen(context) ? MediaQuery.of(context).size.width / 2.2 : MediaQuery.of(context).size.width / 4.7,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -193,14 +209,14 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
                 ],
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                "Last Name".text.xl2.semiBold.color(context.cardColor.withOpacity(0.9)).make(),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 4.7,
-                  child: FormHelper.inputFieldWidget(
+            SizedBox(
+              width: ResponsiveWidget.isSmallScreen(context) ? MediaQuery.of(context).size.width / 2.2 : MediaQuery.of(context).size.width / 4.7,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  "Last Name".text.xl2.semiBold.color(context.cardColor.withOpacity(0.9)).make(),
+                  const SizedBox(height: 10),
+                  FormHelper.inputFieldWidget(
                       context,
                       "l_name",
                       "Last Name",
@@ -228,8 +244,8 @@ class _RegisterUserDetailsWebState extends State<RegisterUserDetailsWeb> {
                       paddingLeft: 0.0,
                       paddingRight: 0.0
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),

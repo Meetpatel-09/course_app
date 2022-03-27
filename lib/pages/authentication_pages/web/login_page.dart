@@ -6,6 +6,7 @@ import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/authentication/web/buttons/g_button.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar//auth_navigation_bar.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,7 +32,19 @@ class _LogInPageWebState extends State<LogInPageWeb> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.backgroundColor,
-      body: Stack(
+      body: ResponsiveWidget.isSmallScreen(context)
+          ?
+      SingleChildScrollView(
+        child: Column(
+          children: [
+            const AuthNavigationBar(fromLogIn: true),
+            loginUI(context).p(16.0),
+            const BottomNavigation(),
+          ],
+        ),
+      )
+          :
+      Stack(
           children: [
             bgImage(),
             SingleChildScrollView(
