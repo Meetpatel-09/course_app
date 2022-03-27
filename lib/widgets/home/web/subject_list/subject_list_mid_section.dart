@@ -1,6 +1,7 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/services/shared_service.dart';
 import 'package:course_app_ui/widgets/exam/web/exam/subject_list.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -51,14 +52,14 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
                 widget.coursesList[widget.catIndex].category!.text.xl2.semiBold.make(),
                 Container(
                   width: 950,
-                  height: 140.0 * (widget.subjectList.length / 3.0),
+                  height: ResponsiveWidget.isSmallScreen(context) ? 205.0 * (widget.subjectList.length) : ResponsiveWidget.isMediumScreen(context) ? 180.0 * (widget.subjectList.length / 2) : 140.0 * (widget.subjectList.length / 3),
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: ResponsiveWidget.isSmallScreen(context) ? 1 : ResponsiveWidget.isMediumScreen(context) ? 2 : 3,
                         mainAxisSpacing: 8,
                         crossAxisSpacing: 8,
-                        childAspectRatio: 6/2.2
+                        childAspectRatio: ResponsiveWidget.isSmallScreen(context) ? 4/2 : ResponsiveWidget.isMediumScreen(context) ? 4/1.4 : 6/2.2
                       ),
                       itemCount: widget.subjectList.length,
                       itemBuilder: (context, index) => SubjectList(subjectList: widget.subjectList, subjectIndex: index, token: token, isRecent: false),
@@ -73,22 +74,22 @@ class _SubjectListMidSectionState extends State<SubjectListMidSection> {
             height: 20, // The divider's height extent.
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 155.0, vertical: 50.0),
+            padding: ResponsiveWidget.isSmallScreen(context) ? const EdgeInsets.symmetric(horizontal: 50.0, vertical: 30.0) : const EdgeInsets.symmetric(horizontal: 155.0, vertical: 50.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: ResponsiveWidget.isSmallScreen(context) ? CrossAxisAlignment.center : CrossAxisAlignment.start,
               children: [
                 "Recently Visited Subjects".text.xl2.semiBold.make(),
                 Container(
-                  height: 180,
+                  height: ResponsiveWidget.isSmallScreen(context) ? 185 * 3 : 200,
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
+                    scrollDirection: ResponsiveWidget.isSmallScreen(context) ? Axis.vertical : Axis.horizontal,
                     itemCount: 4,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: index == widget.subjectList.length - 1
                           ? const EdgeInsets.all(0)
-                          : const EdgeInsets.only(right: 8),
+                          : const EdgeInsets.only(right: 8, top: 12),
                         child: SubjectList(subjectList: widget.subjectList, subjectIndex: index, token: token, isRecent: true),
                       );
                     }

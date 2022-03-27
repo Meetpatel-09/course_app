@@ -1,6 +1,7 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/model/mcq_models/mcq_banks_model.dart';
 import 'package:course_app_ui/utils/routes.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/foundation.dart' show kIsWeb; // to check the platform if it is web or mobile
@@ -62,17 +63,17 @@ class MCQBanksList extends StatelessWidget {
                   alignment: Alignment.center,
                   child:
                   mcqBanks!.result![mcqBanksIndex].isActive != "Disabled" ?
-                      Image.asset("assets/images/mcq-bank.png", width: kIsWeb ? 80.0 : 60.0, height: kIsWeb ? 80.0 : 60.0, color: context.cardColor,)
+                      Image.asset("assets/images/mcq-bank.png", width: kIsWeb ? ResponsiveWidget.isSmallScreen(context) ? 60.0 : 80.0 : 60.0, height: kIsWeb ? 80.0 : 60.0, color: context.cardColor,)
                         :
-                      Image.asset("assets/images/mcq-bank.png", width: kIsWeb ? 80.0: 60.0, height: kIsWeb ? 80.0 : 60.0, color: context.cardColor.withOpacity(0.5),)
+                      Image.asset("assets/images/mcq-bank.png", width: kIsWeb ? ResponsiveWidget.isSmallScreen(context) ? 60.0 : 80.0: 60.0, height: kIsWeb ? 80.0 : 60.0, color: context.cardColor.withOpacity(0.5),)
                 ),
                 const SizedBox(height: 15.0,),
                 Align(
                     child: mcqBanks!.result![mcqBanksIndex].isActive != "Disabled"
                         ?
-                    mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.size(kIsWeb ? 18.0 : 14.0).letterSpacing(1.0).color(context.cardColor).make()
+                    mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.size(kIsWeb ? ResponsiveWidget.isSmallScreen(context) ? 14.0 : 18.0 : 14.0).letterSpacing(1.0).color(context.cardColor).make()
                         :
-                    mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.size(kIsWeb ? 18.0 : 14.0).letterSpacing(1.0).color(context.cardColor.withOpacity(0.5)).make()
+                    mcqBanks!.result![mcqBanksIndex].queBankName.text.bold.center.size(kIsWeb ? ResponsiveWidget.isSmallScreen(context) ? 14.0 : 18.0 : 14.0).letterSpacing(1.0).color(context.cardColor.withOpacity(0.5)).make()
                 ),
               ],
             ),

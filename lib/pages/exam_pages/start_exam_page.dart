@@ -1,7 +1,9 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/widgets/exam/start_exam_page/start_exam_widget.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/menu_drawer.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/navigation_bar.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -11,6 +13,7 @@ class StartExamPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     final arg = ModalRoute.of(context)!.settings.arguments as Map;
     String token = arg['token'];
     int mbid = arg['mbid'];
@@ -25,7 +28,9 @@ class StartExamPage extends StatelessWidget {
     String subjectID = arg['subjectID'];
 
     return Scaffold(
-      appBar: kIsWeb ? null : AppBar(
+      appBar: ResponsiveWidget.isSmallScreen(context)
+          ?
+      AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,11 +38,16 @@ class StartExamPage extends StatelessWidget {
             "Exam".text.make()
           ],
         ),
+      )
+          :
+      PreferredSize(
+          child: const CustomNavigationBar(),
+          preferredSize: Size(screenSize.width, screenSize.height)
       ),
+      drawer: const MenuDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            kIsWeb ? const CustomNavigationBar() : const SizedBox(),
             StartExamWidget(
               token: token,
               mbid: mbid,

@@ -38,7 +38,12 @@ class _MenuDrawerState extends State<MenuDrawer> {
           children: [
             Container(color: context.backgroundColor, child: Image.asset("assets/images/logo.png")),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(
+                    context,
+                    MyRoutes.homeRoute
+                );
+              },
               child: "Home".text.semiBold.white.size(20.0).make()
             ).pOnly(left: 16, top: 20),
             for (int i = 0; i < _coursesList.length; i++)

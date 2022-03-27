@@ -3,7 +3,9 @@ import 'package:course_app_ui/model/mcq_models/mcq_question_bank_model.dart' as 
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/web/mcq_page/mid_section_mcq_page.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/menu_drawer.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/navigation_bar.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 
 class MCQPageWeb extends StatefulWidget {
@@ -43,6 +45,7 @@ class _MCQPageWebState extends State<MCQPageWeb> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return WillPopScope(
         onWillPop: () async {
           showDialog(
@@ -68,10 +71,20 @@ class _MCQPageWebState extends State<MCQPageWeb> {
           return true;
         },
         child: Scaffold(
+          appBar: ResponsiveWidget.isSmallScreen(context)
+              ?
+          AppBar(
+            title: const Text('Exam'),
+          )
+              :
+          PreferredSize(
+              child: const CustomNavigationBar(),
+              preferredSize: Size(screenSize.width, screenSize.height)
+          ),
+          drawer: const MenuDrawer(),
           body: SingleChildScrollView(
             child: Column(
               children: [
-                const CustomNavigationBar(),
                 MidSectionMCQPage(
                   wantExamTimer: widget.wantExamTimer,
                   wantQuestionTimer: widget.wantQuestionTimer,
