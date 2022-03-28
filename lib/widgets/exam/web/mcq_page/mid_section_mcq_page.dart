@@ -7,6 +7,7 @@ import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/exam/web/exam/mcq_page/widgets/button_widget.dart';
 import 'package:course_app_ui/widgets/exam/web/exam/mcq_page/widgets/question_widget.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -139,14 +140,20 @@ class _MidSectionMCQPageState extends State<MidSectionMCQPage> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           "Computer Basics".text.xl3.semiBold.make(),
-                          Row(
+                          ResponsiveWidget.isSmallScreen(context) ? const SizedBox() : widget.wantExamTimer ? Row(
                             children: [
                               "Exam Timer ".text.xl.semiBold.make(),
                               "$minutes:$seconds".text.xl.semiBold.make()
                             ],
-                          ),
+                          ) : const SizedBox(),
                         ],
                       ).px(10),
+                      ResponsiveWidget.isSmallScreen(context) ? widget.wantExamTimer ? Row(
+                        children: [
+                          "Exam Timer ".text.xl.semiBold.make(),
+                          "$minutes:$seconds".text.xl.semiBold.make()
+                        ],
+                      ).pOnly(left: 16.0, top: 3.0) : const SizedBox() : const SizedBox(),
                       const SizedBox(height: 30.0,),
                       paginationButtons(),
                       const SizedBox(height: 30.0,),
@@ -184,7 +191,7 @@ class _MidSectionMCQPageState extends State<MidSectionMCQPage> {
                             options(pageIndex),
                             const SizedBox(height: 10.0,),
                           ],
-                        ).pSymmetric(v: 30.0, h: 40.0),
+                        ).pSymmetric(v: 30.0, h: ResponsiveWidget.isSmallScreen(context) ? 10.0 : 40.0),
                       ),
                       ButtonsWidget(
                         mcqIDs: mcqIDs,
@@ -307,37 +314,84 @@ class _MidSectionMCQPageState extends State<MidSectionMCQPage> {
     );
   }
 
+  // Widget paginationButtons() {
+  //   return SizedBox(
+  //     width: MediaQuery.of(context).size.width,
+  //     child: Align(
+  //       alignment: Alignment.centerLeft,
+  //       child: SingleChildScrollView(
+  //         scrollDirection: Axis.horizontal,
+  //         child: Row(
+  //           children: [
+  //             for (int i = 0; i < widget.mcqQuestions.length ; i++)
+  //               Container(
+  //                 margin: const EdgeInsets.only(right: 5.0, left: 0),
+  //                 decoration: BoxDecoration(
+  //                   border: Border.all(color: context.primaryColor, width: 1),
+  //                   borderRadius: const BorderRadius.all(Radius.circular(5)),
+  //                   color: i == pageIndex ? context.primaryColor : context.canvasColor,
+  //                 ),
+  //                 child: Center(
+  //                   child: TextButton(
+  //                       onPressed: () {
+  //                         setState(() {
+  //                           widget.controller.jumpToPage(i);
+  //                         });
+  //                       },
+  //                       child: "Q no.- ${i + 1}".text.xl.color(i == pageIndex ? MyTheme.white : context.cardColor,).make().p(10.0)
+  //                   ),
+  //                 )
+  //               ),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   Widget paginationButtons() {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              for (int i = 0; i < widget.mcqQuestions.length ; i++)
-                Container(
-                  margin: const EdgeInsets.only(right: 5.0, left: 0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: context.primaryColor, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    color: i == pageIndex ? context.primaryColor : context.canvasColor,
-                  ),
-                  child: Center(
-                    child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            widget.controller.jumpToPage(i);
-                          });
-                        },
-                        child: "Q no.- ${i + 1}".text.xl.color(i == pageIndex ? MyTheme.white : context.cardColor,).make().p(10.0)
-                    ),
-                  )
-                ),
-            ],
+      child: GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: ResponsiveWidget.isSmallScreen(context) ?  5 : ResponsiveWidget.isMediumScreen(context) ? 7 : 10,
+            mainAxisSpacing: 5.0,
+            childAspectRatio: ResponsiveWidget.isLargeScreen(context) ? 5/2 : 5/3,
           ),
-        ),
+          itemCount: 10,
+          itemBuilder: (context, i) {
+            return Container(
+                margin: const EdgeInsets.only(right: 5.0, left: 0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: context.primaryColor, width: 1),
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  color: i == pageIndex ? context.primaryColor : context
+                      .canvasColor,
+                ),
+                child: Center(
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          widget.controller.jumpToPage(i);
+                        });
+                      },
+                      child: ResponsiveWidget.isSmallScreen(context)
+                          ?
+                      "${i + 1}".text.color(
+                        i == pageIndex ? MyTheme.white : context.cardColor,)
+                          .make()
+                          .p(10.0)
+                          :
+                      "Q no.- ${i + 1}".text.color(
+                        i == pageIndex ? MyTheme.white : context.cardColor,)
+                          .make()
+                          .p(10.0)
+                  ),
+                )
+            );
+          }
       ),
     );
   }

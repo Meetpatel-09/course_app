@@ -1,4 +1,5 @@
 import 'package:course_app_ui/model/my_exam_models/my_exam_result_model.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -26,12 +27,12 @@ class _MidSectionMyExamState extends State<MidSectionMyExam> {
           minHeight: MediaQuery.of(context).size.height - 100
       ),
       child: Padding(
-        padding: const EdgeInsets.all(18.0),
+        padding: ResponsiveWidget.isSmallScreen(context) ? const EdgeInsets.all(8.0) : const EdgeInsets.all(18.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // "Computer Basics".text.xl3.semiBold.make().px(10.0),
-            summary(),
+            ResponsiveWidget.isSmallScreen(context) ? summary2() : summary(),
             const SizedBox(height: 20.0,),
             SizedBox(
                 height: MediaQuery.of(context).size.height - 285,
@@ -74,7 +75,7 @@ class _MidSectionMyExamState extends State<MidSectionMyExam> {
             options(index),
             const SizedBox(height: 10.0,),
           ],
-        ).pSymmetric(v: 30.0, h: 40.0),
+        ).pSymmetric(v: 30.0, h: ResponsiveWidget.isSmallScreen(context) ? 10.0 : 40.0),
       ).py(10.0);
     }
   );
@@ -269,4 +270,142 @@ class _MidSectionMyExamState extends State<MidSectionMyExam> {
       ],
     );
   }
+
+  Widget summary2() => Container(
+    height: 170,
+    padding: const EdgeInsets.all(20.0),
+    margin: const EdgeInsets.only(bottom: 15, top: 15, left: 10, right: 10),
+    decoration: BoxDecoration(
+        color: context.backgroundColor,
+        borderRadius: BorderRadius.circular(15.0),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.8),
+              blurRadius: 15,
+              offset: const Offset(0.0, 0.50)
+          ),
+        ]
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.circle, color: context.primaryColor,),
+                    const SizedBox(width: 10,),
+                    Text(
+                      "${widget.myExamResult.summery?.totalQuestions.toString()}",
+                      style: TextStyle(
+                          color: context.primaryColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    const SizedBox(width: 33,),
+                    "Total Questions".text.make(),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(
+              width: 150,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.circle, color: context.primaryColor,),
+                      const SizedBox(width: 10,),
+                      Text(
+                        "${widget.myExamResult.summery?.totalAttempted.toString()}",
+                        style: TextStyle(
+                            color: context.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const SizedBox(width: 33,),
+                      "Total Attempted".text.make(),
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.circle, color: Colors.green,),
+                    const SizedBox(width: 10,),
+                    Text(
+                      "${widget.myExamResult.summery?.totalCorrect.toString()}",
+                      style: const TextStyle(
+                          color: Colors.green,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    const SizedBox(width: 33,),
+                    "Total Correct".text.make(),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(
+              width: 150,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.circle, color: Colors.red,),
+                      const SizedBox(width: 10,),
+                      Text(
+                        "${widget.myExamResult.summery?.totalWrong.toString()}",
+                        style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const SizedBox(width: 33,),
+                      "Total Wrong".text.make().pOnly(),
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ],
+    ),
+  );
 }

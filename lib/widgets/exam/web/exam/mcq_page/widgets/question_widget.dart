@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -104,15 +105,22 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 width: MediaQuery.of(context).size.width / 3,
                 child: "Question ${widget.questionNumber}".text.xl.semiBold.make()
             ),
-            Row(
+            ResponsiveWidget.isSmallScreen(context) ? const SizedBox() : widget.wantQuestionTimer ? Row(
               children: [
                 "Question Timer ".text.xl.semiBold.make(),
                 // "00:45".text.xl.semiBold.make(),
-                widget.wantQuestionTimer ? buildQuestionTimer(minutesQuestion, secondsQuestion) : const SizedBox(),
+                buildQuestionTimer(minutesQuestion, secondsQuestion)
               ],
-            ),
+            ) : const SizedBox(),
           ],
         ),
+        ResponsiveWidget.isSmallScreen(context) ? widget.wantQuestionTimer ? Row(
+          children: [
+            "Question Timer ".text.xl.semiBold.make(),
+            // "00:45".text.xl.semiBold.make(),
+            buildQuestionTimer(minutesQuestion, secondsQuestion)
+          ],
+        ).pOnly(top: 5.0) : const SizedBox() : const SizedBox(),
         const SizedBox(height: 20.0,),
         widget.question.text.xl2.semiBold.make(),
       ],

@@ -4,7 +4,9 @@ import 'package:course_app_ui/services/shared_service.dart';
 import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
+import 'package:course_app_ui/widgets/web/navigation_bar/menu_drawer.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/navigation_bar.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -52,11 +54,22 @@ class _MyProfilePageWebState extends State<MyProfilePageWeb> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: ResponsiveWidget.isSmallScreen(context)
+          ?
+      AppBar(
+        title: const Text('My Profile'),
+      )
+          :
+      PreferredSize(
+          child: const CustomNavigationBar(),
+          preferredSize: Size(screenSize.width, screenSize.height)
+      ),
+      drawer: const MenuDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const CustomNavigationBar(),
             Container(
               height: MediaQuery.of(context).size.height - 100,
               color: context.canvasColor,
@@ -128,7 +141,7 @@ class _MyProfilePageWebState extends State<MyProfilePageWeb> {
                                           ),
                                           const SizedBox(width: 10,),
                                           Container(
-                                            width: 450.0,
+                                            width: MediaQuery.of(context).size.width < 645 ? MediaQuery.of(context).size.width - 190 : 450.0,
                                             padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                                             decoration: BoxDecoration(
                                               color: context.backgroundColor,
@@ -155,7 +168,7 @@ class _MyProfilePageWebState extends State<MyProfilePageWeb> {
                                           ),
                                           const SizedBox(width: 10,),
                                           Container(
-                                            width: 450.0,
+                                            width: MediaQuery.of(context).size.width < 645 ? MediaQuery.of(context).size.width - 190 : 450.0,
                                             padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                                             decoration: BoxDecoration(
                                               color: context.backgroundColor,
@@ -182,7 +195,7 @@ class _MyProfilePageWebState extends State<MyProfilePageWeb> {
                                             ),
                                             const SizedBox(width: 10,),
                                             Container(
-                                              width: 450.0,
+                                              width: MediaQuery.of(context).size.width < 645 ? MediaQuery.of(context).size.width - 190 : 450.0,
                                               padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                                               decoration: BoxDecoration(
                                                 color: context.backgroundColor,
@@ -222,7 +235,7 @@ class _MyProfilePageWebState extends State<MyProfilePageWeb> {
                                       },
                                       child: "Edit Profile".text.semiBold.xl.color(context.backgroundColor).make(),
                                       style: ElevatedButton.styleFrom(
-                                        fixedSize: const Size(135, 45),
+                                        fixedSize: const Size(125, 45),
                                         primary: context.primaryColor,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(10),
@@ -236,7 +249,7 @@ class _MyProfilePageWebState extends State<MyProfilePageWeb> {
                                       },
                                       child: "Sign Out".text.semiBold.xl.color(context.backgroundColor).make(),
                                       style: ElevatedButton.styleFrom(
-                                        fixedSize: const Size(135, 45),
+                                        fixedSize: const Size(125, 45),
                                         primary: Colors.red,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(10),

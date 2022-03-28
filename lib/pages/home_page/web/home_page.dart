@@ -1,3 +1,4 @@
+import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/widgets/home/logout_button.dart';
 import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
 import 'package:course_app_ui/widgets/home/web/home/mid_section.dart';
@@ -18,7 +19,7 @@ class HomePageWeb extends StatelessWidget {
       appBar: ResponsiveWidget.isSmallScreen(context)
           ?
         AppBar(
-          title: const Text('Course App'),
+          title: Text(Config().appName),
           actions: [
             Align(
                 alignment: Alignment.centerRight,

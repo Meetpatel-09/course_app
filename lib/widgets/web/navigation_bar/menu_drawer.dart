@@ -1,5 +1,6 @@
 import 'package:course_app_ui/model/course_model.dart';
 import 'package:course_app_ui/services/api_service.dart';
+import 'package:course_app_ui/services/shared_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -15,6 +16,9 @@ class MenuDrawer extends StatefulWidget {
 
 class _MenuDrawerState extends State<MenuDrawer> {
   List<Result> _coursesList = []; // to store all the data from from home API
+  final SharedServices _sharedServices = SharedServices();
+  bool _isLoggedIn = false;
+  String token = "";
 
   @override
   void initState() {
@@ -23,6 +27,15 @@ class _MenuDrawerState extends State<MenuDrawer> {
       if (courses.toString().isNotEmpty) {
         setState(() {
           _coursesList = courses.result!; // storing all the data from home API
+        });
+      }
+    });
+    // checking the token to verify if the user is signed
+    _sharedServices.getData("token").then((value) {
+      if (value != null) {
+        setState(() {
+          token = value;
+          _isLoggedIn = true;
         });
       }
     });
@@ -68,6 +81,22 @@ class _MenuDrawerState extends State<MenuDrawer> {
             //     thickness: 2,
             //   ),
             // ),
+            _isLoggedIn ? Column(
+              children: [
+                InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, MyRoutes.myExam);
+                    },
+                    child: "My Exam".text.semiBold.white.size(20.0).make()
+                ).pOnly(left: 16, top: 20),
+                InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, MyRoutes.myProfile);
+                    },
+                    child: "My Profile".text.semiBold.white.size(20.0).make()
+                ).pOnly(left: 16, top: 20),
+              ],
+            ) : const SizedBox(),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,

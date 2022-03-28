@@ -3,8 +3,10 @@ import 'package:course_app_ui/model/my_exam_models/my_exam_result_model.dart' as
 import 'package:course_app_ui/services/api_service.dart';
 import 'package:course_app_ui/services/shared_service.dart';
 import 'package:course_app_ui/utils/routes.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter/foundation.dart' show kIsWeb; // to check the platform if it is web or mobile
 
 class MCQBanksList extends StatelessWidget {
   const MCQBanksList({Key? key, required this.mcqBanksIndex, this.mcqBanks, this.subjectID}) : super(key: key);
@@ -59,10 +61,10 @@ class MCQBanksList extends StatelessWidget {
                 const SizedBox(height: 8,),
                 Align(
                     alignment: Alignment.center,
-                    child: Image.asset("assets/images/mcq-bank.png", width: 60, height: 60, color: context.cardColor,)
+                    child: Image.asset("assets/images/mcq-bank.png", width: kIsWeb ? ResponsiveWidget.isSmallScreen(context) ? 60.0 : 80.0 : 60.0, height: kIsWeb ? 80.0 : 60.0, color: context.cardColor,)
                 ),
                 const SizedBox(height: 15,),
-                Align(child:  mcqBanks![mcqBanksIndex].queBankName.text.bold.center.letterSpacing(1).color(context.cardColor).make()),
+                Align(child:  mcqBanks![mcqBanksIndex].queBankName.text.bold.center.size(kIsWeb ? ResponsiveWidget.isSmallScreen(context) ? 14.0 : 18.0 : 14.0).letterSpacing(1).color(context.cardColor).make()),
               ],
             ),
           ),

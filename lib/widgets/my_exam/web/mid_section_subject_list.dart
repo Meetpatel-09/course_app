@@ -1,5 +1,6 @@
 import 'package:course_app_ui/model/my_exam_models/my_exam_model.dart';
 import 'package:course_app_ui/widgets/my_exam/web/subject_list.dart';
+import 'package:course_app_ui/widgets/web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -26,15 +27,15 @@ class MidSectionSubjectList extends StatelessWidget {
                 "My Exam".text.xl2.semiBold.make(),
                 Container(
                   width: 950,
-                  height: 240.0 * (subjectList.length / 3.0),
+                  height:  ResponsiveWidget.isSmallScreen(context) ? 205.0 * (subjectList.length) : ResponsiveWidget.isMediumScreen(context) ? 280.0 * (subjectList.length / 2) : 240.0 * (subjectList.length / 3),
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: GridView.builder(
                     gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
+                         SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: ResponsiveWidget.isSmallScreen(context) ? 1 : ResponsiveWidget.isMediumScreen(context) ? 2 : 3,
                             mainAxisSpacing: 8,
                             crossAxisSpacing: 8,
-                            childAspectRatio: 6 / 2.6),
+                            childAspectRatio: ResponsiveWidget.isSmallScreen(context) ? 4/2 : ResponsiveWidget.isMediumScreen(context) ? 4/1.8 : 6/2.6),
                     itemCount: subjectList.length,
                     itemBuilder: (context, index) => SubjectListMyExam(
                         subjectList: subjectList,
