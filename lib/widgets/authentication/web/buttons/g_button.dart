@@ -47,7 +47,7 @@ class GButton extends StatelessWidget {
                     LoginRequestModel model = LoginRequestModel(
                       email: user.email,
                       password: 'Google',
-                      provider: 'Google',
+                      // provider: 'Google',
                     );
 
                     AuthService.login(model).then((response) async {

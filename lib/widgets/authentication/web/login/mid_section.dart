@@ -177,7 +177,7 @@ class _MidSectionState extends State<MidSection> {
                 LoginRequestModel model = LoginRequestModel(
                   email: email!,
                   password: password!,
-                  provider: 'VPSMCQ',
+                  // provider: 'VPSMCQ',
                 );
 
                 AuthService.login(model).then((response) async {

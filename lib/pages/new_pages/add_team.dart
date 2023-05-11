@@ -1,93 +1,71 @@
 import 'dart:io';
 
 import 'package:course_app_ui/services/authentication_service.dart';
+import 'package:course_app_ui/services/google_sign_in_api.dart';
 import 'package:course_app_ui/theme/theme.dart';
-import 'package:course_app_ui/utils/config.dart';
 import 'package:course_app_ui/utils/routes.dart';
-import 'package:course_app_ui/widgets/web/navigation_bar/bottom_navigation.dart';
-import 'package:course_app_ui/widgets/web/navigation_bar/navigation_bar.dart';
-import 'package:course_app_ui/widgets/web/responsive.dart';
+import 'package:course_app_ui/widgets/authentication/links/terms_conditions.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:course_app_ui/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:dio/dio.dart' as dio;
-import 'package:flutter/foundation.dart' show kIsWeb;
 
-class EditProfilePageMobile extends StatefulWidget {
-  final String name;
-  final String mobileNo;
-  final String address;
-  final String token;
-  final String userImageString;
-  const EditProfilePageMobile({Key? key, required this.name, required this.mobileNo, required this.address, required this.token, required this.userImageString}) : super(key: key);
+class AddTeam extends StatefulWidget {
+  final String email;
+  final String password;
+  final String isGoogle;
+  final String? name;
+  const AddTeam({Key? key, required this.email, required this.password, required this.isGoogle, this.name}) : super(key: key);
 
   @override
-  _EditProfilePageMobileState createState() => _EditProfilePageMobileState();
+  _AddTeamState createState() => _AddTeamState();
 }
 
-class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
+class _AddTeamState extends State<AddTeam> {
   bool isAPICallProcess = false;
+  bool hidePassword = true;
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
-  String name = "";
-  List<String> fullName = [];
   String firstName = "";
   String lastName = "";
-  String mobileNo = "";
-  String address = "";
-  String token = "";
+  List<String> fullName = [];
+  String? phoneNo;
+  String? address;
   File? image;
-  String userImageString = "";
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    // name = widget.name;
-    // // Google gives us full name of user e.g. Rohit Sharma so splitting the name
-    // fullName = name.split(" ");
-    // // Setting the user name to variables
-    // firstName = fullName[0];
-    // lastName = fullName[1];
-    // mobileNo = widget.mobileNo;
-    // address = widget.address;
-    // token = widget.token;
-    // userImageString = widget.userImageString;
+    // Checking is user has registered with Google
+    if (widget.isGoogle == "yes") {
+      // Google gives us full name of user e.g. Rohit Sharma so splitting the name
+      fullName = widget.name!.split(" ");
+      // Setting the user name to variables
+      firstName = fullName[0];
+      lastName = fullName[1];
+    }
 
     return Scaffold(
-      appBar: ResponsiveWidget.isSmallScreen(context)
-          ?
-      AppBar(
-        backgroundColor: context.canvasColor,
-        iconTheme: IconThemeData(color: context.primaryColor),
-        title: "Edit Profile".text.color(context.primaryColor).make(),
-      )
-          :
-      PreferredSize(
-          child: const CustomNavigationBar(),
-          preferredSize: Size(screenSize.width, screenSize.height)
-      ),
-      backgroundColor: context.canvasColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              constraints: const BoxConstraints(
-                  maxWidth: 600.0
-              ),
-              height: MediaQuery.of(context).size.height,
-              child: ProgressHUD(
-                child: Form(key: globalFormKey, child: _takeDetailsUI(context)),
-                inAsyncCall: isAPICallProcess,
-                opacity: 0.3,
-                key: UniqueKey(),
-              ),
-            ),
-            kIsWeb ? const BottomNavigation() : const SizedBox(),
+      appBar: AppBar(
+        title: Row(
+          children: const [
+            Text('Create New Team'),
           ],
         ),
+      ),
+      backgroundColor: context.canvasColor,
+      // used the 'snippet_coder_utils' package for form
+      // https://pub.dev/packages/snippet_coder_utils
+      // from more details visit the above URL.
+      body: ProgressHUD(
+        child: Form(key: globalFormKey, child: _takeDetailsUI(context)),
+        inAsyncCall: isAPICallProcess,
+        opacity: 0.3,
+        key: UniqueKey(),
       ),
     );
   }
@@ -100,7 +78,9 @@ class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
         children: [
           const SizedBox(height: 30,),
           formFields(),
-          const SizedBox(height: 20,),
+          const SizedBox(height: 5,),
+          // const TermsAndConditions().px20(),
+          const SizedBox(height: 15,),
         ],
       ),
     );
@@ -111,9 +91,9 @@ class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
       children: [
         Stack(
           children: [
-            // here "image" is the image which is selected form gallery,
-            // "userImageString" means the image form the server
-            image != null ? userImage() : userImageString.isNotEmpty ? userImgNetwork() : buildImage(),
+            // checking if user use has selected an image from gallery
+            image != null ? userImage() : buildImage(),
+            // positioning the add image icon
             Positioned(
                 bottom: 0,
                 right: 4,
@@ -122,22 +102,26 @@ class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
           ],
         ),
         const SizedBox(height: 15,),
-        Align(child: "Profile Picture".text.lg.center.make()),
+        Align(child: "Team Profile Picture".text.lg.center.make()),
         const SizedBox(height: 30,),
         FormHelper.inputFieldWidget(
           context,
           "f_name",
-          "First Name",
+          "Team Name",
               (onValidateVal) {
             if (onValidateVal.isEmpty) {
-              return "First Name cannot be empty.";
+              return "Team Name cannot be empty.";
             }
             return null;
           },
               (onSavedVal) {
             firstName = onSavedVal;
           },
-          prefixIcon: const Icon(Icons.person),
+          showPrefixIcon: true,
+          prefixIconPaddingLeft: 20.0,
+          prefixIconPaddingTop: 20.0,
+          prefixIconPaddingBottom: 20.0,
+          prefixIcon: const Icon(Icons.account_box),
           initialValue: firstName,
           borderFocusColor: context.cardColor,
           prefixIconColor: context.cardColor,
@@ -151,67 +135,8 @@ class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
         ),
         FormHelper.inputFieldWidget(
           context,
-          "l_name",
-          "Last Name",
-              (onValidateVal) {
-            if (onValidateVal.isEmpty) {
-              return "Last Name cannot be empty.";
-            }
-            return null;
-          },
-              (onSavedVal) {
-            lastName = onSavedVal;
-          },
-          prefixIcon: const Icon(Icons.person),
-          initialValue: lastName,
-          borderFocusColor: context.cardColor,
-          prefixIconColor: context.cardColor,
-          borderColor: context.cardColor,
-          textColor: context.cardColor,
-          hintColor: context.cardColor.withOpacity(0.7),
-          borderRadius: 10,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        FormHelper.inputFieldWidget(
-          context,
-          "p_number",
-          "Phone Number",
-              (onValidateVal) {
-            if (onValidateVal.isEmpty) {
-              return "Phone Number cannot be empty.";
-            }
-            try {
-              int pNumber = int.parse(onValidateVal);
-              if (pNumber > 1111111111 && pNumber < 9999999999) {
-                return null;
-              } else {
-                return "Enter valid Phone Number";
-              }
-            } catch(e) {
-              return "Enter valid Phone Number";
-            }
-          },
-              (onSavedVal) {
-            mobileNo = onSavedVal;
-          },
-          prefixIcon: const Icon(Icons.phone_android),
-          initialValue: mobileNo,
-          borderFocusColor: context.cardColor,
-          prefixIconColor: context.cardColor,
-          borderColor: context.cardColor,
-          textColor: context.cardColor,
-          hintColor: context.cardColor.withOpacity(0.7),
-          borderRadius: 10,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        FormHelper.inputFieldWidget(
-          context,
           "address",
-          "Address",
+          "Team Members",
               (onValidateVal) {
             if (onValidateVal.isEmpty) {
               return "Address cannot be empty.";
@@ -221,8 +146,11 @@ class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
               (onSavedVal) {
             address = onSavedVal;
           },
+          showPrefixIcon: true,
+          prefixIconPaddingLeft: 20.0,
+          prefixIconPaddingTop: 20.0,
+          prefixIconPaddingBottom: 20.0,
           prefixIcon: const Icon(Icons.home),
-          initialValue: address,
           isMultiline: true,
           borderFocusColor: context.cardColor,
           prefixIconColor: context.cardColor,
@@ -236,57 +164,87 @@ class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
         ),
         Center(
           child: FormHelper.submitButton(
-            "Save", () async {
+            "Create Team", () async {
             if (validateAndSave()) {
               setState(() {
                 isAPICallProcess = true;
               });
-
               dio.FormData formData;
-
-              if (image == null) {
+              if (widget.isGoogle == "yes") {
                 formData = dio.FormData.fromMap({
                   "full_name": firstName + " " + lastName,
-                  "mobile_no": mobileNo,
+                  "email": widget.email,
+                  "mobile_no": phoneNo,
                   "address": address,
+                  "user_role": 'user',
+                  "profile": await dio.MultipartFile.fromFile(image!.path,
+                      filename: image!.path.split('/').last),
+                });
+
+                AuthService.googleRegister(formData).then((response) async {
+                  setState(() {
+                    isAPICallProcess = false;
+                  });
+                  if(response.status == 200) {
+                    String token = response.token.toString();
+                    setToken(token);
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      MyRoutes.homeRoute,
+                          (route) => false,
+                    );
+                  } else {
+                    FormHelper.showSimpleAlertDialog(
+                      context,
+                      Config().appName,
+                      response.msg!,
+                      "OK",
+                          () {
+                        Navigator.pop(context);
+                        GoogleSignInAPI.logout();
+                      },
+                    );
+                  }
                 });
               } else {
                 formData = dio.FormData.fromMap({
                   "full_name": firstName + " " + lastName,
-                  "mobile_no": mobileNo,
+                  "email": widget.email,
+                  "mobile_no": phoneNo,
+                  "password": widget.password,
                   "address": address,
+                  "user_role": 'user',
                   "profile": await dio.MultipartFile.fromFile(image!.path,
-                      filename: image!
-                          .path
-                          .split('/')
-                          .last),
+                      filename: image!.path.split('/').last),
+                  "provider": 'VPSMCQ'
+                });
+
+                AuthService.register(formData).then((response) async {
+                  setState(() {
+                    isAPICallProcess = false;
+                  });
+                  if(response.status == 200) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        MyRoutes.otpVerificationRoute,
+                            (route) => false,
+                        arguments: {
+                          'email': widget.email,
+                        }
+                    );
+                  } else {
+                    FormHelper.showSimpleAlertDialog(
+                      context,
+                      Config().appName,
+                      response.msg!,
+                      "OK",
+                          () {
+                        Navigator.pop(context);
+                      },
+                    );
+                  }
                 });
               }
-              AuthService.editProfile(formData, token).then((response) async {
-                setState(() {
-                  isAPICallProcess = false;
-                });
-                if(response.status == 200) {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      MyRoutes.homeRoute,
-                          (route) => false,
-                      arguments: {
-                        'index': 3
-                      }
-                  );
-                } else {
-                  FormHelper.showSimpleAlertDialog(
-                    context,
-                    Config().appName,
-                    "Something went wrong",
-                    "OK",
-                        () {
-                      Navigator.pop(context);
-                    },
-                  );
-                }
-              });
             }
           },
             width: MediaQuery.of(context).size.width - 40,
@@ -316,29 +274,13 @@ class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
     );
   }
 
-  // the image which we get form server
-  Widget userImgNetwork() {
-    return ClipOval(
-      child: Material(
-        color: Colors.transparent,
-        child: Ink.image(
-          image: NetworkImage(Config().mediaAPI + userImageString),
-          fit: BoxFit.cover,
-          width: 140,
-          height: 140,
-          child: InkWell(onTap: () => pickImage(),),
-        ),
-      ),
-    );
-  }
-
   // the default image when the page is first loaded. when the user has not select an image
   Widget buildImage() {
     return ClipOval(
       child: Material(
         color: Colors.transparent,
         child: Ink.image(
-          image: const AssetImage("assets/images/profile.png"),
+          image: const AssetImage("assets/images/team.png"),
           fit: BoxFit.cover,
           width: 140,
           height: 140,
@@ -409,6 +351,8 @@ class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
           )
       );
 
+      // compressing the image using package:flutter_image_compress/flutter_image_compress.dart
+      // for more details visit https://pub.dev/packages/flutter_image_compress
       final result = await FlutterImageCompress.compressAndGetFile(
         croppedFile!.path,
         image.path,
@@ -416,7 +360,6 @@ class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
         minWidth: 512,
         minHeight: 512,
       );
-
       setState(() => this.image = result);
 
     } catch(e) {
@@ -435,12 +378,15 @@ class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
   bool validateAndSave() {
     final form = globalFormKey.currentState;
     if (image == null) {
-      form!.save();
-      if (form.validate()) {
-        return true;
-      } else {
-        return false;
-      }
+      FormHelper.showSimpleAlertDialog(
+        context,
+        Config().appName,
+        "Please select a profile image",
+        "OK", () {
+        Navigator.pop(context);
+      },
+      );
+      return false;
     } else {
       form!.save();
       if (form.validate()) {
@@ -449,5 +395,11 @@ class _EditProfilePageMobileState extends State<EditProfilePageMobile> {
         return false;
       }
     }
+  }
+
+  // Storing the user token for future reference
+  Future<void> setToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', token);
   }
 }

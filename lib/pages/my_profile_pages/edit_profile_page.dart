@@ -21,12 +21,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final arg = ModalRoute.of(context)!.settings.arguments as Map;
-    name = arg['name'];
-    mobileNo = arg['mobileNo'];
-    address = arg['address'];
-    token = arg['token'];
-    userImageString = arg['image'];
+    // final arg = ModalRoute.of(context)!.settings.arguments as Map;
+    // name = arg['name'];
+    // mobileNo = arg['mobileNo'];
+    // address = arg['address'];
+    // token = arg['token'];
+    // userImageString = arg['image'];
 
     return LayoutBuilder(
       builder: (context, constraints) {

@@ -150,7 +150,6 @@ class _LogInPageMobileState extends State<LogInPageMobile> {
               LoginRequestModel model = LoginRequestModel(
                 email: email!,
                 password: password!,
-                provider: 'VPSMCQ',
               );
 
               AuthService.login(model).then((response) async {

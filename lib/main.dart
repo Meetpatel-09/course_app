@@ -1,4 +1,7 @@
 import 'package:course_app_ui/pages/export_pages.dart';
+import 'package:course_app_ui/pages/new_pages/add_team.dart';
+import 'package:course_app_ui/pages/new_pages/create_project.dart';
+import 'package:course_app_ui/pages/new_pages/edit_team_profile.dart';
 import 'package:course_app_ui/pages/temp_page.dart';
 import 'package:course_app_ui/utils/routes.dart';
 import 'package:course_app_ui/theme/theme.dart';
@@ -26,6 +29,9 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (context) => const HomePage(),
         MyRoutes.splashRoute: (context) => const SplashPage(),
+        // MyRoutes.splashRoute: (context) => const AddTeam(email: "email", password: "password", isGoogle: "isGoogle"),
+        // MyRoutes.splashRoute: (context) => const EditTeamProfile(email: "email", password: "password", isGoogle: "isGoogle"),
+        // MyRoutes.splashRoute: (context) => const AddProject(email: "email", password: "password", isGoogle: "isGoogle"),
         MyRoutes.homeRoute: (context) => const HomePage(),
         MyRoutes.loginRoute: (context) => const LogInPage(),
         MyRoutes.registerRoute: (context) => const RegisterPage(),

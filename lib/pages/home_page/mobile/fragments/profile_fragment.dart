@@ -16,38 +16,38 @@ class ProfileFragment extends StatefulWidget {
 
 class _ProfileFragmentState extends State<ProfileFragment> {
   final SharedServices _sharedServices = SharedServices();
-  bool _isLoading = true;
-  String name = "";
+  bool _isLoading = false;
+  String name = "Meet Patel";
   String email = "";
   String mobileNo = "";
-  String address = "";
+  String address = "Block A-3 Sugar Factory";
   String token = "";
   dynamic image = "";
 
-  @override
-  void initState() {
-    super.initState();
-    _sharedServices.getData("token").then((value) {
-      if (value != null) {
-
-        AuthService.getUserProfile(value).then((response) {
-          if (response.status == 200) {
-            name = response.result![0].fullName;
-            email = response.result![0].email;
-            mobileNo = response.result![0].mobileNo;
-            address = response.result![0].address;
-            image = response.result![0].profile;
-
-            if (!mounted) return;
-            setState(() {
-              token = value;
-              _isLoading = false;
-            });
-          }
-        });
-      }
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _sharedServices.getData("token").then((value) {
+  //     if (value != null) {
+  //
+  //       AuthService.getUserProfile(value).then((response) {
+  //         if (response.status == 200) {
+  //           name = response.result![0].fullName;
+  //           email = response.result![0].email;
+  //           mobileNo = response.result![0].mobileNo;
+  //           address = response.result![0].address;
+  //           image = response.result![0].profile;
+  //
+  //           if (!mounted) return;
+  //           setState(() {
+  //             token = value;
+  //             _isLoading = false;
+  //           });
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,8 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                     child:  ClipOval(
                       child: Material(
                         color: Colors.transparent,
-                        child: Image.network(Config().mediaAPI + image, fit: BoxFit.fill),
+                        // child: Image.network(Config().mediaAPI + image, fit: BoxFit.fill),
+                        child: Image.asset("assets/images/meet.jpeg"),
                       ),
                     ),
                   ),
@@ -140,7 +141,8 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       "Email".text.bold.make().pOnly(left: 8.0),
-                                      email.text.color(context.cardColor.withOpacity(0.7)).make().pOnly(left: 8.0),
+                                      "meetpatel053@gmail.com".text.color(context.cardColor.withOpacity(0.7)).make().pOnly(left: 8.0),
+                                      // email.text.color(context.cardColor.withOpacity(0.7)).make().pOnly(left: 8.0),
                                     ],
                                   ),
                                 )
@@ -167,7 +169,8 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       "Phone".text.bold.make().pOnly(left: 8.0),
-                                      mobileNo.text.color(context.cardColor.withOpacity(0.7)).make().pOnly(left: 8.0),
+                                      // mobileNo.text.color(context.cardColor.withOpacity(0.7)).make().pOnly(left: 8.0),
+                                      "6353293295".text.color(context.cardColor.withOpacity(0.7)).make().pOnly(left: 8.0),
                                     ],
                                   ),
                                 )
@@ -212,13 +215,13 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                               Navigator.pushNamed(
                                   context,
                                   MyRoutes.editProfileRoute,
-                                  arguments: {
-                                    'name': name,
-                                    'mobileNo': mobileNo,
-                                    'address': address,
-                                    'image': image,
-                                     'token': token,
-                                  }
+                                  // arguments: {
+                                  //   'name': name,
+                                  //   'mobileNo': mobileNo,
+                                  //   'address': address,
+                                  //   'image': image,
+                                  //    'token': token,
+                                  // }
                               );
                             },
                             child: "Edit Profile".text.semiBold.lg.color(context.backgroundColor).make(),

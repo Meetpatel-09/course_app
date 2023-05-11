@@ -2,7 +2,15 @@
 // This file consist all api links
 
 class Config {
-  final String appName = "Courses App";
+  final String appName = "Presento";
+
+  static String smsAPI = "http://192.168.184.100:3838/send-sms";
+  static String api = "http://192.168.184.100:5000/";
+
+  static String userLogin = "${api}users/login";
+  static String userRegister = "${api}users/signup";
+  static String user = "${api}user/";
+
   String courseAPI = "http://vpsmcq.in/API/home";
   String loginAPI = "http://vpsmcq.in/API/login";
   String registerAPI = "http://vpsmcq.in/API/user";

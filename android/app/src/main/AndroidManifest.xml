@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
    <application
-        android:label="Courses App"
+        android:label="Presento"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

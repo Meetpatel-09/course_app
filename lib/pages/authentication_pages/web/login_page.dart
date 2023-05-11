@@ -245,7 +245,7 @@ class _LogInPageWebState extends State<LogInPageWeb> {
             LoginRequestModel model = LoginRequestModel(
               email: email!,
               password: password!,
-              provider: 'VPSMCQ',
+              // provider: 'VPSMCQ',
             );
 
             AuthService.login(model).then((response) async {

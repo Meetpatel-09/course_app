@@ -19,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     // redirecting to the home page after 2 seconds
     Timer(const Duration(seconds: 2),
-            () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.homeRoute, (route) => false));
+            () => Navigator.of(context).pushNamedAndRemoveUntil(MyRoutes.loginRoute, (route) => false));
   }
 
   @override
